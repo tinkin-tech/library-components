@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "sourceMap": true,
+    "jsx": "react"
+  },
+  "lib": ["dom", "es9"],
+  "exclude": ["node_modules"]
+}
