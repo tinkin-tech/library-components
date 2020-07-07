@@ -4,6 +4,7 @@ exports[`Button test Should take snapshot of button component with all require p
 <a
   className="button-component flex-row flex-no-wrap flex-middle 
              type-danger border-button "
+  data-testid="button-component"
   onClick={null}
 >
   <span

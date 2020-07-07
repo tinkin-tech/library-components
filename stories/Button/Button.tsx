@@ -19,6 +19,7 @@ const Button = (props: IProps) => {
             }
              ${'type-' + type} ${typeButton + '-button'} ${className || ''}`}
             onClick={disable ? () => null : action}
+            data-testid="button-component"
         >
             {/*{icon && (*/}
             {/*    // <span className="flex-column">*/}
