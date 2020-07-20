@@ -1,13 +1,36 @@
 import * as React from 'react'
 
-interface IInputComponentProps {
+type InputTypes = 'email' | 'number' | 'password'
 
+interface InputComponentPropsInterface {
+  value: string
+  label: string
+  isRequired?: boolean
+  error?: string
+  placeholder?: string
+  id: string
+  onChangeValue: () => void
+  type?: InputTypes
+  isDisable?: boolean
 }
 
-export const InputComponent = (props: IInputComponentProps) => {
+const InputComponent = (
+  props: InputComponentPropsInterface
+): React.ReactElement<InputComponentPropsInterface> => {
+  const {
+    value,
+    label,
+    isRequired,
+    error,
+    placeholder,
+  } = props
   return (
     <div>
-      ensuiteus
+      <label>{label + isRequired && '*'}</label>
+      <input data-testid="input-component" value={value} placeholder={placeholder} onChange={() => null} />
+      <span>{error}</span>
     </div>
-  );
+  )
 }
+
+export default React.memo(InputComponent)

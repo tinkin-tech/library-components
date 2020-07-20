@@ -2,8 +2,7 @@
 
 exports[`Button test Should take snapshot of button component with all require properties 1`] = `
 <a
-  className="button-component flex-row flex-no-wrap flex-middle 
-             type-danger border-button "
+  className="button-component flex-row flex-no-wrap flex-middle  type-danger border-button "
   data-testid="button-component"
   onClick={null}
 >
