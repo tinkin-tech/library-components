@@ -1,2 +1,8 @@
 @import './button';
 @import './input';
+
+//Select styles
+
+@import '../stories/Select/styles/colors';
+@import '../stories/Select/styles/mixins';
+@import '../stories/Select/styles/selectComponent';
