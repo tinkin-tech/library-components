@@ -3,6 +3,7 @@
     "module": "commonjs",
     "target": "es2015",
     "sourceMap": true,
+    "outDir": "./dist",
     "jsx": "react"
   },
   "lib": ["dom", "es9"],

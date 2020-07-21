@@ -16,6 +16,7 @@ const Button = (props: PropsInterface): React.ReactElement<PropsInterface> => {
       className={`button-component flex-row flex-no-wrap flex-middle ${
         disable ? 'disable' : ''
       } type-${type} ${typeButton}-button ${className || ''}`}
+      data-testid="button-component"
       onClick={disable ? (): null => null : action}
     >
       <span className="flex-column">{text}</span>
