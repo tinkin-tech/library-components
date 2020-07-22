@@ -2,14 +2,14 @@ import * as React from 'react'
 import { ISelectComponentLabels } from './selectComponentLabels';
 import { SvgImport } from './utils/imgUtils';
 
-export interface IOptions {
+export interface IOption {
   id: string;
   value: string;
 }
 
 interface IProps {
-  onChange: (option: IOptions) => void;
-  options: IOptions[];
+  onChange: (option: IOption) => void;
+  options: IOption[];
   displayArrow?: boolean;
   className?: string;
   classNameArrow?: string;
@@ -46,16 +46,22 @@ const SelectComponent = (props: IProps) => {
     false
   );
 
+  const [selectedOption, handleSelectedOption] = React.useState<IOption>({
+    id: '',
+    value: ''
+  });
+
   const selectOptions = React.useRef();
 
-  const changeValue = (option: IOptions) => {
+  const changeValue = (option: IOption) => {
+    handleSelectedOption(option)
     handleExpandedOptions(false);
     onChange(option);
   };
 
   const getValue = (): string => {
-    const value: IOptions = options.find(option => option.id === valueId);
-    return value ? value.value : '';
+    const value: IOption = options.find(option => option.id === valueId);
+    return selectedOption && selectedOption.value ? selectedOption.id : value ? value.id : '';
   };
 
   React.useEffect(() => {
@@ -66,12 +72,11 @@ const SelectComponent = (props: IProps) => {
     };
     window.addEventListener('click', eventListener);
     return () => window.removeEventListener('click', eventListener);
-  });
+  }, [valueId, options]);
 
   return (
     <div
-      className={`select-component ${!disable &&
-        'cursor-pointer'}`}
+      className={`select-component ${!disable && 'cursor-pointer'} ${disable && 'disabled'}`}
       onClick={() => !disable && handleExpandedOptions(!expandedOptions)}
       ref={selectOptions}
     >
@@ -92,23 +97,13 @@ const SelectComponent = (props: IProps) => {
           <div
             className={`flex-column p-r ${className || ''} ${
               borderStyle ? '' : 'strong'
-              } ${disable && 'text-secondary text-lighten-2'}`}
+              } ${disable && 'disabled'}`}
           >
             {getValue() || placeholder || ''}
           </div>
           {displayArrow && (
             <div className="flex-column p-r">
-              <SvgImport
-                icon='../../resources/arrow-full-up.svg'
-                className={`arrow-dropdown ${classNameArrow ||
-                  ''} ${expandedOptions ? 'active' : ''} ${
-                  error
-                    ? 'fill-warning'
-                    : expandedOptions
-                      ? 'fill-primary'
-                      : 'fill-secondary fill-lighten-2'
-                  }`}
-              />
+              <i className="arrow down"></i>
             </div>
           )}
         </div>
@@ -119,7 +114,7 @@ const SelectComponent = (props: IProps) => {
               } `}
           >
             {options.length > 0 ? (
-              options.map((option: IOptions) => {
+              options.map((option: IOption) => {
                 return (
                   <span
                     key={option.id}

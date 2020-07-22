@@ -1,6 +1,5 @@
 $hover-option: color("secondary", "lighten-5");
 $color-border: color("secondary", "lighten-2");
-$color-border-grid: color("secondary", "lighten-3");
 $width-arrow-dropdown: 10px;
 $height-arrow-dropdown: 10px;
 $top-select-options: 90%;
@@ -21,7 +20,6 @@ $height-option-image: 75px;
 $height-image-content: 77px;
 
 .select-component {
-  @include flexBox();
   .select-dropdown {
     position: relative;
     .arrow-dropdown {
@@ -34,13 +32,6 @@ $height-image-content: 77px;
       &.active {
         @include transform(rotate(360deg));
       }
-    }
-    .height-image {
-      height: $height-image-content;
-    }
-    .image-select {
-      width: auto;
-      height: $height-image;
     }
   }
   .select-options {
@@ -87,9 +78,6 @@ $height-image-content: 77px;
       width: auto;
       &:hover {
         background-color: $hover-option;
-      }
-      &.image-select {
-        padding: $padding-option-image;
       }
       &.no-options {
         &:hover {
@@ -227,3 +215,12 @@ $height-image-content: 77px;
   word-break: break-all;
 }
 
+
+.disabled {
+  color: #ccc;
+}
+
+.text-warning,
+.border-warning {
+  color: red;
+}

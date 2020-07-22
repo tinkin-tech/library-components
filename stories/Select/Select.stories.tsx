@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { action } from '@storybook/addon-actions'
 
-import Select, { IOptions } from './Select'
+import Select, { IOption } from './Select'
 
 export default {
   title: 'Select',
   component: Select,
 }
 
-const options: IOptions[] = [
+const options: IOption[] = [
   {
     id: 'option1',
     value: 'option1'
@@ -31,6 +31,7 @@ export const Active = (): React.ReactNode =>
     label='select'
     placeholder='select an option'
     borderStyle={true}
+    displayArrow={true}
   />
 
 export const Disabled = (): React.ReactNode =>
@@ -42,5 +43,28 @@ export const Disabled = (): React.ReactNode =>
     placeholder='select an option'
     borderStyle={true}
     disable={true}
+    displayArrow={true}
+  />
+
+export const Error = (): React.ReactNode =>
+  <Select
+    onChange={action('selected')}
+    options={options}
+    className='test-select'
+    label='select'
+    placeholder='select an option'
+    borderStyle={true}
+    error='Error testing'
+    displayArrow={true}
+  />
+
+export const Empty = (): React.ReactNode =>
+  <Select
+    onChange={action('selected')}
+    options={[]}
+    className='test-select'
+    label='select'
+    placeholder='select an option'
+    borderStyle={true}
     displayArrow={true}
   />
