@@ -80,6 +80,6 @@ describe('', () => {
         id: 'selector',
         date: '11-2019',
       })
-    }
+   }
   )
 })

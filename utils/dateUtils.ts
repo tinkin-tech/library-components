@@ -118,33 +118,31 @@ export default class DateUtils {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
-      hour: 'numeric',
-      minute: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
     })
     const [
-      { value: year },
       { value: month },
+      ,
       { value: day },
+      ,
+      { value: year },
+      ,
       { value: hour },
+      ,
       { value: minute },
+      ,
+      { value: second },
     ] = dateTimeFormatObject.formatToParts(date)
-    return newFormat.replace(
-      /['YYYY', 'MM', 'DD', 'HH', 'mm', 'ss']/g,
-      (item): string => {
-        switch (item) {
-          case 'YYYY':
-            return year
-          case 'MM':
-            return month
-          case 'DD':
-            return day
-          case 'HH':
-            return hour
-          case 'mm':
-            return minute
-        }
-      }
-    )
+    return newFormat
+      .replace(/YYYY/g, year)
+      .replace(/MM/g, month)
+      .replace(/DD/g, day)
+      .replace(/HH/g, hour)
+      .replace(/mm/g, minute)
+      .replace(/ss/g, second)
   }
 
   static addDate(
@@ -180,7 +178,7 @@ export default class DateUtils {
           newDate.setFullYear(newDate.getFullYear() + units)
       }
     }
-    return this.formatDate(date, format, format)
+    return this.formatDate(newDate, format, format)
   }
 
   static substractDate(
@@ -267,151 +265,3 @@ export default class DateUtils {
     return date.getTime() / 1000
   }
 }
-
-/* export const formatDate = (newFormat: IFormatTypes, date?: string | Date, format?: IFormatTypes) => {
-   const newDate = date
-     ? typeof date === 'string' && format
-     ? transformDateStringToDate(date, format)
-     : new Date(date)
-       : new Date()
-       let DateWithFormat = newFormat.toString()
-       const formatSplit = split(newFormat)
-       formatSplit.map(item => {
-       switch (item) {
-       case 'YYYY':
-       DateWithFormat = DateWithFormat.replace(
-       item,
-       newDate.getFullYear().toString()
-       )
-       break
-       case 'MM':
-       DateWithFormat = DateWithFormat.replace(
-       item,
-       (newDate.getMonth() + 1 < 10
-         ? `0${newDate.getMonth() + 1}`
-         : newDate.getMonth() + 1
-         ).toString()
-         )
-         break
-         case 'DD':
-         DateWithFormat = DateWithFormat.replace(
-         item,
-         (newDate.getDate() < 10
-           ? `0${newDate.getDate()}`
-           : newDate.getDate()
-           ).toString()
-           )
-           break
-           case 'HH':
-           DateWithFormat = DateWithFormat.replace(
-           item, newDate.getHours() > 10 ? newDate.getHours().toString() : '0' + newDate.getHours())
-           break
-           case 'mm':
-           DateWithFormat = DateWithFormat.replace(item, newDate.getMinutes() > 10 ? newDate.getMinutes().toString() : '0' + newDate.getMinutes())
-           break
-           case 'ss':
-           DateWithFormat = DateWithFormat.replace(item, newDate.getSeconds() < 10 ? '0' + newDate.getSeconds() : newDate.getSeconds().toString())
-           break
-           }
-           return null
-           })
-           return DateWithFormat
-           } */
-
-/* export const addDate = (date: string, format: IFormatTypes, option: IAddAndSubtractDateTypes, units: number) => {
-   let newDate = transformDateStringToDate(date, format)
-   if (units <= 0) {
-   newDate = null
-   } else {
-   switch (option.toLowerCase()) {
-   case 'seconds':
-   newDate.setTime(newDate.getTime() + units * 1000)
-   break
-   case 'minutes':
-   newDate.setTime(newDate.getTime() + units * 60000)
-   break
-   case 'hours':
-   newDate.setTime(newDate.getTime() + units * 3600000)
-   break
-   case 'days':
-   newDate.setDate(newDate.getDate() + units)
-   break
-   case 'weeks':
-   newDate.setDate(newDate.getDate() + 7 * units)
-   break
-   case 'months':
-   newDate.setMonth(newDate.getMonth() + units)
-   break
-   case 'years':
-   newDate.setFullYear(newDate.getFullYear() + units)
-   }
-   }
-   return formatDate(format, newDate)
-   } */
-
-/* export const subtractDate = (date: string, format: IFormatTypes, option: IAddAndSubtractDateTypes, units: number) => {
-   let newDate = transformDateStringToDate(date, format)
-   if (units < 0) {
-   newDate = null
-   } else {
-   switch (option.toLowerCase()) {
-   case 'seconds':
-   newDate.setTime(newDate.getTime() - units * 1000)
-   break
-   case 'minutes':
-   newDate.setTime(newDate.getTime() - units * 60000)
-   break
-   case 'hours':
-   newDate.setTime(newDate.getTime() - units * 3600000)
-   break
-   case 'days':
-   newDate.setDate(newDate.getDate() - units)
-   break
-   case 'weeks':
-   newDate.setDate(newDate.getDate() - 7 * units)
-   break
-   case 'months':
-   newDate.setMonth(newDate.getMonth() - units)
-   break
-   case 'years':
-   newDate.setFullYear(newDate.getFullYear() - units)
-   }
-   }
-   return formatDate(format, newDate)
-   } */
-
-/* export const compareDates = (date: string, compareDate: string, format: IFormatTypes, options: ICompareDatesTypes) => {
-   switch (options.toLowerCase()) {
-   case 'less':
-   return (
-   transformDateStringToDate(date, format).getTime() <
-   transformDateStringToDate(compareDate, format).getTime()
-   )
-   case 'greater':
-   return (
-   transformDateStringToDate(date, format).getTime() >
-   transformDateStringToDate(compareDate, format).getTime()
-   )
-   case 'equal':
-   return (
-   transformDateStringToDate(date, format).getTime() ===
-   transformDateStringToDate(compareDate, format).getTime()
-   )
-   }
-   return null
-   } */
-
-/* export const getDaysInMonth = (date: string, format: IFormatTypes) => {
-   const transformDate = transformDateStringToDate(date, format)
-   return new Date(transformDate.getFullYear(), transformDate.getMonth() + 1, 0).getDate()
-   } */
-
-/* export const changeStringDateSeparator = (separator: string, date: string) => {
-   const regExp = new RegExp(`[${separator}]`, 'g')
-   return date.replace(regExp, '-')
-   } */
-
-/* export const transformDateStringToUnix = (dateString: string, format: IFormatTypes): number => {
-   const date = transformDateStringToDate(dateString, format)
-   return date.getTime() / 1000
-   } */
