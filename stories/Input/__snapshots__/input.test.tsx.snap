@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InputComponent test Should take the snapshot with require props 1`] = `
-<div>
-  <label>
-    *
-  </label>
+<div
+  className="input-component"
+>
   <input
     data-testid="input-component"
+    id="input"
     onChange={[Function]}
-    value="Texto"
+    type="text"
+    value="text"
   />
-  <span />
 </div>
 `;

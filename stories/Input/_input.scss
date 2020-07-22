@@ -1,0 +1,99 @@
+$input-component-border: 1px solid #A8A8A8;
+$input-component-border-color-focus: #72A6FF;
+$input-component-border-color-error: #DA4900;
+$input-component-border-radius: 4px;
+$input-component-width: 100%;
+$input-component-background-color: #FAFAFA;
+$input-component-background-color-focus: #ECF3FF;
+$input-component-padding: 2px 0 2px 8px;
+$label-padding-top: 4px;
+$label-size: 12px;
+$label-color: #A8A8A8;
+$label-error-color: #DA4900;
+$label-color-focus: #72A6FF;
+$disable-text-color: #C4C4C4;
+$input-padding: 4px 0 4px 0;
+$input-font-size: 14px;
+$input-padding-right-error: 30px;
+$input-width: calc(100% - 16px);
+$input-color: #2A2A2A;
+$error-size: 10px;
+$error-padding: 2px;
+
+@mixin flexBox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex-direction($value) {
+  flex-direction: $value;
+  -ms-flex-direction: $value;
+  -webkit-flex-direction: $value;
+}
+
+.input-component{
+  .input-component-content {
+    border: $input-component-border;
+    border-radius: $input-component-border-radius;
+    background-color: $input-component-background-color;
+    width: $input-component-width;
+    position: relative;
+    padding: $input-component-padding;
+    &.input-component-error {
+      border-color: $input-component-border-color-error!important;
+    }
+    .label {
+      font-size: $label-size;
+      display: block;
+      cursor: pointer;
+      font-weight: bold;
+      color: $label-color;
+      padding-top: $label-padding-top;
+      @include flexBox();
+      @include flex-direction(column);
+      flex: 1;
+      &.label-error {
+        color: $label-error-color!important;
+      }
+    }
+    &:focus-within {
+      border-color: $input-component-border-color-focus;
+      background-color: $input-component-background-color-focus;
+      .label {
+        color: $label-color-focus;
+      }
+    }
+    .icon-warning {
+      position: absolute;
+    }
+    .disable-text {
+      padding: $input-padding;
+      color: $disable-text-color;
+    }
+    input {
+      border: none;
+      background-color: transparent;
+      padding: $input-padding;
+      font-size: $input-font-size;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: $input-width;
+      color: $input-color;
+      &::placeholder {
+        color: $disable-text-color;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .error-message {
+    font-size: $error-size;
+    font-weight: bold;
+    color: $label-error-color!important;
+    padding: $error-padding;
+  }
+}
