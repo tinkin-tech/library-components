@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { ISelectComponentLabels } from './selectComponentLabels';
-import { SvgImport } from './utils/imgUtils';
 
 export interface IOption {
   id: string;
@@ -12,9 +10,7 @@ interface IProps {
   options: IOption[];
   displayArrow?: boolean;
   className?: string;
-  classNameArrow?: string;
   valueId?: string;
-  label?: string;
   placeholder?: string;
   borderStyle?: boolean;
   disable?: boolean;
@@ -28,7 +24,6 @@ const SelectComponent = (props: IProps) => {
     placeholder,
     valueId,
     className,
-    classNameArrow,
     displayArrow,
     borderStyle,
     disable,
