@@ -10,7 +10,23 @@ exports[`Should shot the snapshot with all properties 1`] = `
   </div>
   <input
     data-testid="input-year"
+    id="year"
     onChange={[Function]}
+    value=""
+  />
+  <input
+    data-testid="input-month"
+    disabled={true}
+    id="month"
+    onChange={[Function]}
+    value=""
+  />
+  <input
+    data-testid="input-day"
+    disabled={true}
+    id="day"
+    onChange={[Function]}
+    value=""
   />
 </div>
 `;

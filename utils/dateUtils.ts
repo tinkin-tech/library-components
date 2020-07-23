@@ -264,4 +264,22 @@ export default class DateUtils {
     const date = this.transformDateStringToDate(dateString, format)
     return date.getTime() / 1000
   }
+
+  static setYear(date: string, format: FormatTypes, year: number): string {
+    const transformDate = this.transformDateStringToDate(date, format)
+    transformDate.setFullYear(year)
+    return this.formatDate(transformDate, null, format)
+  }
+
+  static setMonth(date: string, format: FormatTypes, month: number): string {
+    const transformDate = this.transformDateStringToDate(date, format)
+    transformDate.setMonth(month - 1)
+    return this.formatDate(transformDate, null, format)
+  }
+
+  static setDay(date: string, format: FormatTypes, day: number): string {
+    const transformDate = this.transformDateStringToDate(date, format)
+    transformDate.setDate(day)
+    return this.formatDate(transformDate, null, format)
+  }
 }

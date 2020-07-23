@@ -9,7 +9,7 @@ describe('Test for date utils', () => {
     it(
       'Given string date with format "YYYY-MM-DD HH:mm",' +
         'transformDateStringToDate() returns date',
-      async () => {
+      () => {
         expect(
           DateUtils.transformDateStringToDate(
             '2020-01-01 12:00',
@@ -22,7 +22,7 @@ describe('Test for date utils', () => {
     it(
       'Given string date with format "DD-MM-YYYY", ' +
         'transformDateStringToDate returns date',
-      async () => {
+      () => {
         expect(
           DateUtils.transformDateStringToDate('20-01-2020', 'DD-MM-YYYY')
         ).toMatchObject(new Date('2020-01-20T05:00:00.000Z'))
@@ -32,7 +32,7 @@ describe('Test for date utils', () => {
     it(
       'Given string date with format "YYYY", ' +
         'transformDateStringToDate returns date',
-      async () => {
+      () => {
         expect(
           DateUtils.transformDateStringToDate('2019', 'YYYY')
         ).toMatchObject(new Date('2019-02-01T05:00:00.000Z'))
@@ -45,7 +45,7 @@ describe('Test for date utils', () => {
       'Given string date with format "DD-MM-YYYY HH:mm", ' +
         'formatDate() given new format' +
         '"YYYY-MM-DD" then returns string date with new format ',
-      async () => {
+      () => {
         expect(
           DateUtils.formatDate(
             '23-06-2020 18:30',
@@ -59,7 +59,7 @@ describe('Test for date utils', () => {
     it(
       'Given new format "DD", formatDate() returns current' +
         'date with format "DD"',
-      async () => {
+      () => {
         expect(DateUtils.formatDate(new Date(), null, 'DD')).toBe(
           new Date().getUTCDate().toLocaleString()
         )
@@ -69,7 +69,7 @@ describe('Test for date utils', () => {
     it(
       'Given new format "YYYY-MM" and date, formatDate() returns date ' +
         'with format "YYYY-MM"',
-      async () => {
+      () => {
         expect(
           DateUtils.formatDate(
             new Date('2019-02-01T05:00:00.000Z'),
@@ -83,7 +83,7 @@ describe('Test for date utils', () => {
     it(
       'Given new format "MM-YYYY", date and any format, formatDate() ' +
         'returns date with format "MM-YYYY" ',
-      async () => {
+      () => {
         expect(
           DateUtils.formatDate(
             new Date('2019-02-01T05:00:00.000Z'),
@@ -203,14 +203,14 @@ describe('Test for date utils', () => {
   })
 
   describe('Tests for getDaysInMonth() functions', () => {
-    it('Given string date, getDaysInMonth() returns days', async () => {
+    it('Given string date, getDaysInMonth() returns days', () => {
       expect(DateUtils.getDaysInMonth('10-12-2020', 'DD-MM-YYYY')).toBe(31)
     })
 
     it(
       'Given string date with format "MM-DD-YYYY", getDaysInMonth() ' +
         'returns days',
-      async () => {
+      () => {
         expect(DateUtils.getDaysInMonth('12-02-2020', 'MM-DD-YYYY')).toBe(31)
       }
     )
@@ -220,7 +220,7 @@ describe('Test for date utils', () => {
     it(
       'Given string date with / separator, changeStringDateSeparator() ' +
         'returns string date with - separator',
-      async () => {
+      () => {
         expect(DateUtils.changeStringDateSeparator('12/10/2020', '/')).toBe(
           '12-10-2020'
         )
@@ -232,10 +232,46 @@ describe('Test for date utils', () => {
     it(
       'Given string date and format, transformDateStringToUnix() returns ' +
         'timestamp',
-      async () => {
+      () => {
         expect(
           DateUtils.transformDateStringToUnix('01-01-2019', 'DD-MM-YYYY')
         ).toBe(1546318800)
+      }
+    )
+  })
+
+  describe('Tests for setYear() function', () => {
+    it(
+      'Given string date, format and full year, returns string date with' +
+        'given year',
+      () => {
+        expect(DateUtils.setYear('01-01-2010', 'DD-MM-YYYY', 2020)).toBe(
+          '01-01-2020'
+        )
+      }
+    )
+  })
+
+  describe('Tests for setMonth() function', () => {
+    it(
+      'Given sting date, format and month, returns string date with' +
+        'given month',
+      () => {
+        expect(DateUtils.setMonth('2020-01-10', 'YYYY-MM-DD', 4)).toBe(
+          '2020-04-10'
+        )
+      }
+    )
+  })
+
+  describe('Tests for setDay() function', () => {
+    it(
+      'Given string date, format and day, returns string date with ' +
+        'given day',
+      () => {
+        expect(DateUtils.setDay('10-12-2020', 'DD-MM-YYYY', 25)).toBe(
+          '25-12-2020'
+        )
       }
     )
   })
