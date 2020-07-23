@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-type IInputTypes = 'text' | 'email' | 'number' | 'password'
+export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
-interface InputComponentPropsInterface {
+export interface InputComponentPropsInterface {
   id: string
   value: string
   onChangeValue: (id: string, value: string) => void
@@ -57,9 +57,14 @@ const Input = (
             {`${label}${required ? '*' : ''}`}
           </label>
         )}
-        <div className="icon-warning" />
         {disable ? (
-          <div className="disable-text">{localValue || placeholder || ''}</div>
+          <div
+            className={`disable-text ${
+              !value && !placeholder ? 'disable-text-without-label' : ''
+            }`}
+          >
+            {localValue || placeholder || ''}
+          </div>
         ) : (
           <input
             id={id}
@@ -69,6 +74,11 @@ const Input = (
             type={type}
             placeholder={placeholder}
           />
+        )}
+        {error && (
+          <div className="icon-warning-content">
+            <div className="i-warning" />
+          </div>
         )}
       </div>
       {error && <div className="error-message">{error}</div>}

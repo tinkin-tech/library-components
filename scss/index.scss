@@ -1,2 +1,12 @@
-@import './button';
+//Commons Styles
+@import './variables';
+@import './mixins';
+
+//Icons Styles
+@import './icons';
+
+//Components Styles
 @import '../stories/Input/input';
+
+//Stories Styles
+@import './stories/inputStory';

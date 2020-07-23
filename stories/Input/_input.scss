@@ -1,40 +1,38 @@
-$input-component-border: 1px solid #A8A8A8;
-$input-component-border-color-focus: #72A6FF;
-$input-component-border-color-error: #DA4900;
+$border-color: #A8A8A8;
+$focus-color: #72A6FF;
+$error-color: #DA4900;
+$background-color: #FAFAFA;
+$background-focus-color: #ECF3FF;
+$disable-color: #C4C4C4;
+$input-color: #2A2A2A;
+
+$input-component-border: 1px solid $border-color;
+$input-component-border-color-focus: $focus-color;
+$input-component-border-color-error: $error-color;
 $input-component-border-radius: 4px;
 $input-component-width: 100%;
-$input-component-background-color: #FAFAFA;
-$input-component-background-color-focus: #ECF3FF;
-$input-component-padding: 2px 0 2px 8px;
+$input-component-background-color: $background-color;
+$input-component-background-color-focus: $background-focus-color;
+$input-component-padding: 2px 8px 2px 8px;
 $label-padding-top: 4px;
 $label-size: 12px;
-$label-color: #A8A8A8;
-$label-error-color: #DA4900;
-$label-color-focus: #72A6FF;
-$disable-text-color: #C4C4C4;
-$input-padding: 4px 0 4px 0;
+$label-color: $border-color;
+$label-error-color: $error-color;
+$label-error-padding-right: 30px;
+$label-color-focus: $focus-color;
+$disable-text-color: $disable-color;
+$disable-text-padding-without-label: 12px 0;
+$input-padding: 4px 0;
 $input-font-size: 14px;
-$input-padding-right-error: 30px;
+$input-padding-right-error: 24px;
 $input-width: calc(100% - 16px);
-$input-color: #2A2A2A;
+$icon-top: 3px;
+$icon-right: 8px;
 $error-size: 10px;
 $error-padding: 2px;
 
-@mixin flexBox() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-
-@mixin flex-direction($value) {
-  flex-direction: $value;
-  -ms-flex-direction: $value;
-  -webkit-flex-direction: $value;
-}
-
 .input-component{
+  width: $input-component-width;
   .input-component-content {
     border: $input-component-border;
     border-radius: $input-component-border-radius;
@@ -42,6 +40,7 @@ $error-padding: 2px;
     width: $input-component-width;
     position: relative;
     padding: $input-component-padding;
+    box-sizing: border-box;
     &.input-component-error {
       border-color: $input-component-border-color-error!important;
     }
@@ -55,8 +54,12 @@ $error-padding: 2px;
       @include flexBox();
       @include flex-direction(column);
       flex: 1;
+      font-family: $font-family;
+      word-break: break-all;
+      content: attr(data-error);
       &.label-error {
         color: $label-error-color!important;
+        padding-right: $label-error-padding-right;
       }
     }
     &:focus-within {
@@ -66,12 +69,14 @@ $error-padding: 2px;
         color: $label-color-focus;
       }
     }
-    .icon-warning {
-      position: absolute;
-    }
     .disable-text {
       padding: $input-padding;
       color: $disable-text-color;
+      font-family: $font-family;
+      font-size: $input-font-size;
+      &.disable-text-without-label {
+        padding: $disable-text-padding-without-label;
+      }
     }
     input {
       border: none;
@@ -82,6 +87,7 @@ $error-padding: 2px;
       white-space: nowrap;
       width: $input-width;
       color: $input-color;
+      font-family: $font-family;
       &::placeholder {
         color: $disable-text-color;
       }
@@ -89,11 +95,18 @@ $error-padding: 2px;
         outline: none;
       }
     }
+    .icon-warning-content {
+      position: absolute;
+      top: $icon-top;
+      right: $icon-right;
+    }
   }
   .error-message {
     font-size: $error-size;
     font-weight: bold;
     color: $label-error-color!important;
     padding: $error-padding;
+    font-family: $font-family;
+    word-break: break-all;
   }
 }

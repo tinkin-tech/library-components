@@ -4,12 +4,22 @@ exports[`InputComponent test Should take the snapshot with require props 1`] = `
 <div
   className="input-component"
 >
-  <input
-    data-testid="input-component"
-    id="input"
-    onChange={[Function]}
-    type="text"
-    value="text"
-  />
+  <div
+    className="input-component-content "
+  >
+    <label
+      className="label "
+      htmlFor="input"
+    >
+      Label text
+    </label>
+    <input
+      data-testid="input-component"
+      id="input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
 </div>
 `;
