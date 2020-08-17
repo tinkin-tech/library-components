@@ -74,6 +74,7 @@ const SelectComponent = (props: IProps) => {
       className={`select-component ${!disable && 'cursor-pointer'} ${disable && 'disabled'}`}
       onClick={() => !disable && handleExpandedOptions(!expandedOptions)}
       ref={selectOptions}
+      data-testid="selectorComponent"
     >
       <div className="select-dropdown flex-1">
         <div
@@ -93,6 +94,7 @@ const SelectComponent = (props: IProps) => {
             className={`flex-column p-r ${className || ''} ${
               borderStyle ? '' : 'strong'
               } ${disable && 'disabled'}`}
+              data-testid="selected-option"
           >
             {getValue() || placeholder || ''}
           </div>
@@ -114,6 +116,7 @@ const SelectComponent = (props: IProps) => {
                   <span
                     key={option.id}
                     className="block option cursor-pointer"
+                    data-testid={ `${className}-${option.id}` || ''}
                     onClick={() => changeValue(option)}
                   >
                     {option.value}
