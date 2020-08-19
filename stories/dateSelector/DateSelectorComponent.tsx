@@ -18,7 +18,7 @@ interface PropsInterface {
 const DateSelectorComponent = (
   props: PropsInterface
 ): React.ReactElement<PropsInterface> => {
-  const { onChangeDate, id, date } = props
+  const { onChangeDate, dateFormat, id, date, minDate } = props
   const [separateDate, changeSeparateDate] = React.useState({
     year: '',
     month: '',
@@ -26,16 +26,43 @@ const DateSelectorComponent = (
   })
   const onChangeInput = (e: React.FormEvent<HTMLInputElement>): void => {
     let dateToChange = { year: '', month: '', day: '' }
+    const minDateTransformed = DateUtils.transformDateStringToDate(
+      minDate,
+      dateFormat
+    )
+    const dateAdded = DateUtils.addDate(minDate || date, dateFormat, 1, 'days')
+    const dateAddedTransformed = DateUtils.transformDateStringToDate(
+      dateAdded || date,
+      dateFormat
+    )
     switch (e.currentTarget.id) {
-      case 'year':
-        dateToChange = { year: e.currentTarget.value, month: '', day: '' }
+      case 'year': 
+        dateToChange = {
+          year: e.currentTarget.value,
+          month: minDate
+            ? (dateAddedTransformed.getMonth() + 1 >= 10
+            ? dateAddedTransformed.getMonth() + 1
+            : '0' + (dateAddedTransformed.getMonth() + 1)).toString()
+            : '01',
+          day: minDate
+            ? (dateAddedTransformed.getDate() >= 10
+                ? dateAddedTransformed.getDate()
+                : `0${dateAddedTransformed.getDate()}`
+              ).toString()
+            : '01',
+        }
         changeSeparateDate(dateToChange)
         break
       case 'month':
         dateToChange = {
           ...separateDate,
           month: e.currentTarget.value,
-          day: '',
+          day: minDate
+            ? (dateAddedTransformed.getDate() >= 10
+                ? dateAddedTransformed.getDate()
+                : `0${dateAddedTransformed.getDate()}`
+              ).toString()
+            : '01',
         }
         changeSeparateDate(dateToChange)
         break

@@ -54,7 +54,7 @@ describe('', () => {
       expect(onChangeFake).toHaveBeenCalledTimes(1)
       expect(onChangeFake.mock.results[0].value).toMatchObject({
         id: 'dateSelector',
-        date: '2018--',
+        date: '2018-01-01',
       })
     }
   )
@@ -82,7 +82,7 @@ describe('', () => {
       })
       expect(onChangeFake.mock.results[0].value).toMatchObject({
         id: 'selector',
-        date: '2019-03-',
+        date: '2019-03-01',
       })
     }
   )
@@ -115,7 +115,7 @@ describe('', () => {
     }
   )
 
-  it('Should set month and day empty when change year input', () => {
+  it('Should set month and day 01 when change year input', () => {
     const onChangeFake = jest.fn((id: string, date: string): {
       id: string
       date: string
@@ -135,11 +135,11 @@ describe('', () => {
     })
     expect(onChangeFake.mock.results[0].value).toMatchObject({
       id: 'selector',
-      date: '2010--',
+      date: '2010-01-01',
     })
   })
 
-  it('Should set day empty when change month input', () => {
+  it('Should set day empty 01 change month input', () => {
     const onChangeFake = jest.fn((id: string, date: string): {
       id: string
       date: string
@@ -159,7 +159,7 @@ describe('', () => {
     })
     expect(onChangeFake.mock.results[0].value).toMatchObject({
       id: 'selector',
-      date: '2020-02-',
+      date: '2020-02-01',
     })
   })
 
@@ -240,6 +240,74 @@ describe('', () => {
       )
       const inputMonth = getByTestId('input-month')
       expect(inputMonth).toMatchObject({ disabled: false })
+    }
+  )
+
+  it('Should set month and day of minDate when change year', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="minDateTest"
+        date=""
+        onChangeDate={() => null}
+        dateFormat="YYYY-MM-DD"
+        minDate="2020-10-11"
+        maxDate="2020-12-25"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.change(getByTestId('input-year'), {
+        target: { value: '2020' }
+      })
+    })
+    const inputMonth = getByTestId('input-month')
+    const inputDay = getByTestId('input-day')
+    expect(inputMonth).toMatchObject({ value: '10' })
+    expect(inputDay).toMatchObject({ value: '12' })
+  })
+
+  it('Should set day of minDate when change month', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="minDateMonth"
+        date=""
+        onChangeDate={() => null}
+        dateFormat="YYYY-MM-DD"
+        minDate="2020-10-20"
+        maxDate="2020-12-23"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.change(getByTestId('input-month'), {
+        target: { value: '2020' }
+      })
+    })
+    const inputDay = getByTestId('input-day')
+    expect(inputDay).toMatchObject({ value: '21' })
+  })
+
+  it(
+    'Should set month + 1 of minDate and day 01 when day of minDate is end' +
+      ' of the month',
+    () => {
+      const { getByTestId } = render(
+        <DateSelectorComponent
+          id="dateSelector"
+          date=""
+          onChangeDate={() => null}
+          dateFormat="YYYY-MM-DD"
+          minDate="2018-01-31"
+          maxDate="2020-10-20"
+        />
+      )
+      renderer.act(() => {
+        fireEvent.change(getByTestId('input-year'), {
+          target: { value: '2019' }
+        })
+      })
+      const inputMonth = getByTestId('input-month')
+      const inputDay = getByTestId('input-day')
+      expect(inputMonth).toMatchObject({ value: '02' })
+      expect(inputDay).toMatchObject({ value: '01' })
     }
   )
 })
