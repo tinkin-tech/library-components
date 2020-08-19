@@ -2,12 +2,19 @@ import * as React from 'react'
 
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
-export interface InputComponentPropsInterface {
+export type ILabelPositionTypes = 'outside' | 'inside'
+
+interface Label {
+  label: string
+  labelPosition: ILabelPositionTypes
+}
+
+export type InputComponentPropsInterface = {
   id: string
   value: string
   onChangeValue: (id: string, value: string) => void
   type: IInputTypes
-  label?: string
+  label?: Label
   required?: boolean
   placeholder?: string
   error?: string
@@ -39,28 +46,39 @@ const Input = (
     onChangeValue(id, newValue)
   }
 
+  const onClickInputContent = (): void => {
+    // eslint-disable-next-line no-restricted-globals
+    document.getElementById(id).focus()
+  }
+
   React.useEffect(() => {
     if (value !== localValue) {
       changeLocalValue(value)
     }
   }, [value])
 
+  const labelElement = label?.label && (
+    <label className={`label ${error ? 'label-error' : ''}`} htmlFor={id}>
+      {`${label.label}${required ? '*' : ''}`}
+    </label>
+  )
+
   return (
-    <div className="input-component">
+    <div id="input-component" className="input-component">
+      {label?.labelPosition === 'outside' && labelElement}
       <div
         className={`input-component-content ${
           error ? 'input-component-error' : ''
         }`}
+        onClick={onClickInputContent}
       >
-        {label && (
-          <label className={`label ${error ? 'label-error' : ''}`} htmlFor={id}>
-            {`${label}${required ? '*' : ''}`}
-          </label>
-        )}
+        {label?.labelPosition === 'inside' && labelElement}
         {disable ? (
           <div
             className={`disable-text ${
-              !value && !placeholder ? 'disable-text-without-label' : ''
+              !value && !placeholder && !label
+                ? 'disable-text-without-label'
+                : ''
             }`}
           >
             {localValue || placeholder || ''}

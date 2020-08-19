@@ -17,3 +17,11 @@
   -webkit-align-items: $align;
   align-items: $align;
 }
+
+@mixin transition($args: 200ms) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  -ms-transition: $args;
+  transition: $args;
+}

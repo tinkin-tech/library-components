@@ -33,6 +33,32 @@ $error-padding: 2px;
 
 .input-component{
   width: $input-component-width;
+  &:focus-within {
+    .label {
+      @include transition(all 0.5s);
+      color: $label-color-focus;
+    }
+  }
+  .label {
+    font-size: $label-size;
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+    color: $label-color;
+    padding-top: $label-padding-top;
+    @include flexBox();
+    @include flex-direction(column);
+    flex: 1;
+    font-family: $font-family;
+    word-break: break-all;
+    content: attr(data-error);
+    @include transition(all 0.5s);
+    &.label-error {
+      @include transition(all 0.5s);
+      color: $label-error-color!important;
+      padding-right: $label-error-padding-right;
+    }
+  }
   .input-component-content {
     border: $input-component-border;
     border-radius: $input-component-border-radius;
@@ -41,31 +67,18 @@ $error-padding: 2px;
     position: relative;
     padding: $input-component-padding;
     box-sizing: border-box;
+    cursor: pointer;
+    @include transition(all 0.5s);
     &.input-component-error {
+      @include transition(all 0.5s);
       border-color: $input-component-border-color-error!important;
     }
-    .label {
-      font-size: $label-size;
-      display: block;
-      cursor: pointer;
-      font-weight: bold;
-      color: $label-color;
-      padding-top: $label-padding-top;
-      @include flexBox();
-      @include flex-direction(column);
-      flex: 1;
-      font-family: $font-family;
-      word-break: break-all;
-      content: attr(data-error);
-      &.label-error {
-        color: $label-error-color!important;
-        padding-right: $label-error-padding-right;
-      }
-    }
     &:focus-within {
+      @include transition(all 0.5s);
       border-color: $input-component-border-color-focus;
       background-color: $input-component-background-color-focus;
       .label {
+        @include transition(all 0.5s);
         color: $label-color-focus;
       }
     }

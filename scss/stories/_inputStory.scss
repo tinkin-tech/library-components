@@ -82,6 +82,29 @@ $props-content-row-font-size: 13px;
       span {
         font-size: $props-content-row-font-size;
       }
+      &.dependent {
+        position: relative;
+        .label {
+          padding-left: 20px;
+        }
+        &::before {
+          position: absolute;
+          content: '';
+          width: 1px;
+          height: 25px;
+          bottom: calc(100% - 10px);
+          left: 5px;
+          border-left: 1px solid #2A2A2A;
+        }
+        &::after {
+          position: absolute;
+          content: '';
+          width: 10px;
+          bottom: calc(100% - 10px);
+          left: 5px;
+          border-top: 1px solid #2A2A2A;
+        }
+      }
     }
   }
 }
