@@ -1,6 +1,5 @@
 import * as React from 'react'
 import DateUtils from '../../utils/dateUtils'
-import * as PropTypes from 'prop-types'
 
 type FormatDateTypes = 'YYYY-MM-DD'
 
@@ -196,8 +195,4 @@ export const DateSelectorComponent = (
       </div>
     </div>
   )
-}
-
-DateSelectorComponent.propsTypes = {
-  id: PropTypes.string,
 }

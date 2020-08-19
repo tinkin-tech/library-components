@@ -4,8 +4,7 @@
     "target": "es2015",
     "sourceMap": true,
     "outDir": "./dist",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "jsx": "react"
   },
   "lib": ["dom", "es9"],
   "exclude": ["node_modules"]
