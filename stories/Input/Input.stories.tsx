@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { withKnobs, boolean, text, select } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
+import Highlight from 'react-highlight'
 
 import InputComponent, { IInputTypes, ILabelPositionTypes } from './Input'
 
@@ -51,11 +52,9 @@ export const Input = (): React.ReactNode => {
       <div className="separate" />
       <div className="import-content">
         <h3>Import</h3>
-        <div className="box-code-content">
-          <code className="language-js">
-            {`import { Input } from 'tinkin-components'`}
-          </code>
-        </div>
+        <Highlight className="JavaScript box-code-content">
+          {`import { InputComponent } from 'tinkin-components'`}
+        </Highlight>
       </div>
       <div className="separate" />
       <div className="component-content">
@@ -66,7 +65,7 @@ export const Input = (): React.ReactNode => {
             <div className="box-input-code-content">
               <div className="input-content">{inputComponent}</div>
               <div className="code-content">
-                <div className="box-code-content">
+                <div className="JavaScript box-code-content">
                   <pre>
                     <code>
                       <span>{`<InputComponent`}</span>
