@@ -2,7 +2,7 @@ import * as React from 'react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-import Select, { IOption } from './Select'
+import Select, { Option } from './Select'
 
 export default {
   title: 'Select',
@@ -10,7 +10,7 @@ export default {
   decorators: [withKnobs]
 }
 
-const options: IOption[] = [
+const options: Option[] = [
   {
     id: 'option1',
     value: 'option1'

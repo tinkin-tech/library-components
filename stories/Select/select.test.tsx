@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react'
-import { IOption } from './Select';
+import { Option } from './Select';
 import Select from './Select';
 import { action } from '@storybook/addon-actions'
 import '@testing-library/jest-dom/extend-expect'
@@ -9,7 +9,7 @@ import addons, { mockChannel } from '@storybook/addons';
 
 addons.setChannel(mockChannel());
 
-const options: IOption[] = [
+const options: Option[] = [
   {
     id: 'option1',
     value: 'option1'
