@@ -33,6 +33,19 @@ $height-image-content: 77px;
         @include transform(rotate(360deg));
       }
     }
+
+    .input-container {
+      width: 100%;
+      input {
+        font-size: 16px;
+        font-family: 'Times New Roman';
+        &:focus {
+          outline: none;
+        }
+        border: none;
+        width: calc(100% - 10px);
+      }
+    }
   }
   .select-options {
     position: absolute;

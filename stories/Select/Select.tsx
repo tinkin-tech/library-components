@@ -15,6 +15,7 @@ interface IProps {
   borderStyle?: boolean;
   disable?: boolean;
   error?: string;
+  search?: boolean;
 }
 
 const SelectComponent = (props: IProps) => {
@@ -27,7 +28,8 @@ const SelectComponent = (props: IProps) => {
     displayArrow,
     borderStyle,
     disable,
-    error
+    error,
+    search
   } = props;
 
 
@@ -46,18 +48,29 @@ const SelectComponent = (props: IProps) => {
     value: ''
   });
 
+  const [shownOptions, handleShownOptions] = React.useState<IOption[]>(options);
+
+  const [inputValue, changeInputValue] = React.useState<string>()
+
   const selectOptions = React.useRef();
 
   const changeValue = (option: IOption) => {
     handleSelectedOption(option)
     handleExpandedOptions(false);
     onChange(option);
+    changeInputValue(option.value)
   };
 
-  const getValue = (): string => {
-    const value: IOption = options.find(option => option.id === valueId);
-    return selectedOption && selectedOption.value ? selectedOption.id : value ? value.id : '';
-  };
+  const onSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const newValue = event.currentTarget.value
+    const newOptions = options.filter((option) => option.value.includes(newValue) || option.id.includes(newValue))
+    handleShownOptions(newOptions)
+    handleSelectedOption(null)
+    changeInputValue(newValue)
+    handleExpandedOptions(true)
+  }
 
   React.useEffect(() => {
     const eventListener = event => {
@@ -67,7 +80,7 @@ const SelectComponent = (props: IProps) => {
     };
     window.addEventListener('click', eventListener);
     return () => window.removeEventListener('click', eventListener);
-  }, [valueId, options]);
+  }, [valueId, shownOptions]);
 
   return (
     <div
@@ -90,14 +103,31 @@ const SelectComponent = (props: IProps) => {
                 : 'border-secondary border-lighten-3'
             }`}
         >
-          <div
-            className={`flex-column p-r ${className || ''} ${
-              borderStyle ? '' : 'strong'
-              } ${disable && 'disabled'}`}
-              data-testid="selected-option"
-          >
-            {getValue() || placeholder || ''}
-          </div>
+          {
+            search ?
+              <div className='input-container'>
+                <input
+                  value={inputValue}
+                  placeholder={placeholder}
+                  className={`flex-column p-r ${className || ''} ${
+                    borderStyle ? '' : 'strong'
+                    } ${disable && 'disabled'}`}
+                  data-testid="selected-option"
+                  onChange={onSearchChange}
+                  onClick={() => handleExpandedOptions(!shownOptions)}
+                />
+              </div>
+              :
+              <div
+                className={`flex-column p-r ${className || ''} ${
+                  borderStyle ? '' : 'strong'
+                  } ${disable && 'disabled'}`}
+                data-testid="selected-option"
+              >
+                {selectedOption.value || placeholder || ''}
+              </div>
+          }
+
           {displayArrow && (
             <div className="flex-column p-r">
               <i className="arrow down"></i>
@@ -110,13 +140,13 @@ const SelectComponent = (props: IProps) => {
               expandedOptions ? 'active' : ''
               } `}
           >
-            {options.length > 0 ? (
-              options.map((option: IOption) => {
+            {shownOptions.length > 0 ? (
+              shownOptions.map((option: IOption) => {
                 return (
                   <span
                     key={option.id}
                     className="block option cursor-pointer"
-                    data-testid={ `${className}-${option.id}` || ''}
+                    data-testid={`${className}-${option.id}` || ''}
                     onClick={() => changeValue(option)}
                   >
                     {option.value}

@@ -28,11 +28,24 @@ const options: IOption[] = [
 export const Simple = (): React.ReactNode =>
   <Select
     onChange={action('selected')}
-    options={boolean('Empty', false) ? [] : options }
+    options={boolean('Empty', false) ? [] : options}
     className='simple-select'
     placeholder={text('Label', 'Select an option')}
     borderStyle={boolean('Border', true)}
     displayArrow={boolean('Arrow', true)}
     error={text('Error', '')}
     disable={boolean('Disabled', false)}
+  />
+
+export const Search = (): React.ReactNode =>
+  <Select
+    onChange={action('selected')}
+    options={boolean('Empty', false) ? [] : options}
+    className='simple-select'
+    placeholder={text('Label', 'Buscar...')}
+    borderStyle={boolean('Border', true)}
+    displayArrow={boolean('Arrow', true)}
+    error={text('Error', '')}
+    disable={boolean('Disabled', false)}
+    search={true}
   />
