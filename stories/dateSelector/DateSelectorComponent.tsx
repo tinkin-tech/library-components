@@ -142,7 +142,7 @@ const DateSelectorComponent = (
   const selectorComponent = (testId: string): React.ReactElement => (
     <div className="selector" data-testid={testId}>
       {selectedValuesState.map((value, index) => (
-        <div key={index}>{value}</div>
+        <div key={index} className="select-items">{value}</div>
       ))}
     </div>
   )

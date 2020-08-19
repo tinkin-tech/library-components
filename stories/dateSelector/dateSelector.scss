@@ -1,7 +1,13 @@
+$border-color: #A8A8A8;
+$focus-color: #72A6FF;
+$border-radius: 6px;
+$selector-background: #fff;
+
 .dateSelectorComponent {
   display: flex;
   padding: 1rem;
-  border: 1px solid black;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
   .dateContainer {
     position: relative;
     flex: 1;
@@ -14,6 +20,19 @@
     }
     .selector {
       position: absolute;
+      top: 30px;
+      background: $selector-background;
+      width: calc(100% - 30px);
+      border-radius: $border-radius;
+      box-shadow: 2px 2px 15px $border-color;
+      max-height: 200px;
+      overflow: scroll;
+      .select-items {
+        padding: 1rem;
+        &:hover {
+          background: #f8fbfd;
+        }
+      }
     }
   }
 }
