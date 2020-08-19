@@ -1,0 +1,27 @@
+@mixin flexBox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex-direction($value) {
+  flex-direction: $value;
+  -ms-flex-direction: $value;
+  -webkit-flex-direction: $value;
+}
+
+@mixin align($align) {
+  -ms-flex-align: $align;
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+
+@mixin transition($args: 200ms) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  -ms-transition: $args;
+  transition: $args;
+}
