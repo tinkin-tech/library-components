@@ -395,4 +395,32 @@ describe('', () => {
     expect(selectorDay.innerHTML).toContain('29')
     expect(selectorDay.innerHTML).not.toContain('31')
   })
+
+  it('Should show label in document', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-02-01"
+        onChangeDate={(): void => null}
+        label="Es un label"
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    const labelDiv = getByTestId('label')
+    expect(labelDiv).toBeInTheDocument()
+  })
+
+  it('Should label div not in document', () => {
+    const { container } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-02-01"
+        onChangeDate={(): void => null}
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    expect(container.innerHTML).not.toContain(
+      '<div data-testid="label">{label}</div>'
+    )
+  })
 })
