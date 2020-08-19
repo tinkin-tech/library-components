@@ -248,7 +248,7 @@ describe('', () => {
       <DateSelectorComponent
         id="minDateTest"
         date=""
-        onChangeDate={() => null}
+        onChangeDate={(): void => null}
         dateFormat="YYYY-MM-DD"
         minDate="2020-10-11"
         maxDate="2020-12-25"
@@ -256,7 +256,7 @@ describe('', () => {
     )
     renderer.act(() => {
       fireEvent.change(getByTestId('input-year'), {
-        target: { value: '2020' }
+        target: { value: '2020' },
       })
     })
     const inputMonth = getByTestId('input-month')
@@ -270,7 +270,7 @@ describe('', () => {
       <DateSelectorComponent
         id="minDateMonth"
         date=""
-        onChangeDate={() => null}
+        onChangeDate={(): void => null}
         dateFormat="YYYY-MM-DD"
         minDate="2020-10-20"
         maxDate="2020-12-23"
@@ -278,7 +278,7 @@ describe('', () => {
     )
     renderer.act(() => {
       fireEvent.change(getByTestId('input-month'), {
-        target: { value: '2020' }
+        target: { value: '2020' },
       })
     })
     const inputDay = getByTestId('input-day')
@@ -293,7 +293,7 @@ describe('', () => {
         <DateSelectorComponent
           id="dateSelector"
           date=""
-          onChangeDate={() => null}
+          onChangeDate={(): void => null}
           dateFormat="YYYY-MM-DD"
           minDate="2018-01-31"
           maxDate="2020-10-20"
@@ -301,7 +301,7 @@ describe('', () => {
       )
       renderer.act(() => {
         fireEvent.change(getByTestId('input-year'), {
-          target: { value: '2019' }
+          target: { value: '2019' },
         })
       })
       const inputMonth = getByTestId('input-month')
@@ -310,4 +310,89 @@ describe('', () => {
       expect(inputDay).toMatchObject({ value: '01' })
     }
   )
+
+  it('Should get years between minDate and maxDate', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date=""
+        onChangeDate={(): void => null}
+        dateFormat="YYYY-MM-DD"
+        minDate="2013-01-31"
+        maxDate="2020-10-20"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-year'))
+    })
+    const selectorYear = getByTestId('selector-year')
+    expect(selectorYear.innerHTML).toContain('2013')
+    expect(selectorYear.innerHTML).toContain('2015')
+    expect(selectorYear.innerHTML).toContain('2020')
+  })
+
+  it('Should get months in year', () => {
+    const { getByTestId } = render(dateSelectorDefault)
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-month'))
+    })
+    const selectorMonth = getByTestId('selector-month')
+    expect(selectorMonth.innerHTML).toContain('01')
+    expect(selectorMonth.innerHTML).toContain('10')
+    expect(selectorMonth.innerHTML).toContain('12')
+  })
+
+  it('Should get days in moth selected, contain 31 days', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-01-01"
+        onChangeDate={(): void => null}
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-day'))
+    })
+    const selectorDay = getByTestId('selector-day')
+    expect(selectorDay.innerHTML).toContain('01')
+    expect(selectorDay.innerHTML).toContain('31')
+  })
+
+  it('Should get days in moth selected, contain 28 days', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2013-02-01"
+        onChangeDate={(): void => null}
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-day'))
+    })
+    const selectorDay = getByTestId('selector-day')
+    expect(selectorDay.innerHTML).toContain('01')
+    expect(selectorDay.innerHTML).toContain('28')
+    expect(selectorDay.innerHTML).not.toContain('29')
+    expect(selectorDay.innerHTML).not.toContain('31')
+  })
+
+  it('Should get days in moth selected, contain 29 days', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-02-01"
+        onChangeDate={(): void => null}
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-day'))
+    })
+    const selectorDay = getByTestId('selector-day')
+    expect(selectorDay.innerHTML).toContain('01')
+    expect(selectorDay.innerHTML).toContain('29')
+    expect(selectorDay.innerHTML).not.toContain('31')
+  })
 })

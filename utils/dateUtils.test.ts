@@ -275,4 +275,22 @@ describe('Test for date utils', () => {
       }
     )
   })
+
+  describe('Tests for yearsDiff() function', () => {
+    it(
+      'Given two strings dates, first the bigger and format of dates, returns' +
+        'diff of years',
+      () => {
+        expect(
+          DateUtils.yearsDiff('2020-01-30', '2013-02-23', 'YYYY-MM-DD')
+        ).toBe(7)
+      }
+    )
+  })
+
+  describe('Tests for getFullYear() function', () => {
+    it('Given string date and format, returns full year', () => {
+      expect(DateUtils.getFullYear('2020-01-01', 'YYYY-MM-DD')).toBe(2020)
+    })
+  })
 })

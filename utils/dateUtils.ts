@@ -282,4 +282,22 @@ export default class DateUtils {
     transformDate.setDate(day)
     return this.formatDate(transformDate, null, format)
   }
+
+  static yearsDiff(
+    firstDate: string,
+    secondDate: string,
+    format: FormatTypes
+  ): number {
+    const transformFirstDate = this.transformDateStringToDate(firstDate, format)
+    const transformSecondDate = this.transformDateStringToDate(
+      secondDate,
+      format
+    )
+    return transformFirstDate.getFullYear() - transformSecondDate.getFullYear()
+  }
+
+  static getFullYear(date: string, formatDate: FormatTypes): number {
+    const tranformDate = this.transformDateStringToDate(date, formatDate)
+    return tranformDate.getFullYear()
+  }
 }
