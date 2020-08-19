@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as renderer from 'react-test-renderer'
-import DateSelectorComponent from './DateSelectorComponent'
+import { DateSelectorComponent } from './DateSelectorComponent'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 

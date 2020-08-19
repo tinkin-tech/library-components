@@ -1,5 +1,6 @@
 import * as React from 'react'
 import DateUtils from '../../utils/dateUtils'
+import * as PropTypes from 'prop-types'
 
 type FormatDateTypes = 'YYYY-MM-DD'
 
@@ -15,7 +16,7 @@ interface PropsInterface {
   maxDate?: string
 }
 
-const DateSelectorComponent = (
+export const DateSelectorComponent = (
   props: PropsInterface
 ): React.ReactElement<PropsInterface> => {
   const { onChangeDate, dateFormat, id, date, minDate, maxDate, label } = props
@@ -142,7 +143,9 @@ const DateSelectorComponent = (
   const selectorComponent = (testId: string): React.ReactElement => (
     <div className="selector" data-testid={testId}>
       {selectedValuesState.map((value, index) => (
-        <div key={index} className="select-items">{value}</div>
+        <div key={index} className="select-items">
+          {value}
+        </div>
       ))}
     </div>
   )
@@ -195,4 +198,6 @@ const DateSelectorComponent = (
   )
 }
 
-export default React.memo(DateSelectorComponent)
+DateSelectorComponent.propsTypes = {
+  id: PropTypes.string,
+}
