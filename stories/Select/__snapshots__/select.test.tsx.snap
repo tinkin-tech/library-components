@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select test Should shot the snapshot with all properties 1`] = `
+<div
+  className="select-component cursor-pointer false"
+  data-testid="selectorComponent"
+  onClick={[Function]}
+>
+  <div
+    className="select-dropdown flex-1"
+  >
+    <div
+      className="flex-row flex-middle flex-space-between flex-no-wrap border radius-default bg-white border-padding border-secondary border-lighten-3"
+    >
+      <div
+        className="flex-column p-r simple-select  false"
+        data-testid="selected-option"
+      >
+        Select an option
+      </div>
+      <div
+        className="flex-column p-r"
+      >
+        <i
+          className="arrow down"
+        />
+      </div>
+    </div>
+    <div
+      className="select-options app-scroll  "
+    >
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option1"
+        onClick={[Function]}
+      >
+        option1
+      </span>
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option2"
+        onClick={[Function]}
+      >
+        option2
+      </span>
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option3"
+        onClick={[Function]}
+      >
+        option3
+      </span>
+    </div>
+  </div>
+  
+</div>
+`;

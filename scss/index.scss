@@ -14,3 +14,13 @@
 
 //Stories Styles
 @import './stories/inputStory';
+@import './mixins';
+
+//Select styles
+
+@import './icons/arrow';
+
+//Select styles
+
+@import '../stories/Select/styles/colors';
+@import '../stories/Select/styles/selectComponent';

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   stories: ['../stories/**/*.stories.tsx'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-knobs/register'],
   typescript: {
     check: false,
     checkOptions: {},
