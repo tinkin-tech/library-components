@@ -12,18 +12,11 @@ const Template = (arg: InputComponentPropsInterface): JSX.Element => (
   <InputComponent {...arg} />
 )
 
-export const Primary = Template.bind({})
+export const Default = Template.bind({})
 
-Primary.args = {
+Default.args = {
   id: 'input',
   value: '',
   onChangeValue: action('OnChangeValue'),
   type: 'text',
-  placeholder: '',
-  label: '',
-  labelPosition: '',
-  required: true,
-  error: '',
-  errorPosition: '',
-  disable: false,
 }

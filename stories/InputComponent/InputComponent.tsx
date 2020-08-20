@@ -57,6 +57,9 @@ export interface InputComponentPropsInterface {
   disable?: boolean
 }
 
+/**
+ * Componente UI para interacción
+ */
 export const InputComponent: React.FC<InputComponentPropsInterface> = (
   props: InputComponentPropsInterface
 ) => {

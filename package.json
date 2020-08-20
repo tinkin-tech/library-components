@@ -39,6 +39,7 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "ts-jest": "^26.1.1"
   }
 }
