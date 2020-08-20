@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import InputComponent from '../Input'
+import { InputComponent } from '../InputComponent'
 
 export const inputDefault: JSX.Element = (
   <InputComponent
@@ -9,12 +9,11 @@ export const inputDefault: JSX.Element = (
     placeholder="placeholder"
     onChangeValue={(): null => null}
     type="text"
-    label={{
-      label: 'Label',
-      labelPosition: 'inside',
-    }}
+    label="Label"
+    labelPosition="inside"
     required={true}
     error=""
+    errorPosition="left"
     disable={false}
   />
 )

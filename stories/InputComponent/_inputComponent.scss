@@ -13,7 +13,7 @@ $input-component-border-radius: 4px;
 $input-component-width: 100%;
 $input-component-background-color: $background-color;
 $input-component-background-color-focus: $background-focus-color;
-$input-component-padding: 2px 8px 2px 8px;
+$input-component-padding: 2px 8px;
 $label-padding-top: 4px;
 $label-size: 12px;
 $label-color: $border-color;
@@ -21,7 +21,7 @@ $label-error-color: $error-color;
 $label-error-padding-right: 30px;
 $label-color-focus: $focus-color;
 $disable-text-color: $disable-color;
-$disable-text-padding-without-label: 12px 0;
+$disable-text-padding-without-label: 27px 0 0 0;
 $input-padding: 4px 0;
 $input-font-size: 14px;
 $input-padding-right-error: 24px;
@@ -38,6 +38,9 @@ $error-padding: 2px;
       @include transition(all 0.5s);
       color: $label-color-focus;
     }
+  }
+  &.disable-component {
+    opacity: 0.6;
   }
   .label {
     font-size: $label-size;
@@ -121,5 +124,8 @@ $error-padding: 2px;
     padding: $error-padding;
     font-family: $font-family;
     word-break: break-all;
+    &.error-position-right {
+      text-align: right;
+    }
   }
 }
