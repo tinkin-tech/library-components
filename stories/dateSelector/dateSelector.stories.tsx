@@ -21,7 +21,9 @@ export const WithValue = Template.bind({})
 
 WithValue.args = {
   id: 'dateSelector',
-  date: '2020-01-02',
+  date: '',
+  minDate: '2020-10-11',
+  maxDate: '2020-12-25',
   dateFormat: 'YYYY-MM-DD',
   onChangeDate: () => null,
 }

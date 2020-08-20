@@ -114,7 +114,7 @@ export default class DateUtils {
       typeof datetoTranform === 'string'
         ? this.transformDateStringToDate(datetoTranform, format)
         : datetoTranform
-    const dateTimeFormatObject = new Intl.DateTimeFormat('es', {
+    const dateTimeFormatObject = new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
