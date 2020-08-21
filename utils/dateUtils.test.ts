@@ -293,4 +293,20 @@ describe('Test for date utils', () => {
       expect(DateUtils.getFullYear('2020-01-01', 'YYYY-MM-DD')).toBe(2020)
     })
   })
+
+  describe('Tests for monthsDiff() function', () => {
+    it('Given two strings dates return diff in months', () => {
+      expect(
+        DateUtils.monthsDiff('2020-01-01', '2019-01-01', 'YYYY-MM-DD')
+      ).toBe(12)
+    })
+  })
+
+  describe('Tests for daysDiff() function', () => {
+    it('Given two strings dates return diff in days', () => {
+      expect(DateUtils.daysDiff('2020-02-01', '2020-01-01', 'YYYY-MM-DD')).toBe(
+        31
+      )
+    })
+  })
 })

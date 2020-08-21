@@ -31,7 +31,11 @@ export const DateSelectorComponent = (
     month: false,
     day: false,
   })
-  const onChangeInput = (e: React.FormEvent<HTMLInputElement>): void => {
+  const onChangeInput = (
+    e?: React.FormEvent<HTMLInputElement>,
+    idInput?: string,
+    valueInput?: string
+  ): void => {
     let dateToChange = { year: '', month: '', day: '' }
     const dateAdded = DateUtils.addDate(
       minDate || dateState || date,
@@ -43,10 +47,10 @@ export const DateSelectorComponent = (
       dateAdded || dateState || date,
       dateFormat
     )
-    switch (e.currentTarget.id) {
+    switch (e?.currentTarget?.id || idInput) {
       case 'year':
         dateToChange = {
-          year: e.currentTarget.value,
+          year: e?.currentTarget?.value || valueInput,
           month: minDate
             ? dateAddedTransformed.getMonth() + 1 >= 10
               ? (dateAddedTransformed.getMonth() + 1).toString()
@@ -64,7 +68,7 @@ export const DateSelectorComponent = (
       case 'month':
         dateToChange = {
           ...separateDate,
-          month: e.currentTarget.value,
+          month: e?.currentTarget?.value || valueInput,
           day: minDate
             ? (dateAddedTransformed.getDate() >= 10
                 ? dateAddedTransformed.getDate()
@@ -75,7 +79,10 @@ export const DateSelectorComponent = (
         changeSeparateDate(dateToChange)
         break
       case 'day':
-        dateToChange = { ...separateDate, day: e.currentTarget.value }
+        dateToChange = {
+          ...separateDate,
+          day: e?.currentTarget?.value || valueInput,
+        }
         changeSeparateDate(dateToChange)
         break
     }
@@ -90,11 +97,10 @@ export const DateSelectorComponent = (
 
   const getSelectValues = (e: React.FormEvent<HTMLInputElement>): void => {
     const selectedValues: string[] = []
+    const firstDate =
+      maxDate || DateUtils.addDate(date || dateState, dateFormat, 5, 'years')
     switch (e.currentTarget.id) {
       case 'year':
-        const firstDate =
-          maxDate ||
-          DateUtils.addDate(date || dateState, dateFormat, 5, 'years')
         const secondDate =
           minDate ||
           DateUtils.substractDate(date || dateState, dateFormat, 5, 'years')
@@ -111,7 +117,13 @@ export const DateSelectorComponent = (
         })
         break
       case 'month':
-        new Array(12).fill(0).forEach((item, index) => {
+        const monthsDiff = DateUtils.monthsDiff(
+          firstDate,
+          dateState || date,
+          dateFormat
+        )
+        const months = monthsDiff + 1 > 12 ? 12 : monthsDiff + 1
+        new Array(months).fill(0).forEach((item, index) => {
           const month = item + 1 + index
           selectedValues.push(month >= 10 ? month.toString() : `0${month}`)
         })
@@ -122,11 +134,22 @@ export const DateSelectorComponent = (
         })
         break
       case 'day':
+        const dateForCompare = DateUtils.setDay(
+          dateState || date,
+          dateFormat,
+          1
+        )
         const daysInMonth = DateUtils.getDaysInMonth(
           dateState || date,
           dateFormat
         )
-        new Array(daysInMonth).fill(0).forEach((item, index) => {
+        const daysDiff = DateUtils.daysDiff(
+          firstDate,
+          dateForCompare,
+          dateFormat
+        )
+        const days = daysDiff + 1 >= daysInMonth ? daysInMonth : daysDiff + 1
+        new Array(days).fill(0).forEach((item, index) => {
           const day = item + 1 + index
           selectedValues.push(day >= 10 ? day.toString() : `0${day}`)
         })
@@ -139,13 +162,27 @@ export const DateSelectorComponent = (
     changeSelectedValuesState(selectedValues)
   }
 
-  const selectorComponent = (testId: string): React.ReactElement => (
+  const selectorComponent = (
+    testId: string,
+    inputId: string
+  ): React.ReactElement => (
     <div className="selector" data-testid={testId}>
-      {selectedValuesState.map((value, index) => (
-        <div key={index} className="select-items">
-          {value}
-        </div>
-      ))}
+      {selectedValuesState.map((value, index) => {
+        const handleOnClickSelectItem = (): void => {
+          onChangeInput(null, inputId, value)
+          changeOpenSelectors({ ...openSelectors, [inputId]: false })
+        }
+        return (
+          <div
+            key={index}
+            className="select-items"
+            data-testid={`${testId}-item-${index}`}
+            onClick={handleOnClickSelectItem}
+          >
+            {value}
+          </div>
+        )
+      })}
     </div>
   )
 
@@ -169,7 +206,7 @@ export const DateSelectorComponent = (
           value={separateDate.year}
           onClick={getSelectValues}
         />
-        {openSelectors.year && selectorComponent('selector-year')}
+        {openSelectors.year && selectorComponent('selector-year', 'year')}
       </div>
       <div className="dateContainer">
         <input
@@ -180,7 +217,7 @@ export const DateSelectorComponent = (
           disabled={!separateDate.year}
           onClick={getSelectValues}
         />
-        {openSelectors.month && selectorComponent('selector-month')}
+        {openSelectors.month && selectorComponent('selector-month', 'month')}
       </div>
       <div className="dateContainer">
         <input
@@ -191,7 +228,7 @@ export const DateSelectorComponent = (
           disabled={!separateDate.month}
           onClick={getSelectValues}
         />
-        {openSelectors.day && selectorComponent('selector-day')}
+        {openSelectors.day && selectorComponent('selector-day', 'day')}
       </div>
     </div>
   )

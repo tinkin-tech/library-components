@@ -300,4 +300,37 @@ export default class DateUtils {
     const tranformDate = this.transformDateStringToDate(date, formatDate)
     return tranformDate.getFullYear()
   }
+
+  static monthsDiff(
+    firstDate: string,
+    secondDate: string,
+    format: FormatTypes
+  ): number {
+    const transformFirstDate = this.transformDateStringToDate(firstDate, format)
+    const transformSecondDate = this.transformDateStringToDate(
+      secondDate,
+      format
+    )
+    return (
+      transformFirstDate.getFullYear() * 12 +
+      transformFirstDate.getMonth() -
+      transformSecondDate.getFullYear() * 12 +
+      transformSecondDate.getMonth()
+    )
+  }
+
+  static daysDiff(
+    firstDate: string,
+    secondDate: string,
+    format: FormatTypes
+  ): number {
+    const transformFirstDate = this.transformDateStringToDate(firstDate, format)
+    const transformSecondDate = this.transformDateStringToDate(
+      secondDate,
+      format
+    )
+    const dateTime =
+      transformFirstDate.getTime() - transformSecondDate.getTime()
+    return dateTime / (1000 * 3600 * 24)
+  }
 }

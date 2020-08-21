@@ -423,4 +423,145 @@ describe('', () => {
       '<div data-testid="label">{label}</div>'
     )
   })
+
+  it('Should open selector of year when click year input', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date=""
+        onChangeDate={(): void => null}
+        minDate="2020-10-11"
+        maxDate="2020-12-12"
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+      'selector-year'
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-year'))
+    })
+    expect(getByTestId('selector-year')).toBeInTheDocument()
+  })
+
+  it('Should open selector of month when click month input', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-01-01"
+        onChangeDate={(): void => null}
+        minDate="2020-10-11"
+        maxDate="2020-12-12"
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+      'selector-month'
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-month'))
+    })
+    expect(getByTestId('selector-month')).toBeInTheDocument()
+  })
+
+  it('Should open selector of year when click day input', () => {
+    const { getByTestId } = render(
+      <DateSelectorComponent
+        id="dateSelector"
+        date="2020-12-10"
+        onChangeDate={(): void => null}
+        minDate="2020-10-11"
+        maxDate="2020-12-12"
+        dateFormat="YYYY-MM-DD"
+      />
+    )
+    expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+      'selector-day'
+    )
+    renderer.act(() => {
+      fireEvent.click(getByTestId('input-day'))
+    })
+    expect(getByTestId('selector-day')).toBeInTheDocument()
+  })
+
+  it(
+    'When click selector item of selector year, should change year input' +
+      'and close selector',
+    () => {
+      const { getByTestId } = render(
+        <DateSelectorComponent
+          id="selectDate"
+          date="2020-12-10"
+          onChangeDate={(): void => null}
+          minDate="2010-10-11"
+          maxDate="2020-12-12"
+          dateFormat="YYYY-MM-DD"
+        />
+      )
+      renderer.act(() => {
+        fireEvent.click(getByTestId('input-year'))
+      })
+      renderer.act(() => {
+        fireEvent.click(getByTestId('selector-year-item-1'))
+      })
+      expect(getByTestId('input-year')).toMatchObject({ value: '2011' })
+      expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+        'selector-year'
+      )
+    }
+  )
+
+  it(
+    'When click selector item of selector month, should change month input' +
+      'and close selector',
+    () => {
+      const { getByTestId } = render(
+        <DateSelectorComponent
+          id="selectDate"
+          date="2020-12-10"
+          onChangeDate={(): void => null}
+          minDate="2010-10-11"
+          maxDate="2020-12-12"
+          dateFormat="YYYY-MM-DD"
+        />
+      )
+      renderer.act(() => {
+        fireEvent.click(getByTestId('input-month'))
+      })
+      renderer.act(() => {
+        fireEvent.click(getByTestId('selector-month-item-10'))
+      })
+      expect(getByTestId('input-month')).toMatchObject({ value: '11' })
+      expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+        'selector-month'
+      )
+    }
+  )
+
+  it(
+    'When click selector item of selector day, should change day input' +
+      'and close selector',
+    () => {
+      const { getByTestId } = render(
+        <DateSelectorComponent
+          id="selectDate"
+          date="2020-12-10"
+          onChangeDate={(): void => null}
+          minDate="2010-10-11"
+          maxDate="2020-12-12"
+          dateFormat="YYYY-MM-DD"
+        />
+      )
+      renderer.act(() => {
+        fireEvent.click(getByTestId('input-day'))
+      })
+      renderer.act(() => {
+        fireEvent.click(getByTestId('selector-day-item-11'))
+      })
+      expect(getByTestId('input-day')).toMatchObject({ value: '12' })
+      expect(getByTestId('dateSelectorComponent').innerHTML).not.toContain(
+        'selector-day'
+      )
+    }
+  )
 })

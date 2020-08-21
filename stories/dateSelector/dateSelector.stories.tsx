@@ -15,15 +15,17 @@ interface PropsInterface {
   onChangeDate: (id: string, value: string) => void
 }
 
-const Template = (args: PropsInterface) => <DateSelectorComponent {...args} />
+const Template = (args: PropsInterface): React.ReactElement => (
+  <DateSelectorComponent {...args} />
+)
 
 export const WithValue = Template.bind({})
 
 WithValue.args = {
   id: 'dateSelector',
-  date: '',
+  date: '2020-01-01',
   minDate: '2020-10-11',
   maxDate: '2020-12-25',
   dateFormat: 'YYYY-MM-DD',
-  onChangeDate: () => null,
+  onChangeDate: (): void => null,
 }
