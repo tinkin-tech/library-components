@@ -1,16 +1,12 @@
 import * as React from 'react'
-import { action } from '@storybook/addon-actions'
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
-
-import Select, { Option } from './Select'
+import { SelectComponent,  IOption } from './Select'
 
 export default {
   title: 'Select',
-  component: Select,
-  decorators: [withKnobs]
+  component: SelectComponent
 }
 
-const options: Option[] = [
+const options: IOption[] = [
   {
     id: 'option1',
     value: 'option1'
@@ -25,27 +21,43 @@ const options: Option[] = [
   }
 ]
 
-export const Simple = (): React.ReactNode =>
-  <Select
-    onChange={action('selected')}
-    options={boolean('Empty', false) ? [] : options}
-    className='simple-select'
-    placeholder={text('Label', 'Select an option')}
-    borderStyle={boolean('Border', true)}
-    displayArrow={boolean('Arrow', true)}
-    error={text('Error', '')}
-    disable={boolean('Disabled', false)}
-  />
+interface PropsInterface {
+  options: IOption[],
+  className: string,
+  placeholder: string,
+  borderStyle: boolean,
+  displayArrow: boolean,
+  error: string,
+  disabled: boolean,
+  search: boolean,
+  onChange: () => void
+}
 
-export const Search = (): React.ReactNode =>
-  <Select
-    onChange={action('selected')}
-    options={boolean('Empty', false) ? [] : options}
-    className='simple-select'
-    placeholder={text('Label', 'Buscar...')}
-    borderStyle={boolean('Border', true)}
-    displayArrow={boolean('Arrow', true)}
-    error={text('Error', '')}
-    disable={boolean('Disabled', false)}
-    search={true}
-  />
+const Template = (args: PropsInterface) => <SelectComponent {...args} />
+
+export const Simple = Template.bind({})
+Simple.args = {
+  onChange: null,
+  options: false ? [] : options ,
+  className: 'simple-select',
+  placeholder: 'Select an option',
+  borderStyle: true,
+  displayArrow: true,
+  error: '',
+  disabled: '',
+  search: false
+}
+
+
+export const Search = Template.bind({})
+Search.args = {
+  onChange: null,
+  options: false ? [] : options ,
+  className: 'simple-select',
+  placeholder: 'Select an option',
+  borderStyle: true,
+  displayArrow: true,
+  error: '',
+  disabled: '',
+  search: true
+}
