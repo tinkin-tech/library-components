@@ -13,12 +13,24 @@ interface PropsInterface {
   required?: boolean
   minDate?: string
   maxDate?: string
+  disable?: boolean
 }
 
 export const DateSelectorComponent = (
   props: PropsInterface
 ): React.ReactElement<PropsInterface> => {
-  const { onChangeDate, dateFormat, id, date, minDate, maxDate, label } = props
+  const {
+    onChangeDate,
+    dateFormat,
+    id,
+    date,
+    minDate,
+    maxDate,
+    label,
+    disable,
+    required,
+    error
+  } = props
   const [separateDate, changeSeparateDate] = React.useState({
     year: '',
     month: '',
@@ -195,9 +207,31 @@ export const DateSelectorComponent = (
     })
   }, [date])
 
+  const selectOptions = React.useRef()
+
+  React.useEffect(() => {
+    const eventListener = (e: Event): void => {
+      if (
+        e.target !== selectOptions.current &&
+        (openSelectors.day || openSelectors.month || openSelectors.year)
+      ) {
+        changeOpenSelectors({ day: false, month: false, year: false })
+      }
+    }
+    window.addEventListener('click', eventListener)
+    return (): void => window.removeEventListener('click', eventListener)
+  })
   return (
-    <div className="dateSelectorComponent" data-testid="dateSelectorComponent">
-      {label && <div data-testid="label">{label}</div>}
+    <div
+      className={`dateSelectorComponent${label ? ' withLabel': ''}`}
+      data-testid="dateSelectorComponent"
+      ref={selectOptions}
+    >
+      {label && (
+        <div data-testid="label" className="label">
+          {`${label} ${required ? '*' : ''}`}
+        </div>
+      )}
       <div className="dateContainer">
         <input
           data-testid="input-year"
@@ -205,6 +239,7 @@ export const DateSelectorComponent = (
           id="year"
           value={separateDate.year}
           onClick={getSelectValues}
+          disabled={disable}
         />
         {openSelectors.year && selectorComponent('selector-year', 'year')}
       </div>
@@ -214,7 +249,7 @@ export const DateSelectorComponent = (
           onChange={onChangeInput}
           id="month"
           value={separateDate.month}
-          disabled={!separateDate.year}
+          disabled={!separateDate.year || disable}
           onClick={getSelectValues}
         />
         {openSelectors.month && selectorComponent('selector-month', 'month')}
@@ -225,11 +260,12 @@ export const DateSelectorComponent = (
           onChange={onChangeInput}
           id="day"
           value={separateDate.day}
-          disabled={!separateDate.month}
+          disabled={!separateDate.month || disable}
           onClick={getSelectValues}
         />
         {openSelectors.day && selectorComponent('selector-day', 'day')}
       </div>
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }
