@@ -1,0 +1,34 @@
+$icon-height: 14px;
+$icon-width: 14px;
+
+$warning-color: #DA4900;
+$warning-expresion-color: #ffffff;
+
+.i-warning{
+  margin-left: 3px;
+  margin-top: 3px;
+  width: $icon-width;
+  height: $icon-height;
+  border: solid 1px $warning-color;
+  border-radius: 2px;
+  background-color: $warning-color;
+  position: relative;
+  &::before {
+    content: '';
+    top: 2px;
+    left: 6px;
+    width: 2px;
+    height: 7px;
+    background-color: $warning-expresion-color;
+    position: absolute;
+  }
+  &::after {
+    content: '';
+    top: 10px;
+    left: 6px;
+    width: 2px;
+    height: 2px;
+    background-color: $warning-expresion-color;
+    position: absolute;
+  }
+}

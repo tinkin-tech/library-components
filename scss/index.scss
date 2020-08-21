@@ -1,5 +1,19 @@
-@import './button';
-@import './input';
+@import '../stories/dateSelector/dateSelector';
+//Highlight Library Styles
+@import './../node_modules/highlight.js/styles/vs2015.css';
+
+//Commons Styles
+@import './variables';
+@import './mixins';
+
+//Icons Styles
+@import './icons';
+
+//Components Styles
+@import '../stories/Input/input';
+
+//Stories Styles
+@import './stories/inputStory';
 @import './mixins';
 
 //Select styles

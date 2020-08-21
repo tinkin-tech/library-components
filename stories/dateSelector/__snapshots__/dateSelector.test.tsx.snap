@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should shot the snapshot with all properties 1`] = `
+<div
+  className="dateSelectorComponent"
+  data-testid="dateSelectorComponent"
+>
+  <div
+    data-testid="label"
+  >
+    date selector
+  </div>
+  <div
+    className="dateContainer"
+  >
+    <input
+      data-testid="input-year"
+      id="year"
+      onChange={[Function]}
+      onClick={[Function]}
+      value=""
+    />
+  </div>
+  <div
+    className="dateContainer"
+  >
+    <input
+      data-testid="input-month"
+      disabled={true}
+      id="month"
+      onChange={[Function]}
+      onClick={[Function]}
+      value=""
+    />
+  </div>
+  <div
+    className="dateContainer"
+  >
+    <input
+      data-testid="input-day"
+      disabled={true}
+      id="day"
+      onChange={[Function]}
+      onClick={[Function]}
+      value=""
+    />
+  </div>
+</div>
+`;

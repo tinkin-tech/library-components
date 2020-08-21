@@ -3,6 +3,7 @@ module.exports = {
   extends: ['@tinkin', 'plugin:react/recommended'],
   plugins: ['react-hooks'],
   rules: {
+    'no-extra-parens': 0,
     'filenames/match-regex': [
       'error',
       new RegExp(
@@ -11,5 +12,5 @@ module.exports = {
         'g'
       ),
     ],
-  }
+  },
 }
