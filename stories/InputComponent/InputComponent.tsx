@@ -2,10 +2,6 @@ import * as React from 'react'
 
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
-export type ILabelPositionTypes = 'outside' | 'inside'
-
-export type IErrorPositionTypes = 'left' | 'right'
-
 export interface InputComponentPropsInterface {
   /**
    * Id del InputComponent
@@ -29,10 +25,6 @@ export interface InputComponentPropsInterface {
    */
   label?: string
   /**
-   * La posición de la etiqueta(label) del InputComponent
-   */
-  labelPosition?: ILabelPositionTypes
-  /**
    * Se representa con un asterisco si la entrada(InputComponent) es requerido
    */
   required?: boolean
@@ -46,10 +38,6 @@ export interface InputComponentPropsInterface {
    *  error
    */
   error?: string
-  /**
-   * La posición del error del InputComponent
-   */
-  errorPosition?: IErrorPositionTypes
   /**
    * Cuando el valor es verdadero, muestra un estilo opaco en el
    * componente y el valor no se puede ingresar en la entrada.
@@ -89,12 +77,10 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     onChangeValue,
     type,
     label,
-    labelPosition,
     required,
     error,
     disable,
     placeholder,
-    errorPosition,
   } = props
 
   const [localError, changeLocalError] = React.useState('')
@@ -138,27 +124,11 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     onChangeValue(id, filterValueForType(newValue))
   }
 
-  const onClickInputContent = (): void => {
-    if (!disable) {
-      // eslint-disable-next-line no-restricted-globals
-      document.getElementById(id).focus()
-    }
-  }
-
   React.useEffect(() => {
     if (value !== localValue) {
       changeLocalValue(filterValueForType(value))
     }
   }, [value])
-
-  const labelElement = label && (
-    <label
-      className={`label ${error || localError ? 'label-error' : ''}`}
-      htmlFor={id}
-    >
-      {`${label}${required ? '*' : ''}`}
-    </label>
-  )
 
   return (
     <div
@@ -167,8 +137,17 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
         disable ? 'disable-component' : ''
       }`}
     >
-      <label htmlFor={id}>{label && labelElement}</label>
-      {label && labelPosition === 'inside' && labelElement}
+      <div className="flex-space-between">
+        <label
+          className={`label ${error || localError ? 'label-error' : ''}`}
+          htmlFor={id}
+        >
+          {`${label || ''}${required ? '*' : ''}`}
+        </label>
+        {(error || localError) && (
+          <span className="icon-warning-content">&#9888;</span>
+        )}
+      </div>
       <input
         id={id}
         name={id}
@@ -183,18 +162,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
         className={error || localError ? `warning` : ''}
       />
       {(error || localError) && (
-        <div className="icon-warning-content">
-          <div className="i-warning" />
-        </div>
-      )}
-      {(error || localError) && (
-        <div
-          className={`error-message ${
-            errorPosition === 'right' ? 'error-position-right' : ''
-          }`}
-        >
-          {error || localError}
-        </div>
+        <div className="error-message">{error || localError}</div>
       )}
     </div>
   )

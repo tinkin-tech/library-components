@@ -10,10 +10,8 @@ export const inputDefault: JSX.Element = (
     onChangeValue={(): null => null}
     type="text"
     label="Label"
-    labelPosition="inside"
     required={true}
     error=""
-    errorPosition="left"
     disable={false}
   />
 )
