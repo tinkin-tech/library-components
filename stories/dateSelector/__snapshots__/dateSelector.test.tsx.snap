@@ -2,13 +2,14 @@
 
 exports[`Should shot the snapshot with all properties 1`] = `
 <div
-  className="dateSelectorComponent"
+  className="dateSelectorComponent withLabel"
   data-testid="dateSelectorComponent"
 >
   <div
+    className="label"
     data-testid="label"
   >
-    date selector
+    date selector *
   </div>
   <div
     className="dateContainer"
@@ -45,5 +46,6 @@ exports[`Should shot the snapshot with all properties 1`] = `
       value=""
     />
   </div>
+  
 </div>
 `;

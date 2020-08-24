@@ -2,12 +2,11 @@
 
 exports[`InputComponent test Should take the snapshot with require props 1`] = `
 <div
-  className="input-component "
+  className="input-component input flex-column "
   id="input-component"
 >
-  <div
-    className="input-component-content "
-    onClick={[Function]}
+  <label
+    htmlFor="input"
   >
     <label
       className="label "
@@ -15,16 +14,27 @@ exports[`InputComponent test Should take the snapshot with require props 1`] = `
     >
       Label*
     </label>
-    <input
-      data-testid="input-component"
-      id="input"
-      onChange={[Function]}
-      placeholder="placeholder"
-      type="text"
-      value="value"
-    />
-    
-  </div>
+  </label>
+  <label
+    className="label "
+    htmlFor="input"
+  >
+    Label*
+  </label>
+  <input
+    autoComplete="off"
+    className=""
+    data-testid="input-component"
+    disabled={false}
+    id="input"
+    name="input"
+    onChange={[Function]}
+    placeholder="placeholder"
+    spellCheck={false}
+    type="text"
+    value="value"
+  />
+  
   
 </div>
 `;

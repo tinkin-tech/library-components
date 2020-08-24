@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { SelectComponent,  IOption } from './Select'
+import { SelectComponent,  OptionsInterface } from './Select'
 
 export default {
   title: 'Select',
   component: SelectComponent
 }
 
-const options: IOption[] = [
+const options: OptionsInterface[] = [
   {
     id: 'option1',
     value: 'option1'
@@ -22,7 +22,7 @@ const options: IOption[] = [
 ]
 
 interface PropsInterface {
-  options: IOption[],
+  options: OptionsInterface[],
   className: string,
   placeholder: string,
   borderStyle: boolean,
