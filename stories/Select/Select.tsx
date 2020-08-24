@@ -18,7 +18,7 @@ interface IProps {
   search?: boolean;
 }
 
-const SelectComponent = (props: IProps) => {
+export const SelectComponent = (props: IProps): React.ReactElement<IProps> => {
   const {
     options,
     onChange,
@@ -31,9 +31,7 @@ const SelectComponent = (props: IProps) => {
     error,
     search
   } = props;
-
-
-
+  
   const labels = {
     NO_OPTIONS: 'No hay opciones',
     SELECT: 'select'
@@ -172,6 +170,3 @@ const SelectComponent = (props: IProps) => {
     </div>
   );
 };
-
-
-export default React.memo(SelectComponent)
