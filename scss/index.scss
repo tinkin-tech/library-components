@@ -1,3 +1,19 @@
+//resources
+@import "resources/color";
+@import "resources/genColors";
+@import "resources/variables";
+@import "resources/fontMuli";
+@import "resources/mixins";
+@import "resources/gridClassic";
+@import "resources/grid";
+@import "resources/display";
+@import "resources/borders";
+@import "resources/fonts";
+@import "resources/marginPadding";
+@import "resources/iconsAndImages";
+@import "resources/statusColor";
+@import "resources/general";
+
 @import '../stories/dateSelector/dateSelector';
 //Highlight Library Styles
 @import './../node_modules/highlight.js/styles/vs2015.css';
@@ -10,7 +26,7 @@
 @import './icons';
 
 //Components Styles
-@import '../stories/Input/input';
+@import '../stories/InputComponent/inputComponent';
 
 //Stories Styles
 @import './stories/inputStory';

@@ -2,7 +2,7 @@
 
 exports[`InputComponent test Should take the snapshot with require props 1`] = `
 <div
-  className="input-component"
+  className="input-component "
   id="input-component"
 >
   <div

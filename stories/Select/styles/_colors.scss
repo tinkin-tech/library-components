@@ -1,65 +1,65 @@
-$color-white: #ffffff;
-$color-black: #000000;
-$color-primary: #2d46d4;
-$color-secondary: #282727;
-$color-warning: #e0c824;
-$color-success: #3662e0;
-$color-danger: #d42d2d;
-$color-info: #ad10e0;
-$color-auxiliary: #fd9b5b;
-
-$primary: (
-  "base": $color-primary,
-  "lighten-1": #26eb44,
-);
-
-$secondary: (
-  "base": $color-secondary,
-  "lighten-1": #4e5054,
-  "lighten-2": #a4a8ab,
-  "lighten-3": #d0d1d2,
-  "lighten-4": #ededee,
-  "lighten-5": #f8f7f8,
-);
-
-$warning: (
-  "base": $color-warning,
-);
-
-$success: (
-  "base": $color-success,
-);
-
-$danger: (
-  "base": $color-danger,
-  "lighten-1": #ed5454,
-);
-
-$info: (
-  "base": $color-info,
-);
-
-$auxiliary: (
-  "base": $color-auxiliary,
-);
-
-$colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "warning": $warning,
-  "success": $success,
-  "danger": $danger,
-  "info": $info,
-  "auxiliary": $auxiliary,
-);
-
-@function color($color, $type) {
-  @if map-has-key($colors, $color) {
-    $curr_color: map-get($colors, $color);
-    @if map-has-key($curr_color, $type) {
-      @return map-get($curr_color, $type);
-    }
-  }
-  @warn "Unknown `#{name}` in $colors.";
-  @return null;
-}
+//$color-white: #ffffff;
+//$color-black: #000000;
+//$color-primary: #2d46d4;
+//$color-secondary: #282727;
+//$color-warning: #e0c824;
+//$color-success: #3662e0;
+//$color-danger: #d42d2d;
+//$color-info: #ad10e0;
+//$color-auxiliary: #fd9b5b;
+//
+//$primary: (
+//  "base": $color-primary,
+//  "lighten-1": #26eb44,
+//);
+//
+//$secondary: (
+//  "base": $color-secondary,
+//  "lighten-1": #4e5054,
+//  "lighten-2": #a4a8ab,
+//  "lighten-3": #d0d1d2,
+//  "lighten-4": #ededee,
+//  "lighten-5": #f8f7f8,
+//);
+//
+//$warning: (
+//  "base": $color-warning,
+//);
+//
+//$success: (
+//  "base": $color-success,
+//);
+//
+//$danger: (
+//  "base": $color-danger,
+//  "lighten-1": #ed5454,
+//);
+//
+//$info: (
+//  "base": $color-info,
+//);
+//
+//$auxiliary: (
+//  "base": $color-auxiliary,
+//);
+//
+//$colors: (
+//  "primary": $primary,
+//  "secondary": $secondary,
+//  "warning": $warning,
+//  "success": $success,
+//  "danger": $danger,
+//  "info": $info,
+//  "auxiliary": $auxiliary,
+//);
+//
+//@function color($color, $type) {
+//  @if map-has-key($colors, $color) {
+//    $curr_color: map-get($colors, $color);
+//    @if map-has-key($curr_color, $type) {
+//      @return map-get($curr_color, $type);
+//    }
+//  }
+//  @warn "Unknown `#{name}` in $colors.";
+//  @return null;
+//}

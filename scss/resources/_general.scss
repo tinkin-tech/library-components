@@ -1,0 +1,32 @@
+input,
+textarea {
+  padding: 8px 24px 4px 8px;
+  background: color('gray', 'lighten-3');
+  border-radius: $radio-small;
+  border: 1px solid color('gray', 'lighten-1');
+  &:focus {
+    outline: none;
+    background: color('gray', 'lighten-4');
+    border: 1px solid color('primary', 'darken-1');
+  }
+  &.warning {
+    border: 1px solid color('warning', 'lighten-1');
+    background: color('warning', 'lighten-3');
+  }
+}
+
+.input {
+  .label,
+  label {
+    color: color('primary', 'darken-3');
+    line-height: $line-height-small;
+
+  }
+  &:focus-within {
+    .label,
+    label {
+      color: color('primary', 'darken-2');
+      line-height: $line-height-small;
+    }
+  }
+}

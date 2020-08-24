@@ -1,0 +1,17 @@
+@font-face {
+  font-family: muli, sans-serif;
+  src: url('#{$font-muli}/Muli-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: muli, sans-serif;
+  src: url('#{$font-muli}/Muli-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: muli, sans-serif;
+  src: url('#{$font-muli}/Muli-Bold.ttf');
+  font-weight: 900;
+}
