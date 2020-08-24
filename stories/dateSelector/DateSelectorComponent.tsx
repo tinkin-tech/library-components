@@ -29,7 +29,7 @@ export const DateSelectorComponent = (
     label,
     disable,
     required,
-    error
+    error,
   } = props
   const [separateDate, changeSeparateDate] = React.useState({
     year: '',
@@ -223,7 +223,7 @@ export const DateSelectorComponent = (
   })
   return (
     <div
-      className={`dateSelectorComponent${label ? ' withLabel': ''}`}
+      className={`dateSelectorComponent${label ? ' withLabel' : ''}`}
       data-testid="dateSelectorComponent"
       ref={selectOptions}
     >
