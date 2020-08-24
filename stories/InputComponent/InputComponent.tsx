@@ -19,7 +19,7 @@ export interface InputComponentPropsInterface {
    * Función que recibe (id, value) cuando se realiza un cambio en la
    * entrada(InputComponent)
    */
-  onChangeValue: (id: string, value: string) => void
+  onChangeValue: (id: string, value: string | number) => void
   /**
    * Tipo del InputComponent
    */
@@ -57,6 +57,26 @@ export interface InputComponentPropsInterface {
   disable?: boolean
 }
 
+type errorsLocalTypes = 'ONLY_NUMBERS' | 'FORMAT_EMAIL'
+
+type errorsLocalEnumsTypes = {
+  [name in errorsLocalTypes]: {
+    key: errorsLocalTypes
+    label: string
+  }
+}
+
+const ERRORS_LOCAL_ENUMS: errorsLocalEnumsTypes = {
+  ONLY_NUMBERS: {
+    key: 'ONLY_NUMBERS',
+    label: 'Ingrese solo números y [-, .]',
+  },
+  FORMAT_EMAIL: {
+    key: 'FORMAT_EMAIL',
+    label: 'Ingrese un formato válido de correo',
+  },
+}
+
 /**
  * Componente UI para interacción
  */
@@ -77,14 +97,45 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     errorPosition,
   } = props
 
-  const [localValue, changeLocalValue] = React.useState(value)
+  const [localError, changeLocalError] = React.useState('')
+
+  const filterValueForType = (value: string | number): string | number => {
+    const valueString = value.toString()
+    switch (type) {
+      case 'number': {
+        const reg = new RegExp(/[^\d.-]/g)
+        value &&
+          changeLocalError(
+            valueString.split('').some((element) => reg.test(element))
+              ? ERRORS_LOCAL_ENUMS.ONLY_NUMBERS.label
+              : ''
+          )
+        return value ? value.toString().replace(reg, '') : ''
+      }
+      case 'email': {
+        const reg = new RegExp(/^[a-zA-Z0-9_.\-]+@[a-z]+\.[a-z]+$/)
+        value &&
+          changeLocalError(
+            reg.test(valueString) ? '' : ERRORS_LOCAL_ENUMS.FORMAT_EMAIL.label
+          )
+        return value
+      }
+      default: {
+        return value
+      }
+    }
+  }
+
+  const [localValue, changeLocalValue] = React.useState(
+    filterValueForType(value)
+  )
 
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     const newValue = event.currentTarget.value
-    changeLocalValue(newValue)
-    onChangeValue(id, newValue)
+    changeLocalValue(filterValueForType(newValue))
+    onChangeValue(id, filterValueForType(newValue))
   }
 
   const onClickInputContent = (): void => {
@@ -96,12 +147,15 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
 
   React.useEffect(() => {
     if (value !== localValue) {
-      changeLocalValue(value)
+      changeLocalValue(filterValueForType(value))
     }
   }, [value])
 
   const labelElement = label && (
-    <label className={`label ${error ? 'label-error' : ''}`} htmlFor={id}>
+    <label
+      className={`label ${error || localError ? 'label-error' : ''}`}
+      htmlFor={id}
+    >
       {`${label}${required ? '*' : ''}`}
     </label>
   )
@@ -114,7 +168,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       {label && labelPosition === 'outside' && labelElement}
       <div
         className={`input-component-content ${
-          error ? 'input-component-error' : ''
+          error || localError ? 'input-component-error' : ''
         }`}
         onClick={onClickInputContent}
       >
@@ -135,23 +189,23 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
             data-testid="input-component"
             value={localValue}
             onChange={onChangeAction}
-            type={type}
+            type={type !== 'number' ? type : 'text'}
             placeholder={placeholder}
           />
         )}
-        {error && (
+        {(error || localError) && (
           <div className="icon-warning-content">
             <div className="i-warning" />
           </div>
         )}
       </div>
-      {error && errorPosition && (
+      {(error || localError) && (
         <div
           className={`error-message ${
             errorPosition === 'right' ? 'error-position-right' : ''
           }`}
         >
-          {error}
+          {error || localError}
         </div>
       )}
     </div>

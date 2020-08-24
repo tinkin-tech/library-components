@@ -111,6 +111,10 @@ $error-padding: 2px;
         outline: none;
       }
     }
+    input[type=number], ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
     .icon-warning-content {
       position: absolute;
       top: $icon-top;
