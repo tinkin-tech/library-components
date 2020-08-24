@@ -1,18 +1,20 @@
 //resources
-@import "resources/color";
-@import "resources/genColors";
-@import "resources/variables";
-@import "resources/fontMuli";
-@import "resources/mixins";
-@import "resources/gridClassic";
-@import "resources/grid";
-@import "resources/display";
-@import "resources/borders";
-@import "resources/fonts";
-@import "resources/marginPadding";
-@import "resources/iconsAndImages";
-@import "resources/statusColor";
-@import "resources/general";
+@import "resources/common/color";
+@import "resources/common/genColors";
+@import "resources/common/variables";
+@import "resources/common/fontMuli";
+@import "resources/common/mixins";
+@import "resources/common/gridClassic";
+@import "resources/common/grid";
+@import "resources/common/display";
+@import "resources/common/borders";
+@import "resources/common/fonts";
+@import "resources/common/marginPadding";
+@import "resources/common/iconsAndImages";
+@import "resources/common/statusColor";
+
+//components
+@import "resources/components/input";
 
 @import '../stories/dateSelector/dateSelector';
 //Highlight Library Styles
