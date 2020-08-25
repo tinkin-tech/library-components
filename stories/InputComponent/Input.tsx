@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { LabelComponent } from '../label/Label'
 
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
@@ -11,7 +12,7 @@ export interface InputComponentPropsInterface {
   required?: boolean
   placeholder?: string
   error?: string
-  disable?: boolean
+  disabled?: boolean
 }
 
 export const InputComponent: React.FC<InputComponentPropsInterface> = (
@@ -25,7 +26,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     label,
     required,
     error,
-    disable,
+    disabled,
     placeholder,
   } = props
 
@@ -50,13 +51,13 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       className="input-component input p-t p-b flex-column"
     >
       <div className="flex-space-between">
-        <label
-          className={`label ${error ? 'label-error' : ''}`}
-          htmlFor={id}
-          data-testid="label-component"
-        >
-          {`${label || ''}${required ? '*' : ''}`}&nbsp;
-        </label>
+        <LabelComponent
+          referenceId={id}
+          label={label}
+          error={!!error}
+          required={required}
+          disabled={disabled}
+        />
         {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
       <input
@@ -69,7 +70,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
         onChange={onChangeAction}
         type={type}
         placeholder={placeholder}
-        disabled={disable}
+        disabled={disabled}
         className={error ? `warning` : ''}
       />
       {error && <div className="error-message">{error}</div>}

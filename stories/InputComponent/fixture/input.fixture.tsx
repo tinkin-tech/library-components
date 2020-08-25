@@ -11,7 +11,7 @@ export const inputDefault: JSX.Element = (
     label="Label"
     required={true}
     error=""
-    disable={false}
+    disabled={false}
   />
 )
 

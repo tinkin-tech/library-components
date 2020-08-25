@@ -43,15 +43,6 @@ textarea {
   text-align: right;
 }
 
-.label,
-label {
-  color: color("primary", "darken-3");
-  line-height: $line-height-small;
-}
-.label-error {
-  color: $color-warning !important;
-}
-
 .input-component {
   position: relative;
   height: 36px;
