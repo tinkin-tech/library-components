@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import DateUtils from '../../utils/dateUtils'
 
 type FormatDateTypes = 'YYYY-MM-DD'
@@ -16,7 +17,7 @@ interface PropsInterface {
   disable?: boolean
 }
 
-export const DateSelectorComponent = (
+export const DateSelector = (
   props: PropsInterface
 ): React.ReactElement<PropsInterface> => {
   const {
