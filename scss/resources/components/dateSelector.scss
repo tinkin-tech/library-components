@@ -15,17 +15,31 @@
       cursor: pointer;
       @include flexBox();
       @include flex-direction(column);
-      input {
-        width: initial;
-        border: 0;
-        cursor: pointer;
-        padding: 8px 0 6px 8px;
-        &:focus {
-          outline: 0;
-          background: color("gray", "lighten-4");
+      .dateContent {
+        background: color("gray", "lighten-3");
+        .inputContent {
+          input {
+            width: initial;
+            border: 0;
+            cursor: pointer;
+            padding: 8px 0 6px 8px;
+            &:focus {
+              outline: 0;
+              background: color("gray", "lighten-4");
+            }
+            &:disabled {
+              background: color("gray", "lighten-3");
+            }
+          }
         }
-        &:disabled {
-          background: color("gray", "lighten-3");
+        .iconContent {
+          .arrow .down {
+            @include transition(all 0.5s);
+            &.active {
+              -webkit-transform: rotate(180deg) !important;
+              @include transition(all 0.5s);
+            }
+          }
         }
       }
       .selector {

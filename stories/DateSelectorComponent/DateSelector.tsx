@@ -240,16 +240,25 @@ export const DateSelector = (
         {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
       <div className="dateSelectorContent">
-        <div className="dateContainer flex-space-between">
-          <input
-            data-testid="input-year"
-            onChange={onChangeInput}
-            id="year"
-            value={separateDate.year}
-            onClick={getSelectValues}
-            disabled={disable}
-            placeholder="YYYY"
-          />
+        <div className="dateContainer">
+          <div className="dateContent flex-row flex-middle">
+            <span className="inputContent flex-column flex-1">
+              <input
+                data-testid="input-year"
+                onChange={onChangeInput}
+                id="year"
+                value={separateDate.year}
+                onClick={getSelectValues}
+                disabled={disable}
+                placeholder="YYYY"
+              />
+            </span>
+            <span className="iconContent p-r flex-column">
+              <i
+                className={`arrow down ${openSelectors.year ? 'active' : ''}`}
+              />
+            </span>
+          </div>
           {openSelectors.year && selectorComponent('selector-year', 'year')}
         </div>
         <div className="dateContainer">
