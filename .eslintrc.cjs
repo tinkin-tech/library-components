@@ -12,5 +12,6 @@ module.exports = {
         'g'
       ),
     ],
+    'no-restricted-globals': 0,
   },
 }

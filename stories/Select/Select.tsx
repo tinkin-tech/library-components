@@ -54,7 +54,9 @@ export const SelectComponent = (
     options
   )
 
-  const [inputValue, changeInputValue] = React.useState<string>()
+  const [inputValue, changeInputValue] = React.useState<string>(
+    options.find((option) => option.id === valueId)?.value || ''
+  )
 
   const selectOptions = React.useRef()
 
@@ -118,7 +120,7 @@ export const SelectComponent = (
                 } ${disabled && 'disabled'}`}
                 data-testid="selected-option"
                 onChange={onSearchChange}
-                onClick={() => handleExpandedOptions(!shownOptions)}
+                onClick={(): void => handleExpandedOptions(!shownOptions)}
               />
             </div>
           ) : (
@@ -151,7 +153,7 @@ export const SelectComponent = (
                     key={option.id}
                     className="block option cursor-pointer"
                     data-testid={`${className}-${option.id}` || ''}
-                    onClick={() => changeValue(option)}
+                    onClick={(): void => changeValue(option)}
                   >
                     {option.value}
                   </span>

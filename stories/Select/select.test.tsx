@@ -32,7 +32,7 @@ const defaultSelect = (
     borderStyle={true}
     displayArrow={true}
     error={''}
-    disable={false}
+    disabled={false}
   />
 )
 
@@ -43,14 +43,14 @@ describe('Select test', () => {
   })
 
   it('Should shot the snapshot with all properties', () => {
-    const component = renderer.create(defaultSelect)
-    const componentJSON = component.toJSON()
-    expect(componentJSON).toMatchSnapshot()
+    const comp = renderer.create(defaultSelect)
+    const compJSON = comp.toJSON()
+    expect(compJSON).toMatchSnapshot()
   })
 
   it('Should call action function one time when click option', async () => {
     const act = jest.fn()
-    const compo = render(
+    const comp = render(
       <SelectComponent
         onChange={act}
         options={options}
@@ -59,18 +59,18 @@ describe('Select test', () => {
         borderStyle={true}
         displayArrow={true}
         error={''}
-        disable={false}
+        disabled={false}
       />
     )
     renderer.act(() => {
-      fireEvent.click(compo.getByTestId('simple-select-option1'))
+      fireEvent.click(comp.getByTestId('simple-select-option1'))
     })
     expect(act).toHaveBeenCalledTimes(1)
   })
 
   it('should change component selected value', async () => {
     const act = jest.fn()
-    const compo = render(
+    const comp = render(
       <SelectComponent
         onChange={act}
         options={options}
@@ -79,12 +79,35 @@ describe('Select test', () => {
         borderStyle={true}
         displayArrow={true}
         error={''}
-        disable={false}
+        disabled={false}
       />
     )
     renderer.act(() => {
-      fireEvent.click(compo.getByTestId('simple-select-option1'))
+      fireEvent.click(comp.getByTestId('simple-select-option1'))
     })
-    expect(compo.getByTestId('selected-option').innerHTML).toBe('option1')
+    expect(comp.getByTestId('selected-option').innerHTML).toBe('option1')
+  })
+
+  it('should change options on search', async () => {
+    const act = jest.fn()
+    const comp = render(
+      <SelectComponent
+        onChange={act}
+        options={options}
+        className="simple-select"
+        placeholder={'Select an option'}
+        borderStyle={true}
+        displayArrow={true}
+        error={''}
+        disabled={false}
+        search={true}
+      />
+    )
+    renderer.act(() => {
+      fireEvent.change(comp.getByTestId('selected-option'), {
+        target: { value: '1' },
+      })
+    })
+    expect(comp.container.innerHTML).not.toContain('selected-option-2')
   })
 })
