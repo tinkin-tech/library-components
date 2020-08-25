@@ -39,8 +39,8 @@ const Template = (args: PropsInterface): React.ReactElement => (
 
 export const Simple = Template.bind({})
 Simple.args = {
-  onChange: null,
-  options: false ? [] : options,
+  onChange: (): void => null,
+  options: options || [],
   className: 'simple-select',
   placeholder: 'Select an option',
   borderStyle: true,
@@ -52,8 +52,8 @@ Simple.args = {
 
 export const Search = Template.bind({})
 Search.args = {
-  onChange: null,
-  options: false ? [] : options,
+  onChange: (): void => null,
+  options: options || [],
   className: 'simple-select',
   placeholder: 'Select an option',
   borderStyle: true,

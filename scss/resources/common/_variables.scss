@@ -67,7 +67,7 @@ $fontsize-small: 12px;
 /*shadows*/
 
 $z-depth-0: none !important;
-$z-depth-1: 0 8px 16px 0 var(color('gray', 'lighten-1'));
+$z-depth-1: 0 8px 16px 0 color('gray', 'lighten-1');
 $z-depth-2: 0 4px 8px 0 rgba(13, 21, 32, 0.5);
 
 // line height

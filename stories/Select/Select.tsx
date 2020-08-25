@@ -16,6 +16,7 @@ interface PropsInterface {
   disabled?: boolean
   error?: string
   search?: boolean
+  label?: string
 }
 
 export const SelectComponent = (
@@ -31,6 +32,7 @@ export const SelectComponent = (
     borderStyle,
     disabled,
     error,
+    label,
     search,
   } = props
 
@@ -87,7 +89,7 @@ export const SelectComponent = (
     }
     window.addEventListener('click', eventListener)
     return (): void => window.removeEventListener('click', eventListener)
-  }, [valueId, shownOptions])
+  }, [expandedOptions])
 
   return (
     <div
@@ -100,15 +102,18 @@ export const SelectComponent = (
     >
       <div className="select-dropdown flex-1">
         <div
-          className={`flex-row flex-middle flex-space-between flex-no-wrap ${
-            borderStyle ? 'border radius-default bg-white border-padding' : ''
-          } ${
-            error
-              ? 'border-warning'
-              : expandedOptions
-              ? 'border-primary'
-              : 'border-secondary border-lighten-3'
-          }`}
+          className={
+            `flex-row flex-middle bg-gray bg-lighten-3` +
+            ` flex-space-between flex-no-wrap ${
+              borderStyle ? 'border radius-default bg-white border-padding' : ''
+            } ${
+              error
+                ? 'border-warning'
+                : expandedOptions
+                ? 'border-primary'
+                : 'border-gray border-lighten-1'
+            }`
+          }
         >
           {search ? (
             <div className="input-container">
@@ -125,9 +130,9 @@ export const SelectComponent = (
             </div>
           ) : (
             <div
-              className={`flex-column p-r ${className || ''} ${
-                borderStyle ? '' : 'strong'
-              } ${disabled && 'disabled'}`}
+              className={`select-value-text flex-column p-r ${
+                className || ''
+              } ${borderStyle ? '' : 'strong'} ${disabled && 'disabled'}`}
               data-testid="selected-option"
             >
               {selectedOption.value || placeholder || ''}
@@ -135,41 +140,39 @@ export const SelectComponent = (
           )}
 
           {displayArrow && (
-            <div className="flex-column p-r">
-              <i className="arrow down" />
+            <div className="flex-column p-r arrow-dropdown">
+              <i className="arrow down icon-arrow" />
             </div>
           )}
         </div>
-        {!disabled && (
-          <div
-            className={`select-options app-scroll ${
-              expandedOptions ? 'active' : ''
-            } `}
-          >
-            {shownOptions.length > 0 ? (
-              shownOptions.map((option: OptionsInterface) => {
-                return (
-                  <span
-                    key={option.id}
-                    className="block option cursor-pointer"
-                    data-testid={`${className}-${option.id}` || ''}
-                    onClick={(): void => changeValue(option)}
-                  >
-                    {option.value}
-                  </span>
-                )
-              })
-            ) : (
-              <span
-                className="no-options block option cursor-default text-secondary
+        <div
+          className={`select-options shadow-2 app-scroll ${
+            expandedOptions ? 'active' : ''
+          } `}
+        >
+          {shownOptions.length > 0 ? (
+            shownOptions.map((option: OptionsInterface) => {
+              return (
+                <span
+                  key={option.id}
+                  className="block option cursor-pointer"
+                  data-testid={`${className}-${option.id}` || ''}
+                  onClick={(): void => changeValue(option)}
+                >
+                  {option.value}
+                </span>
+              )
+            })
+          ) : (
+            <span
+              className="no-options block option cursor-default text-secondary
                 text-lighten-3"
-                onClick={(): void => null}
-              >
-                {labels.NO_OPTIONS}
-              </span>
-            )}
-          </div>
-        )}
+              onClick={(): void => null}
+            >
+              {labels.NO_OPTIONS}
+            </span>
+          )}
+        </div>
       </div>
       {error && (
         <div
