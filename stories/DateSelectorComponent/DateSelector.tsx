@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import DateUtils from '../../utils/dateUtils'
+import { LabelComponent } from '../label/Label'
 
 type FormatDateTypes = 'YYYY-MM-DD'
 
@@ -179,7 +180,7 @@ export const DateSelector = (
     testId: string,
     inputId: string
   ): React.ReactElement => (
-    <div className="selector" data-testid={testId}>
+    <div className="selector app-scroll shadow-2" data-testid={testId}>
       {selectedValuesState.map((value, index) => {
         const handleOnClickSelectItem = (): void => {
           onChangeInput(null, inputId, value)
@@ -222,49 +223,56 @@ export const DateSelector = (
     window.addEventListener('click', eventListener)
     return (): void => window.removeEventListener('click', eventListener)
   })
+
   return (
     <div
-      className={`dateSelectorComponent${label ? ' withLabel' : ''}`}
+      className={`dateSelectorComponent`}
       data-testid="dateSelectorComponent"
       ref={selectOptions}
     >
-      {label && (
-        <div data-testid="label" className="label">
-          {`${label} ${required ? '*' : ''}`}
+      <div className="flex-space-between">
+        <LabelComponent
+          label={label}
+          required={required}
+          error={!!error}
+          referenceId={id}
+        />
+        {error && <span className="icon-warning-content">&#9888;</span>}
+      </div>
+      <div className="dateSelectorContent">
+        <div className="dateContainer">
+          <input
+            data-testid="input-year"
+            onChange={onChangeInput}
+            id="year"
+            value={separateDate.year}
+            onClick={getSelectValues}
+            disabled={disable}
+          />
+          {openSelectors.year && selectorComponent('selector-year', 'year')}
         </div>
-      )}
-      <div className="dateContainer">
-        <input
-          data-testid="input-year"
-          onChange={onChangeInput}
-          id="year"
-          value={separateDate.year}
-          onClick={getSelectValues}
-          disabled={disable}
-        />
-        {openSelectors.year && selectorComponent('selector-year', 'year')}
-      </div>
-      <div className="dateContainer">
-        <input
-          data-testid="input-month"
-          onChange={onChangeInput}
-          id="month"
-          value={separateDate.month}
-          disabled={!separateDate.year || disable}
-          onClick={getSelectValues}
-        />
-        {openSelectors.month && selectorComponent('selector-month', 'month')}
-      </div>
-      <div className="dateContainer">
-        <input
-          data-testid="input-day"
-          onChange={onChangeInput}
-          id="day"
-          value={separateDate.day}
-          disabled={!separateDate.month || disable}
-          onClick={getSelectValues}
-        />
-        {openSelectors.day && selectorComponent('selector-day', 'day')}
+        <div className="dateContainer">
+          <input
+            data-testid="input-month"
+            onChange={onChangeInput}
+            id="month"
+            value={separateDate.month}
+            disabled={!separateDate.year || disable}
+            onClick={getSelectValues}
+          />
+          {openSelectors.month && selectorComponent('selector-month', 'month')}
+        </div>
+        <div className="dateContainer">
+          <input
+            data-testid="input-day"
+            onChange={onChangeInput}
+            id="day"
+            value={separateDate.day}
+            disabled={!separateDate.month || disable}
+            onClick={getSelectValues}
+          />
+          {openSelectors.day && selectorComponent('selector-day', 'day')}
+        </div>
       </div>
       {error && <span className="error">{error}</span>}
     </div>

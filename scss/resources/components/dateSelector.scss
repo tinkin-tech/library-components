@@ -1,63 +1,56 @@
-$border-color: #A8A8A8;
-$focus-color: #72A6FF;
-$border-radius: 6px;
-$selector-background: #fff;
-$error-color: #DA4900;
-
 .dateSelectorComponent {
-  display: flex;
-  padding: 1rem;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  position: relative;
-  &.withLabel {
-    padding-top: 1.5rem;
-  }
-  .label {
-    top: 5px;
-    font-size: 12px;
-    font-weight: 600;
-    position: absolute;
-    color: $border-color;
+  .dateSelectorContent {
+    @include flexBox();
+    @include flex-direction(row);
+    flex-wrap: nowrap;
+    display: flex;
+    border: 1px solid color("gray", "lighten-1");
+    border-radius: $radio-small;
+    &:focus-within {
+      border: 1px solid color("primary", "darken-1");
+    }
+    .dateContainer {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+      @include flexBox();
+      @include flex-direction(column);
+      input {
+        width: initial;
+        border: 0;
+        cursor: pointer;
+        padding: 8px 0 6px 8px;
+        &:focus {
+          outline: 0;
+          background: color("gray", "lighten-4");
+        }
+        &:disabled {
+          background: color("gray", "lighten-3");
+        }
+      }
+      .selector {
+        overflow: auto;
+        position: absolute;
+        top: calc(100% + 5px);
+        background: color("gray", "lighten-3");
+        width: 100%;
+        border-radius: $radio-small;
+        max-height: 200px;
+        .select-items {
+          padding: 1rem;
+          cursor: pointer;
+          &:hover {
+            background: #f8fbfd;
+          }
+        }
+      }
+    }
   }
   .error {
-    color: $error-color;
+    color: color("warning", "lighten-1");
     position: absolute;
     top: calc(100% + 5px);
     right: 0;
     font-size: 12px;
-  }
-  .dateContainer {
-    position: relative;
-    flex: 1;
-    cursor: pointer;
-    input {
-      width: 100%;
-      border: 0;
-      cursor: pointer;
-      &:focus {
-        outline: 0;
-      }
-      &:disabled {
-        background: $selector-background
-      }
-    }
-    .selector {
-      position: absolute;
-      top: 30px;
-      background: $selector-background;
-      width: calc(100% - 30px);
-      border-radius: $border-radius;
-      box-shadow: 2px 2px 15px $border-color;
-      max-height: 200px;
-      overflow: scroll;
-      .select-items {
-        padding: 1rem;
-        cursor: pointer;
-        &:hover {
-          background: #f8fbfd;
-        }
-      }
-    }
   }
 }
