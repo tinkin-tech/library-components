@@ -33,7 +33,9 @@ interface PropsInterface {
   onChange: () => void
 }
 
-const Template = (args: PropsInterface) => <SelectComponent {...args} />
+const Template = (args: PropsInterface): React.ReactElement => (
+  <SelectComponent {...args} />
+)
 
 export const Simple = Template.bind({})
 Simple.args = {

@@ -13,7 +13,7 @@ interface PropsInterface {
   valueId?: string
   placeholder?: string
   borderStyle?: boolean
-  disable?: boolean
+  disabled?: boolean
   error?: string
   search?: boolean
 }
@@ -29,7 +29,7 @@ export const SelectComponent = (
     className,
     displayArrow,
     borderStyle,
-    disable,
+    disabled,
     error,
     search,
   } = props
@@ -89,10 +89,10 @@ export const SelectComponent = (
 
   return (
     <div
-      className={`select-component ${!disable && 'cursor-pointer'} ${
-        disable && 'disabled'
+      className={`select-component ${!disabled && 'cursor-pointer'} ${
+        disabled && 'disabled'
       }`}
-      onClick={(): void => !disable && handleExpandedOptions(!expandedOptions)}
+      onClick={(): void => !disabled && handleExpandedOptions(!expandedOptions)}
       ref={selectOptions}
       data-testid="selectorComponent"
     >
@@ -115,7 +115,7 @@ export const SelectComponent = (
                 placeholder={placeholder}
                 className={`flex-column p-r ${className || ''} ${
                   borderStyle ? '' : 'strong'
-                } ${disable && 'disabled'}`}
+                } ${disabled && 'disabled'}`}
                 data-testid="selected-option"
                 onChange={onSearchChange}
                 onClick={() => handleExpandedOptions(!shownOptions)}
@@ -125,7 +125,7 @@ export const SelectComponent = (
             <div
               className={`flex-column p-r ${className || ''} ${
                 borderStyle ? '' : 'strong'
-              } ${disable && 'disabled'}`}
+              } ${disabled && 'disabled'}`}
               data-testid="selected-option"
             >
               {selectedOption.value || placeholder || ''}
@@ -138,7 +138,7 @@ export const SelectComponent = (
             </div>
           )}
         </div>
-        {!disable && (
+        {!disabled && (
           <div
             className={`select-options app-scroll ${
               expandedOptions ? 'active' : ''

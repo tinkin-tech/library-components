@@ -2,7 +2,7 @@
 
 exports[`Select test Should shot the snapshot with all properties 1`] = `
 <div
-  className="select-component cursor-pointer false"
+  className="select-component cursor-pointer undefined"
   data-testid="selectorComponent"
   onClick={[Function]}
 >
@@ -13,7 +13,7 @@ exports[`Select test Should shot the snapshot with all properties 1`] = `
       className="flex-row flex-middle flex-space-between flex-no-wrap border radius-default bg-white border-padding border-secondary border-lighten-3"
     >
       <div
-        className="flex-column p-r simple-select  false"
+        className="flex-column p-r simple-select  undefined"
         data-testid="selected-option"
       >
         Select an option
