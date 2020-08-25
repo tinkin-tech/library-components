@@ -240,7 +240,7 @@ export const DateSelector = (
         {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
       <div className="dateSelectorContent">
-        <div className="dateContainer">
+        <div className="dateContainer flex-space-between">
           <input
             data-testid="input-year"
             onChange={onChangeInput}
@@ -248,6 +248,7 @@ export const DateSelector = (
             value={separateDate.year}
             onClick={getSelectValues}
             disabled={disable}
+            placeholder="YYYY"
           />
           {openSelectors.year && selectorComponent('selector-year', 'year')}
         </div>
@@ -259,6 +260,7 @@ export const DateSelector = (
             value={separateDate.month}
             disabled={!separateDate.year || disable}
             onClick={getSelectValues}
+            placeholder="MM"
           />
           {openSelectors.month && selectorComponent('selector-month', 'month')}
         </div>
@@ -270,6 +272,7 @@ export const DateSelector = (
             value={separateDate.day}
             disabled={!separateDate.month || disable}
             onClick={getSelectValues}
+            placeholder="DD"
           />
           {openSelectors.day && selectorComponent('selector-day', 'day')}
         </div>
