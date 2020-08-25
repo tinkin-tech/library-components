@@ -3,66 +3,15 @@ import * as React from 'react'
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
 export interface InputComponentPropsInterface {
-  /**
-   * Id del InputComponent
-   */
   id: string
-  /**
-   * Valor del InputComponent
-   */
   value: string
-  /**
-   * Función que recibe (id, value) cuando se realiza un cambio en la
-   * entrada(InputComponent)
-   */
   onChangeValue: (id: string, value: string | number) => void
-  /**
-   * Tipo del InputComponent
-   */
   type: IInputTypes
-  /**
-   * Etiqueta(label) del InputComponent
-   */
   label?: string
-  /**
-   * Se representa con un asterisco si la entrada(InputComponent) es requerido
-   */
   required?: boolean
-  /**
-   * Texto mostrado cuando no hay valor en la entrada(InputComponent)
-   */
   placeholder?: string
-  /**
-   *  Valor que representa un error. Al ingresar un valor un estilo error
-   *  se muestra en la entrada, junto al valor que ingrese en la propiedad
-   *  error
-   */
   error?: string
-  /**
-   * Cuando el valor es verdadero, muestra un estilo opaco en el
-   * componente y el valor no se puede ingresar en la entrada.
-   */
   disable?: boolean
-}
-
-type errorsLocalTypes = 'ONLY_NUMBERS' | 'FORMAT_EMAIL'
-
-type errorsLocalEnumsTypes = {
-  [name in errorsLocalTypes]: {
-    key: errorsLocalTypes
-    label: string
-  }
-}
-
-const ERRORS_LOCAL_ENUMS: errorsLocalEnumsTypes = {
-  ONLY_NUMBERS: {
-    key: 'ONLY_NUMBERS',
-    label: 'Ingrese solo números y [-, .]',
-  },
-  FORMAT_EMAIL: {
-    key: 'FORMAT_EMAIL',
-    label: 'Ingrese un formato válido de correo',
-  },
 }
 
 /**
@@ -83,87 +32,50 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     placeholder,
   } = props
 
-  const [localError, changeLocalError] = React.useState('')
-
-  const filterValueForType = (value: string | number): string | number => {
-    const valueString = value.toString()
-    switch (type) {
-      case 'number': {
-        const reg = new RegExp(/[^\d.-]/g)
-        value &&
-          changeLocalError(
-            valueString.split('').some((element) => reg.test(element))
-              ? ERRORS_LOCAL_ENUMS.ONLY_NUMBERS.label
-              : ''
-          )
-        return value ? value.toString().replace(reg, '') : ''
-      }
-      case 'email': {
-        const reg = new RegExp(/^[a-zA-Z0-9_.\-]+@[a-z]+\.[a-z]+$/)
-        value &&
-          changeLocalError(
-            reg.test(valueString) ? '' : ERRORS_LOCAL_ENUMS.FORMAT_EMAIL.label
-          )
-        return value
-      }
-      default: {
-        return value
-      }
-    }
-  }
-
-  const [localValue, changeLocalValue] = React.useState(
-    filterValueForType(value)
-  )
+  const [valueState, changeValueState] = React.useState(value)
 
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    const newValue = event.currentTarget.value
-    changeLocalValue(filterValueForType(newValue))
-    onChangeValue(id, filterValueForType(newValue))
+    changeValueState(event.currentTarget.value)
+    onChangeValue(id, event.currentTarget.value)
   }
 
   React.useEffect(() => {
-    if (value !== localValue) {
-      changeLocalValue(filterValueForType(value))
+    if (value !== valueState) {
+      changeValueState(value)
     }
   }, [value])
 
   return (
     <div
       id="input-component"
-      className={`input-component input flex-column ${
-        disable ? 'disable-component' : ''
-      }`}
+      className="input-component input p-t p-b flex-column"
     >
       <div className="flex-space-between">
         <label
-          className={`label ${error || localError ? 'label-error' : ''}`}
+          className={`label ${error ? 'label-error' : ''}`}
           htmlFor={id}
+          data-testid="label-component"
         >
-          {`${label || ''}${required ? '*' : ''}`}
+          {`${label || ''}${required ? '*' : ''}`}&nbsp;
         </label>
-        {(error || localError) && (
-          <span className="icon-warning-content">&#9888;</span>
-        )}
+        {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
       <input
         id={id}
         name={id}
         data-testid="input-component"
-        value={localValue}
+        value={valueState}
         autoComplete="off"
         spellCheck={false}
         onChange={onChangeAction}
-        type={type !== 'number' ? type : 'text'}
+        type={type}
         placeholder={placeholder}
         disabled={disable}
-        className={error || localError ? `warning` : ''}
+        className={error ? `warning` : ''}
       />
-      {(error || localError) && (
-        <div className="error-message">{error || localError}</div>
-      )}
+      {error && <div className="error-message">{error}</div>}
     </div>
   )
 }

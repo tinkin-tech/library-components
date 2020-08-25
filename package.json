@@ -15,11 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@storybook/addon-actions": "^6.0.16",
-    "@storybook/addon-controls": "^6.0.16",
     "@storybook/addon-essentials": "^6.0.16",
-    "@storybook/addon-knobs": "^6.0.16",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-links": "^6.0.16",
     "@storybook/addon-storyshots": "^6.0.16",
     "@storybook/addons": "^6.0.16",
     "@storybook/react": "^6.0.16",

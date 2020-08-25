@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   -   repo: git@gitlab.com:tinkin.one/shared/tinkin-pre-commit-hooks.git
-      rev: 125f5e2aa39797d6beecd0ee00d2864920fa6078
+      rev: 06533b974d2e27e18c12ce213635dacb01ac33cb
       hooks:
-        -   id: check_coverage_does_not_worsen
-        -   id: check_lint_does_not_worsen
+        -   id: check_jest_coverage_does_not_worsen
+        -   id: check_eslint_does_not_worsen

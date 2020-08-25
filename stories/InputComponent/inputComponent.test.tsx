@@ -6,7 +6,9 @@ import {
   inputTypeText,
   inputTypeNumber,
   inputDefault,
-} from './fixture/inputFixture'
+  InputTypeTextWithValue,
+  InputWithError,
+} from './fixture/input.fixture'
 
 describe('InputComponent test', () => {
   it('Should take the snapshot with require props', () => {
@@ -32,5 +34,23 @@ describe('InputComponent test', () => {
     const input = getByTestId(dom.container, 'input-component')
     fireEvent.change(input, { target: { value: 'Hello World!' } })
     expect(input.getAttribute('value')).toBe('')
+  })
+
+  it('Should pass value different from valueState of input component', () => {
+    const { getByTestId, rerender } = render(inputTypeText)
+    expect(getByTestId('input-component')).toMatchObject({ value: '' })
+    rerender(InputTypeTextWithValue)
+    expect(getByTestId('input-component')).toMatchObject({
+      value: InputTypeTextWithValue.props.value,
+    })
+  })
+
+  it('Should add className label-error when component pass with error', () => {
+    const { getByTestId, rerender } = render(inputTypeText)
+    expect(getByTestId('label-component').className).not.toContain(
+      'label-error'
+    )
+    rerender(InputWithError)
+    expect(getByTestId('label-component').className).toContain('label-error')
   })
 })

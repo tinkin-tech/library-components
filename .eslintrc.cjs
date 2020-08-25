@@ -7,7 +7,7 @@ module.exports = {
     'filenames/match-regex': [
       'error',
       new RegExp(
-        '^[^0-9][a-zA-Z0-9]*(.test|.d|.types|.stories)?$|' +
+        '^[^0-9][a-zA-Z0-9]*(.test|.d|.types|.stories|.fixture)?$|' +
           '^webpack.config$|^.eslintrc$|^jest.config$',
         'g'
       ),

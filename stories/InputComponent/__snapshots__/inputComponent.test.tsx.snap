@@ -2,25 +2,22 @@
 
 exports[`InputComponent test Should take the snapshot with require props 1`] = `
 <div
-  className="input-component input flex-column "
+  className="input-component input p-t p-b flex-column"
   id="input-component"
 >
-  <label
-    htmlFor="input"
+  <div
+    className="flex-space-between"
   >
     <label
       className="label "
+      data-testid="label-component"
       htmlFor="input"
     >
       Label*
+       
     </label>
-  </label>
-  <label
-    className="label "
-    htmlFor="input"
-  >
-    Label*
-  </label>
+    
+  </div>
   <input
     autoComplete="off"
     className=""
@@ -34,7 +31,6 @@ exports[`InputComponent test Should take the snapshot with require props 1`] = `
     type="text"
     value="value"
   />
-  
   
 </div>
 `;

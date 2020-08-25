@@ -13,6 +13,18 @@ textarea {
     border: 1px solid color("warning", "lighten-1");
     background: color("warning", "lighten-3");
   }
+  //remove arrows of number type
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }
 
 .input {
@@ -31,9 +43,6 @@ textarea {
   text-align: right;
 }
 
-
-
-
 .label,
 label {
   color: color("primary", "darken-3");
@@ -42,12 +51,14 @@ label {
 .label-error {
   color: $color-warning !important;
 }
+
 .input-component {
   position: relative;
   height: 36px;
   .icon-warning-content {
     color: color("warning", "lighten-1");
     font-size: 16px;
-    right: 0px;
+    right: 0;
+    line-height: 0;
   }
 }
