@@ -46,10 +46,11 @@ textarea {
 .input-component {
   position: relative;
   height: 36px;
-  .icon-warning-content {
-    color: color("warning", "lighten-1");
-    font-size: 16px;
-    right: 0;
-    line-height: 0;
-  }
+}
+
+.warning-content {
+  color: color("warning", "lighten-1");
+  font-size: 16px;
+  right: 0;
+  line-height: 0;
 }

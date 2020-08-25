@@ -58,7 +58,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
           required={required}
           disabled={disabled}
         />
-        {error && <span className="icon-warning-content">&#9888;</span>}
+        {error && <span className="warning-content">&#9888;</span>}
       </div>
       <input
         id={id}

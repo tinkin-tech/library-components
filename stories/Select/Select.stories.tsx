@@ -25,12 +25,14 @@ interface PropsInterface {
   options: OptionsInterface[]
   className: string
   placeholder: string
-  borderStyle: boolean
   displayArrow: boolean
   error: string
   disabled: boolean
   search: boolean
   onChange: () => void
+  id: string
+  required?: boolean
+  label?: string
 }
 
 const Template = (args: PropsInterface): React.ReactElement => (
@@ -43,11 +45,13 @@ Simple.args = {
   options: options || [],
   className: 'simple-select',
   placeholder: 'Select an option',
-  borderStyle: true,
   displayArrow: true,
   error: '',
   disabled: '',
   search: false,
+  id: 'select',
+  label: 'Select Default',
+  required: false,
 }
 
 export const Search = Template.bind({})
@@ -56,7 +60,6 @@ Search.args = {
   options: options || [],
   className: 'simple-select',
   placeholder: 'Select an option',
-  borderStyle: true,
   displayArrow: true,
   error: '',
   disabled: '',
