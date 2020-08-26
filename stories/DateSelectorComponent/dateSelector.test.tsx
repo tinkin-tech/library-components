@@ -53,7 +53,7 @@ describe('', () => {
       })
       expect(onChangeFake).toHaveBeenCalledTimes(1)
       expect(onChangeFake.mock.results[0].value).toMatchObject({
-        id: 'DateSelectorComponent',
+        id: 'dateSelector',
         date: '2018-01-01',
       })
     }
@@ -406,7 +406,7 @@ describe('', () => {
         dateFormat="YYYY-MM-DD"
       />
     )
-    const labelDiv = getByTestId('label')
+    const labelDiv = getByTestId('label-component')
     expect(labelDiv).toBeInTheDocument()
   })
 

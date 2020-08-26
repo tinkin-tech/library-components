@@ -226,7 +226,7 @@ export const DateSelector = (
 
   return (
     <div
-      className={`dateSelectorComponent`}
+      className="dateSelectorComponent"
       data-testid="dateSelectorComponent"
       ref={selectOptions}
     >
@@ -239,9 +239,9 @@ export const DateSelector = (
         />
         {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
-      <div className="dateSelectorContent">
+      <div className={`dateSelectorContent ${error ? 'error' : ''}`}>
         <div className="dateContainer">
-          <div className="dateContent flex-row flex-middle">
+          <div className="dateContent flex-row flex-middle radius-default">
             <span className="inputContent flex-column flex-1">
               <input
                 data-testid="input-year"
@@ -251,42 +251,70 @@ export const DateSelector = (
                 onClick={getSelectValues}
                 disabled={disable}
                 placeholder="YYYY"
+                className={error ? 'error' : ''}
               />
             </span>
             <span className="iconContent p-r flex-column">
               <i
-                className={`arrow down ${openSelectors.year ? 'active' : ''}`}
+                className={`icon-arrow arrow ${
+                  openSelectors.year ? 'up' : 'down'
+                }`}
               />
             </span>
           </div>
           {openSelectors.year && selectorComponent('selector-year', 'year')}
         </div>
         <div className="dateContainer">
-          <input
-            data-testid="input-month"
-            onChange={onChangeInput}
-            id="month"
-            value={separateDate.month}
-            disabled={!separateDate.year || disable}
-            onClick={getSelectValues}
-            placeholder="MM"
-          />
-          {openSelectors.month && selectorComponent('selector-month', 'month')}
+          <div className="dateContent flex-row flex-middle radius-default">
+            <span className="inputContent flex-column flex-1">
+              <input
+                data-testid="input-month"
+                onChange={onChangeInput}
+                id="month"
+                value={separateDate.month}
+                disabled={!separateDate.year || disable}
+                onClick={getSelectValues}
+                placeholder="MM"
+                className={error ? 'error' : ''}
+              />
+            </span>
+            <span className="iconContent p-r flex-column">
+              <i
+                className={`icon-arrow arrow ${
+                  openSelectors.month ? 'up' : 'down'
+                }`}
+              />
+            </span>
+            {openSelectors.month &&
+              selectorComponent('selector-month', 'month')}
+          </div>
         </div>
         <div className="dateContainer">
-          <input
-            data-testid="input-day"
-            onChange={onChangeInput}
-            id="day"
-            value={separateDate.day}
-            disabled={!separateDate.month || disable}
-            onClick={getSelectValues}
-            placeholder="DD"
-          />
-          {openSelectors.day && selectorComponent('selector-day', 'day')}
+          <div className="dateContent flex-row flex-middle radius-default">
+            <span className="inputContent flex-column flex-1">
+              <input
+                data-testid="input-day"
+                onChange={onChangeInput}
+                id="day"
+                value={separateDate.day}
+                disabled={!separateDate.month || disable}
+                onClick={getSelectValues}
+                placeholder="DD"
+                className={error ? 'error' : ''}
+              />
+            </span>
+            <span className="iconContent p-r flex-column">
+              <i
+                className={`icon-arrow arrow ${
+                  openSelectors.day ? 'up' : 'down'
+                }`}
+              />
+            </span>
+            {openSelectors.day && selectorComponent('selector-day', 'day')}
+          </div>
         </div>
       </div>
-      {error && <span className="error">{error}</span>}
+      {error && <div className="errorMessage">{error}</div>}
     </div>
   )
 }

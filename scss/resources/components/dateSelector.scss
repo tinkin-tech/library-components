@@ -1,4 +1,10 @@
 .dateSelectorComponent {
+  .icon-warning-content {
+    color: color("warning", "lighten-1");
+    font-size: 16px;
+    right: 0;
+    line-height: 0;
+  }
   .dateSelectorContent {
     @include flexBox();
     @include flex-direction(row);
@@ -6,8 +12,13 @@
     display: flex;
     border: 1px solid color("gray", "lighten-1");
     border-radius: $radio-small;
+    background: color("gray", "lighten-3");
     &:focus-within {
       border: 1px solid color("primary", "darken-1");
+    }
+    &.error {
+      border: 1px solid color("warning", "lighten-1");
+      background: color("warning", "lighten-3");
     }
     .dateContainer {
       position: relative;
@@ -16,7 +27,6 @@
       @include flexBox();
       @include flex-direction(column);
       .dateContent {
-        background: color("gray", "lighten-3");
         .inputContent {
           input {
             width: initial;
@@ -25,18 +35,17 @@
             padding: 8px 0 6px 8px;
             &:focus {
               outline: 0;
-              background: color("gray", "lighten-4");
-            }
-            &:disabled {
               background: color("gray", "lighten-3");
+            }
+            &.error {
+              background: color("warning", "lighten-3");
             }
           }
         }
         .iconContent {
-          .arrow .down {
-            @include transition(all 0.5s);
-            &.active {
-              -webkit-transform: rotate(180deg) !important;
+          .icon-arrow {
+            border-width: 0 1px 1px 0;
+            &.arrow {
               @include transition(all 0.5s);
             }
           }
@@ -46,25 +55,23 @@
         overflow: auto;
         position: absolute;
         top: calc(100% + 5px);
-        background: color("gray", "lighten-3");
+        background: color("gray", "lighten-4");
         width: 100%;
         border-radius: $radio-small;
         max-height: 200px;
         .select-items {
-          padding: 1rem;
+          padding: 7px 14px;
           cursor: pointer;
           &:hover {
-            background: #f8fbfd;
+            background: color("gray", "lighten-3");
           }
         }
       }
     }
   }
-  .error {
+  .errorMessage {
     color: color("warning", "lighten-1");
-    position: absolute;
-    top: calc(100% + 5px);
-    right: 0;
     font-size: 12px;
+    text-align: right;
   }
 }
