@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { LabelComponent } from '../label/Label'
 
 export interface OptionsInterface {
   id: string
@@ -12,11 +13,12 @@ interface PropsInterface {
   className?: string
   valueId?: string
   placeholder?: string
-  borderStyle?: boolean
   disabled?: boolean
   error?: string
   search?: boolean
   label?: string
+  id: string
+  required?: boolean
 }
 
 export const SelectComponent = (
@@ -29,46 +31,40 @@ export const SelectComponent = (
     valueId,
     className,
     displayArrow,
-    borderStyle,
     disabled,
     error,
     label,
     search,
+    id,
+    required,
   } = props
-
   const labels = {
     NO_OPTIONS: 'No hay opciones',
     SELECT: 'select',
   }
-
   const [expandedOptions, handleExpandedOptions] = React.useState<boolean>(
     false
   )
-
   const [selectedOption, handleSelectedOption] = React.useState<
     OptionsInterface
   >({
     id: '',
     value: '',
   })
-
   const [shownOptions, handleShownOptions] = React.useState<OptionsInterface[]>(
     options
   )
-
   const [inputValue, changeInputValue] = React.useState<string>(
     options.find((option) => option.id === valueId)?.value || ''
   )
-
+  const [focusSelect, changeFocusSelect] = React.useState(false)
   const selectOptions = React.useRef()
-
   const changeValue = (option: OptionsInterface): void => {
     handleSelectedOption(option)
     handleExpandedOptions(false)
     onChange(option)
     changeInputValue(option.value)
   }
-
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = event.currentTarget.value
     const newOptions = options.filter(
@@ -80,11 +76,18 @@ export const SelectComponent = (
     changeInputValue(newValue)
     handleExpandedOptions(true)
   }
+  const handleOnClickSelect = (): void => {
+    if (!disabled) {
+      handleExpandedOptions(!expandedOptions)
+    }
+    changeFocusSelect(true)
+  }
 
   React.useEffect(() => {
     const eventListener = (event): void => {
       if (event.target !== selectOptions.current && expandedOptions) {
         handleExpandedOptions(false)
+        changeFocusSelect(false)
       }
     }
     window.addEventListener('click', eventListener)
@@ -94,51 +97,48 @@ export const SelectComponent = (
   return (
     <div
       className={`select-component ${!disabled && 'cursor-pointer'} ${
-        disabled && 'disabled'
+        disabled ? 'disabled' : ''
       }`}
-      onClick={(): void => !disabled && handleExpandedOptions(!expandedOptions)}
+      onClick={handleOnClickSelect}
       ref={selectOptions}
       data-testid="selectorComponent"
     >
+      <div className="flex-space-between">
+        <LabelComponent
+          label={label}
+          disabled={disabled}
+          error={!!error}
+          required={required}
+          referenceId={id}
+        />
+        {error && <span className="warning-content">&#9888;</span>}
+      </div>
       <div className="select-dropdown flex-1">
         <div
           className={
-            `flex-row flex-middle bg-gray bg-lighten-3` +
+            `flex-row flex-middle border radius-default` +
             ` flex-space-between flex-no-wrap ${
-              borderStyle ? 'border radius-default bg-white border-padding' : ''
-            } ${
               error
-                ? 'border-warning'
+                ? 'border-warning bg-warning bg-lighten-3'
                 : expandedOptions
-                ? 'border-primary'
-                : 'border-gray border-lighten-1'
-            }`
+                ? 'border-primary bg-gray bg-lighten-3'
+                : 'border-gray border-lighten-1 bg-gray bg-lighten-3'
+            } ${focusSelect ? ' bg-gray bg-lighten-4' : ''}`
           }
         >
-          {search ? (
-            <div className="input-container">
-              <input
-                value={inputValue}
-                placeholder={placeholder}
-                className={`flex-column p-r ${className || ''} ${
-                  borderStyle ? '' : 'strong'
-                } ${disabled && 'disabled'}`}
-                data-testid="selected-option"
-                onChange={onSearchChange}
-                onClick={(): void => handleExpandedOptions(!shownOptions)}
-              />
-            </div>
-          ) : (
-            <div
-              className={`select-value-text flex-column p-r ${
-                className || ''
-              } ${borderStyle ? '' : 'strong'} ${disabled && 'disabled'}`}
+          <div className="input-container">
+            <input
+              value={inputValue || selectedOption?.value || ''}
+              placeholder={placeholder}
+              className={`flex-column p-r ${className || ''} ${
+                disabled && 'disabled'
+              }`}
               data-testid="selected-option"
-            >
-              {selectedOption.value || placeholder || ''}
-            </div>
-          )}
-
+              onChange={!disabled ? onSearchChange : null}
+              disabled={disabled || !search}
+              onClick={(): void => handleExpandedOptions(!shownOptions)}
+            />
+          </div>
           {displayArrow && (
             <div className="flex-column p-r arrow-dropdown">
               <i className="arrow down icon-arrow" />

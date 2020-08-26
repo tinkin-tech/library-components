@@ -29,8 +29,8 @@ const defaultSelect = (
     options={options}
     className="simple-select"
     placeholder={'Select an option'}
-    borderStyle={true}
     displayArrow={true}
+    id="select"
     error={''}
     disabled={false}
   />
@@ -48,15 +48,15 @@ describe('Select test', () => {
     expect(compJSON).toMatchSnapshot()
   })
 
-  it('Should call action function one time when click option', async () => {
+  it('Should call action function one time when click option', () => {
     const act = jest.fn()
     const comp = render(
       <SelectComponent
         onChange={act}
+        id="select"
         options={options}
         className="simple-select"
         placeholder={'Select an option'}
-        borderStyle={true}
         displayArrow={true}
         error={''}
         disabled={false}
@@ -68,15 +68,15 @@ describe('Select test', () => {
     expect(act).toHaveBeenCalledTimes(1)
   })
 
-  it('should change component selected value', async () => {
+  it('should change component selected value', () => {
     const act = jest.fn()
     const comp = render(
       <SelectComponent
         onChange={act}
         options={options}
+        id="select"
         className="simple-select"
         placeholder={'Select an option'}
-        borderStyle={true}
         displayArrow={true}
         error={''}
         disabled={false}
@@ -85,18 +85,20 @@ describe('Select test', () => {
     renderer.act(() => {
       fireEvent.click(comp.getByTestId('simple-select-option1'))
     })
-    expect(comp.getByTestId('selected-option').innerHTML).toBe('option1')
+    expect(comp.getByTestId('selected-option')).toMatchObject({
+      value: 'option1',
+    })
   })
 
-  it('should change options on search', async () => {
+  it('should change options on search', () => {
     const act = jest.fn()
     const comp = render(
       <SelectComponent
         onChange={act}
+        id="select"
         options={options}
         className="simple-select"
         placeholder={'Select an option'}
-        borderStyle={true}
         displayArrow={true}
         error={''}
         disabled={false}
