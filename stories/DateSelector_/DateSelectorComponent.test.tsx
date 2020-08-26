@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as renderer from 'react-test-renderer'
-import { DateSelector } from './DateSelector'
+import DateSelectorComponent from './DateSelectorComponent'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 const dateSelectorDefault = (
-  <DateSelector
+  <DateSelectorComponent
     date="20-07-2020"
     dateFormat="YYYY-MM-DD"
     label="date selector"
@@ -18,7 +18,7 @@ const dateSelectorDefault = (
   />
 )
 
-describe('', () => {
+describe('when render <DateSelectorComponent>', () => {
   it('Should render in virtual DOM', () => {
     const { getByTestId } = render(dateSelectorDefault)
     expect(getByTestId('dateSelectorComponent')).toBeInTheDocument()
@@ -39,7 +39,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="dateSelector"
           date="2020-07-20"
           onChangeDate={onChangeFake}
@@ -68,7 +68,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="selector"
           date="2019-12-10"
           onChangeDate={onChangeFake}
@@ -96,7 +96,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="selector"
           date="2020-07-22"
           onChangeDate={onChangeFake}
@@ -121,7 +121,7 @@ describe('', () => {
       date: string
     } => ({ id, date }))
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="selector"
         date="2020-07-22"
         onChangeDate={onChangeFake}
@@ -145,7 +145,7 @@ describe('', () => {
       date: string
     } => ({ id, date }))
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="selector"
         date="2020-07-22"
         onChangeDate={onChangeFake}
@@ -165,7 +165,7 @@ describe('', () => {
 
   it('Should set empty string in input values when pass empty date', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="datepicker"
         date=""
         onChangeDate={null}
@@ -189,7 +189,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="date"
           date=""
           onChangeDate={onChangeFake}
@@ -210,7 +210,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="date"
           date="2020"
           onChangeDate={onChangeFake}
@@ -231,7 +231,7 @@ describe('', () => {
         date: string
       } => ({ id, date }))
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="date"
           date="2020"
           onChangeDate={onChangeFake}
@@ -245,7 +245,7 @@ describe('', () => {
 
   it('Should set month and day of minDate when change year', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="minDateTest"
         date=""
         onChangeDate={(): void => null}
@@ -267,7 +267,7 @@ describe('', () => {
 
   it('Should set day of minDate when change month', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="minDateMonth"
         date=""
         onChangeDate={(): void => null}
@@ -290,7 +290,7 @@ describe('', () => {
       ' of the month',
     () => {
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="dateSelector"
           date=""
           onChangeDate={(): void => null}
@@ -313,7 +313,7 @@ describe('', () => {
 
   it('Should get years between minDate and maxDate', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date=""
         onChangeDate={(): void => null}
@@ -344,7 +344,7 @@ describe('', () => {
 
   it('Should get days in moth selected, contain 31 days', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-01-01"
         onChangeDate={(): void => null}
@@ -361,7 +361,7 @@ describe('', () => {
 
   it('Should get days in moth selected, contain 28 days', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2013-02-01"
         onChangeDate={(): void => null}
@@ -380,7 +380,7 @@ describe('', () => {
 
   it('Should get days in moth selected, contain 29 days', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-02-01"
         onChangeDate={(): void => null}
@@ -398,7 +398,7 @@ describe('', () => {
 
   it('Should show label in document', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-02-01"
         onChangeDate={(): void => null}
@@ -412,7 +412,7 @@ describe('', () => {
 
   it('Should label div not in document', () => {
     const { container } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-02-01"
         onChangeDate={(): void => null}
@@ -426,7 +426,7 @@ describe('', () => {
 
   it('Should open selector of year when click year input', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date=""
         onChangeDate={(): void => null}
@@ -446,7 +446,7 @@ describe('', () => {
 
   it('Should open selector of month when click month input', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-01-01"
         onChangeDate={(): void => null}
@@ -466,7 +466,7 @@ describe('', () => {
 
   it('Should open selector of year when click day input', () => {
     const { getByTestId } = render(
-      <DateSelector
+      <DateSelectorComponent
         id="dateSelector"
         date="2020-12-10"
         onChangeDate={(): void => null}
@@ -489,7 +489,7 @@ describe('', () => {
       'and close selector',
     () => {
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="selectDate"
           date="2020-12-10"
           onChangeDate={(): void => null}
@@ -516,7 +516,7 @@ describe('', () => {
       'and close selector',
     () => {
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="selectDate"
           date="2020-12-10"
           onChangeDate={(): void => null}
@@ -543,7 +543,7 @@ describe('', () => {
       'and close selector',
     () => {
       const { getByTestId } = render(
-        <DateSelector
+        <DateSelectorComponent
           id="selectDate"
           date="2020-12-10"
           onChangeDate={(): void => null}

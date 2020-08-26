@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { DateSelector } from './DateSelector'
+import DateSelectorComponent from './DateSelectorComponent'
 
 export default {
   title: 'Date Selector',
-  component: DateSelector,
+  component: DateSelectorComponent,
 }
 
 type formatType = 'YYYY-MM-DD'
@@ -16,7 +16,7 @@ interface PropsInterface {
 }
 
 const Template = (args: PropsInterface): React.ReactElement => (
-  <DateSelector {...args} />
+  <DateSelectorComponent {...args} />
 )
 
 export const WithValue = Template.bind({})

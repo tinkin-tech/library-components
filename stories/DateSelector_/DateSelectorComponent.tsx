@@ -3,12 +3,12 @@ import * as React from 'react'
 import DateUtils from '../../utils/dateUtils'
 import { LabelComponent } from '../label/Label'
 
-type FormatDateTypes = 'YYYY-MM-DD'
+type FormatDateTypes = 'YYYY-MM-DD' | 'YYYY-MM' | 'MM-DD'
 
-interface PropsInterface {
-  id: string
+export interface IDateSelectorComponent {
+  valueId: string
   date: string
-  onChangeDate: (id: string, date: string) => void
+  onChangeDate: (valueId: string, date: string) => void
   dateFormat: FormatDateTypes
   label?: string
   error?: string
@@ -18,13 +18,13 @@ interface PropsInterface {
   disable?: boolean
 }
 
-export const DateSelector = (
-  props: PropsInterface
-): React.ReactElement<PropsInterface> => {
+const DateSelectorComponent = (
+  props: IDateSelectorComponent
+): React.ReactElement<IDateSelectorComponent> => {
   const {
     onChangeDate,
     dateFormat,
-    id,
+    valueId,
     date,
     minDate,
     maxDate,
@@ -104,7 +104,7 @@ export const DateSelector = (
       `${dateToChange.year}-${dateToChange.month}-${dateToChange.day}`
     )
     onChangeDate(
-      id,
+      valueId,
       `${dateToChange.year}-${dateToChange.month}-${dateToChange.day}`
     )
   }
@@ -235,7 +235,7 @@ export const DateSelector = (
           label={label}
           required={required}
           error={!!error}
-          referenceId={id}
+          referenceId={valueId}
         />
         {error && <span className="icon-warning-content">&#9888;</span>}
       </div>
@@ -318,3 +318,5 @@ export const DateSelector = (
     </div>
   )
 }
+
+export default DateSelectorComponent
