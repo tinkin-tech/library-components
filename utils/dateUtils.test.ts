@@ -309,4 +309,35 @@ describe('Test for date utils', () => {
       )
     })
   })
+
+  describe('Test dateStringToObject', () => {
+    const cases = [
+      ['2019-02-23', 'YYYY-MM-DD', { year: '2019', month: '02', day: '23' }],
+      ['2019-02', 'YYYY-MM', { year: '2019', month: '02' }],
+      ['02-23', 'MM-DD', { month: '02', day: '23' }],
+      ['2019', 'YYYY', { year: '2019' }],
+      ['02', 'MM', { month: '02' }],
+      ['23', 'DD', { day: '23' }],
+      [
+        '2019-02-23 12:13:14',
+        'YYYY-MM-DD HH:mm:ss',
+        {
+          year: '2019',
+          month: '02',
+          day: '23',
+          hours: '12',
+          minutes: '13',
+          seconds: '14',
+        },
+      ],
+    ]
+
+    it.each(cases)(
+      'Given %p date and %p format should return %p',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (date: string, dateFormat: FormatTypes, result: any) => {
+        expect(DateUtils.dateStringToObject(date, dateFormat)).toEqual(result)
+      }
+    )
+  })
 })

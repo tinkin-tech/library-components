@@ -20,9 +20,19 @@ export type FormatTypes =
   | 'DD-MM-YYYY HH:mm:ss'
   | 'DD-MM-YYYY'
   | 'MM-YYYY'
+  | 'MM-DD'
   | 'YYYY'
   | 'MM'
   | 'DD'
+
+interface IObjectDate {
+  year?: string
+  month?: string
+  day?: string
+  hours?: string
+  minutes?: string
+  seconds?: string
+}
 
 const split = (dateFormat: string): string[] => {
   return dateFormat
@@ -332,5 +342,28 @@ export default class DateUtils {
     const dateTime =
       transformFirstDate.getTime() - transformSecondDate.getTime()
     return dateTime / (1000 * 3600 * 24)
+  }
+
+  static dateStringToObject(
+    date: string,
+    dateFormat: FormatTypes
+  ): IObjectDate {
+    const dateFormatToArray = dateFormat
+      .replace(new RegExp(`[: ]`, 'g'), '-')
+      .split('-')
+    const dateKeys = {
+      YYYY: 'year',
+      MM: 'month',
+      DD: 'day',
+      HH: 'hours',
+      mm: 'minutes',
+      ss: 'seconds',
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const dateObject = dateFormatToArray.reduce((accumulator, value: any) => {
+      accumulator[dateKeys[value]] = this.formatDate(date, dateFormat, value)
+      return accumulator
+    }, {})
+    return dateObject
   }
 }

@@ -61,4 +61,23 @@ describe('render component <DateSelectorComponent />', () => {
       expect(queryByText('Año')).toBeNull()
     })
   })
+
+  describe('should recive minDate property', () => {
+    fit(
+      'shouldnt show lower dates than minDate,' + 'dateFormat YYYY - MM - DD',
+      () => {
+        const { getByText, container } = render(
+          <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2019-03-02" />
+        )
+        fireEvent.click(getByText('Año'))
+        expect(container.querySelectorAll('li')[0].innerHTML).toContain('2019')
+        fireEvent.click(getByText('2019'))
+        fireEvent.click(getByText('Mes'))
+        expect(container.querySelectorAll('li')[0].innerHTML).toContain('03')
+        fireEvent.click(getByText('03'))
+        fireEvent.click(getByText('Día'))
+        expect(container.querySelectorAll('li')[0].innerHTML).toContain('02')
+      }
+    )
+  })
 })

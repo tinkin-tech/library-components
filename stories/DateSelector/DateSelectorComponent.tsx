@@ -1,26 +1,26 @@
 import * as React from 'react'
 import language from './language/es_EC'
+import DateUtils from '../../utils/dateUtils'
 
 type dateFormatType = 'YYYY-MM-DD' | 'YYYY-MM' | 'MM-DD'
 
 interface IDateSelectorComponent {
   dateFormat: dateFormatType
+  minDate?: string
 }
 
 const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
-  const { dateFormat } = props
-
-  const [yearsList] = React.useState(['2018', '2019', '2020', '2021'])
-  const [monthsList] = React.useState(['01', '02', '03', '05', '06'])
-  const [daysList] = React.useState(['01', '02', '03', '05', '26'])
+  const { dateFormat, minDate } = props
 
   const defaultSelectors = {
     year: false,
     month: false,
     day: false,
   }
+
+  const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
 
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
@@ -33,6 +33,46 @@ const DateSelectorComponent = (
     changeOpenSelectors(defaultSelectors)
     changeSelectDate({ ...selectDate, [dateKey]: value })
   }
+
+  const getYears = (): Array<string> => {
+    return [...new Array(5)].map((_, index) =>
+      (+minDateObject.year + index).toString()
+    )
+  }
+
+  const getMonths = (): Array<string> => {
+    return [...new Array(12)]
+      .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
+      .filter((value) => {
+        return (
+          selectDate.year !== minDateObject.year ||
+          +value >= +minDateObject.month
+        )
+      })
+  }
+
+  const getDays = (): Array<string> => {
+    const totalDays = DateUtils.getDaysInMonth(
+      `${selectDate.year}-${selectDate.month}`,
+      'YYYY-MM'
+    )
+    return selectDate.year && selectDate.month && totalDays
+      ? [...new Array(totalDays)]
+          .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
+          .filter((value) => {
+            const currentIsGreater = DateUtils.compareDates(
+              `${selectDate.year}-${selectDate.month}`,
+              'YYYY-MM',
+              `${minDateObject.year}-${minDateObject.month}`,
+              'greater'
+            )
+            return currentIsGreater || +value >= +minDateObject.day
+          })
+      : []
+  }
+
+  console.log(getDays())
+
   const renderDateSelectors = (): React.ReactElement => {
     const yearSelector = (
       <div className="date-selector">
@@ -46,7 +86,7 @@ const DateSelectorComponent = (
         </a>
         {openSelectors.year && (
           <ul className="selector-options">
-            {yearsList.map((year, key) => (
+            {getYears().map((year, key) => (
               <li key={key}>
                 <a onClick={(): void => changeDateValue('year', year)}>
                   {year}
@@ -72,7 +112,7 @@ const DateSelectorComponent = (
         </a>
         {openSelectors.month && (
           <ul className="selector-options">
-            {monthsList.map((month, key) => (
+            {getMonths().map((month, key) => (
               <li key={key}>
                 <a onClick={(): void => changeDateValue('month', month)}>
                   {month}
@@ -95,7 +135,7 @@ const DateSelectorComponent = (
         </a>
         {openSelectors.day && (
           <ul className="selector-options">
-            {daysList.map((day, key) => (
+            {getDays().map((day, key) => (
               <li key={key}>
                 <a onClick={(): void => changeDateValue('day', day)}>{day}</a>
               </li>
