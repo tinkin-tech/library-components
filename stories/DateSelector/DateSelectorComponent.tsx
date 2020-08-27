@@ -8,12 +8,13 @@ interface IDateSelectorComponent {
   dateFormat: dateFormatType
   minDate?: string
   maxDate?: string
+  date: string
 }
 
 const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
-  const { dateFormat, minDate, maxDate } = props
+  const { dateFormat, minDate, maxDate, date } = props
   const defaultMinDate =
     minDate ||
     DateUtils.substractDate(
@@ -30,6 +31,7 @@ const DateSelectorComponent = (
       2,
       'years'
     )
+  const dateObject = date && DateUtils.dateStringToObject(date, dateFormat)
   const defaultSelectors = {
     year: false,
     month: false,
@@ -42,9 +44,9 @@ const DateSelectorComponent = (
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
   const [selectDate, changeSelectDate] = React.useState({
-    year: null,
-    month: null,
-    day: null,
+    year: dateObject?.year || null,
+    month: dateObject?.month || null,
+    day: dateObject?.day || null,
   })
   const changeDateValue = (dateKey: string, value: string): void => {
     changeOpenSelectors(defaultSelectors)
@@ -158,10 +160,12 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            changeOpenSelectors({
-              ...openSelectors,
-              month: !openSelectors.month,
-            })
+            selectDate.year
+              ? changeOpenSelectors({
+                  ...openSelectors,
+                  month: !openSelectors.month,
+                })
+              : null
           }
         >
           {selectDate.month || language.MM}
@@ -184,7 +188,12 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            changeOpenSelectors({ ...openSelectors, day: !openSelectors.day })
+            selectDate.year
+              ? changeOpenSelectors({
+                  ...openSelectors,
+                  day: !openSelectors.day,
+                })
+              : null
           }
         >
           {selectDate.day || language.DD}
