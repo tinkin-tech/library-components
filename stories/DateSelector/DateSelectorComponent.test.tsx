@@ -181,4 +181,29 @@ describe('render component <DateSelectorComponent />', () => {
       expect(queryAllByText('19')).toHaveLength(0)
     })
   })
+
+  describe('should recive maxDate property', () => {
+    fit('should select highest available date, this should be maxDate', () => {
+      const { getByText, container, getAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" maxDate="2021-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      let curretSelector = container.querySelectorAll('li')
+      expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
+        '2021'
+      )
+      fireEvent.click(getByText('2021'))
+      fireEvent.click(getAllByText('01')[0])
+      curretSelector = container.querySelectorAll('li')
+      expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
+        '02'
+      )
+      fireEvent.click(getByText('02'))
+      fireEvent.click(getByText('01'))
+      curretSelector = container.querySelectorAll('li')
+      expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
+        '20'
+      )
+    })
+  })
 })

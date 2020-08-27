@@ -7,12 +7,13 @@ type dateFormatType = 'YYYY-MM-DD' | 'YYYY-MM' | 'MM-DD'
 interface IDateSelectorComponent {
   dateFormat: dateFormatType
   minDate?: string
+  maxDate?: string
 }
 
 const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
-  const { dateFormat, minDate } = props
+  const { dateFormat, minDate, maxDate } = props
   const defaultMinDate =
     minDate ||
     DateUtils.substractDate(
@@ -28,6 +29,7 @@ const DateSelectorComponent = (
   }
 
   const minDateObject = DateUtils.dateStringToObject(defaultMinDate, dateFormat)
+  const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
 
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
@@ -60,21 +62,32 @@ const DateSelectorComponent = (
   }
 
   const getYears = (): Array<string> => {
-    return [...new Array(5)].map((_, index) =>
-      (+minDateObject.year + index).toString()
-    )
+    return [
+      ...new Array(+maxDateObject.year - +minDateObject.year + 1),
+    ].map((_, index) => (+minDateObject.year + index).toString())
   }
 
   const getMonths = (): Array<string> => {
     return [...new Array(12)]
       .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
-      .filter((value) => {
-        return (
-          selectDate.year !== minDateObject.year ||
-          +value >= +minDateObject.month
-        )
+      .filter((_, key) => {
+        const isGreater = +minDateObject.month >= key + 1
+        const isLower = +maxDateObject.month >= key + 1
+        if (
+          minDateObject.year === selectDate.year &&
+          maxDateObject.year === selectDate.year
+        ) {
+          return isGreater && isLower
+        } else if (minDateObject.year === selectDate.year) {
+          return isGreater
+        } else if (maxDateObject.year === selectDate.year) {
+          return isLower
+        }
+        return true
       })
   }
+  console.log(maxDateObject)
+  console.log(getMonths())
 
   const getDays = (): Array<string> => {
     const totalDays = DateUtils.getDaysInMonth(
