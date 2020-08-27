@@ -1,7 +1,7 @@
 import DateUtils, {
-  FormatTypes,
-  AddAndSubtractDateTypes,
-  CompareDatesTypes,
+  IFormatTypes,
+  IAddAndSubtractDateTypes,
+  ICompareDatesTypes,
 } from './dateUtils'
 
 describe('Test for date utils', () => {
@@ -114,9 +114,9 @@ describe('Test for date utils', () => {
         'addDate() returns %p',
       (
         testDate: string,
-        testFormat: FormatTypes,
+        testFormat: IFormatTypes,
         testUnits: number,
-        testOption: AddAndSubtractDateTypes,
+        testOption: IAddAndSubtractDateTypes,
         testResult: string
       ) => {
         const result = DateUtils.addDate(
@@ -149,9 +149,9 @@ describe('Test for date utils', () => {
         'subtractDate() returns %p',
       (
         testDate: string,
-        testFormat: FormatTypes,
+        testFormat: IFormatTypes,
         testUnits: number,
-        testOption: AddAndSubtractDateTypes,
+        testOption: IAddAndSubtractDateTypes,
         testResult: string
       ) => {
         const result = DateUtils.substractDate(
@@ -186,8 +186,8 @@ describe('Test for date utils', () => {
       (
         testDate: string,
         testCompareDate: string,
-        testFormat: FormatTypes,
-        testOptions: CompareDatesTypes,
+        testFormat: IFormatTypes,
+        testOptions: ICompareDatesTypes,
         testResult: boolean
       ) => {
         expect(
@@ -335,7 +335,7 @@ describe('Test for date utils', () => {
     it.each(cases)(
       'Given %p date and %p format should return %p',
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (date: string, dateFormat: FormatTypes, result: any) => {
+      (date: string, dateFormat: IFormatTypes, result: any) => {
         expect(DateUtils.dateStringToObject(date, dateFormat)).toEqual(result)
       }
     )

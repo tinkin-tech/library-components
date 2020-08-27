@@ -11,11 +11,17 @@ describe('render component <DateSelectorComponent />', () => {
   const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
   const maxDate = DateUtils.addDate(currentDate, dateFormat, 2, 'years')
   const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
+  const mockOnChangeDate = jest.fn()
 
   describe('should select year, month and day', () => {
     it('should render DateSelectorComponent and select year', () => {
       const { getByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Año'))
       fireEvent.click(getByText(minDateObject.year))
@@ -24,7 +30,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should render DateSelectorComponent and select month', () => {
       const { getByText, getAllByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Año'))
       fireEvent.click(getByText(minDateObject.year))
@@ -35,7 +46,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should render DateSelectorComponent and select day', () => {
       const { getByText, getAllByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Año'))
       fireEvent.click(getByText((parseInt(minDateObject.year) + 1).toString()))
@@ -50,7 +66,12 @@ describe('render component <DateSelectorComponent />', () => {
   describe('should recive date format property', () => {
     it('should render DateSelectorComponent with dateFormat YYYY-MM-DD', () => {
       const { getByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       expect(getByText('Año')).toBeInTheDocument()
       expect(getByText('Mes')).toBeInTheDocument()
@@ -59,7 +80,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should render DateSelectorComponent with dateFormat YYYY-MM', () => {
       const { getByText, queryByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       expect(getByText('Año')).toBeInTheDocument()
       expect(getByText('Mes')).toBeInTheDocument()
@@ -68,7 +94,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should render DateSelectorComponent with dateFormat MM-DD', () => {
       const { getByText, queryByText } = render(
-        <DateSelectorComponent dateFormat="MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       expect(getByText('Mes')).toBeInTheDocument()
       expect(getByText('Día')).toBeInTheDocument()
@@ -83,6 +114,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2019-03-02"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -97,7 +130,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should set min date when its not provided', () => {
       const { getByText, container, getAllByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" date="" />
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Año'))
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
@@ -124,6 +162,8 @@ describe('render component <DateSelectorComponent />', () => {
             dateFormat="YYYY-MM-DD"
             minDate="2017-02-20"
             date=""
+            onChangeDate={mockOnChangeDate}
+            valueId="date"
           />
         )
         fireEvent.click(getByText('Año'))
@@ -139,6 +179,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -153,6 +195,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -168,6 +212,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -183,6 +229,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -196,6 +244,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -210,6 +260,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat="YYYY-MM-DD"
           minDate="2017-02-20"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -226,6 +278,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat={dateFormat}
           maxDate={maxDate}
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -255,6 +309,8 @@ describe('render component <DateSelectorComponent />', () => {
           dateFormat={dateFormat}
           maxDate={maxDate}
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -274,6 +330,8 @@ describe('render component <DateSelectorComponent />', () => {
           maxDate="2021-10-12"
           minDate="2021-03-18"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -289,6 +347,8 @@ describe('render component <DateSelectorComponent />', () => {
           maxDate="2021-10-12"
           minDate="2021-03-18"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -306,6 +366,8 @@ describe('render component <DateSelectorComponent />', () => {
           maxDate="2021-03-27"
           minDate="2021-03-05"
           date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
         />
       )
       fireEvent.click(getByText('Año'))
@@ -318,7 +380,12 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('should set maxDate with 2 years bigger to currentDate, when not pass maxDate property', () => {
       const { getByText, container, getAllByText } = render(
-        <DateSelectorComponent dateFormat={dateFormat} date="" />
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Año'))
       let querySelector = container.querySelectorAll('li')
@@ -345,7 +412,12 @@ describe('render component <DateSelectorComponent />', () => {
   describe('should pass date', () => {
     it('Should set date in year, month and day section when pass date property', () => {
       const { getByText } = render(
-        <DateSelectorComponent dateFormat={dateFormat} date="2020-10-12" />
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          date="2020-10-12"
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       expect(getByText('2020')).toBeInTheDocument()
       expect(getByText('10')).toBeInTheDocument()
@@ -354,12 +426,80 @@ describe('render component <DateSelectorComponent />', () => {
 
     it('Should not open month or date selectors when selected date in null or empty', () => {
       const { getByText, container } = render(
-        <DateSelectorComponent dateFormat={dateFormat} date="" />
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          date=""
+          onChangeDate={mockOnChangeDate}
+          valueId="date"
+        />
       )
       fireEvent.click(getByText('Mes'))
       expect(container.querySelectorAll('li')).toHaveLength(0)
       fireEvent.click(getByText('Día'))
       expect(container.querySelectorAll('li')).toHaveLength(0)
     })
+  })
+
+  describe('should pass onChangeDate', () => {
+    it('Should call onChangeDate and receive the date selected from user and valueId prop', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          minDate="2019-12-24"
+          maxDate="2020-12-24"
+          dateFormat={dateFormat}
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2020'))
+      expect(mockOnChangeDate).toHaveBeenCalledWith('2020-01-01', 'date')
+    })
+
+    it('Should call onChangeDate and receive the date selected from user and valueId prop in the dateFormat MM-DD', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          minDate="01-30"
+          maxDate="12-30"
+          dateFormat="MM-DD"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+        />
+      )
+      fireEvent.click(getByText('Mes'))
+      fireEvent.click(getByText('05'))
+      expect(mockOnChangeDate).toHaveBeenCalledWith('05-01', 'date')
+    })
+
+    it('Should call onChangeDate and receive the date selected from user and valueId prop in the dateFormat YYYY-MM', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          minDate="2020-08"
+          maxDate="2022-06"
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2020'))
+      expect(mockOnChangeDate).toHaveBeenCalledWith('2020-08', 'date')
+    })
+  })
+
+  describe('should pass label', () => {
+    const { getByText } = render(
+      <DateSelectorComponent
+        dateFormat="YYYY-MM"
+        date=""
+        valueId="date"
+        onChangeDate={mockOnChangeDate}
+        label="My Date"
+      />
+    )
+    expect(getByText('My Date')).toBeInTheDocument()
   })
 })

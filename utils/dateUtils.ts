@@ -1,4 +1,4 @@
-export type AddAndSubtractDateTypes =
+export type IAddAndSubtractDateTypes =
   | 'seconds'
   | 'minutes'
   | 'hours'
@@ -7,9 +7,9 @@ export type AddAndSubtractDateTypes =
   | 'months'
   | 'years'
 
-export type CompareDatesTypes = 'less' | 'greater' | 'equal'
+export type ICompareDatesTypes = 'less' | 'greater' | 'equal'
 
-export type FormatTypes =
+export type IFormatTypes =
   | 'YYYY-MM-DD HH:mm'
   | 'YYYY-MM-DD HH:mm:ss'
   | 'HH:mm DD-MM-YYYY'
@@ -47,7 +47,7 @@ const split = (dateFormat: string): string[] => {
 }
 
 export default class DateUtils {
-  static transformDateStringToDate(date: string, format: FormatTypes): Date {
+  static transformDateStringToDate(date: string, format: IFormatTypes): Date {
     const dateFormat = {
       DD: 1,
       HH: 0,
@@ -117,8 +117,8 @@ export default class DateUtils {
 
   static formatDate(
     datetoTranform: Date | string,
-    format: FormatTypes,
-    newFormat: FormatTypes
+    format: IFormatTypes,
+    newFormat: IFormatTypes
   ): string {
     const date =
       typeof datetoTranform === 'string'
@@ -157,9 +157,9 @@ export default class DateUtils {
 
   static addDate(
     date: string,
-    format: FormatTypes,
+    format: IFormatTypes,
     units: number,
-    option: AddAndSubtractDateTypes
+    option: IAddAndSubtractDateTypes
   ): string {
     let newDate = this.transformDateStringToDate(date, format)
     if (units <= 0) {
@@ -193,9 +193,9 @@ export default class DateUtils {
 
   static substractDate(
     date: string,
-    format: FormatTypes,
+    format: IFormatTypes,
     units: number,
-    option: AddAndSubtractDateTypes
+    option: IAddAndSubtractDateTypes
   ): string {
     let newDate = this.transformDateStringToDate(date, format)
     if (units < 0) {
@@ -229,9 +229,9 @@ export default class DateUtils {
 
   static compareDates(
     date: string,
-    format: FormatTypes,
+    format: IFormatTypes,
     comparedDate: string,
-    options: CompareDatesTypes
+    options: ICompareDatesTypes
   ): boolean {
     switch (options.toLowerCase()) {
       case 'less':
@@ -253,7 +253,7 @@ export default class DateUtils {
     return null
   }
 
-  static getDaysInMonth(date: string, format: FormatTypes): number {
+  static getDaysInMonth(date: string, format: IFormatTypes): number {
     const transformDate = this.transformDateStringToDate(date, format)
     return new Date(
       transformDate.getFullYear(),
@@ -269,25 +269,25 @@ export default class DateUtils {
 
   static transformDateStringToUnix(
     dateString: string,
-    format: FormatTypes
+    format: IFormatTypes
   ): number {
     const date = this.transformDateStringToDate(dateString, format)
     return date.getTime() / 1000
   }
 
-  static setYear(date: string, format: FormatTypes, year: number): string {
+  static setYear(date: string, format: IFormatTypes, year: number): string {
     const transformDate = this.transformDateStringToDate(date, format)
     transformDate.setFullYear(year)
     return this.formatDate(transformDate, null, format)
   }
 
-  static setMonth(date: string, format: FormatTypes, month: number): string {
+  static setMonth(date: string, format: IFormatTypes, month: number): string {
     const transformDate = this.transformDateStringToDate(date, format)
     transformDate.setMonth(month - 1)
     return this.formatDate(transformDate, null, format)
   }
 
-  static setDay(date: string, format: FormatTypes, day: number): string {
+  static setDay(date: string, format: IFormatTypes, day: number): string {
     const transformDate = this.transformDateStringToDate(date, format)
     transformDate.setDate(day)
     return this.formatDate(transformDate, null, format)
@@ -296,7 +296,7 @@ export default class DateUtils {
   static yearsDiff(
     firstDate: string,
     secondDate: string,
-    format: FormatTypes
+    format: IFormatTypes
   ): number {
     const transformFirstDate = this.transformDateStringToDate(firstDate, format)
     const transformSecondDate = this.transformDateStringToDate(
@@ -306,7 +306,7 @@ export default class DateUtils {
     return transformFirstDate.getFullYear() - transformSecondDate.getFullYear()
   }
 
-  static getFullYear(date: string, formatDate: FormatTypes): number {
+  static getFullYear(date: string, formatDate: IFormatTypes): number {
     const tranformDate = this.transformDateStringToDate(date, formatDate)
     return tranformDate.getFullYear()
   }
@@ -314,7 +314,7 @@ export default class DateUtils {
   static monthsDiff(
     firstDate: string,
     secondDate: string,
-    format: FormatTypes
+    format: IFormatTypes
   ): number {
     const transformFirstDate = this.transformDateStringToDate(firstDate, format)
     const transformSecondDate = this.transformDateStringToDate(
@@ -332,7 +332,7 @@ export default class DateUtils {
   static daysDiff(
     firstDate: string,
     secondDate: string,
-    format: FormatTypes
+    format: IFormatTypes
   ): number {
     const transformFirstDate = this.transformDateStringToDate(firstDate, format)
     const transformSecondDate = this.transformDateStringToDate(
@@ -344,26 +344,34 @@ export default class DateUtils {
     return dateTime / (1000 * 3600 * 24)
   }
 
+  static dateFormatToObject = (dateFormat: IFormatTypes) => {
+    return dateFormat.replace(new RegExp(`[: ]`, 'g'), '-').split('-')
+  }
+
+  static dateKeys = {
+    YYYY: 'year',
+    MM: 'month',
+    DD: 'day',
+    HH: 'hours',
+    mm: 'minutes',
+    ss: 'seconds',
+  }
+
   static dateStringToObject(
     date: string,
-    dateFormat: FormatTypes
+    dateFormat: IFormatTypes
   ): IObjectDate {
-    const dateFormatToArray = dateFormat
-      .replace(new RegExp(`[: ]`, 'g'), '-')
-      .split('-')
-    const dateKeys = {
-      YYYY: 'year',
-      MM: 'month',
-      DD: 'day',
-      HH: 'hours',
-      mm: 'minutes',
-      ss: 'seconds',
-    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const dateObject = dateFormatToArray.reduce((accumulator, value: any) => {
-      accumulator[dateKeys[value]] = this.formatDate(date, dateFormat, value)
-      return accumulator
-    }, {})
-    return dateObject
+    return this.dateFormatToObject(dateFormat).reduce(
+      (accumulator, value: any) => {
+        accumulator[this.dateKeys[value]] = this.formatDate(
+          date,
+          dateFormat,
+          value
+        )
+        return accumulator
+      },
+      {}
+    )
   }
 }

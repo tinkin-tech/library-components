@@ -9,12 +9,15 @@ interface IDateSelectorComponent {
   minDate?: string
   maxDate?: string
   date: string
+  valueId: string
+  label?: string
+  onChangeDate: (date: string, valueId: string) => void
 }
 
 const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
-  const { dateFormat, minDate, maxDate, date } = props
+  const { dateFormat, minDate, maxDate, date, onChangeDate, valueId, label } = props
   const defaultMinDate =
     minDate ||
     DateUtils.substractDate(
@@ -50,14 +53,15 @@ const DateSelectorComponent = (
   })
   const changeDateValue = (dateKey: string, value: string): void => {
     changeOpenSelectors(defaultSelectors)
+    let dateToUpdate = null
     if (dateKey === 'year') {
-      changeSelectDate({
+      dateToUpdate = {
         year: value,
         month: value === minDateObject.year ? minDateObject.month : '01',
         day: value === minDateObject.year ? minDateObject.day : '01',
-      })
+      }
     } else if (dateKey === 'month') {
-      changeSelectDate({
+      dateToUpdate = {
         ...selectDate,
         month: value,
         day:
@@ -65,10 +69,21 @@ const DateSelectorComponent = (
           value === minDateObject.month
             ? minDateObject.day
             : '01',
-      })
+      }
     } else {
-      changeSelectDate({ ...selectDate, [dateKey]: value })
+      dateToUpdate = { ...selectDate, [dateKey]: value }
     }
+
+    changeSelectDate(dateToUpdate)
+
+    const newDate = DateUtils.dateFormatToObject(dateFormat)
+      .reduce((cumulator, value) => {
+        cumulator.push(dateToUpdate[DateUtils.dateKeys[value]])
+        return cumulator
+      }, [])
+      .join('-')
+
+    onChangeDate(newDate, valueId)
   }
 
   const getYears = (): Array<string> => {
@@ -155,11 +170,13 @@ const DateSelectorComponent = (
         )}
       </div>
     )
+    const dateFormatObject = DateUtils.dateFormatToObject(dateFormat)
     const monthSelector = (
       <div className="date-selector">
         <a
           className="selector-value"
           onClick={(): void =>
+            !dateFormatObject.find((dateKey) => dateKey === 'YYYY') ||
             selectDate.year
               ? changeOpenSelectors({
                   ...openSelectors,
@@ -234,7 +251,12 @@ const DateSelectorComponent = (
         )
     }
   }
-  return <div className="date-selector-component">{renderDateSelectors()}</div>
+  return <div className="date-selector-component">
+    {label && }
+    <div className="date-selector-option">
+      {renderDateSelectors()}
+    </div>
+  </div>
 }
 
 export default DateSelectorComponent
