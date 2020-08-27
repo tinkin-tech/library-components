@@ -22,6 +22,14 @@ const DateSelectorComponent = (
       2,
       'years'
     )
+  const defaultMaxDate =
+    maxDate ||
+    DateUtils.addDate(
+      DateUtils.formatDate(new Date(), null, dateFormat),
+      dateFormat,
+      2,
+      'years'
+    )
   const defaultSelectors = {
     year: false,
     month: false,
@@ -29,7 +37,7 @@ const DateSelectorComponent = (
   }
 
   const minDateObject = DateUtils.dateStringToObject(defaultMinDate, dateFormat)
-  const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
+  const maxDateObject = DateUtils.dateStringToObject(defaultMaxDate, dateFormat)
 
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
@@ -71,7 +79,7 @@ const DateSelectorComponent = (
     return [...new Array(12)]
       .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
       .filter((_, key) => {
-        const isGreater = +minDateObject.month >= key + 1
+        const isGreater = +minDateObject.month <= key + 1
         const isLower = +maxDateObject.month >= key + 1
         if (
           minDateObject.year === selectDate.year &&
@@ -86,8 +94,6 @@ const DateSelectorComponent = (
         return true
       })
   }
-  console.log(maxDateObject)
-  console.log(getMonths())
 
   const getDays = (): Array<string> => {
     const totalDays = DateUtils.getDaysInMonth(
@@ -97,14 +103,28 @@ const DateSelectorComponent = (
     return selectDate.year && selectDate.month && totalDays
       ? [...new Array(totalDays)]
           .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
-          .filter((value) => {
-            const currentIsGreater = DateUtils.compareDates(
-              `${selectDate.year}-${selectDate.month}`,
-              'YYYY-MM',
-              `${minDateObject.year}-${minDateObject.month}`,
-              'greater'
-            )
-            return currentIsGreater || +value >= +minDateObject.day
+          .filter((_, key) => {
+            const isGreater = +minDateObject.day <= key + 1
+            const isLower = +maxDateObject.day >= key + 1
+            if (
+              minDateObject.year === selectDate.year &&
+              maxDateObject.year === selectDate.year &&
+              minDateObject.month === selectDate.month &&
+              maxDateObject.month === selectDate.month
+            ) {
+              return isGreater && isLower
+            } else if (
+              minDateObject.year === selectDate.year &&
+              minDateObject.month === selectDate.month
+            ) {
+              return isGreater
+            } else if (
+              maxDateObject.year === selectDate.year &&
+              maxDateObject.month === selectDate.month
+            ) {
+              return isLower
+            }
+            return true
           })
       : []
   }

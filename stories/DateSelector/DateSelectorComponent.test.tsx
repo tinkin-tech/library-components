@@ -5,9 +5,12 @@ import '@testing-library/jest-dom/extend-expect'
 import DateUtils from '../../utils/dateUtils'
 
 describe('render component <DateSelectorComponent />', () => {
-  const currentDate = DateUtils.formatDate(new Date(), null, 'YYYY-MM-DD')
-  const minDate = DateUtils.substractDate(currentDate, 'YYYY-MM-DD', 2, 'years')
-  const minDateObject = DateUtils.dateStringToObject(minDate, 'YYYY-MM-DD')
+  const dateFormat = 'YYYY-MM-DD'
+  const currentDate = DateUtils.formatDate(new Date(), null, dateFormat)
+  const minDate = DateUtils.substractDate(currentDate, dateFormat, 2, 'years')
+  const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
+  const maxDate = DateUtils.addDate(currentDate, dateFormat, 2, 'years')
+  const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
 
   describe('should select year, month and day', () => {
     it('should render DateSelectorComponent and select year', () => {
@@ -183,26 +186,113 @@ describe('render component <DateSelectorComponent />', () => {
   })
 
   describe('should recive maxDate property', () => {
-    fit('should select highest available date, this should be maxDate', () => {
+    it('should select highest available date, this should be maxDate', () => {
       const { getByText, container, getAllByText } = render(
-        <DateSelectorComponent dateFormat="YYYY-MM-DD" maxDate="2021-02-20" />
+        <DateSelectorComponent dateFormat={dateFormat} maxDate={maxDate} />
       )
       fireEvent.click(getByText('Año'))
       let curretSelector = container.querySelectorAll('li')
       expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
-        '2021'
+        maxDateObject.year
       )
-      fireEvent.click(getByText('2021'))
+      fireEvent.click(getByText(maxDateObject.year))
       fireEvent.click(getAllByText('01')[0])
       curretSelector = container.querySelectorAll('li')
       expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
-        '02'
+        maxDateObject.month
       )
-      fireEvent.click(getByText('02'))
-      fireEvent.click(getByText('01'))
+      fireEvent.click(getByText(maxDateObject.month))
+      fireEvent.click(
+        maxDateObject.month === '01' ? getAllByText('01')[1] : getByText('01')
+      )
       curretSelector = container.querySelectorAll('li')
       expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
-        '20'
+        maxDateObject.day
+      )
+    })
+
+    it('should set first month and first day of year when select year equal to maxDate year', () => {
+      const { getByText, container, getAllByText } = render(
+        <DateSelectorComponent dateFormat={dateFormat} maxDate={maxDate} />
+      )
+      fireEvent.click(getByText('Año'))
+      const curretSelector = container.querySelectorAll('li')
+      expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
+        maxDateObject.year
+      )
+      fireEvent.click(getByText((+maxDateObject.year - 1).toString()))
+      expect(getAllByText('01')[0]).toBeInTheDocument()
+      expect(getAllByText('01')[1]).toBeInTheDocument()
+    })
+
+    it('should set minDate month and minDate day when select year equal to maxDate year and minDate year', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          maxDate="2021-10-12"
+          minDate="2021-03-18"
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2021'))
+      expect(getByText('03')).toBeInTheDocument()
+      expect(getByText('18')).toBeInTheDocument()
+    })
+
+    it('should show month between maxDate and minDate, when maxDate year is equal to minDate year ', () => {
+      const { getByText, container } = render(
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          maxDate="2021-10-12"
+          minDate="2021-03-18"
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2021'))
+      fireEvent.click(getByText('03'))
+      const querySelector = container.querySelectorAll('li')
+      expect(querySelector[0].innerHTML).toContain('03')
+      expect(querySelector[querySelector.length - 1].innerHTML).toContain('10')
+    })
+
+    it('should show days between maxDate and minDate, when maxDate year is equal to minDate year ', () => {
+      const { getByText, container } = render(
+        <DateSelectorComponent
+          dateFormat={dateFormat}
+          maxDate="2021-03-27"
+          minDate="2021-03-05"
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2021'))
+      fireEvent.click(getByText('05'))
+      const querySelector = container.querySelectorAll('li')
+      expect(querySelector[0].innerHTML).toContain('05')
+      expect(querySelector[querySelector.length - 1].innerHTML).toContain('27')
+    })
+
+    it('should set maxDate with 2 years bigger to currentDate, when not pass maxDate property', () => {
+      const { getByText, container, getAllByText } = render(
+        <DateSelectorComponent dateFormat={dateFormat} />
+      )
+      fireEvent.click(getByText('Año'))
+      let querySelector = container.querySelectorAll('li')
+      expect(querySelector[querySelector.length - 1].innerHTML).toContain(
+        maxDateObject.year
+      )
+      fireEvent.click(getByText(maxDateObject.year))
+      fireEvent.click(getAllByText('01')[0])
+      querySelector = container.querySelectorAll('li')
+      expect(querySelector[querySelector.length - 1].innerHTML).toContain(
+        maxDateObject.month
+      )
+      fireEvent.click(getByText(maxDateObject.month))
+      fireEvent.click(
+        maxDateObject.month === '01' ? getAllByText('01')[1] : getByText('01')
+      )
+      querySelector = container.querySelectorAll('li')
+      expect(querySelector[querySelector.length - 1].innerHTML).toContain(
+        maxDateObject.day
       )
     })
   })
