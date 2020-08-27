@@ -29,14 +29,14 @@ describe('render component <DateSelectorComponent />', () => {
     })
 
     it('should render DateSelectorComponent and select day', () => {
-      const { getByText } = render(
+      const { getByText, getAllByText } = render(
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
       fireEvent.click(getByText('Año'))
       fireEvent.click(getByText((parseInt(minDateObject.year) + 1).toString()))
-      fireEvent.click(getByText('Mes'))
-      fireEvent.click(getByText(minDateObject.month))
-      fireEvent.click(getByText('Día'))
+      fireEvent.click(getAllByText('01')[0])
+      fireEvent.click(getByText('12'))
+      fireEvent.click(getByText('01'))
       fireEvent.click(getByText(minDateObject.day))
       expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
@@ -119,5 +119,66 @@ describe('render component <DateSelectorComponent />', () => {
         expect(getByText('20')).toBeInTheDocument()
       }
     )
+
+    it('should set first year month and first month day when select year not equal to minDate year', () => {
+      const { getByText, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2018'))
+      expect(queryAllByText('01')[0]).toBeInTheDocument()
+      expect(queryAllByText('01')[1]).toBeInTheDocument()
+    })
+
+    it('should set minDate day when preselect minDate year and minDate month', () => {
+      const { getByText, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2017'))
+      fireEvent.click(getByText('02'))
+      fireEvent.click(queryAllByText('02')[1])
+      expect(getByText('20')).toBeInTheDocument()
+    })
+
+    it('should set first month day when preselect different minDate month in minDate year', () => {
+      const { getByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2017'))
+      fireEvent.click(getByText('02'))
+      fireEvent.click(getByText('03'))
+      expect(getByText('01')).toBeInTheDocument()
+    })
+
+    it('should not contain year lower to minDate year', () => {
+      const { getByText, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2017'))
+      expect(queryAllByText('2016')).toHaveLength(0)
+    })
+
+    it('should not contain months lower to minDate month when selected year equal to minDate year', () => {
+      const { getByText, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2017'))
+      fireEvent.click(getByText('02'))
+      expect(queryAllByText('01')).toHaveLength(0)
+    })
+
+    it('should not contain day lower to minDate day when selected year and month equal to minDate year/month', () => {
+      const { getByText, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+      )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText('2017'))
+      fireEvent.click(getByText('20'))
+      expect(queryAllByText('19')).toHaveLength(0)
+    })
   })
 })
