@@ -13,14 +13,21 @@ const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
   const { dateFormat, minDate } = props
-
+  const defaultMinDate =
+    minDate ||
+    DateUtils.substractDate(
+      DateUtils.formatDate(new Date(), null, dateFormat),
+      dateFormat,
+      2,
+      'years'
+    )
   const defaultSelectors = {
     year: false,
     month: false,
     day: false,
   }
 
-  const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
+  const minDateObject = DateUtils.dateStringToObject(defaultMinDate, dateFormat)
 
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
@@ -70,8 +77,6 @@ const DateSelectorComponent = (
           })
       : []
   }
-
-  console.log(getDays())
 
   const renderDateSelectors = (): React.ReactElement => {
     const yearSelector = (

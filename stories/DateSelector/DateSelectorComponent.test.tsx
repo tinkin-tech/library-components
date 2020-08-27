@@ -2,16 +2,21 @@ import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import DateSelectorComponent from './DateSelectorComponent'
 import '@testing-library/jest-dom/extend-expect'
+import DateUtils from '../../utils/dateUtils'
 
 describe('render component <DateSelectorComponent />', () => {
+  const currentDate = DateUtils.formatDate(new Date(), null, 'YYYY-MM-DD')
+  const minDate = DateUtils.substractDate(currentDate, 'YYYY-MM-DD', 2, 'years')
+  const minDateObject = DateUtils.dateStringToObject(minDate, 'YYYY-MM-DD')
+
   describe('should select year, month and day', () => {
     it('should render DateSelectorComponent and select year', () => {
       const { getByText } = render(
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
       fireEvent.click(getByText('Año'))
-      fireEvent.click(getByText('2021'))
-      expect(getByText('2021')).toBeInTheDocument()
+      fireEvent.click(getByText(minDateObject.year))
+      expect(getByText(minDateObject.year)).toBeInTheDocument()
     })
 
     it('should render DateSelectorComponent and select month', () => {
@@ -19,17 +24,21 @@ describe('render component <DateSelectorComponent />', () => {
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
       fireEvent.click(getByText('Mes'))
-      fireEvent.click(getByText('05'))
-      expect(getByText('05')).toBeInTheDocument()
+      fireEvent.click(getByText(minDateObject.month))
+      expect(getByText(minDateObject.month)).toBeInTheDocument()
     })
 
     it('should render DateSelectorComponent and select day', () => {
       const { getByText } = render(
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
+      fireEvent.click(getByText('Año'))
+      fireEvent.click(getByText(minDateObject.year))
+      fireEvent.click(getByText('Mes'))
+      fireEvent.click(getByText(minDateObject.month))
       fireEvent.click(getByText('Día'))
-      fireEvent.click(getByText('26'))
-      expect(getByText('26')).toBeInTheDocument()
+      fireEvent.click(getByText(minDateObject.day))
+      expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
   })
 
@@ -63,7 +72,7 @@ describe('render component <DateSelectorComponent />', () => {
   })
 
   describe('should recive minDate property', () => {
-    fit(
+    it(
       'shouldnt show lower dates than minDate,' + 'dateFormat YYYY - MM - DD',
       () => {
         const { getByText, container } = render(
@@ -79,5 +88,25 @@ describe('render component <DateSelectorComponent />', () => {
         expect(container.querySelectorAll('li')[0].innerHTML).toContain('02')
       }
     )
+
+    it('shoud set min date when its not provided', () => {
+      const { getByText, container } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain(
+        minDateObject.year
+      )
+      fireEvent.click(getByText(minDateObject.year))
+      fireEvent.click(getByText('Mes'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain(
+        minDateObject.month
+      )
+      fireEvent.click(getByText(minDateObject.month))
+      fireEvent.click(getByText('Día'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain(
+        minDateObject.day
+      )
+    })
   })
 })
