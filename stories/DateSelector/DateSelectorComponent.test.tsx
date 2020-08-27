@@ -33,7 +33,7 @@ describe('render component <DateSelectorComponent />', () => {
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
       fireEvent.click(getByText('Año'))
-      fireEvent.click(getByText(minDateObject.year))
+      fireEvent.click(getByText((parseInt(minDateObject.year) + 1).toString()))
       fireEvent.click(getByText('Mes'))
       fireEvent.click(getByText(minDateObject.month))
       fireEvent.click(getByText('Día'))
@@ -72,25 +72,22 @@ describe('render component <DateSelectorComponent />', () => {
   })
 
   describe('should recive minDate property', () => {
-    it(
-      'shouldnt show lower dates than minDate,' + 'dateFormat YYYY - MM - DD',
-      () => {
-        const { getByText, container } = render(
-          <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2019-03-02" />
-        )
-        fireEvent.click(getByText('Año'))
-        expect(container.querySelectorAll('li')[0].innerHTML).toContain('2019')
-        fireEvent.click(getByText('2019'))
-        fireEvent.click(getByText('Mes'))
-        expect(container.querySelectorAll('li')[0].innerHTML).toContain('03')
-        fireEvent.click(getByText('03'))
-        fireEvent.click(getByText('Día'))
-        expect(container.querySelectorAll('li')[0].innerHTML).toContain('02')
-      }
-    )
+    it('should select lowest available date, this should be minDate', () => {
+      const { getByText, container, queryAllByText } = render(
+        <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2019-03-02" />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain('2019')
+      fireEvent.click(getByText('2019'))
+      fireEvent.click(getByText('03'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain('03')
+      fireEvent.click(queryAllByText('03')[1])
+      fireEvent.click(getByText('02'))
+      expect(container.querySelectorAll('li')[0].innerHTML).toContain('02')
+    })
 
-    it('shoud set min date when its not provided', () => {
-      const { getByText, container } = render(
+    it('should set min date when its not provided', () => {
+      const { getByText, container, getAllByText } = render(
         <DateSelectorComponent dateFormat="YYYY-MM-DD" />
       )
       fireEvent.click(getByText('Año'))
@@ -98,15 +95,29 @@ describe('render component <DateSelectorComponent />', () => {
         minDateObject.year
       )
       fireEvent.click(getByText(minDateObject.year))
-      fireEvent.click(getByText('Mes'))
+      fireEvent.click(getByText(minDateObject.month))
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.month
       )
-      fireEvent.click(getByText(minDateObject.month))
-      fireEvent.click(getByText('Día'))
+      fireEvent.click(getAllByText(minDateObject.month)[1])
+      fireEvent.click(getByText(minDateObject.day))
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.day
       )
     })
+
+    it(
+      'should set month and date of minDate when select year equal to ' +
+        'minDate year',
+      () => {
+        const { getByText } = render(
+          <DateSelectorComponent dateFormat="YYYY-MM-DD" minDate="2017-02-20" />
+        )
+        fireEvent.click(getByText('Año'))
+        fireEvent.click(getByText('2017'))
+        expect(getByText('02')).toBeInTheDocument()
+        expect(getByText('20')).toBeInTheDocument()
+      }
+    )
   })
 })

@@ -38,7 +38,15 @@ const DateSelectorComponent = (
   })
   const changeDateValue = (dateKey: string, value: string): void => {
     changeOpenSelectors(defaultSelectors)
-    changeSelectDate({ ...selectDate, [dateKey]: value })
+    if (dateKey === 'year' && value === minDateObject.year) {
+      changeSelectDate({
+        year: value,
+        month: minDateObject.month,
+        day: minDateObject.day,
+      })
+    } else {
+      changeSelectDate({ ...selectDate, [dateKey]: value })
+    }
   }
 
   const getYears = (): Array<string> => {
