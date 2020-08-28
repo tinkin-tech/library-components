@@ -17,7 +17,15 @@ interface IDateSelectorComponent {
 const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
-  const { dateFormat, minDate, maxDate, date, onChangeDate, valueId, label } = props
+  const {
+    dateFormat,
+    minDate,
+    maxDate,
+    date,
+    onChangeDate,
+    valueId,
+    label,
+  } = props
   const defaultMinDate =
     minDate ||
     DateUtils.substractDate(
@@ -251,12 +259,18 @@ const DateSelectorComponent = (
         )
     }
   }
-  return <div className="date-selector-component">
-    {label && }
-    <div className="date-selector-option">
-      {renderDateSelectors()}
+  return (
+    <div className="date-selector-component">
+      <label
+        className={`label ${'' ? 'label-error' : ''}`}
+        htmlFor={valueId}
+        data-testid="label-component"
+      >
+        {`${label || ''}${'' ? '*' : ''}`}&nbsp;
+      </label>
+      <div className="date-selector-option">{renderDateSelectors()}</div>
     </div>
-  </div>
+  )
 }
 
 export default DateSelectorComponent
