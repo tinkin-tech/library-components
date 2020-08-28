@@ -13,6 +13,7 @@ interface IDateSelectorComponent {
   label?: string
   onChangeDate: (date: string, valueId: string) => void
   error?: string
+  required?: boolean
 }
 
 const DateSelectorComponent = (
@@ -27,6 +28,7 @@ const DateSelectorComponent = (
     valueId,
     label,
     error,
+    required,
   } = props
   const defaultMinDate =
     minDate ||
@@ -268,7 +270,7 @@ const DateSelectorComponent = (
         htmlFor={valueId}
         data-testid="label-component"
       >
-        {`${label || ''}${'' ? '*' : ''}`}&nbsp;
+        {`${label || ''}${required ? '*' : ''}`}&nbsp;
       </label>
       <div
         className={`date-selector-option ${error ? 'date-selector-error' : ''}`}

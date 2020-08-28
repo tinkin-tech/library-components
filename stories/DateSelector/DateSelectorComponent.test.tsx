@@ -538,4 +538,20 @@ describe('render component <DateSelectorComponent />', () => {
       }
     )
   })
+
+  describe('should pass required prop', () => {
+    it('should add "*" in label when pass required and label prop', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+          label="My Label"
+          required={true}
+        />
+      )
+      expect(getByText('My Label*')).toBeInTheDocument()
+    })
+  })
 })
