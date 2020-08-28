@@ -588,7 +588,7 @@ describe('render component <DateSelectorComponent />', () => {
       const { rerender, container } = render(
         <DateSelectorComponent
           dateFormat="YYYY-MM"
-          date=""
+          date="2010-02"
           valueId="date"
           onChangeDate={mockOnChangeDate}
         />
@@ -598,8 +598,8 @@ describe('render component <DateSelectorComponent />', () => {
       )
       rerender(
         <DateSelectorComponent
-          dateFormat="YYYY-MM"
-          date=""
+          dateFormat="MM-DD"
+          date="02-20"
           valueId="date"
           onChangeDate={mockOnChangeDate}
           inputClassName="custom-class-name"

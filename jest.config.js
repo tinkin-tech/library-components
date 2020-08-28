@@ -5,6 +5,11 @@ module.exports = {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  collectCoverageFrom: ['**/*.ts', '!**/*.stories.tsx', '!**/*.fixture.tsx'],
+  collectCoverageFrom: [
+    '**/*.tsx',
+    '**/*.tsx',
+    '!**/*.stories.tsx',
+    '!**/*.fixture.tsx',
+  ],
   testEnvironment: 'jsdom',
 }
