@@ -47,7 +47,19 @@ describe('render component <ButtonComponent />', () => {
       />
     )
     expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
-    fireEvent.click(container.querySelector('button'))
-    expect(fun).toHaveBeenCalledTimes(1)
+  })
+
+  it('should recive smallButton property and set className', () => {
+    const fun = jest.fn()
+    const { container } = render(
+      <ButtonComponent
+        buttonText="button"
+        onClick={fun}
+        smallButton={true}
+        buttonType={'success'}
+      />
+    )
+    expect(container.getElementsByClassName('btn-small')[0]).toBeInTheDocument()
+    expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
   })
 })

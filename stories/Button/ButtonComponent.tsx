@@ -20,6 +20,7 @@ interface IButtonComponent {
   disable?: boolean
   visualDisable?: boolean
   buttonType?: buttonType
+  smallButton?: boolean
 }
 
 const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
@@ -29,13 +30,16 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     disable,
     visualDisable,
     buttonType = 'primary',
+    smallButton,
   } = props
 
   return (
     <button
       value={buttonText}
       onClick={disable ? null : onClick}
-      className={`${visualDisable ? 'disable' : ''} ${buttonType}`}
+      className={`${visualDisable ? 'disable' : ''} ${buttonType} ${
+        smallButton ? 'btn-small' : ''
+      } `}
     />
   )
 }
