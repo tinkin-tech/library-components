@@ -554,4 +554,32 @@ describe('render component <DateSelectorComponent />', () => {
       expect(getByText('My Label*')).toBeInTheDocument()
     })
   })
+
+  describe('should pass labelClassName prop', () => {
+    it('should replace className of label with labelClassName', () => {
+      const { rerender, container } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+          label="My Label"
+        />
+      )
+      expect(container.getElementsByTagName('label')[0].className).toBe('label')
+      rerender(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+          label="My Label"
+          labelClassName="custom-class-name"
+        />
+      )
+      expect(container.getElementsByTagName('label')[0].className).toBe(
+        'custom-class-name'
+      )
+    })
+  })
 })
