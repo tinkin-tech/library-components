@@ -15,6 +15,7 @@ interface IDateSelectorComponent {
   error?: string
   required?: boolean
   labelClassName?: string
+  inputClassName?: string
 }
 
 const DateSelectorComponent = (
@@ -31,6 +32,7 @@ const DateSelectorComponent = (
     error,
     required,
     labelClassName,
+    inputClassName,
   } = props
   const defaultMinDate =
     minDate ||
@@ -275,7 +277,9 @@ const DateSelectorComponent = (
         {`${label || ''}${required ? '*' : ''}`}&nbsp;
       </label>
       <div
-        className={`date-selector-option ${error ? 'date-selector-error' : ''}`}
+        className={`${inputClassName || 'date-selector-content'}${
+          error ? ' date-selector-error' : ''
+        }`}
       >
         {renderDateSelectors()}
       </div>

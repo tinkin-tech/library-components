@@ -582,4 +582,32 @@ describe('render component <DateSelectorComponent />', () => {
       )
     })
   })
+
+  describe('should pass inputClassName prop', () => {
+    it('should replace className of content with inputClassName', () => {
+      const { rerender, container } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+        />
+      )
+      expect(container.getElementsByTagName('div')[1].className).toBe(
+        'date-selector-content'
+      )
+      rerender(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+          inputClassName="custom-class-name"
+        />
+      )
+      expect(container.getElementsByTagName('div')[1].className).toBe(
+        'custom-class-name'
+      )
+    })
+  })
 })
