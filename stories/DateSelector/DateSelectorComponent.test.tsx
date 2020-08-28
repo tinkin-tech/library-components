@@ -504,4 +504,38 @@ describe('render component <DateSelectorComponent />', () => {
       expect(getByText('My Date')).toBeInTheDocument()
     })
   })
+
+  describe('should pass error prop', () => {
+    it('Should pass error prop and render in component', () => {
+      const { getByText } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM"
+          date=""
+          valueId="date"
+          onChangeDate={mockOnChangeDate}
+          error="error for test"
+        />
+      )
+      expect(getByText('error for test')).toBeInTheDocument()
+    })
+
+    it(
+      'Should label have "label-error" and content have "date-selector-error"' +
+        ' className, when pass error and label',
+      () => {
+        const { getByText, container } = render(
+          <DateSelectorComponent
+            dateFormat="YYYY-MM"
+            date=""
+            valueId="date"
+            onChangeDate={mockOnChangeDate}
+            error="error for test"
+            label="My Label"
+          />
+        )
+        expect(getByText('My Label').className).toContain('label-error')
+        expect(container.innerHTML).toContain('date-selector-error')
+      }
+    )
+  })
 })
