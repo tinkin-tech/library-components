@@ -38,28 +38,53 @@ describe('render component <ButtonComponent />', () => {
   })
 
   it('should recive buttonType property and set className', () => {
-    const fun = jest.fn()
     const { container } = render(
-      <ButtonComponent
-        buttonText="button"
-        onClick={fun}
-        buttonType={'success'}
-      />
+      <ButtonComponent buttonText="button" buttonType={'success'} />
     )
     expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
   })
 
   it('should recive smallButton property and set className', () => {
-    const fun = jest.fn()
     const { container } = render(
       <ButtonComponent
         buttonText="button"
-        onClick={fun}
         smallButton={true}
         buttonType={'success'}
       />
     )
     expect(container.getElementsByClassName('btn-small')[0]).toBeInTheDocument()
     expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
+  })
+
+  it('should recive buttonClass property and set className, overrides smallButton and buttonType', () => {
+    const { container } = render(
+      <ButtonComponent
+        buttonText="button"
+        smallButton={true}
+        buttonType={'success'}
+        buttonClass={'button-class'}
+      />
+    )
+    expect(container.getElementsByClassName('btn-small')).toHaveLength(0)
+    expect(container.getElementsByClassName('success')).toHaveLength(0)
+    expect(
+      container.getElementsByClassName('button-class')[0]
+    ).toBeInTheDocument()
+  })
+
+  it('should recive extraButtonClass property and set className, added to smallButton and buttonType', () => {
+    const { container } = render(
+      <ButtonComponent
+        buttonText="button"
+        smallButton={true}
+        buttonType={'success'}
+        extraButtonClass={'extra-class'}
+      />
+    )
+    expect(container.getElementsByClassName('btn-small')[0]).toBeInTheDocument()
+    expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
+    expect(
+      container.getElementsByClassName('extra-class')[0]
+    ).toBeInTheDocument()
   })
 })

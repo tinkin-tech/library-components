@@ -21,6 +21,8 @@ interface IButtonComponent {
   visualDisable?: boolean
   buttonType?: buttonType
   smallButton?: boolean
+  buttonClass?: string
+  extraButtonClass?: string
 }
 
 const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
@@ -31,15 +33,20 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     visualDisable,
     buttonType = 'primary',
     smallButton,
+    buttonClass,
+    extraButtonClass,
   } = props
 
+  const buttonClassName =
+    buttonClass ||
+    `${visualDisable ? 'disable' : ''} ${buttonType} ${
+      smallButton ? 'btn-small' : ''
+    } ${extraButtonClass}`
   return (
     <button
       value={buttonText}
       onClick={disable ? null : onClick}
-      className={`${visualDisable ? 'disable' : ''} ${buttonType} ${
-        smallButton ? 'btn-small' : ''
-      } `}
+      className={buttonClassName}
     />
   )
 }
