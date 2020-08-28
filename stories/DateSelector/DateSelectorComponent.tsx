@@ -50,7 +50,13 @@ const DateSelectorComponent = (
       2,
       'years'
     )
-  const dateObject = date && DateUtils.dateStringToObject(date, dateFormat)
+
+  const defaultDate = { year: '', month: '', day: '' }
+
+  const dateObject = date
+    ? DateUtils.dateStringToObject(date, dateFormat)
+    : defaultDate
+
   const defaultSelectors = {
     year: false,
     month: false,
@@ -62,11 +68,6 @@ const DateSelectorComponent = (
 
   const [openSelectors, changeOpenSelectors] = React.useState(defaultSelectors)
 
-  const [selectDate, changeSelectDate] = React.useState({
-    year: dateObject?.year || null,
-    month: dateObject?.month || null,
-    day: dateObject?.day || null,
-  })
   const changeDateValue = (dateKey: string, value: string): void => {
     changeOpenSelectors(defaultSelectors)
     let dateToUpdate = null
@@ -78,19 +79,17 @@ const DateSelectorComponent = (
       }
     } else if (dateKey === 'month') {
       dateToUpdate = {
-        ...selectDate,
+        ...dateObject,
         month: value,
         day:
-          selectDate.year === minDateObject.year &&
+          dateObject.year === minDateObject.year &&
           value === minDateObject.month
             ? minDateObject.day
             : '01',
       }
     } else {
-      dateToUpdate = { ...selectDate, [dateKey]: value }
+      dateToUpdate = { ...dateObject, [dateKey]: value }
     }
-
-    changeSelectDate(dateToUpdate)
 
     const newDate = DateUtils.dateFormatToObject(dateFormat)
       .reduce((cumulator, value) => {
@@ -115,13 +114,13 @@ const DateSelectorComponent = (
         const isGreater = +minDateObject.month <= key + 1
         const isLower = +maxDateObject.month >= key + 1
         if (
-          minDateObject.year === selectDate.year &&
-          maxDateObject.year === selectDate.year
+          minDateObject.year === dateObject.year &&
+          maxDateObject.year === dateObject.year
         ) {
           return isGreater && isLower
-        } else if (minDateObject.year === selectDate.year) {
+        } else if (minDateObject.year === dateObject.year) {
           return isGreater
-        } else if (maxDateObject.year === selectDate.year) {
+        } else if (maxDateObject.year === dateObject.year) {
           return isLower
         }
         return true
@@ -130,36 +129,34 @@ const DateSelectorComponent = (
 
   const getDays = (): Array<string> => {
     const totalDays = DateUtils.getDaysInMonth(
-      `${selectDate.year}-${selectDate.month}`,
+      `${dateObject.year}-${dateObject.month}`,
       'YYYY-MM'
     )
-    return selectDate.year && selectDate.month && totalDays
-      ? [...new Array(totalDays)]
-          .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
-          .filter((_, key) => {
-            const isGreater = +minDateObject.day <= key + 1
-            const isLower = +maxDateObject.day >= key + 1
-            if (
-              minDateObject.year === selectDate.year &&
-              maxDateObject.year === selectDate.year &&
-              minDateObject.month === selectDate.month &&
-              maxDateObject.month === selectDate.month
-            ) {
-              return isGreater && isLower
-            } else if (
-              minDateObject.year === selectDate.year &&
-              minDateObject.month === selectDate.month
-            ) {
-              return isGreater
-            } else if (
-              maxDateObject.year === selectDate.year &&
-              maxDateObject.month === selectDate.month
-            ) {
-              return isLower
-            }
-            return true
-          })
-      : []
+    return [...new Array(totalDays)]
+      .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
+      .filter((_, key) => {
+        const isGreater = +minDateObject.day <= key + 1
+        const isLower = +maxDateObject.day >= key + 1
+        if (
+          minDateObject.year === dateObject.year &&
+          maxDateObject.year === dateObject.year &&
+          minDateObject.month === dateObject.month &&
+          maxDateObject.month === dateObject.month
+        ) {
+          return isGreater && isLower
+        } else if (
+          minDateObject.year === dateObject.year &&
+          minDateObject.month === dateObject.month
+        ) {
+          return isGreater
+        } else if (
+          maxDateObject.year === dateObject.year &&
+          maxDateObject.month === dateObject.month
+        ) {
+          return isLower
+        }
+        return true
+      })
   }
 
   const renderDateSelectors = (): React.ReactElement => {
@@ -171,7 +168,7 @@ const DateSelectorComponent = (
             changeOpenSelectors({ ...openSelectors, year: !openSelectors.year })
           }
         >
-          {selectDate.year || language.YYYY}
+          {dateObject.year || language.YYYY}
         </a>
         {openSelectors.year && (
           <ul className="selector-options">
@@ -193,7 +190,7 @@ const DateSelectorComponent = (
           className="selector-value"
           onClick={(): void =>
             !dateFormatObject.find((dateKey) => dateKey === 'YYYY') ||
-            selectDate.year
+            dateObject.year
               ? changeOpenSelectors({
                   ...openSelectors,
                   month: !openSelectors.month,
@@ -201,7 +198,7 @@ const DateSelectorComponent = (
               : null
           }
         >
-          {selectDate.month || language.MM}
+          {dateObject.month || language.MM}
         </a>
         {openSelectors.month && (
           <ul className="selector-options">
@@ -221,7 +218,7 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            selectDate.year
+            dateObject.year
               ? changeOpenSelectors({
                   ...openSelectors,
                   day: !openSelectors.day,
@@ -229,7 +226,7 @@ const DateSelectorComponent = (
               : null
           }
         >
-          {selectDate.day || language.DD}
+          {dateObject.day || language.DD}
         </a>
         {openSelectors.day && (
           <ul className="selector-options">

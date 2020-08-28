@@ -1,6 +1,6 @@
 export class TestUtil {
-  value: string
-  valueId: string
+  private value: string
+  private valueId: string
 
   mockedFunction = (value: string, valueId: string): void => {
     this.setValue(value)
