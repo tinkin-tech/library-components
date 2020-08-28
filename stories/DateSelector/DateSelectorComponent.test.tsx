@@ -2,7 +2,7 @@ import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import DateSelectorComponent from './DateSelectorComponent'
 import '@testing-library/jest-dom/extend-expect'
-import DateUtils from '../../utils/dateUtils'
+import DateUtils from '../../utils/dateUtils/dateUtils'
 
 describe('render component <DateSelectorComponent />', () => {
   const dateFormat = 'YYYY-MM-DD'

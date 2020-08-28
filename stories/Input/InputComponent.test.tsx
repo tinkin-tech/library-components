@@ -1,56 +1,366 @@
-import * as renderer from 'react-test-renderer'
-import { render, fireEvent, getByTestId } from '@testing-library/react'
+import * as React from 'react'
+import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-
-import {
-  inputTypeText,
-  inputTypeNumber,
-  inputDefault,
-  InputTypeTextWithValue,
-  InputWithError,
-} from './fixture/input.fixture'
+import InputComponent from './InputComponent'
+import { TestUtil } from '../../utils/testUtils/testUtils'
 
 describe('InputComponent test', () => {
-  it('Should take the snapshot with require props', () => {
-    const input = renderer.create(inputDefault)
-    const inputComponentJSON = input.toJSON()
-    expect(inputComponentJSON).toMatchSnapshot()
-  })
+  const mockOnChangeInput = jest.fn()
 
-  it('Should render input in virtual DOM', () => {
-    const { getByTestId } = render(inputTypeText)
-    expect(getByTestId('input-component')).toBeInTheDocument()
-  })
-
-  it('Should be able to enter a value, when type is text', () => {
-    const dom = render(inputTypeText)
-    const input = getByTestId(dom.container, 'input-component')
-    fireEvent.change(input, { target: { value: 'Hello World!' } })
-    expect(input.getAttribute('value')).toBe('Hello World!')
-  })
-
-  it('The value should be empty when I enter text and type is number', () => {
-    const dom = render(inputTypeNumber)
-    const input = getByTestId(dom.container, 'input-component')
-    fireEvent.change(input, { target: { value: 'Hello World!' } })
-    expect(input.getAttribute('value')).toBe('')
-  })
-
-  it('Should pass value different from valueState of input component', () => {
-    const { getByTestId, rerender } = render(inputTypeText)
-    expect(getByTestId('input-component')).toMatchObject({ value: '' })
-    rerender(InputTypeTextWithValue)
-    expect(getByTestId('input-component')).toMatchObject({
-      value: InputTypeTextWithValue.props.value,
+  describe('Value prop', () => {
+    it('Should recive value, set in input value', () => {
+      const { container } = render(
+        <InputComponent
+          valueId="input"
+          value="generic input value"
+          onChangeValue={mockOnChangeInput}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].value).toBe(
+        'generic input value'
+      )
     })
   })
 
-  it('Should add className label-error when component pass with error', () => {
-    const { getByTestId, rerender } = render(inputTypeText)
-    expect(getByTestId('label-component').className).not.toContain(
-      'label-error'
+  describe('onChangeInput prop', () => {
+    it(
+      'Should onChangeInput called with input value and valueId, when change ' +
+        'input value',
+      () => {
+        const { container } = render(
+          <InputComponent
+            valueId="input"
+            value=""
+            onChangeValue={mockOnChangeInput}
+            type="text"
+          />
+        )
+        fireEvent.change(container.getElementsByTagName('input')[0], {
+          target: {
+            value: 'input value',
+          },
+        })
+        expect(mockOnChangeInput).toHaveBeenCalledTimes(1)
+        expect(mockOnChangeInput).toHaveBeenCalledWith('input value', 'input')
+      }
     )
-    rerender(InputWithError)
-    expect(getByTestId('label-component').className).toContain('label-error')
+
+    it('Should change input value', () => {
+      const mockUtil = new TestUtil()
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockUtil.mockedFunction}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0]).toMatchObject({
+        value: '',
+      })
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          value: 'hello world',
+        },
+      })
+      rerender(
+        <InputComponent
+          valueId="input"
+          value={mockUtil.getValue()}
+          onChangeValue={mockUtil.mockedFunction}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0]).toMatchObject({
+        value: 'hello world',
+      })
+    })
   })
+
+  describe('Type prop', () => {
+    it('Should change value if enter only numbers, when type is number', () => {
+      const mockUtil = new TestUtil()
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockUtil.mockedFunction}
+          type="number"
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          value: 'uhtn123',
+        },
+      })
+      rerender(
+        <InputComponent
+          valueId="input"
+          value={mockUtil.getValue()}
+          onChangeValue={mockUtil.mockedFunction}
+          type="number"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0]).toMatchObject({
+        value: '123',
+      })
+    })
+  })
+
+  describe('label prop', () => {
+    it('Should recive label prop and show in component', () => {
+      const { getByText } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          label="label input"
+        />
+      )
+      expect(getByText('label input')).toBeInTheDocument()
+    })
+  })
+
+  describe('required prop', () => {
+    it('Should recive required prop and add "*" in label text', () => {
+      const { getByText, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          label="My input"
+        />
+      )
+      expect(getByText('My input').textContent).not.toContain('*')
+      rerender(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          label="My input"
+          required={true}
+        />
+      )
+      expect(getByText('My input*')).toBeInTheDocument()
+    })
+  })
+
+  describe('placeholder prop', () => {
+    it('Should recive placeholder prop and set in placeholder input', () => {
+      const { container } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          placeholder="ej: input"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].placeholder).toBe(
+        'ej: input'
+      )
+    })
+
+    it(
+      'Should set in placeholder default value when not recive placeholder' +
+        'prop',
+      () => {
+        const { container } = render(
+          <InputComponent
+            valueId="input"
+            value=""
+            onChangeValue={mockOnChangeInput}
+            type="text"
+          />
+        )
+        expect(container.getElementsByTagName('input')[0].placeholder).toBe(
+          'Ingresa un texto'
+        )
+      }
+    )
+  })
+
+  describe('Error prop', () => {
+    it(
+      'Should recive error prop, render in component and set "label-error"' +
+        ' in className',
+      () => {
+        const { container, rerender, getByText } = render(
+          <InputComponent
+            valueId="input"
+            value=""
+            onChangeValue={mockOnChangeInput}
+            type="text"
+          />
+        )
+        expect(container.getElementsByTagName('label')[0].className).toBe(
+          'label '
+        )
+        rerender(
+          <InputComponent
+            valueId="input"
+            value=""
+            onChangeValue={mockOnChangeInput}
+            type="text"
+            error="error del input"
+          />
+        )
+        expect(container.getElementsByTagName('label')[0].className).toBe(
+          'label label-error'
+        )
+        expect(getByText('error del input')).toBeInTheDocument()
+        expect(container.getElementsByTagName('input')[0].className).toBe(
+          ' warning'
+        )
+      }
+    )
+  })
+
+  describe('labelClassName prop', () => {
+    it('Should recive labelClassName and replace label className', () => {
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('label')[0].className).toBe(
+        'label '
+      )
+      rerender(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          labelClassName="custom-className"
+        />
+      )
+      expect(container.getElementsByTagName('label')[0].className).toBe(
+        'custom-className '
+      )
+    })
+  })
+
+  describe('inputClassName prop', () => {
+    it('Should recive inputClassName and replace input className', () => {
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].className).toBe(' ')
+      rerender(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          inputClassName="custom-inputClassName"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].className).toBe(
+        'custom-inputClassName '
+      )
+    })
+  })
+
+  describe('readOnly prop', () => {
+    it('Should recive readOnly and not change input value', () => {
+      const mockUtil = new TestUtil()
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockUtil.mockedFunction}
+          type="text"
+          readOnly={true}
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].value).toBe('')
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          value: 'change',
+        },
+      })
+      rerender(
+        <InputComponent
+          valueId="input"
+          value={mockUtil.getValue()}
+          onChangeValue={mockUtil.mockedFunction}
+          type="text"
+          inputClassName="custom-inputClassName"
+        />
+      )
+      expect(container.getElementsByTagName('input')[0].value).toBe('')
+    })
+  })
+
+  describe('textArea prop', () => {
+    it('Should recive textArea prop and render textArea', () => {
+      const { container, rerender } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+        />
+      )
+      expect(container.getElementsByTagName('input')).toHaveLength(1)
+      rerender(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          inputClassName="custom-inputClassName"
+          textArea={true}
+        />
+      )
+      expect(container.getElementsByTagName('input')).toHaveLength(0)
+      expect(container.getElementsByTagName('textarea')).toHaveLength(1)
+    })
+  })
+  /*
+     it('Should be able to enter a value, when type is text', () => {
+     const dom = render(inputTypeText)
+     const input = getByTestId(dom.container, 'input-component')
+     fireEvent.change(input, { target: { value: 'Hello World!' } })
+     expect(input.getAttribute('value')).toBe('Hello World!')
+     })
+
+     it('The value should be empty when I enter text and type is number', () => {
+     const dom = render(inputTypeNumber)
+     const input = getByTestId(dom.container, 'input-component')
+     fireEvent.change(input, { target: { value: 'Hello World!' } })
+     expect(input.getAttribute('value')).toBe('')
+     })
+
+     it('Should pass value different from valueState of input component', () => {
+     const { getByTestId, rerender } = render(inputTypeText)
+     expect(getByTestId('input-component')).toMatchObject({ value: '' })
+     rerender(InputTypeTextWithValue)
+     expect(getByTestId('input-component')).toMatchObject({
+value: InputTypeTextWithValue.props.value,
+})
+})
+
+it('Should add className label-error when component pass with error', () => {
+const { getByTestId, rerender } = render(inputTypeText)
+expect(getByTestId('label-component').className).not.toContain(
+'label-error'
+)
+rerender(InputWithError)
+expect(getByTestId('label-component').className).toContain('label-error')
+})
+   */
 })

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import language from './language/es_EC'
-import DateUtils from '../../utils/dateUtils'
+import DateUtils from '../../utils/dateUtils/dateUtils'
 
 type dateFormatType = 'YYYY-MM-DD' | 'YYYY-MM' | 'MM-DD'
 

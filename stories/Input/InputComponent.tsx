@@ -1,18 +1,21 @@
 import * as React from 'react'
-import { LabelComponent } from '../label/Label'
+import language from './language/es_EC'
 
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
 export interface InputComponentPropsInterface {
-  id: string
+  valueId: string
   value: string
-  onChangeValue: (id: string, value: string | number) => void
+  onChangeValue: (value: string, valueId: string) => void
   type: IInputTypes
   label?: string
   required?: boolean
   placeholder?: string
   error?: string
-  disabled?: boolean
+  labelClassName?: string
+  inputClassName?: string
+  readOnly?: boolean
+  textArea?: boolean
 }
 
 const InputComponent: React.FC<InputComponentPropsInterface> = (
@@ -20,14 +23,17 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
 ) => {
   const {
     value,
-    id,
+    valueId,
     onChangeValue,
     type,
     label,
     required,
     error,
-    disabled,
     placeholder,
+    labelClassName,
+    inputClassName,
+    readOnly,
+    textArea,
   } = props
 
   const [valueState, changeValueState] = React.useState(value)
@@ -35,46 +41,48 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    changeValueState(event.currentTarget.value)
-    onChangeValue(id, event.currentTarget.value)
+    let currentValue = event.currentTarget.value
+    if (type === 'number') {
+      currentValue = currentValue.replace(/[^\d.-]/g, '')
+    }
+    changeValueState(currentValue)
+    onChangeValue(currentValue, valueId)
   }
 
-  React.useEffect(() => {
-    if (value !== valueState) {
-      changeValueState(value)
-    }
-  }, [value])
+  const propsComponent = {
+    id: valueId,
+    name: valueId,
+    value: valueState,
+    autoComplete: 'off',
+    spellCheck: false,
+    onChange: readOnly ? null : onChangeAction,
+    type: type === 'number' ? 'text' : type,
+    placeholder: placeholder || language.placeholder,
+    className: `${inputClassName || ''} ${error ? 'warning' : ''}`,
+    disabled: readOnly,
+  }
 
   return (
-    <div
-      id="input-component"
-      className="input-component input p-t p-b flex-column"
-    >
+    <>
       <div className="flex-space-between">
-        <LabelComponent
-          referenceId={id}
-          label={label}
-          error={!!error}
-          required={required}
-          disabled={disabled}
-        />
+        <label
+          className={`${labelClassName || 'label'} ${
+            error ? 'label-error' : ''
+          }`}
+          htmlFor={valueId}
+          data-testid="label-component"
+        >
+          {`${label || ''}${required ? '*' : ''}`}&nbsp;
+        </label>
         {error && <span className="warning-content">&#9888;</span>}
       </div>
-      <input
-        id={id}
-        name={id}
-        data-testid="input-component"
-        value={valueState}
-        autoComplete="off"
-        spellCheck={false}
-        onChange={onChangeAction}
-        type={type}
-        placeholder={placeholder}
-        disabled={disabled}
-        className={error ? `warning` : ''}
-      />
-      {error && <div className="error-message">{error}</div>}
-    </div>
+      {textArea ? (
+        <textarea {...propsComponent} />
+      ) : (
+        <input {...propsComponent} />
+      )}
+      {error && <span className="error-message">{error}</span>}
+    </>
   )
 }
 

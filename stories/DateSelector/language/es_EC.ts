@@ -3,6 +3,7 @@ interface IDateSelectorLanguage {
   MM: string
   DD: string
 }
+
 const es_EC: IDateSelectorLanguage = {
   DD: 'Día',
   MM: 'Mes',
