@@ -26,4 +26,14 @@ describe('render component <ButtonComponent />', () => {
     fireEvent.click(container.querySelector('button'))
     expect(fun).toHaveBeenCalledTimes(0)
   })
+
+  it('should recive visualDisable property, visual disable', () => {
+    const fun = jest.fn()
+    const { container } = render(
+      <ButtonComponent buttonText="button" onClick={fun} visualDisable={true} />
+    )
+    expect(container.getElementsByClassName('disable')[0]).toBeInTheDocument()
+    fireEvent.click(container.querySelector('button'))
+    expect(fun).toHaveBeenCalledTimes(1)
+  })
 })
