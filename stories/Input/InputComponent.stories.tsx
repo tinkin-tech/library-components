@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { action } from '@storybook/addon-actions'
 
-import { InputComponent, InputComponentPropsInterface } from './Input'
+import InputComponent, { InputComponentPropsInterface } from './InputComponent'
 
 export default {
   title: 'Input',

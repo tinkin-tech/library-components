@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { InputComponent } from '../Input'
+import InputComponent from '../InputComponent'
 
 export const inputDefault: JSX.Element = (
   <InputComponent

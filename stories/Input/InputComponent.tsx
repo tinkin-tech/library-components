@@ -15,7 +15,7 @@ export interface InputComponentPropsInterface {
   disabled?: boolean
 }
 
-export const InputComponent: React.FC<InputComponentPropsInterface> = (
+const InputComponent: React.FC<InputComponentPropsInterface> = (
   props: InputComponentPropsInterface
 ) => {
   const {
@@ -77,3 +77,5 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     </div>
   )
 }
+
+export default InputComponent
