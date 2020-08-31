@@ -107,4 +107,15 @@ describe('Checkbox component tests', () => {
       ).toHaveLength(1)
     })
   })
+
+  describe('label property', () => {
+    it('should recive label property', () => {
+      const { container } = render(
+        <CheckboxComponent options={options} label={'Test label'} />
+      )
+      expect(container.getElementsByTagName('label')[0].innerHTML).toContain(
+        'Test label'
+      )
+    })
+  })
 })
