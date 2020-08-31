@@ -163,4 +163,47 @@ describe('Checkbox component tests', () => {
       expect(container.firstChild.lastChild).toBe(getByText('test error'))
     })
   })
+
+  describe('required property', () => {
+    it("should recive required property and add '*' next to label if true", () => {
+      const { container } = render(
+        <CheckboxComponent
+          options={options}
+          label={'Test label'}
+          required={true}
+        />
+      )
+      expect(container.getElementsByTagName('label')[0].innerHTML).toContain(
+        'Test label*'
+      )
+    })
+  })
+
+  describe('extraListItemClassName property', () => {
+    it('should recive extraListItemClassName property, set className on items - add to listItemClassName', () => {
+      const { container } = render(
+        <CheckboxComponent
+          options={options}
+          extraListItemClassName={'item-class'}
+        />
+      )
+      expect(
+        container.getElementsByClassName('item-class check-list-item')
+      ).toHaveLength(options.length)
+    })
+  })
+
+  describe('extraLabelClassName property', () => {
+    it('should recive extraLabelClassName property, set className on labels - add to labelClassName', () => {
+      const { container } = render(
+        <CheckboxComponent
+          options={options}
+          extraLabelClassName={'label-class'}
+        />
+      )
+      expect(
+        container.getElementsByClassName('label-class label')
+      ).toHaveLength(options.length)
+    })
+  })
 })

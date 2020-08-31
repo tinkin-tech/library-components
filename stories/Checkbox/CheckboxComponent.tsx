@@ -14,6 +14,9 @@ interface CheckboxComponentPropsInterface {
   listItemClassName?: string
   labelClassName?: string
   error?: string
+  required?: boolean
+  extraListItemClassName?: string
+  extraLabelClassName?: string
 }
 
 const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
@@ -28,6 +31,9 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
     listItemClassName,
     labelClassName,
     error,
+    required,
+    extraListItemClassName,
+    extraLabelClassName,
   } = props
 
   const [selectedValues, onChangeSelectedValues] = React.useState(values)
@@ -41,10 +47,19 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
   }
   return (
     <div className={disabled ? 'disabled-checklist' : ''}>
-      {label && <label>{label}</label>}
+      {label && (
+        <label>
+          {label}
+          {required ? '*' : ''}
+        </label>
+      )}
       {options.map((option) => (
         // eslint-disable-next-line react/jsx-key
-        <div className={listItemClassName || 'check-list-item'}>
+        <div
+          className={`${listItemClassName || 'check-list-item'} ${
+            extraListItemClassName || ''
+          }`}
+        >
           <input
             type="checkbox"
             id={option.id.toString()}
@@ -53,7 +68,9 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
           />
           <label
             htmlFor={option.id.toString()}
-            className={labelClassName || 'label'}
+            className={`${labelClassName || 'label'} ${
+              extraLabelClassName || ''
+            }`}
           >
             {option.label}
           </label>
