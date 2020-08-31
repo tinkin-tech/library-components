@@ -9,12 +9,13 @@ interface CheckboxComponentPropsInterface {
   options: CheckboxOption[]
   values?: string[]
   onChangeValues?: (values: string[], valueId: string) => void
+  disabled?: boolean
 }
 
 const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
   props: CheckboxComponentPropsInterface
 ) => {
-  const { options, values = [], onChangeValues } = props
+  const { options, values = [], onChangeValues, disabled } = props
 
   const [selectedValues, onChangeSelectedValues] = React.useState(values)
 
@@ -26,19 +27,19 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
     onChangeValues(newValues, event.target.id)
   }
   return (
-    <>
+    <div className={disabled ? 'disabled-checklist' : ''}>
       {options.map((option) => (
         <>
           <input
             type="checkbox"
             id={option.id.toString()}
             checked={!!selectedValues.find((value) => value === option.id)}
-            onChange={onChangeAction}
+            onChange={disabled ? null : onChangeAction}
           />
           <label htmlFor={option.id.toString()}>{option.label}</label>
         </>
       ))}
-    </>
+    </div>
   )
 }
 

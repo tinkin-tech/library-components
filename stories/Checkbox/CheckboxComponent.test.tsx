@@ -83,4 +83,28 @@ describe('Checkbox component tests', () => {
       expect(func).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('disable property', () => {
+    it('should not execute onChangeValues when disabled is true', () => {
+      const func = jest.fn()
+      const { getByText } = render(
+        <CheckboxComponent
+          options={options}
+          onChangeValues={func}
+          disabled={true}
+        />
+      )
+      fireEvent.click(getByText('label1'))
+      expect(func).toHaveBeenCalledTimes(0)
+    })
+
+    it('should add disabled-checklist class to parent when disabled is true', () => {
+      const { container } = render(
+        <CheckboxComponent options={options} disabled={true} />
+      )
+      expect(
+        container.getElementsByClassName('disabled-checklist')
+      ).toHaveLength(1)
+    })
+  })
 })
