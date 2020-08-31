@@ -6,9 +6,9 @@ import SelectComponent from './SelectComponent'
 describe('SelectComponent tests', () => {
   const mockedFunction = jest.fn()
   const optionsMock = [
-    { id: '1', value: 'value-1' },
-    { id: '2', value: 'value-2' },
-    { id: '3', value: 'value-3' },
+    { id: '1', label: 'value-1' },
+    { id: '2', label: 'value-2' },
+    { id: '3', label: 'value-3' },
   ]
 
   it('Should render SelectComponet with all props', () => {
@@ -33,19 +33,23 @@ describe('SelectComponent tests', () => {
   })
 
   describe('Recibe options prop', () => {
-    it('Should show list of options when click in the component', () => {
-      const { container, getByText } = render(
-        <SelectComponent
-          options={optionsMock}
-          valueId="selectComponent"
-          onChangeValue={mockedFunction}
-          value="1"
-        />
-      )
-      expect(container.querySelectorAll('li')).toHaveLength(0)
-      fireEvent.click(getByText('value-1'))
-      expect(container.querySelectorAll('li')).toHaveLength(3)
-    })
+    it(
+      'Should show list of options when click in default text "Seleccione ' +
+        'una opción"',
+      () => {
+        const { container, getByText } = render(
+          <SelectComponent
+            options={optionsMock}
+            valueId="selectComponent"
+            onChangeValue={mockedFunction}
+            value=""
+          />
+        )
+        expect(container.querySelectorAll('li')).toHaveLength(0)
+        fireEvent.click(getByText('Seleccione una opción'))
+        expect(container.querySelectorAll('li')).toHaveLength(3)
+      }
+    )
 
     it('Should close options list when select an item', () => {
       const { container, getByText } = render(
@@ -235,7 +239,7 @@ describe('SelectComponent tests', () => {
 
   describe('Recive readOnly prop', () => {
     it(
-      'Should not show optins list after click on "Seleccione una opción" ' +
+      'Should not show options list after click on "Seleccione una opción" ' +
         'when recive readOnly prop',
       () => {
         const { getByText, container } = render(

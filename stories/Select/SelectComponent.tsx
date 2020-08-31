@@ -2,7 +2,7 @@ import * as React from 'react'
 
 interface IOption {
   id: string | number
-  value: string
+  label: string
 }
 
 interface ISelectComponent {
@@ -46,7 +46,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
     onChangeValue(itemId, valueId)
   }
   const getValue =
-    options.find((item) => item.id === value)?.value ||
+    options.find((item) => item.id === value)?.label ||
     placeholder ||
     'Seleccione una opción'
   const handleClickOutside = (event: Event): void => {
@@ -88,7 +88,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
                 className={item.id === value ? 'selected' : ''}
                 onClick={(): void => onClickOptionItem(item.id)}
               >
-                {item.value}
+                {item.label}
               </a>
             </li>
           ))}
