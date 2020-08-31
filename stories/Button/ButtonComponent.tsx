@@ -23,6 +23,7 @@ interface IButtonComponent {
   smallButton?: boolean
   buttonClass?: string
   extraButtonClass?: string
+  formButton?: boolean
 }
 
 const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
@@ -35,6 +36,7 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     smallButton,
     buttonClass,
     extraButtonClass,
+    formButton,
   } = props
 
   const buttonClassName =
@@ -42,7 +44,11 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     `${visualDisable ? 'disable' : ''} ${buttonType} ${
       smallButton ? 'btn-small' : ''
     } ${extraButtonClass}`
-  return (
+  return formButton ? (
+    <a onClick={disable ? null : onClick} className={buttonClassName}>
+      {buttonText}
+    </a>
+  ) : (
     <button
       value={buttonText}
       onClick={disable ? null : onClick}

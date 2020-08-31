@@ -87,4 +87,18 @@ describe('render component <ButtonComponent />', () => {
       container.getElementsByClassName('extra-class')[0]
     ).toBeInTheDocument()
   })
+
+  it('should recive formButton property, true - a', () => {
+    const { container } = render(
+      <ButtonComponent buttonText="button" formButton={true} />
+    )
+    expect(container.querySelector('a')).toBeInTheDocument()
+  })
+
+  it('should recive formButton property, false - button', () => {
+    const { container } = render(
+      <ButtonComponent buttonText="button" formButton={false} />
+    )
+    expect(container.querySelector('button')).toBeInTheDocument()
+  })
 })
