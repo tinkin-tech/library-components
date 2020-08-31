@@ -118,4 +118,22 @@ describe('Checkbox component tests', () => {
       )
     })
   })
+
+  describe('listItemClassName property', () => {
+    it('should recive listItemClassName property, set className on items', () => {
+      const { container } = render(
+        <CheckboxComponent options={options} listItemClassName={'item-class'} />
+      )
+      expect(container.getElementsByClassName('item-class')).toHaveLength(
+        options.length
+      )
+    })
+
+    it("should set className 'check-list-item' on items if listItemClassName not provided", () => {
+      const { container } = render(<CheckboxComponent options={options} />)
+      expect(container.getElementsByClassName('check-list-item')).toHaveLength(
+        options.length
+      )
+    })
+  })
 })
