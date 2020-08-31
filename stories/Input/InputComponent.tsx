@@ -36,8 +36,6 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
     textArea,
   } = props
 
-  const [valueState, changeValueState] = React.useState(value)
-
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -45,14 +43,13 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
     if (type === 'number') {
       currentValue = currentValue.replace(/[^\d.-]/g, '')
     }
-    changeValueState(currentValue)
     onChangeValue(currentValue, valueId)
   }
 
   const propsComponent = {
     id: valueId,
     name: valueId,
-    value: valueState,
+    value: value || '',
     autoComplete: 'off',
     spellCheck: false,
     onChange: readOnly ? null : onChangeAction,
