@@ -136,4 +136,31 @@ describe('Checkbox component tests', () => {
       )
     })
   })
+
+  describe('labelClassName property', () => {
+    it('should recive labelClassName property, set className on labels', () => {
+      const { container } = render(
+        <CheckboxComponent options={options} labelClassName={'label-class'} />
+      )
+      expect(container.getElementsByClassName('label-class')).toHaveLength(
+        options.length
+      )
+    })
+
+    it("should set className 'label' on items if labelClassName not provided", () => {
+      const { container } = render(<CheckboxComponent options={options} />)
+      expect(container.getElementsByClassName('label')).toHaveLength(
+        options.length
+      )
+    })
+  })
+
+  describe('error property', () => {
+    it('should recive error property and place it below list', () => {
+      const { container, getByText } = render(
+        <CheckboxComponent options={options} error={'test error'} />
+      )
+      expect(container.firstChild.lastChild).toBe(getByText('test error'))
+    })
+  })
 })

@@ -12,6 +12,8 @@ interface CheckboxComponentPropsInterface {
   disabled?: boolean
   label?: string
   listItemClassName?: string
+  labelClassName?: string
+  error?: string
 }
 
 const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
@@ -24,6 +26,8 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
     disabled,
     label,
     listItemClassName,
+    labelClassName,
+    error,
   } = props
 
   const [selectedValues, onChangeSelectedValues] = React.useState(values)
@@ -47,9 +51,15 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
             checked={!!selectedValues.find((value) => value === option.id)}
             onChange={disabled ? null : onChangeAction}
           />
-          <label htmlFor={option.id.toString()}>{option.label}</label>
+          <label
+            htmlFor={option.id.toString()}
+            className={labelClassName || 'label'}
+          >
+            {option.label}
+          </label>
         </div>
       ))}
+      <div>{error || ''}</div>
     </div>
   )
 }
