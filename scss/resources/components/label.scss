@@ -1,0 +1,10 @@
+.label,
+label {
+  color: color("primary", "darken-3");
+  line-height: $line-height-small;
+  padding-bottom: 2px;
+}
+
+.label-error {
+  color: $color-warning !important;
+}

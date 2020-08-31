@@ -1,0 +1,128 @@
+$width-arrow-dropdown: 10px;
+$height-arrow-dropdown: 10px;
+$top-select-options: 90%;
+$height-options: 200px;
+$z-index-select-options: 200;
+$width-after-select-options: 10px;
+$height-after-select-options: 10px;
+$margin-top-after-select-options: -3px;
+$margin-bottom-after-select-options: -4px;
+$top-after-select-options: -3px;
+$right-after-select-options: 12px;
+$z-index-after-select-options: -1;
+$padding-option: 0.5rem 1rem;
+$padding-option-image: 0 1rem !important;
+$height-image: 75px;
+$height-option-image: 75px;
+$height-image-content: 77px;
+
+.select-component {
+  border-color: color('gray', 'ligthen-1');
+  border-radius: $radio-small;
+  .select-dropdown {
+    position: relative;
+    .arrow-dropdown {
+      height: 10px;
+      width: 7.5px;
+      &.active {
+        @include transform(rotate(180deg));
+        @include transition(all 0.5s);
+      }
+      .icon-arrow {
+        border-width: 0 1px 1px 0;
+      }
+    }
+    .input-container {
+      width: 100%;
+      input {
+        background: transparent;
+        font-size: 16px;
+        &:focus {
+          outline: none;
+          background: transparent;
+        }
+        border: none;
+        width: calc(100% - 10px);
+      }
+    }
+  }
+  .select-value-text {
+    color: color('gray', 'darken-3');
+  }
+  .select-options {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    max-height: $height-options;
+    overflow: auto;
+    top: calc(#{$top-select-options} + 10px);
+    min-width: fit-content;
+    background-color: $color-white;
+    z-index: $z-index-select-options;
+    border-radius: $radio-small;
+    @include transition(all 0.5s);
+    &:after {
+      content: "";
+      width: $width-after-select-options;
+      height: $height-after-select-options;
+      margin-top: $margin-top-after-select-options;
+      margin-bottom: $margin-bottom-after-select-options;
+      border-top: 1px solid $color-primary;
+      border-left: 1px solid $color-primary;
+      background: $color-white;
+      @include transform(rotate(45deg));
+      position: absolute;
+      top: $top-after-select-options;
+      right: $right-after-select-options;
+      z-index: $z-index-after-select-options;
+    }
+    &.active {
+      opacity: 1;
+      top: 100%;
+      pointer-events: auto;
+    }
+    &.center {
+      left: 0;
+    }
+    .option {
+      padding: $padding-option;
+      background-color: $color-white;
+      width: auto;
+      &:hover {
+        background-color: color('gray', 'lighten-2');
+      }
+      &.no-options {
+        &:hover {
+          background-color: $color-white !important;
+        }
+      }
+    }
+  }
+  &.direction-left {
+    @include flex-direction(row);
+    @include align(center);
+    .label {
+      @include flex-direction(column);
+    }
+  }
+  &.direction-top {
+    @include flex-direction(column);
+  }
+  .border-padding {
+    padding: 8px 24px 4px 8px;
+  }
+  .image-select-grid {
+    &.wrapper {
+      display: flex;
+      .item {
+        height: $height-option-image;
+        width: 33.33%;
+        &:hover {
+          background-color: $color-primary;
+        }
+      }
+    }
+  }
+}

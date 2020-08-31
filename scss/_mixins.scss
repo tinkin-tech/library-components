@@ -1,0 +1,51 @@
+//FlexBox
+
+@mixin flexBox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex-direction($value) {
+  flex-direction: $value;
+  -ms-flex-direction: $value;
+  -webkit-flex-direction: $value;
+}
+
+//justify
+
+@mixin justify-content($val) {
+  -webkit-justify-content: $val;
+  justify-content: $val;
+}
+
+//align
+
+@mixin align($align) {
+  -webkit-flex-align: $align;
+  -ms-flex-align: $align;
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+
+//transform
+
+@mixin transform($args) {
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+//transition
+
+@mixin transition($args: 200ms) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  -ms-transition: $args;
+  transition: $args;
+}

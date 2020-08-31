@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputComponent test Should take the snapshot with require props 1`] = `
+<div
+  className="input-component input p-t p-b flex-column"
+  id="input-component"
+>
+  <div
+    className="flex-space-between"
+  >
+    <label
+      className="label "
+      data-testid="label-component"
+      htmlFor="input"
+    >
+      Label*
+       
+    </label>
+    
+  </div>
+  <input
+    autoComplete="off"
+    className=""
+    data-testid="input-component"
+    disabled={false}
+    id="input"
+    name="input"
+    onChange={[Function]}
+    placeholder="placeholder"
+    spellCheck={false}
+    type="text"
+    value="value"
+  />
+  
+</div>
+`;

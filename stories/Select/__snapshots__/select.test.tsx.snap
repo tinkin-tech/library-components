@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select test Should shot the snapshot with all properties 1`] = `
+<div
+  className="select-component cursor-pointer "
+  data-testid="selectorComponent"
+  onClick={[Function]}
+>
+  <div
+    className="flex-space-between"
+  >
+    <label
+      className="label "
+      data-testid="label-component"
+      htmlFor="select"
+    >
+      
+       
+    </label>
+    
+  </div>
+  <div
+    className="select-dropdown flex-1"
+  >
+    <div
+      className="flex-row flex-middle border radius-default flex-space-between flex-no-wrap border-gray border-lighten-1 bg-gray bg-lighten-3 "
+    >
+      <div
+        className="input-container"
+      >
+        <input
+          className="flex-column p-r simple-select false"
+          data-testid="selected-option"
+          disabled={true}
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="Select an option"
+          value=""
+        />
+      </div>
+      <div
+        className="flex-column p-r arrow-dropdown"
+      >
+        <i
+          className="arrow down icon-arrow"
+        />
+      </div>
+    </div>
+    <div
+      className="select-options shadow-2 app-scroll  "
+    >
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option1"
+        onClick={[Function]}
+      >
+        option1
+      </span>
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option2"
+        onClick={[Function]}
+      >
+        option2
+      </span>
+      <span
+        className="block option cursor-pointer"
+        data-testid="simple-select-option3"
+        onClick={[Function]}
+      >
+        option3
+      </span>
+    </div>
+  </div>
+  
+</div>
+`;

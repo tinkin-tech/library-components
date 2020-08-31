@@ -1,36 +1,89 @@
 import * as React from 'react'
+import language from './language/es_EC'
 
-type InputTypes = 'email' | 'number' | 'password'
+export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
-interface InputComponentPropsInterface {
+export interface InputComponentPropsInterface {
+  valueId: string
   value: string
-  label: string
-  isRequired?: boolean
-  error?: string
+  onChangeValue: (value: string, valueId: string) => void
+  type: IInputTypes
+  label?: string
+  required?: boolean
   placeholder?: string
-  id: string
-  onChangeValue: () => void
-  type?: InputTypes
-  isDisable?: boolean
+  error?: string
+  labelClassName?: string
+  inputClassName?: string
+  readOnly?: boolean
+  textArea?: boolean
 }
 
-const InputComponent = (
+const InputComponent: React.FC<InputComponentPropsInterface> = (
   props: InputComponentPropsInterface
-): React.ReactElement<InputComponentPropsInterface> => {
+) => {
   const {
     value,
+    valueId,
+    onChangeValue,
+    type,
     label,
-    isRequired,
+    required,
     error,
     placeholder,
+    labelClassName,
+    inputClassName,
+    readOnly,
+    textArea,
   } = props
+
+  const [valueState, changeValueState] = React.useState(value)
+
+  const onChangeAction = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    let currentValue = event.currentTarget.value
+    if (type === 'number') {
+      currentValue = currentValue.replace(/[^\d.-]/g, '')
+    }
+    changeValueState(currentValue)
+    onChangeValue(currentValue, valueId)
+  }
+
+  const propsComponent = {
+    id: valueId,
+    name: valueId,
+    value: valueState,
+    autoComplete: 'off',
+    spellCheck: false,
+    onChange: readOnly ? null : onChangeAction,
+    type: type === 'number' ? 'text' : type,
+    placeholder: placeholder || language.placeholder,
+    className: `${inputClassName || ''} ${error ? 'warning' : ''}`,
+    disabled: readOnly,
+  }
+
   return (
-    <div>
-      <label>{label + isRequired && '*'}</label>
-      <input data-testid="input-component" value={value} placeholder={placeholder} onChange={() => null} />
-      <span>{error}</span>
-    </div>
+    <>
+      <div className="flex-space-between">
+        <label
+          className={`${labelClassName || 'label'} ${
+            error ? 'label-error' : ''
+          }`}
+          htmlFor={valueId}
+          data-testid="label-component"
+        >
+          {`${label || ''}${required ? '*' : ''}`}&nbsp;
+        </label>
+        {error && <span className="warning-content">&#9888;</span>}
+      </div>
+      {textArea ? (
+        <textarea {...propsComponent} />
+      ) : (
+        <input {...propsComponent} />
+      )}
+      {error && <span className="error-message">{error}</span>}
+    </>
   )
 }
 
-export default React.memo(InputComponent)
+export default InputComponent
