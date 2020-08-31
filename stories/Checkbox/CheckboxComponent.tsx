@@ -8,7 +8,7 @@ type CheckboxOption = {
 interface CheckboxComponentPropsInterface {
   options: CheckboxOption[]
   values?: string[]
-  onChangeValues?: (values: string[]) => void
+  onChangeValues?: (values: string[], valueId: string) => void
 }
 
 const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
@@ -23,7 +23,7 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
       ? selectedValues.filter((value) => value !== event.target.id)
       : [...selectedValues, event.target.id]
     onChangeSelectedValues(newValues)
-    onChangeValues(newValues)
+    onChangeValues(newValues, event.target.id)
   }
   return (
     <>

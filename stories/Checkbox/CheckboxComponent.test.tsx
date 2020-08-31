@@ -64,7 +64,7 @@ describe('Checkbox component tests', () => {
           (element) => element.checked === true
         )
       ).toHaveLength(values.length - 1)
-      expect(func).toHaveBeenCalledWith(['id2'])
+      expect(func).toHaveBeenCalledWith(['id2'], 'id1')
       expect(func).toHaveBeenCalledTimes(1)
     })
 
@@ -74,14 +74,13 @@ describe('Checkbox component tests', () => {
         <CheckboxComponent options={options} onChangeValues={func} />
       )
       fireEvent.click(getByText('label1'))
-      fireEvent.click(getByText('label2'))
       expect(
         Array.of(...container.getElementsByTagName('input')).filter(
           (element) => element.checked === true
         )
-      ).toHaveLength(2)
-      expect(func).toHaveBeenCalledWith(['id1', 'id2'])
-      expect(func).toHaveBeenCalledTimes(2)
+      ).toHaveLength(1)
+      expect(func).toHaveBeenCalledWith(['id1'], 'id1')
+      expect(func).toHaveBeenCalledTimes(1)
     })
   })
 })
