@@ -2,6 +2,7 @@ interface IQueryParam {
   key: string
   value: string | boolean
 }
+
 export const paramsArrayToString = (params: IQueryParam[]): string => {
   let url = ''
   params.forEach((item, key) => {
@@ -10,6 +11,7 @@ export const paramsArrayToString = (params: IQueryParam[]): string => {
   })
   return url
 }
+
 export const getQueryParams = (
   variableData?: string
 ): {
@@ -57,28 +59,6 @@ export const getQueryParamsArray = (variableData?: string): IQueryParam[] => {
     }
   }
   return params
-}
-export const updateArrayFilters = (
-  newFilters: string[],
-  keyId: string,
-  requireArray?: boolean,
-  variableData?: string
-): string | IQueryParam[] => {
-  const variable =
-    variableData || variableData === '' ? variableData : window.location.search
-  const currentValues: IQueryParam[] = getQueryParamsArray(variable).filter(
-    (item) => item.key !== `${keyId}[]`
-  )
-  newFilters.forEach((newItem) => {
-    currentValues.push({
-      key: `${keyId}[]`,
-      value: newItem,
-    })
-  })
-  if (requireArray) {
-    return currentValues
-  }
-  return paramsArrayToString(currentValues)
 }
 
 export const updateUrlParams = (
