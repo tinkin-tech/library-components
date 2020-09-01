@@ -17,8 +17,8 @@ type buttonType =
 interface IButtonComponent {
   buttonText: string
   onClick?: () => void
-  disable?: boolean
-  visualDisable?: boolean
+  disabled?: boolean
+  visualDisabled?: boolean
   buttonType?: buttonType
   smallButton?: boolean
   buttonClass?: string
@@ -30,8 +30,8 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
   const {
     buttonText,
     onClick,
-    disable,
-    visualDisable,
+    disabled,
+    visualDisabled,
     buttonType = 'primary',
     smallButton,
     buttonClass,
@@ -41,19 +41,18 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
 
   const buttonClassName =
     buttonClass ||
-    `${visualDisable ? 'disable' : ''} ${buttonType} ${
-      smallButton ? 'btn-small' : ''
+    `${(visualDisabled || disabled) && 'disabled'} ${buttonType} ${
+      smallButton && 'btn-small'
     } ${extraButtonClass}`
+
+  const componentProps = {
+    onClick: disabled ? null : onClick,
+    className: buttonClassName,
+  }
   return formButton ? (
-    <a onClick={disable ? null : onClick} className={buttonClassName}>
-      {buttonText}
-    </a>
+    <button value={buttonText} {...componentProps} />
   ) : (
-    <button
-      value={buttonText}
-      onClick={disable ? null : onClick}
-      className={buttonClassName}
-    />
+    <a {...componentProps}>{buttonText}</a>
   )
 }
 
