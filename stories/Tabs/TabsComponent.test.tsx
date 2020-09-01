@@ -24,20 +24,43 @@ const elementList = [
 describe('render component <DateSelectorComponent />', () => {
   describe('list property', () => {
     it('should recive a list of { label: string, id: string | number, content: React.Component}', () => {
-      const { container } = render(<TabsComponent list={elementList} />)
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={elementList[0].id} />
+      )
       expect(container.getElementsByTagName('ul')[0].childElementCount).toBe(
         elementList.length
       )
-      for (const element of container.getElementsByTagName('li')) {
-        expect(element.getElementsByTagName('div')[0].innerHTML).toBe('<a></a>')
-      }
     })
 
     it('should render label inside items', () => {
-      const { container } = render(<TabsComponent list={elementList} />)
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={elementList[0].id} />
+      )
       for (const element of container.getElementsByTagName('li')) {
         expect(element.getElementsByTagName('label')[0]).toBeInTheDocument()
       }
+    })
+  })
+
+  describe('activeTabId property', () => {
+    it('adds "active-tab" class to tab with activeTabId', () => {
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={elementList[0].id} />
+      )
+      expect(container.getElementsByClassName('active-tab')[0]).toHaveProperty(
+        'id',
+        elementList[0].id
+      )
+    })
+
+    it('adds "active-tab" class to tab with activeTabId, if id doest match, add class to first item', () => {
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={'testId'} />
+      )
+      expect(container.getElementsByClassName('active-tab')[0]).toHaveProperty(
+        'id',
+        elementList[0].id
+      )
     })
   })
 })
