@@ -9,15 +9,16 @@ interface IListItem {
 interface ITabsComponent {
   list: IListItem[]
   activeTabId: string | number
+  tabListClassName?: string
 }
 
 const TabsComponent = (props: ITabsComponent): React.ReactElement => {
-  const { list, activeTabId } = props
+  const { list, activeTabId, tabListClassName } = props
   const activeItem = list.find((item) => item.id === activeTabId)
   const activeId = activeItem ? activeItem.id : list[0].id
   return (
     <>
-      <ul>
+      <ul className={`${tabListClassName || ''} tab-list`}>
         {list.map((item) => (
           <li
             key={item.id}

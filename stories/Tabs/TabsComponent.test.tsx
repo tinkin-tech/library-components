@@ -43,7 +43,7 @@ describe('render component <DateSelectorComponent />', () => {
   })
 
   describe('activeTabId property', () => {
-    it('adds "active-tab" class to tab with activeTabId', () => {
+    it('should recive activeTabId and add "active-tab" class', () => {
       const { container } = render(
         <TabsComponent list={elementList} activeTabId={elementList[0].id} />
       )
@@ -53,7 +53,7 @@ describe('render component <DateSelectorComponent />', () => {
       )
     })
 
-    it('adds "active-tab" class to tab with activeTabId, if id doest match, add class to first item', () => {
+    it('should recive activeTabId and add "active-tab" class, if id doest match, add class to first item', () => {
       const { container } = render(
         <TabsComponent list={elementList} activeTabId={'testId'} />
       )
@@ -61,6 +61,28 @@ describe('render component <DateSelectorComponent />', () => {
         'id',
         elementList[0].id
       )
+    })
+  })
+
+  describe('tabListClassName property', () => {
+    it('should recive tabListClassName and add to parent className "tab-list"', () => {
+      const { container } = render(
+        <TabsComponent
+          list={elementList}
+          activeTabId={elementList[0].id}
+          tabListClassName={'test-class'}
+        />
+      )
+      expect(
+        container.getElementsByClassName('test-class tab-list')
+      ).toHaveLength(1)
+    })
+
+    it('parent class should "tab-list" if tabListClassName not recived', () => {
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={elementList[0].id} />
+      )
+      expect(container.getElementsByClassName('tab-list')).toHaveLength(1)
     })
   })
 })
