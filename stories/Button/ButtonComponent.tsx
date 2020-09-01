@@ -50,7 +50,7 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     className: buttonClassName,
   }
   return formButton ? (
-    <button value={buttonText} {...componentProps} />
+    <button {...componentProps}>{buttonText}</button>
   ) : (
     <a {...componentProps}>{buttonText}</a>
   )

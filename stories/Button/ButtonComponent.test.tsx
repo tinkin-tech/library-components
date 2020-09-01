@@ -5,9 +5,16 @@ import '@testing-library/jest-dom/extend-expect'
 
 describe('render component <ButtonComponent />', () => {
   describe('buttonText property', () => {
-    it('should recive buttonText prop, and show inside button', () => {
+    it('should recive buttonText prop, and show inside button - a tag', () => {
       const { container } = render(<ButtonComponent buttonText="button text" />)
-      expect(container.querySelector('a').innerHTML).toBe('button text')
+      expect(container.firstElementChild.innerHTML).toBe('button text')
+    })
+
+    it('should recive buttonText prop, and show inside button - button tag', () => {
+      const { container } = render(
+        <ButtonComponent buttonText="button text" formButton={true} />
+      )
+      expect(container.firstElementChild.innerHTML).toBe('button text')
     })
   })
 
