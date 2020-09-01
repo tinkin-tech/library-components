@@ -10,10 +10,11 @@ interface ITabsComponent {
   list: IListItem[]
   activeTabId: string | number
   tabListClassName?: string
+  tabContentClassName?: string
 }
 
 const TabsComponent = (props: ITabsComponent): React.ReactElement => {
-  const { list, activeTabId, tabListClassName } = props
+  const { list, activeTabId, tabListClassName, tabContentClassName } = props
   const activeItem = list.find((item) => item.id === activeTabId)
   const activeId = activeItem ? activeItem.id : list[0].id
   return (
@@ -29,7 +30,9 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
           </li>
         ))}
       </ul>
-      <div>{activeItem ? activeItem.content : list[0].content}</div>
+      <div className={`${tabContentClassName || ''} tab-content`}>
+        {activeItem ? activeItem.content : list[0].content}
+      </div>
     </>
   )
 }

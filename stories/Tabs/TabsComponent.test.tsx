@@ -78,11 +78,33 @@ describe('render component <DateSelectorComponent />', () => {
       ).toHaveLength(1)
     })
 
-    it('parent class should "tab-list" if tabListClassName not recived', () => {
+    it('parent class should be "tab-list" if tabListClassName not recived', () => {
       const { container } = render(
         <TabsComponent list={elementList} activeTabId={elementList[0].id} />
       )
       expect(container.getElementsByClassName('tab-list')).toHaveLength(1)
+    })
+  })
+
+  describe('tabContentClassName property', () => {
+    it('should recive tabContentClassName and add to content className "tab-list"', () => {
+      const { container } = render(
+        <TabsComponent
+          list={elementList}
+          activeTabId={elementList[0].id}
+          tabContentClassName={'test-class'}
+        />
+      )
+      expect(
+        container.getElementsByClassName('test-class tab-content')
+      ).toHaveLength(1)
+    })
+
+    it('content class should be "tab-list" if tabContentClassName not recived', () => {
+      const { container } = render(
+        <TabsComponent list={elementList} activeTabId={elementList[0].id} />
+      )
+      expect(container.getElementsByClassName('tab-content')).toHaveLength(1)
     })
   })
 })
