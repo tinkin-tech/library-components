@@ -23,3 +23,19 @@ export class TestUtil {
     this.valueId = valueId
   }
 }
+
+export const setLocationSearchValue = (search: string): void => {
+  const oldWindowLocation = window.location
+  delete window.location
+
+  window.location = Object.defineProperties(
+    {},
+    {
+      ...Object.getOwnPropertyDescriptors(oldWindowLocation),
+      search: {
+        configurable: true,
+        value: search,
+      },
+    }
+  )
+}

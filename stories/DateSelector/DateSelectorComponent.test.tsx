@@ -70,7 +70,11 @@ describe('render component <DateSelectorComponent />', () => {
       fireEvent.click(getByText('12'))
       rerender(getComponent())
       fireEvent.click(getByText('01'))
-      fireEvent.click(getByText(minDateObject.day))
+      fireEvent.click(
+        minDateObject.day
+          ? getAllByText(minDateObject.day)[1]
+          : getByText(minDateObject.day)
+      )
       rerender(getComponent())
       expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
