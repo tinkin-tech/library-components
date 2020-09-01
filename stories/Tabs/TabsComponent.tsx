@@ -9,12 +9,20 @@ interface IListItem {
 interface ITabsComponent {
   list: IListItem[]
   activeTabId: string | number
+  onChangeTab: (item: IListItem) => void
   tabListClassName?: string
   tabContentClassName?: string
 }
 
 const TabsComponent = (props: ITabsComponent): React.ReactElement => {
-  const { list, activeTabId, tabListClassName, tabContentClassName } = props
+  const {
+    list,
+    activeTabId,
+    tabListClassName,
+    tabContentClassName,
+    onChangeTab,
+  } = props
+
   const activeItem = list.find((item) => item.id === activeTabId)
   const activeId = activeItem ? activeItem.id : list[0].id
   return (
@@ -25,6 +33,9 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
             key={item.id}
             id={item.id.toString()}
             className={item.id === activeId ? 'active-tab' : ''}
+            onClick={(): void => {
+              onChangeTab(item)
+            }}
           >
             <label>{item.label}</label>
           </li>
