@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import UploaderImageComponent from './UploaderImageComponent'
 
-describe('UploaderImageComponent test', () => {
+describe('render component <UploaderImageComponent />', () => {
   const mockedFunction = jest.fn()
   const deleteMockedFunction = jest.fn()
   const file = new File(['any'], 'my_image.png', { type: 'image/png' })
@@ -11,22 +11,6 @@ describe('UploaderImageComponent test', () => {
   beforeEach(() => {
     mockedFunction.mockClear()
     deleteMockedFunction.mockClear()
-  })
-
-  it('Should render uploader component with all props', () => {
-    const { container } = render(
-      <UploaderImageComponent
-        value="someimage"
-        valueId="uploader"
-        onUploadImage={mockedFunction}
-        keyFormData="file"
-        deleteAction={deleteMockedFunction}
-        filesAccepted={['jpg']}
-        label="label"
-        error=""
-      />
-    )
-    expect(container).toBeInTheDocument()
   })
 
   it(
@@ -53,7 +37,7 @@ describe('UploaderImageComponent test', () => {
     }
   )
 
-  describe('Recive value prop', () => {
+  describe('When recive value prop', () => {
     it('Should show value in backgroundImage style when pass value', () => {
       const { container } = render(
         <UploaderImageComponent
@@ -89,7 +73,7 @@ describe('UploaderImageComponent test', () => {
     })
   })
 
-  describe('Recive onUploadImage prop', () => {
+  describe('When recive onUploadImage prop', () => {
     it(
       'Should call onUploadImage with valuea and valueId prop when ' +
         'upload image',
@@ -117,7 +101,7 @@ describe('UploaderImageComponent test', () => {
     )
   })
 
-  describe('Recive keyFormData prop', () => {
+  describe('When recive keyFormData prop', () => {
     it('Should append formData with keyFormData passed in props', () => {
       const { container } = render(
         <UploaderImageComponent
@@ -139,9 +123,9 @@ describe('UploaderImageComponent test', () => {
     })
   })
 
-  describe('Recive deleteAction prop', () => {
+  describe('When recive deleteAction prop', () => {
     it('Should call deleteAction when click on close button', () => {
-      const { getByText } = render(
+      const { container } = render(
         <UploaderImageComponent
           value="test.png"
           onUploadImage={mockedFunction}
@@ -150,13 +134,13 @@ describe('UploaderImageComponent test', () => {
           valueId="upload"
         />
       )
-      fireEvent.click(getByText('✕'))
+      fireEvent.click(container.getElementsByTagName('a')[0])
       expect(deleteMockedFunction).toHaveBeenCalledTimes(1)
       expect(deleteMockedFunction).toHaveBeenCalledWith('test.png', 'upload')
     })
   })
 
-  describe('Recive filesAccepted prop', () => {
+  describe('When recive filesAccepted prop', () => {
     it(
       'Shouldnt call mockedFunction when extension of file is not contain in ' +
         'filesAccepted',
@@ -204,7 +188,7 @@ describe('UploaderImageComponent test', () => {
     )
   })
 
-  describe('Recive label prop', () => {
+  describe('When recive label prop', () => {
     it('Should show label text when pass label prop', () => {
       const { getByText } = render(
         <UploaderImageComponent
@@ -218,9 +202,22 @@ describe('UploaderImageComponent test', () => {
       )
       expect(getByText('Label Uploader')).toBeInTheDocument()
     })
+
+    it('Should not show label elemet when label is empty or null', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+        />
+      )
+      expect(container.getElementsByTagName('label')).toHaveLength(0)
+    })
   })
 
-  describe('Recive error prop', () => {
+  describe('When recive error prop', () => {
     it('Should show error message when pass error prop', () => {
       const { getByText } = render(
         <UploaderImageComponent
@@ -247,14 +244,35 @@ describe('UploaderImageComponent test', () => {
           error="error message"
         />
       )
-      expect(getByText('label').className).toContain('label-error')
-      expect(container.getElementsByTagName('div')[1].className).toContain(
-        'upload-error'
+      expect(getByText('label').className).toBe('label label-error ')
+      expect(container.getElementsByTagName('div')[1].className).toBe(
+        'uploader-container upload-error'
       )
     })
+
+    it(
+      'Should not contain label-error and upload-error when error prop ' +
+        'is empty or null',
+      () => {
+        const { container, getByText } = render(
+          <UploaderImageComponent
+            value="image.png"
+            onUploadImage={mockedFunction}
+            deleteAction={deleteMockedFunction}
+            keyFormData="key"
+            valueId="upload"
+            label="label"
+          />
+        )
+        expect(getByText('label').className).not.toContain('label-error')
+        expect(
+          container.getElementsByTagName('div')[1].className
+        ).not.toContain('upload-error')
+      }
+    )
   })
 
-  describe('Recive labelClassName prop', () => {
+  describe('When recive labelClassName prop', () => {
     it('Should replace label class name with text of labelClassName', () => {
       const { getByText } = render(
         <UploaderImageComponent
@@ -272,7 +290,7 @@ describe('UploaderImageComponent test', () => {
     })
   })
 
-  describe('Recive extraLabelClassName prop', () => {
+  describe('When recive extraLabelClassName prop', () => {
     it('Should add label class name with text of labelClassName', () => {
       const { getByText } = render(
         <UploaderImageComponent
@@ -290,7 +308,7 @@ describe('UploaderImageComponent test', () => {
     })
   })
 
-  describe('Recive required prop', () => {
+  describe('When recive required prop', () => {
     it('Should add * next to the label text when pass required prop', () => {
       const { getByText } = render(
         <UploaderImageComponent

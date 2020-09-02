@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ES_EC from './language/es_EC'
 
 interface IUploaderImageComponent {
   value: string
@@ -52,18 +53,23 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
 
   return (
     <div className="uploader-componet">
-      <label
-        className={`${labelClassName || 'label'}
-           ${extraLabelClassName || ''} ${error ? 'label-error' : ''}`}
-      >
-        {`${label || ''}${required ? '*' : ''}`}&nbsp;
-      </label>
+      {label && (
+        <label
+          className={`${labelClassName || 'label '}${
+            error ? 'label-error ' : ''
+          }${extraLabelClassName || ''}`}
+        >
+          {`${label}${required ? '*' : ''}`}
+        </label>
+      )}
       {value ? (
         <div
           className={`uploader-container ${error ? 'upload-error' : ''}`}
           style={{ backgroundImage: `url(${value})` }}
         >
-          <a onClick={(): void => deleteAction(value, valueId)}>&#10005;</a>
+          <a onClick={(): void => deleteAction(value, valueId)}>
+            <i className="close-icon" />
+          </a>
         </div>
       ) : (
         <>
@@ -72,7 +78,7 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
             type="file"
             onChange={selectImages}
           />
-          {!fileValid && <span>Formato del archivo inválido</span>}
+          {!fileValid && <span>{ES_EC.invalidFormat}</span>}
         </>
       )}
       {error && <span>{error}</span>}
