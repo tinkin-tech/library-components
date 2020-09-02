@@ -87,15 +87,14 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
 
   return (
     <>
-      <nav aria-label="Countries Pagination">
+      <nav>
         <ul className="pagination">
           {pages.map((page, index) => {
             if (page === LEFT_PAGE) {
               return (
                 <li key={index} className="page-item">
                   <a className="page-link" href="#" onClick={handleMoveLeft}>
-                    <span aria-hidden="true">&laquo</span>
-                    <span className="sr-only">Previous</span>
+                    <i className="icon-arrow left" />
                   </a>
                 </li>
               )
@@ -104,8 +103,7 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
               return (
                 <li key={index} className="page-item">
                   <a className="page-link" href="#" onClick={handleMoveRight}>
-                    <span aria-hidden="true">&raquo</span>
-                    <span className="sr-only">Next</span>
+                    <i className="icon-arrow right" />
                   </a>
                 </li>
               )
