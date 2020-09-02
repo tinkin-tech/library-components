@@ -4,25 +4,14 @@ import '@testing-library/jest-dom/extend-expect'
 import PaginationComponent from './PaginationComponent'
 import { setLocationSearchValue } from '../../utils/testUtils/testUtils'
 
-describe('PaginationComponent test', () => {
+describe('Render component <PaginationComponent />', () => {
   const mockedFunction = jest.fn()
 
   beforeEach(() => {
     mockedFunction.mockClear()
   })
 
-  it('Should render component with all props', () => {
-    const { container } = render(
-      <PaginationComponent
-        totalPages={10}
-        currentPage={1}
-        goToPage={mockedFunction}
-      />
-    )
-    expect(container).toBeInTheDocument()
-  })
-
-  describe('Recive totalPages prop', () => {
+  describe('When recive totalPages prop', () => {
     it(
       'Should show list of pages with length equal to totalPages when ' +
         'pass in props',
@@ -39,7 +28,7 @@ describe('PaginationComponent test', () => {
     )
   })
 
-  describe('Recive buttonCount prop', () => {
+  describe('When recive buttonCount prop', () => {
     it(
       'Should show 5 pages with numbers and 4 with configs when not pass ' +
         'pageNeighbours prop',
@@ -78,7 +67,7 @@ describe('PaginationComponent test', () => {
     })
   })
 
-  describe('Recive currentPage prop', () => {
+  describe('When recive currentPage prop', () => {
     it(
       'Should show all pages if totalPages is smaller than pageNeighbours ' +
         'and add selected className when index of item is equal to currentPage',
@@ -117,7 +106,7 @@ describe('PaginationComponent test', () => {
     )
   })
 
-  describe('Arrow prev', () => {
+  describe('When show arrow prev', () => {
     it(
       'Should show arrow prev when number of items before currentPage are ' +
         'bigger to pageNeighbours',
@@ -131,7 +120,7 @@ describe('PaginationComponent test', () => {
           />
         )
         expect(container.getElementsByTagName('li')[1].innerHTML).toContain(
-          '&amp;laquo'
+          '<i class=\"icon-arrow left\"></i>'
         )
       }
     )
@@ -153,7 +142,7 @@ describe('PaginationComponent test', () => {
     )
   })
 
-  describe('Next arrow', () => {
+  describe('When show next arrow', () => {
     it(
       'Should show next arrow when number of items after currentPage are ' +
         'bigger than pageNeighbours',
@@ -167,7 +156,7 @@ describe('PaginationComponent test', () => {
           />
         )
         expect(container.getElementsByTagName('li')[6].innerHTML).toContain(
-          '&amp;raquo'
+          '<i class=\"icon-arrow right\"></i>'
         )
       }
     )
@@ -216,7 +205,7 @@ describe('PaginationComponent test', () => {
     expect(container.getElementsByTagName('li')[5].innerHTML).toContain(10)
   })
 
-  describe('Recive goToPage', () => {
+  describe('When recive goToPage', () => {
     const oldWindowLocation = window.location
 
     afterAll(() => {
@@ -264,7 +253,7 @@ describe('PaginationComponent test', () => {
         'arrow',
       () => {
         setLocationSearchValue('')
-        const { getByText } = render(
+        const { container } = render(
           <PaginationComponent
             currentPage={6}
             goToPage={mockedFunction}
@@ -272,7 +261,7 @@ describe('PaginationComponent test', () => {
             pageNeighbours={1}
           />
         )
-        fireEvent.click(getByText('&laquo'))
+        fireEvent.click(container.getElementsByTagName('a')[1])
         expect(mockedFunction).toHaveBeenCalledWith('?page=5')
       }
     )
@@ -282,7 +271,7 @@ describe('PaginationComponent test', () => {
         'arrow',
       () => {
         setLocationSearchValue('')
-        const { getByText } = render(
+        const { container } = render(
           <PaginationComponent
             currentPage={6}
             goToPage={mockedFunction}
@@ -290,7 +279,7 @@ describe('PaginationComponent test', () => {
             pageNeighbours={1}
           />
         )
-        fireEvent.click(getByText('&raquo'))
+        fireEvent.click(container.getElementsByTagName('a')[5])
         expect(mockedFunction).toHaveBeenCalledWith('?page=7')
       }
     )

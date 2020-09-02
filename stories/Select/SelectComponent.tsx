@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ES_EC from './languages/es_EC'
 
 interface IOption {
   id: string | number
@@ -48,7 +49,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
   const getValue =
     options.find((item) => item.id === value)?.label ||
     placeholder ||
-    'Seleccione una opción'
+    ES_EC.placeholder
   const handleClickOutside = (event: Event): void => {
     if (!selectRef.current.contains(event.target)) {
       handleOpenSelector(false)
@@ -60,23 +61,30 @@ const SelectComponent: React.FC<ISelectComponent> = (
     return (): void => document.removeEventListener('click', handleClickOutside)
   })
 
+  const selectClassNameObject = [
+    selectClassName || 'select-component',
+    extraSelectClassName || '',
+    error ? 'select-component-error' : '',
+    readOnly ? 'disable-select' : '',
+  ].filter((item) => item !== '')
+
+  const labelClassNameObject = [
+    labelClassName || 'label',
+    extraLabelClassName || '',
+    error ? 'label-error' : '',
+  ].filter((item) => item !== '')
+
   return (
     <div className="select-component" ref={selectRef}>
       <a
-        className={`${selectClassName || 'select-component'} ${
-          extraSelectClassName || ''
-        } ${error ? 'select-component-error' : ''} ${
-          readOnly ? 'disable-select' : ''
-        }`}
-        onClick={readOnly ? null : (): void => handleOpenSelector(true)}
+        className={selectClassNameObject.join(' ')}
+        onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
-        <span
-          className={`${labelClassName || 'label'} ${
-            extraLabelClassName || ''
-          } ${error ? 'label-error' : ''}`}
-        >
-          {`${label || ''}${required ? '*' : ''}`}&nbsp;
-        </span>
+        {label && (
+          <span className={labelClassNameObject.join(' ')}>
+            {`${label}${required ? '*' : ''}`}
+          </span>
+        )}
         {getValue}
       </a>
       {error && <span>{error}</span>}
