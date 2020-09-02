@@ -29,3 +29,63 @@ export const setLocationSearchValue = (search: string): void => {
     }
   )
 }
+
+export const mockOffsetAndClientSizes = (value?: number): void => {
+  const originalClientHeight = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    'clientHeight'
+  )
+  const originalClientWidth = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    'clientWidth'
+  )
+  const originalOffsetWidth = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    'offsetWidth'
+  )
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    'offsetHeight'
+  )
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
+      configurable: true,
+      value: value || 500,
+    })
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+      configurable: true,
+      value: value || 500,
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      value: value || 500,
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: value || 500,
+    })
+  })
+
+  afterAll(() => {
+    Object.defineProperty(
+      HTMLElement.prototype,
+      'clientHeight',
+      originalClientHeight
+    )
+    Object.defineProperty(
+      HTMLElement.prototype,
+      'clientWidth',
+      originalClientWidth
+    )
+    Object.defineProperty(
+      HTMLElement.prototype,
+      'offsetWidth',
+      originalOffsetHeight
+    )
+    Object.defineProperty(
+      HTMLElement.prototype,
+      'offsetHeight',
+      originalOffsetWidth
+    )
+  })
+}
