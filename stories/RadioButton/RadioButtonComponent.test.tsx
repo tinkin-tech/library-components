@@ -3,59 +3,58 @@ import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import RadioButtonComponent from './RadioButtonComponent'
 
-const options = [
-  {
-    id: 'id1',
-    label: 'label1',
-  },
-  {
-    id: 'id2',
-    label: 'label2',
-  },
-  {
-    id: 'id3',
-    label: 'label3',
-  },
-]
+describe('render component <RadioButtonComponent />', () => {
+  const options = [
+    {
+      id: 'id1',
+      label: 'label1',
+    },
+    {
+      id: 'id2',
+      label: 'label2',
+    },
+    {
+      id: 'id3',
+      label: 'label3',
+    },
+  ]
 
-const value = 'id1'
+  const value = 'id1'
 
-describe('RadioButton component tests', () => {
-  describe('options property', () => {
-    it('should recive options list', () => {
+  describe('when reciving options property', () => {
+    it('should render options list items', () => {
       const { container } = render(<RadioButtonComponent options={options} />)
       expect(container.getElementsByTagName('input')).toHaveLength(3)
       expect(container.getElementsByTagName('label')).toHaveLength(3)
     })
 
-    it('should render with empty options', () => {
+    it('should show any options when list is empty', () => {
       const { container } = render(<RadioButtonComponent options={[]} />)
       expect(container.getElementsByTagName('input')).toHaveLength(0)
       expect(container.getElementsByTagName('label')).toHaveLength(0)
     })
   })
 
-  describe('values property', () => {
+  describe('when reciving values property', () => {
     it('should recive values property with checked values', () => {
       const { container } = render(
         <RadioButtonComponent options={options} value={value} />
       )
       expect(
-        Array.of(...container.getElementsByTagName('input')).filter(
-          (element) => element.checked === true
-        )[0]
+        container.getElementsByClassName('selected')[0].firstElementChild
       ).toHaveAttribute('id', value)
     })
   })
 
-  describe('onChangeValues property', () => {
-    it('should recive onChangeValues property, remove from list if exists', () => {
+  describe('when reciving onChangeValues property', () => {
+    it('should recive new id if different than value and valueId', () => {
       const func = jest.fn()
       const { getByText, container } = render(
         <RadioButtonComponent
           options={options}
           onChangeValue={func}
           value={value}
+          valueId={'id4'}
         />
       )
       fireEvent.click(getByText('label2'))
@@ -64,27 +63,25 @@ describe('RadioButton component tests', () => {
           (element) => element.checked === true
         )[0]
       ).toHaveAttribute('id', 'id2')
-      expect(func).toHaveBeenCalledWith('id2')
+      expect(func).toHaveBeenCalledWith('id2', 'id4')
       expect(func).toHaveBeenCalledTimes(1)
     })
 
-    it("should recive onChangeValues property, add to list if doesn't exists", () => {
+    it('should do nothing if same id is selected', () => {
       const func = jest.fn()
-      const { getByText, container } = render(
-        <RadioButtonComponent options={options} onChangeValue={func} />
+      const { getByText } = render(
+        <RadioButtonComponent
+          options={options}
+          onChangeValue={func}
+          value={value}
+        />
       )
       fireEvent.click(getByText('label1'))
-      expect(
-        Array.of(...container.getElementsByTagName('input')).filter(
-          (element) => element.checked === true
-        )
-      ).toHaveLength(1)
-      expect(func).toHaveBeenCalledWith('id1')
-      expect(func).toHaveBeenCalledTimes(1)
+      expect(func).toHaveBeenCalledTimes(0)
     })
   })
 
-  describe('disabled property', () => {
+  describe('when reciving disabled property', () => {
     it('should not execute onChangeValues when disabled is true', () => {
       const func = jest.fn()
       const { getByText } = render(
@@ -102,66 +99,85 @@ describe('RadioButton component tests', () => {
       const { container } = render(
         <RadioButtonComponent options={options} disabled={true} />
       )
-      expect(
-        container.getElementsByClassName('disabled-checklist')
-      ).toHaveLength(1)
+      expect(container.firstElementChild.className).toMatch(
+        'disabled-checklist'
+      )
     })
   })
 
-  describe('label property', () => {
+  describe('when reciving label property', () => {
     it('should recive label property', () => {
       const { container } = render(
         <RadioButtonComponent options={options} label={'Test label'} />
       )
-      expect(container.getElementsByTagName('label')[0].innerHTML).toContain(
-        'Test label'
+      expect(container.firstElementChild.firstElementChild.tagName).toBe(
+        'LABEL'
+      )
+    })
+
+    it('should not render label on top if label not recived', () => {
+      const { container } = render(<RadioButtonComponent options={options} />)
+      expect(container.firstElementChild.firstElementChild.tagName).not.toBe(
+        'LABEL'
       )
     })
   })
 
-  describe('listItemClassName property', () => {
-    it('should recive listItemClassName property, set className on items', () => {
+  describe('when reciving listItemClassName property', () => {
+    it('should set className on items', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           listItemClassName={'item-class'}
         />
       )
-      expect(container.getElementsByClassName('item-class')).toHaveLength(
-        options.length
-      )
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.className).toMatch('item-class')
+      }
     })
 
     it("should set className 'check-list-item' on items if listItemClassName not provided", () => {
       const { container } = render(<RadioButtonComponent options={options} />)
-      expect(container.getElementsByClassName('check-list-item')).toHaveLength(
-        options.length
-      )
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.className).toMatch('check-list-item')
+      }
     })
   })
 
-  describe('labelClassName property', () => {
-    it('should recive labelClassName property, set className on labels', () => {
+  describe('when reciving labelClassName property', () => {
+    it('should set className on labels', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           labelClassName={'label-class'}
         />
       )
-      expect(container.getElementsByClassName('label-class')).toHaveLength(
-        options.length
-      )
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.getElementsByTagName('label')[0].className).toMatch(
+          'label-class'
+        )
+      }
     })
 
     it("should set className 'label' on items if labelClassName not provided", () => {
       const { container } = render(<RadioButtonComponent options={options} />)
-      expect(container.getElementsByClassName('label')).toHaveLength(
-        options.length
-      )
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.getElementsByTagName('label')[0].className).toMatch(
+          'label'
+        )
+      }
     })
   })
 
-  describe('error property', () => {
+  describe('when reciving error property', () => {
     it('should recive error property and place it below list', () => {
       const { container, getByText } = render(
         <RadioButtonComponent options={options} error={'test error'} />
@@ -170,8 +186,8 @@ describe('RadioButton component tests', () => {
     })
   })
 
-  describe('required property', () => {
-    it("should recive required property and add '*' next to label if true", () => {
+  describe('when reciving required property', () => {
+    it("should add '*' next to label if true", () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
@@ -179,37 +195,43 @@ describe('RadioButton component tests', () => {
           required={true}
         />
       )
-      expect(container.getElementsByTagName('label')[0].innerHTML).toContain(
+      expect(container.firstElementChild.firstElementChild.innerHTML).toContain(
         'Test label*'
       )
     })
   })
 
-  describe('extraListItemClassName property', () => {
-    it('should recive extraListItemClassName property, set className on items - add to listItemClassName', () => {
+  describe('when reciving extraListItemClassName property', () => {
+    it('should set className on items - add to listItemClassName', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           extraListItemClassName={'item-class'}
         />
       )
-      expect(
-        container.getElementsByClassName('item-class check-list-item')
-      ).toHaveLength(options.length)
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.className).toMatch('check-list-item item-class')
+      }
     })
   })
 
-  describe('extraLabelClassName property', () => {
-    it('should recive extraLabelClassName property, set className on labels - add to labelClassName', () => {
+  describe('when reciving extraLabelClassName property', () => {
+    it('should set className on labels - add to labelClassName', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           extraLabelClassName={'label-class'}
         />
       )
-      expect(
-        container.getElementsByClassName('label-class label')
-      ).toHaveLength(options.length)
+      for (const element of container.firstElementChild.getElementsByTagName(
+        'div'
+      )) {
+        expect(element.getElementsByTagName('label')[0].className).toMatch(
+          'label label-class'
+        )
+      }
     })
   })
 })

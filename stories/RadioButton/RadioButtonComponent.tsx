@@ -5,10 +5,11 @@ type RadioOption = {
   label: string
 }
 
-interface RadioButtonComponentPropsInterface {
+interface IRadioButtonComponent {
   options: RadioOption[]
   value?: string
-  onChangeValue?: (valueId: string) => void
+  onChangeValue?: (id: string, valueId: string) => void
+  valueId?: string
   disabled?: boolean
   label?: string
   listItemClassName?: string
@@ -19,8 +20,8 @@ interface RadioButtonComponentPropsInterface {
   extraLabelClassName?: string
 }
 
-const RadioButtonComponent: React.FC<RadioButtonComponentPropsInterface> = (
-  props: RadioButtonComponentPropsInterface
+const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
+  props: IRadioButtonComponent
 ) => {
   const {
     options,
@@ -34,6 +35,7 @@ const RadioButtonComponent: React.FC<RadioButtonComponentPropsInterface> = (
     required,
     extraListItemClassName,
     extraLabelClassName,
+    valueId,
   } = props
 
   const [selectedValue, onChangeSelectedValue] = React.useState(value)
@@ -41,7 +43,7 @@ const RadioButtonComponent: React.FC<RadioButtonComponentPropsInterface> = (
   const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = event.target.id === selectedValue ? null : event.target.id
     onChangeSelectedValue(newValue)
-    onChangeValue(newValue)
+    onChangeValue(newValue, valueId)
   }
   return (
     <div className={disabled ? 'disabled-checklist' : ''}>
@@ -56,7 +58,7 @@ const RadioButtonComponent: React.FC<RadioButtonComponentPropsInterface> = (
         <div
           className={`${listItemClassName || 'check-list-item'} ${
             extraListItemClassName || ''
-          }`}
+          } ${selectedValue === option.id ? 'selected' : ''}`}
         >
           <input
             type="radio"
@@ -74,7 +76,7 @@ const RadioButtonComponent: React.FC<RadioButtonComponentPropsInterface> = (
           </label>
         </div>
       ))}
-      <div>{error || ''}</div>
+      {error && <div>{error}</div>}
     </div>
   )
 }
