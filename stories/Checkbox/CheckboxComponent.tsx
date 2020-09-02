@@ -5,10 +5,11 @@ type CheckboxOption = {
   label: string
 }
 
-interface CheckboxComponentPropsInterface {
+interface ICheckboxComponent {
   options: CheckboxOption[]
   values?: string[]
   onChangeValues?: (values: string[], valueId: string) => void
+  valueId?: string
   disabled?: boolean
   label?: string
   listItemClassName?: string
@@ -19,8 +20,8 @@ interface CheckboxComponentPropsInterface {
   extraLabelClassName?: string
 }
 
-const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
-  props: CheckboxComponentPropsInterface
+const CheckboxComponent: React.FC<ICheckboxComponent> = (
+  props: ICheckboxComponent
 ) => {
   const {
     options,
@@ -34,6 +35,7 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
     required,
     extraListItemClassName,
     extraLabelClassName,
+    valueId,
   } = props
 
   const [selectedValues, onChangeSelectedValues] = React.useState(values)
@@ -43,7 +45,7 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
       ? selectedValues.filter((value) => value !== event.target.id)
       : [...selectedValues, event.target.id]
     onChangeSelectedValues(newValues)
-    onChangeValues(newValues, event.target.id)
+    onChangeValues(newValues, valueId)
   }
   return (
     <div className={disabled ? 'disabled-checklist' : ''}>
@@ -58,6 +60,10 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
         <div
           className={`${listItemClassName || 'check-list-item'} ${
             extraListItemClassName || ''
+          } ${
+            selectedValues.find((value) => value === option.id)
+              ? 'selected'
+              : ''
           }`}
         >
           <input
@@ -76,7 +82,7 @@ const CheckboxComponent: React.FC<CheckboxComponentPropsInterface> = (
           </label>
         </div>
       ))}
-      <div>{error || ''}</div>
+      {error && <div>{error}</div>}
     </div>
   )
 }
