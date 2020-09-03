@@ -33,11 +33,13 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
             key={item.id}
             id={item.id.toString()}
             className={item.id === activeId ? 'active-tab' : ''}
-            onClick={(): void => {
-              onChangeTab(item)
-            }}
           >
-            <label>{item.label}</label>
+            <a
+              onClick={(): void => {
+                onChangeTab(item)
+              }}
+            />
+            {item.label}
           </li>
         ))}
       </ul>

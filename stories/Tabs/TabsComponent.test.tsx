@@ -44,9 +44,11 @@ describe('render component <DateSelectorComponent />', () => {
           onChangeTab={jest.fn()}
         />
       )
-      for (const element of container.getElementsByTagName('li')) {
-        expect(element.firstElementChild.tagName).toBe('LABEL')
-      }
+      elementList.forEach((element, index) => {
+        expect(container.getElementsByTagName('li')[index].textContent).toBe(
+          element.label
+        )
+      })
     })
   })
 
@@ -146,7 +148,7 @@ describe('render component <DateSelectorComponent />', () => {
           onChangeTab={func}
         />
       )
-      fireEvent.click(container.getElementsByTagName('li')[0])
+      fireEvent.click(container.getElementsByTagName('li')[0].firstElementChild)
       expect(func).toHaveBeenCalledTimes(1)
       expect(func).toHaveBeenCalledWith(elementList[0])
     })
