@@ -65,15 +65,23 @@ describe('render component <CheckboxComponent />', () => {
 
   describe('when receiving onChangeValues property', () => {
     it('should remove from list if element selected exists in list', () => {
-      const { getByText } = render(
+      const { getByText, rerender } = render(
         <CheckboxComponent
           options={options}
           onChangeValues={func}
-          values={values}
+          values={['id1', 'id2']}
           valueId={'checkboxValueId'}
         />
       )
       fireEvent.click(getByText('label1'))
+      rerender(
+        <CheckboxComponent
+          options={options}
+          onChangeValues={func}
+          values={['id2']}
+          valueId={'checkboxValueId'}
+        />
+      )
       expect(func).toHaveBeenCalledWith(['id2'], 'checkboxValueId')
       expect(func).toHaveBeenCalledTimes(1)
       jest.clearAllMocks()
@@ -220,14 +228,21 @@ describe('render component <CheckboxComponent />', () => {
   })
 
   describe('when receiving error property', () => {
-    it('should render error below list', () => {
+    it('should render error below list, add className "label-error" to label and "checkbox-component-error" to}', () => {
       const { container, getByText } = render(
         <CheckboxComponent
           options={options}
+          label={'Test Label'}
           error={'test error'}
           values={values}
           onChangeValues={func}
         />
+      )
+      expect(container.firstElementChild.className).toMatch(
+        'checkbox-component-error'
+      )
+      expect(container.firstElementChild.firstElementChild.className).toMatch(
+        'label label-error'
       )
       expect(container.firstChild.lastChild).toBe(getByText('test error'))
     })

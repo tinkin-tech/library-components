@@ -38,22 +38,23 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
     valueId,
   } = props
 
-  const [selectedValues, onChangeSelectedValues] = React.useState(values)
-
   const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newValues = selectedValues.find((value) => value === event.target.id)
-      ? selectedValues.filter((value) => value !== event.target.id)
-      : [...selectedValues, event.target.id]
-    onChangeSelectedValues(newValues)
+    const newValues = values.find((value) => value === event.target.id)
+      ? values.filter((value) => value !== event.target.id)
+      : [...values, event.target.id]
     onChangeValues(newValues, valueId)
   }
   return (
-    <div className={disabled ? 'disabled-checklist' : ''}>
+    <div
+      className={`${disabled ? 'disabled-checklist' : ''} ${
+        error && 'checkbox-component-error'
+      }`}
+    >
       {label && (
         <label
           className={`${labelClassName || 'label'} ${
             extraLabelClassName || ''
-          }`}
+          }${error && 'label-error'}`}
         >
           {label}
           {required ? '*' : ''}
@@ -64,16 +65,12 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
         <div
           className={`${listItemClassName || 'check-list-item'} ${
             extraListItemClassName || ''
-          } ${
-            selectedValues.find((value) => value === option.id)
-              ? 'selected'
-              : ''
-          }`}
+          } ${values.find((value) => value === option.id) ? 'selected' : ''}`}
         >
           <input
             type="checkbox"
             id={option.id.toString()}
-            checked={!!selectedValues.find((value) => value === option.id)}
+            checked={!!values.find((value) => value === option.id)}
             onChange={disabled ? null : onChangeAction}
           />
           <label htmlFor={option.id.toString()}>{option.label}</label>
