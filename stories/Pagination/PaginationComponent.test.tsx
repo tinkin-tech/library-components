@@ -41,11 +41,9 @@ describe('Render component <PaginationComponent />', () => {
           />
         )
         expect(container.getElementsByTagName('li')).toHaveLength(9)
-        expect(getByText('7')).toBeInTheDocument()
-        expect(getByText('6')).toBeInTheDocument()
-        expect(getByText('8')).toBeInTheDocument()
-        expect(getByText('9')).toBeInTheDocument()
-        expect(getByText('10')).toBeInTheDocument()
+        for (let i = 6; i <= 10; i++) {
+          expect(getByText(i.toString())).toBeInTheDocument()
+        }
       }
     )
 
@@ -86,47 +84,31 @@ describe('Render component <PaginationComponent />', () => {
         )
       }
     )
-
-    it(
-      'Should show currentPage button in center of list of pages when ' +
-        'totalPages is bigger than buttonCount',
-      () => {
-        const { getByText, container } = render(
-          <PaginationComponent
-            totalPages={30}
-            goToPage={mockedFunction}
-            pageNeighbours={2}
-            currentPage={6}
-          />
-        )
-        expect(getByText('6')).toBeInTheDocument()
-        expect(container.getElementsByTagName('li')).toHaveLength(9)
-        expect(container.getElementsByTagName('li')[4].innerHTML).toContain('6')
-      }
-    )
   })
 
   describe('When show arrow prev', () => {
     it(
-      'Should show arrow prev when number of items before currentPage are ' +
-        'bigger to pageNeighbours',
+      'Should add arrow prev class disable and not execute action of on ' +
+        'click when number currentPage are equal to 1',
       () => {
         const { container } = render(
           <PaginationComponent
             totalPages={20}
             goToPage={mockedFunction}
             pageNeighbours={2}
-            currentPage={10}
+            currentPage={1}
           />
         )
-        expect(container.getElementsByTagName('li')[1].innerHTML).toContain(
-          '<i class=\"icon-arrow left\"></i>'
+        expect(container.getElementsByTagName('a')[0].className).toBe(
+          'page-link disabled'
         )
+        fireEvent.click(container.getElementsByTagName('a')[0])
+        expect(mockedFunction).toHaveBeenCalledTimes(0)
       }
     )
 
     it(
-      'Should show number of item in second position when number of items ' +
+      'Should show number of item in third position when number of items ' +
         'before currentPage are smaller than pageNeighbours',
       () => {
         const { container } = render(
@@ -137,7 +119,7 @@ describe('Render component <PaginationComponent />', () => {
             currentPage={4}
           />
         )
-        expect(container.getElementsByTagName('li')[1].innerHTML).toContain('2')
+        expect(container.getElementsByTagName('li')[2].innerHTML).toContain('2')
       }
     )
   })
@@ -152,12 +134,14 @@ describe('Render component <PaginationComponent />', () => {
             totalPages={10}
             goToPage={mockedFunction}
             pageNeighbours={2}
-            currentPage={4}
+            currentPage={10}
           />
         )
-        expect(container.getElementsByTagName('li')[6].innerHTML).toContain(
-          '<i class=\"icon-arrow right\"></i>'
+        expect(container.getElementsByTagName('a')[5].className).toBe(
+          'page-link disabled'
         )
+        fireEvent.click(container.getElementsByTagName('a')[5])
+        expect(mockedFunction).toHaveBeenCalledTimes(0)
       }
     )
 
@@ -180,7 +164,7 @@ describe('Render component <PaginationComponent />', () => {
     )
   })
 
-  it('Should 1 allways should be the first item of a list', () => {
+  it('Should 1 allways should be the second item of a list', () => {
     const { container } = render(
       <PaginationComponent
         totalPages={10}
@@ -189,19 +173,19 @@ describe('Render component <PaginationComponent />', () => {
         currentPage={8}
       />
     )
-    expect(container.getElementsByTagName('li')[0].innerHTML).toContain('1')
+    expect(container.getElementsByTagName('li')[1].innerHTML).toContain('1')
   })
 
-  it('Should number of totalPages allways should be the last item', () => {
+  it('Should totalPages allways should be the second last item', () => {
     const { container } = render(
       <PaginationComponent
         totalPages={10}
         goToPage={mockedFunction}
         pageNeighbours={1}
-        currentPage={1}
+        currentPage={3}
       />
     )
-    expect(container.getElementsByTagName('li')).toHaveLength(6)
+    expect(container.getElementsByTagName('li')).toHaveLength(7)
     expect(container.getElementsByTagName('li')[5].innerHTML).toContain(10)
   })
 
@@ -261,7 +245,7 @@ describe('Render component <PaginationComponent />', () => {
             pageNeighbours={1}
           />
         )
-        fireEvent.click(container.getElementsByTagName('a')[1])
+        fireEvent.click(container.getElementsByTagName('a')[0])
         expect(mockedFunction).toHaveBeenCalledWith('?page=5')
       }
     )
@@ -279,7 +263,7 @@ describe('Render component <PaginationComponent />', () => {
             pageNeighbours={1}
           />
         )
-        fireEvent.click(container.getElementsByTagName('a')[5])
+        fireEvent.click(container.getElementsByTagName('a')[6])
         expect(mockedFunction).toHaveBeenCalledWith('?page=7')
       }
     )

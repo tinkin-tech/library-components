@@ -8,19 +8,6 @@ export interface IPaginationComponent {
   pageNeighbours?: number
 }
 
-const LEFT_PAGE = 'LEFT'
-const RIGHT_PAGE = 'RIGHT'
-
-const range = (from: number, to: number, step = 1): string[] => {
-  let i = from
-  const range = []
-  while (i <= to) {
-    range.push(i)
-    i += step
-  }
-  return range
-}
-
 const PaginationComponent: React.FC<IPaginationComponent> = (
   props: IPaginationComponent
 ) => {
@@ -28,6 +15,19 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
   const goToPage = (page: React.ReactText): void => {
     const currentPage = Math.max(0, Math.min(+page, totalPages))
     props.goToPage(updateUrlParams('page', currentPage))
+  }
+
+  const LEFT_PAGE = 'LEFT'
+  const RIGHT_PAGE = 'RIGHT'
+
+  const range = (from: number, to: number, step = 1): string[] => {
+    let i = from
+    const range = []
+    while (i <= to) {
+      range.push(i)
+      i += step
+    }
+    return range
   }
 
   const handleClick = (page: React.ReactText) => (
@@ -57,28 +57,8 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
     if (totalPages > totalBlocks) {
       const startPage = Math.max(2, currentPage - pageNeighbours)
       const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours)
-      let pages = range(startPage, endPage)
-      const hasLeftSpill = startPage > 2
-      const hasRightSpill = totalPages - endPage > 1
-      const spillOffset = totalNumbers - (pages.length + 1)
-      switch (true) {
-        case hasLeftSpill && !hasRightSpill: {
-          const extraPages = range(startPage - spillOffset, startPage - 1)
-          pages = [LEFT_PAGE, ...extraPages, ...pages]
-          break
-        }
-        case !hasLeftSpill && hasRightSpill: {
-          const extraPages = range(endPage + 1, endPage + spillOffset)
-          pages = [...pages, ...extraPages, RIGHT_PAGE]
-          break
-        }
-        case hasLeftSpill && hasRightSpill:
-        default: {
-          pages = [LEFT_PAGE, ...pages, RIGHT_PAGE]
-          break
-        }
-      }
-      return [1, ...pages, totalPages]
+      const pages = range(startPage, endPage)
+      return [LEFT_PAGE, 1, ...pages, totalPages, RIGHT_PAGE]
     }
     return range(1, totalPages)
   }
@@ -93,7 +73,13 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
             if (page === LEFT_PAGE) {
               return (
                 <li key={index} className="page-item">
-                  <a className="page-link" href="#" onClick={handleMoveLeft}>
+                  <a
+                    className={`page-link ${
+                      currentPage === 1 ? 'disabled' : ''
+                    }`}
+                    href="#"
+                    onClick={(e): void => currentPage > 1 && handleMoveLeft(e)}
+                  >
                     <i className="icon-arrow left" />
                   </a>
                 </li>
@@ -102,7 +88,15 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
             if (page === RIGHT_PAGE) {
               return (
                 <li key={index} className="page-item">
-                  <a className="page-link" href="#" onClick={handleMoveRight}>
+                  <a
+                    className={`page-link ${
+                      currentPage === totalPages ? 'disabled' : ''
+                    }`}
+                    href="#"
+                    onClick={(e): void =>
+                      currentPage < totalPages && handleMoveRight(e)
+                    }
+                  >
                     <i className="icon-arrow right" />
                   </a>
                 </li>
