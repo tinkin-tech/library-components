@@ -14,7 +14,7 @@ stages:
 setup:
   stage: setup
   script:
-    - npm ci
+    - npm install
   only:
     - feature/DRC-51
 
