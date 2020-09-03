@@ -7,8 +7,8 @@ type CheckboxOption = {
 
 interface ICheckboxComponent {
   options: CheckboxOption[]
-  values?: string[]
-  onChangeValues?: (values: string[], valueId: string) => void
+  values: string[]
+  onChangeValues: (values: string[], valueId: string) => void
   valueId?: string
   disabled?: boolean
   label?: string
@@ -50,7 +50,11 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
   return (
     <div className={disabled ? 'disabled-checklist' : ''}>
       {label && (
-        <label>
+        <label
+          className={`${labelClassName || 'label'} ${
+            extraLabelClassName || ''
+          }`}
+        >
           {label}
           {required ? '*' : ''}
         </label>
@@ -72,14 +76,7 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
             checked={!!selectedValues.find((value) => value === option.id)}
             onChange={disabled ? null : onChangeAction}
           />
-          <label
-            htmlFor={option.id.toString()}
-            className={`${labelClassName || 'label'} ${
-              extraLabelClassName || ''
-            }`}
-          >
-            {option.label}
-          </label>
+          <label htmlFor={option.id.toString()}>{option.label}</label>
         </div>
       ))}
       {error && <div>{error}</div>}
