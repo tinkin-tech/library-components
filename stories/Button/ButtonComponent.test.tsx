@@ -4,13 +4,13 @@ import ButtonComponent from './ButtonComponent'
 import '@testing-library/jest-dom/extend-expect'
 
 describe('render component <ButtonComponent />', () => {
-  describe('buttonText property', () => {
-    it('should recive buttonText prop, and show inside button - a tag', () => {
+  describe('when reciving buttonText property', () => {
+    it('should render text inside button - a tag', () => {
       const { container } = render(<ButtonComponent buttonText="button text" />)
       expect(container.firstElementChild.innerHTML).toBe('button text')
     })
 
-    it('should recive buttonText prop, and show inside button - button tag', () => {
+    it('should render text inside button - button tag', () => {
       const { container } = render(
         <ButtonComponent buttonText="button text" formButton={true} />
       )
@@ -18,8 +18,8 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('onClick property', () => {
-    it('should recive onClick property', () => {
+  describe('when reciving onClick property', () => {
+    it('should execute onClick function when button is clicked', () => {
       const fun = jest.fn()
       const { container } = render(
         <ButtonComponent buttonText="button" onClick={fun} />
@@ -29,8 +29,8 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('disabled property', () => {
-    it("should recive disabled property and set className 'disabled', functional disable", () => {
+  describe('when reciving disabled property', () => {
+    it("should set className 'disabled' and onClick shouldnt work, functional disable", () => {
       const fun = jest.fn()
       const { container } = render(
         <ButtonComponent buttonText="button" onClick={fun} disabled={true} />
@@ -43,8 +43,8 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('visualDisabled property', () => {
-    it("should recive visualDisabled property and set className 'disabled', visual disable", () => {
+  describe('when reciving visualDisabled property', () => {
+    it("should set className 'disabled' and onClick should work, visual disable", () => {
       const fun = jest.fn()
       const { container } = render(
         <ButtonComponent
@@ -61,22 +61,22 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('buttonType property', () => {
-    it('should recive buttonType property and set className', () => {
+  describe('when reciving buttonType property', () => {
+    it('should set buttonType as className', () => {
       const { container } = render(
         <ButtonComponent buttonText="button" buttonType={'success'} />
       )
       expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
     })
 
-    it('should set className when not reciving buttonType', () => {
+    it('should set className "primary" when not reciving buttonType', () => {
       const { container } = render(<ButtonComponent buttonText="button" />)
       expect(container.getElementsByClassName('primary')[0]).toBeInTheDocument()
     })
   })
 
-  describe('smallButton property', () => {
-    it('should recive smallButton property and set className', () => {
+  describe('when reciving smallButton property', () => {
+    it('should set className "btn-small" when true', () => {
       const { container } = render(
         <ButtonComponent
           buttonText="button"
@@ -91,8 +91,8 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('buttonClass property', () => {
-    it('should recive buttonClass property and set className, overrides smallButton and buttonType', () => {
+  describe('when reciving buttonClass property', () => {
+    it('should set butonClass className, overrides smallButton and buttonType', () => {
       const { container } = render(
         <ButtonComponent
           buttonText="button"
@@ -109,8 +109,8 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('extraButtonClass property', () => {
-    it('should recive extraButtonClass property and set className, added to smallButton and buttonType', () => {
+  describe('when reciving extraButtonClass property', () => {
+    it('should set extraButtonClass className added to smallButton and buttonType', () => {
       const { container } = render(
         <ButtonComponent
           buttonText="button"
@@ -129,15 +129,15 @@ describe('render component <ButtonComponent />', () => {
     })
   })
 
-  describe('formButton property', () => {
-    it('should recive formButton property, true - button', () => {
+  describe('when reciving formButton property', () => {
+    it('should render with button tag if true', () => {
       const { container } = render(
         <ButtonComponent buttonText="button" formButton={true} />
       )
       expect(container.querySelector('button')).toBeInTheDocument()
     })
 
-    it('should recive formButton property, false - a', () => {
+    it('should render with a tag if false', () => {
       const { container } = render(
         <ButtonComponent buttonText="button" formButton={false} />
       )
