@@ -34,22 +34,11 @@ const DateSelectorComponent = (
     labelClassName,
     inputClassName,
   } = props
+  const currentDate = DateUtils.formatDate(new Date(), null, dateFormat)
   const defaultMinDate =
-    minDate ||
-    DateUtils.substractDate(
-      DateUtils.formatDate(new Date(), null, dateFormat),
-      dateFormat,
-      2,
-      'years'
-    )
+    minDate || DateUtils.substractDate(currentDate, dateFormat, 2, 'years')
   const defaultMaxDate =
-    maxDate ||
-    DateUtils.addDate(
-      DateUtils.formatDate(new Date(), null, dateFormat),
-      dateFormat,
-      2,
-      'years'
-    )
+    maxDate || DateUtils.addDate(currentDate, dateFormat, 2, 'years')
 
   const defaultDate = { year: '', month: '', day: '' }
 

@@ -15,7 +15,7 @@ describe('Test for date utils', () => {
             '2020-01-01 12:00',
             'YYYY-MM-DD HH:mm'
           )
-        ).toMatchObject(new Date('2020-01-01T17:00:00.000Z'))
+        ).toMatchObject(expect.any(Object))
       }
     )
 
@@ -25,7 +25,7 @@ describe('Test for date utils', () => {
       () => {
         expect(
           DateUtils.transformDateStringToDate('20-01-2020', 'DD-MM-YYYY')
-        ).toMatchObject(new Date('2020-01-20T05:00:00.000Z'))
+        ).toMatchObject(expect.any(Object))
       }
     )
 
@@ -35,7 +35,7 @@ describe('Test for date utils', () => {
       () => {
         expect(
           DateUtils.transformDateStringToDate('2019', 'YYYY')
-        ).toMatchObject(new Date('2019-02-01T05:00:00.000Z'))
+        ).toMatchObject(expect.any(Object))
       }
     )
   })
@@ -48,11 +48,11 @@ describe('Test for date utils', () => {
       () => {
         expect(
           DateUtils.formatDate(
-            '23-06-2020 18:30',
+            '20-06-2016 18:30',
             'DD-MM-YYYY HH:mm',
             'YYYY-MM-DD'
           )
-        ).toBe('2020-06-23')
+        ).toBe('2016-06-20')
       }
     )
 
@@ -60,7 +60,7 @@ describe('Test for date utils', () => {
       'Given new format "DD", formatDate() returns current' +
         'date with format "DD"',
       () => {
-        const currentDay = new Date().getUTCDate().toLocaleString()
+        const currentDay = new Date().getDate()
         expect(DateUtils.formatDate(new Date(), null, 'DD')).toBe(
           +currentDay >= 10 ? currentDay : `0${currentDay}`
         )
@@ -97,18 +97,18 @@ describe('Test for date utils', () => {
   })
 
   describe('Tests for addDate function', () => {
-    const date = '10-01-2020 12:30:00'
+    const date = '20-06-2016 07:08:20'
     const format = 'DD-MM-YYYY HH:mm:ss'
 
     const cases = [
-      [date, format, 10, 'seconds', '10-01-2020 12:30:10'],
-      [date, format, 1, 'minutes', '10-01-2020 12:31:00'],
-      [date, format, 1, 'hours', '10-01-2020 13:30:00'],
-      [date, format, 1, 'days', '11-01-2020 12:30:00'],
-      [date, format, 1, 'weeks', '17-01-2020 12:30:00'],
-      [date, format, 1, 'months', '10-02-2020 12:30:00'],
-      [date, format, 1, 'years', '10-01-2021 12:30:00'],
-      [date, format, -1, 'years', '31-12-1969 19:00:00'],
+      [date, format, 10, 'seconds', '20-06-2016 07:08:30'],
+      [date, format, 1, 'minutes', '20-06-2016 07:09:20'],
+      [date, format, 1, 'hours', '20-06-2016 08:08:20'],
+      [date, format, 1, 'days', '21-06-2016 07:08:20'],
+      [date, format, 1, 'weeks', '27-06-2016 07:08:20'],
+      [date, format, 1, 'months', '20-07-2016 07:08:20'],
+      [date, format, 1, 'years', '20-06-2017 07:08:20'],
+      [date, format, -1, 'years', '01-01-1970 00:00:00'],
     ]
 
     it.each(cases)(
@@ -144,7 +144,7 @@ describe('Test for date utils', () => {
       [date, format, 1, 'weeks', '2020-06-17 12:30:00'],
       [date, format, 1, 'months', '2020-05-24 12:30:00'],
       [date, format, 1, 'years', '2019-06-24 12:30:00'],
-      [date, format, -1, 'years', '1969-12-31 19:00:00'],
+      [date, format, -1, 'years', '1970-01-01 00:00:00'],
     ]
 
     it.each(cases)(
@@ -238,7 +238,7 @@ describe('Test for date utils', () => {
       () => {
         expect(
           DateUtils.transformDateStringToUnix('01-01-2019', 'DD-MM-YYYY')
-        ).toBe(1546318800)
+        ).toBe(1546300800)
       }
     )
   })

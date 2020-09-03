@@ -132,7 +132,6 @@ export default class DateUtils {
       minute: '2-digit',
       second: '2-digit',
       hour12: false,
-      timeZone: 'America/Bogota',
     })
     const [
       { value: month },
