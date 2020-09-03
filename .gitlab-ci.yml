@@ -1,28 +1,39 @@
 image: node:12.18.3
 
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
 stages:
+  - setup
   - test
   - build
   - deploy
 
+setup:
+  stage: setup
+  script:
+    - npm install
+  only:
+    - develop
+
 test:
   stage: test
   script:
-    - npm install
     - npm run test
   only:
-    - feature/DRC-51
+    - develop
 
 build:
   stage: build
   script:
-    - npm install
     - npm run build-storybook
   artifacts:
     paths:
       - storybook-static
   only:
-    - feature/DRC-51
+    - develop
 
 deploy:
   stage: deploy
@@ -32,4 +43,4 @@ deploy:
   dependencies:
     - build
   only:
-    - feature/DRC-51
+    - develop
