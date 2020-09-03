@@ -7,8 +7,8 @@ type RadioOption = {
 
 interface IRadioButtonComponent {
   options: RadioOption[]
-  value?: string
-  onChangeValue?: (id: string, valueId: string) => void
+  value: string
+  onChangeValue: (id: string, valueId: string) => void
   valueId?: string
   disabled?: boolean
   label?: string
@@ -38,17 +38,22 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
     valueId,
   } = props
 
-  const [selectedValue, onChangeSelectedValue] = React.useState(value)
-
   const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newValue = event.target.id === selectedValue ? null : event.target.id
-    onChangeSelectedValue(newValue)
+    const newValue = event.target.id === value ? null : event.target.id
     onChangeValue(newValue, valueId)
   }
   return (
-    <div className={disabled ? 'disabled-checklist' : ''}>
+    <div
+      className={`${disabled ? 'disabled-checklist' : ''} ${
+        error && 'checkbox-component-error'
+      }`}
+    >
       {label && (
-        <label>
+        <label
+          className={`${labelClassName || 'label'} ${
+            extraLabelClassName || ''
+          }${error && 'label-error'}`}
+        >
           {label}
           {required ? '*' : ''}
         </label>
@@ -58,12 +63,12 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
         <div
           className={`${listItemClassName || 'check-list-item'} ${
             extraListItemClassName || ''
-          } ${selectedValue === option.id ? 'selected' : ''}`}
+          } ${value === option.id ? 'selected' : ''}`}
         >
           <input
             type="radio"
             id={option.id.toString()}
-            checked={selectedValue === option.id.toString()}
+            checked={value === option.id.toString()}
             onChange={disabled ? null : onChangeAction}
           />
           <label
