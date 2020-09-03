@@ -1,5 +1,10 @@
 image: node:12.18.3
 
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
 stages:
   - setup
   - test
