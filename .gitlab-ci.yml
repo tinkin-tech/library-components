@@ -16,14 +16,14 @@ setup:
   script:
     - npm ci
   only:
-    - develop
+    - feature/DRC-51
 
 test:
   stage: test
   script:
     - npm run test
   only:
-    - develop
+    - feature/DRC-51
 
 build:
   stage: build
@@ -33,7 +33,7 @@ build:
     paths:
       - storybook-static
   only:
-    - develop
+    - feature/DRC-51
 
 deploy:
   stage: deploy
@@ -43,4 +43,4 @@ deploy:
   dependencies:
     - build
   only:
-    - develop
+    - feature/DRC-51
