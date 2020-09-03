@@ -7,7 +7,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: [
     '**/*.tsx',
-    '**/*.tsx',
+    '**/*.ts',
     '!**/*.stories.tsx',
     '!**/*.fixture.tsx',
   ],
