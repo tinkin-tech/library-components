@@ -60,8 +60,9 @@ describe('Test for date utils', () => {
       'Given new format "DD", formatDate() returns current' +
         'date with format "DD"',
       () => {
+        const currentDay = new Date().getUTCDate().toLocaleString()
         expect(DateUtils.formatDate(new Date(), null, 'DD')).toBe(
-          new Date().getUTCDate().toLocaleString()
+          +currentDay >= 10 ? currentDay : `0${currentDay}`
         )
       }
     )
@@ -107,6 +108,7 @@ describe('Test for date utils', () => {
       [date, format, 1, 'weeks', '17-01-2020 12:30:00'],
       [date, format, 1, 'months', '10-02-2020 12:30:00'],
       [date, format, 1, 'years', '10-01-2021 12:30:00'],
+      [date, format, -1, 'years', '31-12-1969 19:00:00'],
     ]
 
     it.each(cases)(
@@ -142,6 +144,7 @@ describe('Test for date utils', () => {
       [date, format, 1, 'weeks', '2020-06-17 12:30:00'],
       [date, format, 1, 'months', '2020-05-24 12:30:00'],
       [date, format, 1, 'years', '2019-06-24 12:30:00'],
+      [date, format, -1, 'years', '1969-12-31 19:00:00'],
     ]
 
     it.each(cases)(
