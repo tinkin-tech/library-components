@@ -194,7 +194,7 @@ describe('Render component <SelectComponent />', () => {
       'Should add "label-error" in label className and ' +
         '"select-component-error" when pass error prop',
       () => {
-        const { getByText, container } = render(
+        const { container } = render(
           <SelectComponent
             value=""
             options={optionsMock}
@@ -204,7 +204,7 @@ describe('Render component <SelectComponent />', () => {
             label="label"
           />
         )
-        expect(getByText('Seleccione una opción').className).toBe(
+        expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component select-component-error'
         )
         expect(container.getElementsByTagName('span')[0].className).toBe(
@@ -217,7 +217,7 @@ describe('Render component <SelectComponent />', () => {
       'Shouldnt add "label-error" in label className and ' +
         '"select-component-error" when error prop is empty or null',
       () => {
-        const { getByText, container } = render(
+        const { container } = render(
           <SelectComponent
             value=""
             options={optionsMock}
@@ -226,7 +226,7 @@ describe('Render component <SelectComponent />', () => {
             label="label"
           />
         )
-        expect(getByText('Seleccione una opción').className).toBe(
+        expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component'
         )
         expect(container.getElementsByTagName('span')[0].className).toBe(
@@ -304,8 +304,7 @@ describe('Render component <SelectComponent />', () => {
             labelClassName="custom-label-className"
           />
         )
-        expect(getByText('Label').className).not.toContain('label ')
-        expect(getByText('Label').className).toContain('custom-label-className')
+        expect(getByText('Label').className).toBe('custom-label-className')
       }
     )
   })
@@ -315,7 +314,7 @@ describe('Render component <SelectComponent />', () => {
       'Should replace className of select with text of selectClassName ' +
         'prop',
       () => {
-        const { getByText } = render(
+        const { container } = render(
           <SelectComponent
             value=""
             options={optionsMock}
@@ -325,10 +324,7 @@ describe('Render component <SelectComponent />', () => {
             selectClassName="custom-select-className"
           />
         )
-        expect(getByText('Seleccione una opción').className).not.toContain(
-          'select-component'
-        )
-        expect(getByText('Seleccione una opción').className).toContain(
+        expect(container.getElementsByTagName('div')[0].className).toBe(
           'custom-select-className'
         )
       }
@@ -360,7 +356,7 @@ describe('Render component <SelectComponent />', () => {
       'Should add text of extraSelectClassName next to className of select ' +
         'when pass extraSelectClassName prop',
       () => {
-        const { getByText } = render(
+        const { container } = render(
           <SelectComponent
             value=""
             options={optionsMock}
@@ -369,8 +365,8 @@ describe('Render component <SelectComponent />', () => {
             extraSelectClassName="extra-select-className"
           />
         )
-        expect(getByText('Seleccione una opción').className).toContain(
-          'extra-select-className'
+        expect(container.getElementsByTagName('div')[0].className).toBe(
+          'select-component extra-select-className'
         )
       }
     )
