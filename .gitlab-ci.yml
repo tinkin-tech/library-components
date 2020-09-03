@@ -1,0 +1,46 @@
+image: node:12.18.3
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  - test
+  - build
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm ci
+  only:
+    - develop
+
+test:
+  stage: test
+  script:
+    - npm run test
+  only:
+    - develop
+
+build:
+  stage: build
+  script:
+    - npm run build-storybook
+  artifacts:
+    paths:
+      - storybook-static
+  only:
+    - develop
+
+deploy:
+  stage: deploy
+  script:
+    - npm i -g netlify-cli
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  dependencies:
+    - build
+  only:
+    - develop
