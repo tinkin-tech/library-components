@@ -65,7 +65,7 @@ describe('render component <CheckboxComponent />', () => {
 
   describe('when receiving onChangeValues property', () => {
     it('should remove from list if element selected exists in list', () => {
-      const { getByText, rerender } = render(
+      const { getByText } = render(
         <CheckboxComponent
           options={options}
           onChangeValues={func}
@@ -74,14 +74,6 @@ describe('render component <CheckboxComponent />', () => {
         />
       )
       fireEvent.click(getByText('label1'))
-      rerender(
-        <CheckboxComponent
-          options={options}
-          onChangeValues={func}
-          values={['id2']}
-          valueId={'checkboxValueId'}
-        />
-      )
       expect(func).toHaveBeenCalledWith(['id2'], 'checkboxValueId')
       expect(func).toHaveBeenCalledTimes(1)
       jest.clearAllMocks()
