@@ -1,41 +1,13 @@
-//resources
-@import "resources/common/color";
-@import "resources/common/genColors";
-@import "resources/common/variables";
-@import "resources/common/fontMuli";
-@import "resources/common/mixins";
-@import "resources/common/gridClassic";
-@import "resources/common/grid";
-@import "resources/common/display";
-@import "resources/common/borders";
-@import "resources/common/fonts";
-@import "resources/common/marginPadding";
-@import "resources/common/iconsAndImages";
-@import "resources/common/statusColor";
+@import './utils/utils';
+@import './configs/configs';
 
-//components
-@import "resources/components/input";
-@import "resources/components/dateSelector";
+@import './resourses/resources';
+@import './icons/icons';
 
-//Highlight Library Styles
-@import './../node_modules/highlight.js/styles/vs2015.css';
 
-//Commons Styles
-@import './variables';
-@import './mixins';
+@import './components/components';
 
-//Icons Styles
-@import './icons';
+@import './fonts/fontMuli';
 
-//Stories Styles
-@import './mixins';
 
-//Select styles
 
-@import './icons/arrow';
-
-//Select styles
-
-@import 'resources/components/selectComponent';
-
-@import 'resources/components/label';

@@ -66,58 +66,52 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
   const pages = fetchPageNumbers()
 
   return (
-    <>
-      <nav>
-        <ul className="pagination">
-          {pages.map((page, index) => {
-            if (page === LEFT_PAGE) {
-              return (
-                <li key={index} className="page-item">
-                  <a
-                    className={`page-link ${
-                      currentPage === 1 ? 'disabled' : ''
-                    }`}
-                    href="#"
-                    onClick={(e): void => currentPage > 1 && handleMoveLeft(e)}
-                  >
-                    <i className="icon-arrow left" />
-                  </a>
-                </li>
-              )
-            }
-            if (page === RIGHT_PAGE) {
-              return (
-                <li key={index} className="page-item">
-                  <a
-                    className={`page-link ${
-                      currentPage === totalPages ? 'disabled' : ''
-                    }`}
-                    href="#"
-                    onClick={(e): void =>
-                      currentPage < totalPages && handleMoveRight(e)
-                    }
-                  >
-                    <i className="icon-arrow right" />
-                  </a>
-                </li>
-              )
-            }
+    <nav className="pagination-component">
+      <ul className="pagination">
+        {pages.map((page, index) => {
+          if (page === LEFT_PAGE) {
             return (
-              <li
-                key={index}
-                className={`page-item${
-                  currentPage === page ? ' selected' : ''
-                }`}
-              >
-                <a className="page-link" href="#" onClick={handleClick(page)}>
-                  {page}
+              <li key={index} className="page-item">
+                <a
+                  className={`page-link ${currentPage === 1 ? 'disabled' : ''}`}
+                  href="#"
+                  onClick={(e): void => currentPage > 1 && handleMoveLeft(e)}
+                >
+                  <i className="icon-arrow-left" />
                 </a>
               </li>
             )
-          })}
-        </ul>
-      </nav>
-    </>
+          }
+          if (page === RIGHT_PAGE) {
+            return (
+              <li key={index} className="page-item">
+                <a
+                  className={`page-link ${
+                    currentPage === totalPages ? 'disabled' : ''
+                  }`}
+                  href="#"
+                  onClick={(e): void =>
+                    currentPage < totalPages && handleMoveRight(e)
+                  }
+                >
+                  <i className="icon-arrow-right" />
+                </a>
+              </li>
+            )
+          }
+          return (
+            <li
+              key={index}
+              className={`page-item${currentPage === page ? ' selected' : ''}`}
+            >
+              <a className="page-link" href="#" onClick={handleClick(page)}>
+                {page}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
   )
 }
 

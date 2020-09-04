@@ -1,5 +1,26 @@
 //size Icons
-
+.icon-128x {
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  svg {
+    float: left;
+    width: 128px;
+    height: 128px;
+  }
+}
+.icon-64x {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  svg {
+    float: left;
+    width: 64px;
+    height: 64px;
+  }
+}
 .icon-48x {
   display: inline-block;
   width: 48px;
@@ -42,16 +63,5 @@
     float: left;
     width: 16px;
     height: 16px;
-  }
-}
-.icon-13x {
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  overflow: hidden;
-  svg {
-    float: left;
-    width: 13px;
-    height: 13px;
   }
 }
