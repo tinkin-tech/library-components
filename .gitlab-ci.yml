@@ -38,8 +38,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - curl -X POST -d {} https://api.netlify.com/build_hooks/5f518dbf2315600154ad1972
   dependencies:
     - build
   only:
