@@ -146,6 +146,12 @@
 .radius-default {
   border-radius: $radio-default !important;
 }
+.radius-small {
+  border-radius: $radio-small !important;
+}
+.radius-big {
+  border-radius: $radio-big !important;
+}
 .no-radius {
   border-radius: 0 !important;
 }
@@ -202,16 +208,16 @@
     }
     /* Track */
     &::-webkit-scrollbar-track {
-      background: rgba($color-secondary, 0.1);
+      background: $scroll-bar-container-bg;
     }
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: $color-secondary;
+      background: $scroll-bar-bg;
       border-radius: 3px;
     }
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: lighten($color-secondary, 40%);
+      background: $scroll-bar-arrows-bg;
     }
   }
 }

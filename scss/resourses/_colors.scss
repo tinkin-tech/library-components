@@ -1,0 +1,36 @@
+//types and colors white and black
+
+.bg-white {
+  background: $color-white;
+}
+.bg-black {
+  background: $color-black;
+}
+.text-white {
+  color: $color-white;
+}
+.text-black {
+  color: $color-black;
+}
+.border-white {
+  border-color: $color-white;
+}
+.border-black {
+  border-color: $color-black;
+}
+.fill-white {
+  path {
+    fill: $color-white;
+  }
+}
+.fill-black {
+  path {
+    background: $color-black;
+  }
+}
+.link-white {
+  background: $color-white;
+}
+.link-black {
+  background: $color-black;
+}
