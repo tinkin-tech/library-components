@@ -61,7 +61,7 @@ describe('render component <RadioButtonComponent />', () => {
 
   describe('when receiving onChangeValues property', () => {
     it('should receive new id if selected different than value', () => {
-      const { getByText, rerender } = render(
+      const { getByText } = render(
         <RadioButtonComponent
           options={options}
           onChangeValue={func}
@@ -70,14 +70,6 @@ describe('render component <RadioButtonComponent />', () => {
         />
       )
       fireEvent.click(getByText('label2'))
-      rerender(
-        <RadioButtonComponent
-          options={options}
-          onChangeValue={func}
-          value={'id2'}
-          valueId={'radioButtonValueId'}
-        />
-      )
       expect(func).toHaveBeenCalledWith('id2', 'radioButtonValueId')
       expect(func).toHaveBeenCalledTimes(1)
       jest.clearAllMocks()
