@@ -71,7 +71,7 @@ describe('render component <DateSelectorComponent />', () => {
       rerender(getComponent())
       fireEvent.click(getByText('01'))
       fireEvent.click(
-        minDateObject.day
+        minDateObject.day === '01' || minDateObject.day === '12'
           ? getAllByText(minDateObject.day)[1]
           : getByText(minDateObject.day)
       )
