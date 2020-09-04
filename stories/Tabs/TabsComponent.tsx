@@ -38,8 +38,9 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
               onClick={(): void => {
                 onChangeTab(item)
               }}
-            />
-            {item.label}
+            >
+              {item.label}
+            </a>
           </li>
         ))}
       </ul>
