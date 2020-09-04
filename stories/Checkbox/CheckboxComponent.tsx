@@ -60,9 +60,9 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
           {required ? '*' : ''}
         </label>
       )}
-      {options.map((option) => (
-        // eslint-disable-next-line react/jsx-key
+      {options.map((option, key) => (
         <div
+          key={key}
           className={`${listItemClassName || 'check-list-item'} ${
             extraListItemClassName || ''
           } ${values.find((value) => value === option.id) ? 'selected' : ''}`}
