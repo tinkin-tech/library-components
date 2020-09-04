@@ -1,0 +1,31 @@
+[class*="icon-arrow"]{
+  position: relative;
+  font-size: 1em;
+  &:after{
+    content: '\00a0';
+  }
+  &:before{
+    content: '';
+    display: block;
+    width: 1em;
+    height: 1em;
+    border: 1px solid $color-gray;
+    border-left: 0;
+    border-bottom: 0;
+    position: absolute;
+    top: calc(50% - .5em);
+  }
+}
+.icon-arrow-left{
+  &:before{
+    left: calc(50% - .25em);
+    @include transform(rotate(-135deg))
+  }
+}
+
+.icon-arrow-right{
+  &:before{
+    right: calc(50% - .25em);
+    @include transform(rotate(45deg))
+  }
+}

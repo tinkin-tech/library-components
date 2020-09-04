@@ -8,7 +8,7 @@ import {
 import { setLocationSearchValue } from '../testUtils/testUtils'
 
 describe('urlUtils test', () => {
-  describe('paramsArrayToString fn test', () => {
+  describe('when paramsArrayToString fn test', () => {
     it('Should transform arrayParams to string', () => {
       expect(
         paramsArrayToString([
@@ -19,7 +19,7 @@ describe('urlUtils test', () => {
     })
   })
 
-  describe('getQueryParams fn test', () => {
+  describe('when getQueryParams fn test', () => {
     const oldWindowLocation = window.location
 
     afterAll(() => {
@@ -50,7 +50,7 @@ describe('urlUtils test', () => {
     )
   })
 
-  describe('getQueryParamsArray fn test', () => {
+  describe('when getQueryParamsArray fn test', () => {
     it('Should return array object with param in location search', () => {
       setLocationSearchValue('?value=1')
       expect(getQueryParamsArray()).toMatchObject([
@@ -62,13 +62,13 @@ describe('urlUtils test', () => {
     })
 
     it('Should return array object with params in variableData', () => {
-      expect(getQueryParamsArray('?filter=true&search=false')).toMatchObject([
+      expect(getQueryParamsArray('?filter=true&filter=false')).toMatchObject([
         {
           key: 'filter',
           value: true,
         },
         {
-          key: 'search',
+          key: 'filter',
           value: false,
         },
       ])
@@ -79,7 +79,7 @@ describe('urlUtils test', () => {
     })
   })
 
-  describe('updateUrlParams fn test', () => {
+  describe('when updateUrlParams fn test', () => {
     it('Should update urlParams with passed in props and return params', () => {
       setLocationSearchValue('?value=1')
       expect(updateUrlParams('filter', 'true')).toBe('?value=1&filter=true')
@@ -96,7 +96,7 @@ describe('urlUtils test', () => {
     )
   })
 
-  describe('removeUrlParams fn test', () => {
+  describe('when removeUrlParams fn test', () => {
     it('Should remove param equal of paramName in location search', () => {
       setLocationSearchValue('?value=1&search=text')
       expect(removeUrlParams('value')).toBe('?search=text')

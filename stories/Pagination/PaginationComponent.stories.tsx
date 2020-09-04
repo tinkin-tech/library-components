@@ -16,7 +16,7 @@ export const Default = Template.bind({})
 
 Default.args = {
   totalPages: 20,
-  currentPage: 5,
+  currentPage: 10,
   pageNeighbours: 2,
   goToPage: (): void => null,
 }

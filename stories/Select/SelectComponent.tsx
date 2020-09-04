@@ -65,7 +65,6 @@ const SelectComponent: React.FC<ISelectComponent> = (
     selectClassName || 'select-component',
     extraSelectClassName || '',
     error ? 'select-component-error' : '',
-    readOnly ? 'disable-select' : '',
   ].filter((item) => item !== '')
 
   const labelClassNameObject = [
@@ -75,9 +74,9 @@ const SelectComponent: React.FC<ISelectComponent> = (
   ].filter((item) => item !== '')
 
   return (
-    <div className="select-component" ref={selectRef}>
+    <div className={selectClassNameObject.join(' ')} ref={selectRef}>
       <a
-        className={selectClassNameObject.join(' ')}
+        className={`select-button ${readOnly ? 'disable-select-button' : ''}`}
         onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
         {label && (

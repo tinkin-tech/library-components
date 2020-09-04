@@ -1,0 +1,18 @@
+/// flex order
+$i: 0;
+@while $i <= $num-cols {
+  .order-#{$i}{
+    @include order(#{$i})
+  }
+  .order-#{$i}-small{
+    @media #{$medium-and-down} {
+      @include order(#{$i})
+    }
+  }
+  .order-#{$i}-small{
+    @media #{$small-and-down} {
+      @include order(#{$i})
+    }
+  }
+  $i: $i + 1
+}

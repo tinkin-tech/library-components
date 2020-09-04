@@ -59,7 +59,7 @@ describe('render component <UploaderImageComponent />', () => {
       expect(container.getElementsByTagName('input')).toHaveLength(0)
     })
 
-    it('Should show input element when value in empty', () => {
+    it('Should show input element when value is empty', () => {
       const { container } = render(
         <UploaderImageComponent
           value=""
@@ -94,7 +94,7 @@ describe('render component <UploaderImageComponent />', () => {
         })
         expect(mockedFunction).toHaveBeenCalledTimes(1)
         expect(mockedFunction).toHaveBeenCalledWith(
-          expect.any(Object),
+          expect.any(FormData),
           'upload'
         )
       }
@@ -138,9 +138,36 @@ describe('render component <UploaderImageComponent />', () => {
       expect(deleteMockedFunction).toHaveBeenCalledTimes(1)
       expect(deleteMockedFunction).toHaveBeenCalledWith('test.png', 'upload')
     })
+
+    it('Shouldnt show close button when not have value', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="customKey"
+          valueId="upload"
+        />
+      )
+      expect(container.getElementsByTagName('a')).toHaveLength(0)
+    })
   })
 
   describe('When recive filesAccepted prop', () => {
+    it('Show file extensions in lowercase and without repeating', () => {
+      const { getByText } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          filesAccepted={['jpeg', 'PNG', 'png', 'svg']}
+        />
+      )
+      expect(getByText('Formatos válidos: jpeg png svg')).toBeInTheDocument()
+    })
+
     it(
       'Shouldnt call mockedFunction when extension of file is not contain in ' +
         'filesAccepted',
@@ -244,7 +271,7 @@ describe('render component <UploaderImageComponent />', () => {
           error="error message"
         />
       )
-      expect(getByText('label').className).toBe('label label-error ')
+      expect(getByText('label').className).toBe('label label-error')
       expect(container.getElementsByTagName('div')[1].className).toBe(
         'uploader-container upload-error'
       )
@@ -323,5 +350,58 @@ describe('render component <UploaderImageComponent />', () => {
       )
       expect(getByText('label*')).toBeInTheDocument()
     })
+  })
+
+  describe('When recive maxSize prop', () => {
+    it('Should show value of maxSize in content', () => {
+      const { getByText } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          maxSize={20}
+        />
+      )
+      expect(getByText('Tamaño del archivo máximo: 20MB')).toBeInTheDocument()
+    })
+  })
+
+  it(
+    'Shouldnt call onUploadImage when file size is bigger to ' +
+      'maxSize and show "Tamaño del archivo inválido"',
+    () => {
+      const { getByText, container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          maxSize={30}
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          files: [{ name: 'image.png', size: 2000000 }],
+        },
+      })
+      expect(mockedFunction).not.toHaveBeenCalled()
+      expect(getByText('Tamaño del archivo inválido')).toBeInTheDocument()
+    }
+  )
+
+  it('Should set 20MB of maxSize when nos pass maxSize prop or be null', () => {
+    const { getByText } = render(
+      <UploaderImageComponent
+        value=""
+        onUploadImage={mockedFunction}
+        deleteAction={deleteMockedFunction}
+        keyFormData="key"
+        valueId="upload"
+      />
+    )
+    expect(getByText('Tamaño del archivo máximo: 20MB')).toBeInTheDocument()
   })
 })

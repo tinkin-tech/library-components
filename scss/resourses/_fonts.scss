@@ -1,0 +1,191 @@
+//html Style
+
+html {
+  font-size: $rem-unit-size;
+}
+
+//body Style
+
+body {
+  font-size: $fontsize-default;
+  color: $font-default-color;
+  line-height: $line-height-normal;
+  font-family: $primary-font;
+  font-weight: 500;
+}
+
+// label Style
+.label {
+  font-family: $label-family;
+  font-size: $label-size;
+  color: $label-color;
+  line-height: $label-line-height;
+  &:focus {
+    color: $label-focus-color;
+  }
+  &.warning {
+    color: $color-warning;
+  }
+  &.danger {
+    color: $color-danger;
+  }
+  &.disable {
+    color: $label-disable-color;
+  }
+}
+
+// Header Styles
+
+h1,
+.size-h1,
+.size-1 {
+  font-size: $fontsize-h1;
+  margin: 0;
+  line-height: $headers-line-height;
+  font-family: $headers-font-family;
+}
+h2,
+.size-h2,
+.size-2 {
+  font-size: $fontsize-h2;
+  margin: 0;
+  line-height: $headers-line-height;
+  font-family: $headers-font-family;
+}
+h3,
+.size-h3,
+.size-3 {
+  font-size: $fontsize-h3;
+  margin: 0;
+  line-height: $headers-line-height;
+  font-family: $headers-font-family;
+}
+
+h4,
+.size-h4,
+.size-4 {
+  font-size: $fontsize-h4;
+  margin: 0;
+  line-height: $headers-line-height;
+  font-family: $headers-font-family;
+}
+
+h5,
+.size-h5,
+.size-5 {
+  font-size: $fontsize-h5;
+  margin: 0;
+  line-height: $headers-line-height;
+  font-family: $headers-font-family;
+}
+
+//fonts family
+
+.primary-font {
+  font-family: $primary-font !important;
+}
+
+.secondary-font {
+  font-family: $secondary-font !important;
+}
+
+// Text Styles
+
+em,
+.italic {
+  font-style: italic;
+}
+
+p {
+  margin: 0;
+}
+
+.strong {
+  font-weight: 700;
+}
+.light {
+  font-weight: 300;
+}
+.regular {
+  font-weight: 500;
+}
+
+.size-default {
+  font-size: $fontsize-default;
+}
+.size-small {
+  font-size: $fontsize-small;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Text Style
+
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.align-justify {
+  text-align: justify;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.line-height-large {
+  line-height: $line-height-large;
+}
+
+.line-height-small {
+  line-height: $line-height-small;
+}
+.line-height-default {
+  line-height: $line-height-normal;
+}
+
+.letter-spacing-0 {
+  letter-spacing: 0;
+}
+.letter-spacing-1x {
+  letter-spacing: 1px;
+}
+.letter-spacing-2x {
+  letter-spacing: 2px;
+}
+
+.wrap {
+  white-space: normal;
+}
+.no-wrap {
+  white-space: nowrap;
+}
+
+.overflow-wrap {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.break-word {
+  word-break: break-word;
+}
