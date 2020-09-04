@@ -27,11 +27,7 @@
         color: $paginator-color;
         display: block;
         padding: 0 $paginator-padding;
-        i{
-          &:before{
-            font-size: 10px;
-          }
-        }
+        font-size: $paginator-font-size;
       }
     }
   }

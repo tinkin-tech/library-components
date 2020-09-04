@@ -1,8 +1,9 @@
 // PaginatorComponent
 
 $paginator-color: $color-gray;
+$paginator-font-size: $fontsize-default;
 $paginator-height: 2.5rem;
 $paginator-padding: 1rem;
-$paginator-radius: $radio-default;
+$paginator-radius: $radio-small;
 $paginator-selected-bg: color('gray', 'lighten-1');
 $paginator-selected-color: $color-primary;
