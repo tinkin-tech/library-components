@@ -186,7 +186,7 @@ describe('InputComponent test', () => {
 
   describe('Error prop', () => {
     it(
-      'Should recive error prop, render in component and set "label-error"' +
+      'Should recive error prop, render in component and set "warning"' +
         ' in className',
       () => {
         const { container, rerender, getByText } = render(
@@ -210,7 +210,7 @@ describe('InputComponent test', () => {
           />
         )
         expect(container.getElementsByTagName('label')[0].className).toBe(
-          'label label-error'
+          'label warning'
         )
         expect(getByText('error del input')).toBeInTheDocument()
         expect(container.getElementsByTagName('input')[0].className).toBe(

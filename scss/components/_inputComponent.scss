@@ -1,0 +1,36 @@
+.input-component {
+  label {
+    line-height: 1.6rem;;
+  }
+  input, textarea {
+    padding: $input-padding;
+    font-size: $input-fontsize;
+    font-family: $primary-font;
+    border-radius: $input-radius;
+    background: $input-backgroud;
+    border: $input-border;
+    color: $input-color;
+    font-weight: 300;
+    width: calc(100% - 1rem);
+    line-height: $input-line-height;
+    &:focus {
+      background: $input-background-focus;
+      border: $input-border-focus;
+    }
+    &.warning {
+      border: $input-border-warning;
+    }
+    &:placeholder {
+      color: $input-color-placeholder;
+    }
+  }
+  .warning-content, .error-message {
+    color: $color-warning;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &.disabled {
+    opacity: .6;
+  }
+}

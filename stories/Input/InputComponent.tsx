@@ -60,12 +60,10 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
   }
 
   return (
-    <>
+    <div className={`input-component${readOnly ? ' disabled' : ''}`}>
       <div className="flex-space-between">
         <label
-          className={`${labelClassName || 'label'} ${
-            error ? 'label-error' : ''
-          }`}
+          className={`${labelClassName || 'label'} ${error ? 'warning' : ''}`}
           htmlFor={valueId}
           data-testid="label-component"
         >
@@ -79,7 +77,7 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
         <input {...propsComponent} />
       )}
       {error && <span className="error-message">{error}</span>}
-    </>
+    </div>
   )
 }
 
