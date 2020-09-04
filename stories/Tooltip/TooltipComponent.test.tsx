@@ -87,6 +87,8 @@ describe('render component <TooltipComponent />', () => {
       ['top', 'top-position'],
       ['bottomLeft', 'bottomLeft-position'],
       ['topLeft', 'topLeft-position'],
+      ['bottomRight', 'bottomRight-position'],
+      ['topRight', 'topRight-position'],
     ]
 
     it.each(cases)(
