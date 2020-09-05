@@ -1,7 +1,7 @@
 .input-component {
   label {
     line-height: 1.6rem;;
-  }
+  } 
   input, textarea {
     padding: $input-padding;
     font-size: $input-fontsize;
@@ -10,7 +10,7 @@
     background: $input-backgroud;
     border: $input-border;
     color: $input-color;
-    font-weight: 300;
+    font-weight: $input-weight;
     width: calc(100% - 1rem);
     line-height: $input-line-height;
     &:focus {
@@ -32,5 +32,10 @@
   }
   &.disabled {
     opacity: .6;
+  }
+  &:focus-within {
+    label {
+      color: $color-primary;
+    }
   }
 }
