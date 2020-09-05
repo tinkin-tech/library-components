@@ -681,4 +681,35 @@ describe('render component <MultilevelFilterComponent />', () => {
       ).toBeNull()
     })
   })
+
+  describe('when receive customIcon prop', () => {
+    it('should replace arrow by customIcon prop content when have customIcon', () => {
+      const { container } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          extraSelectorClassName="extra-selector-class"
+          customIcon={<span>{'>'}</span>}
+        />
+      )
+      expect(container.querySelector('.custom-icon').innerHTML).toEqual(
+        '<span>&gt;</span>'
+      )
+    })
+
+    it('should do not replace arrow by customIcon when do not have customIcon', () => {
+      const { container } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          extraSelectorClassName="extra-selector-class"
+        />
+      )
+      expect(container.querySelector('.custom-icon')).toBeNull()
+    })
+  })
 })

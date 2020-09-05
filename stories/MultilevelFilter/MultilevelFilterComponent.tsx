@@ -27,6 +27,7 @@ export interface IMultilevelFilter {
   maxSelectorWidth?: string
   minSelectorWidth?: string
   minOptionsWidth?: string
+  customIcon?: JSX.Element
 }
 interface IHelperSelectedItems {
   id: number | string
@@ -52,6 +53,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     maxSelectorWidth,
     minSelectorWidth,
     minOptionsWidth,
+    customIcon,
   } = props
   const multiLevelFilterRef = React.useRef(null)
   const [activeList, changeActiveList] = React.useState(false)
@@ -266,7 +268,11 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       >
         {label && <span className={labelClass.join(' ')}>{label}</span>}
         <span className="truncate">{valuesString}</span>
-        <i className="icon-arrow-down" />
+        {customIcon ? (
+          <div className="custom-icon">{customIcon}</div>
+        ) : (
+          <i className="icon-arrow-down" />
+        )}
       </a>
       {activeList && genLinks(options)}
     </div>
