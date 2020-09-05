@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { CSS } from 'reactcss'
 
 type ITypeWidth = '%' | 'px'
 
@@ -27,16 +28,17 @@ export interface ITableRowColumn<T extends ObjectType> {
   onClick?: (item: any) => void
   id: number | string
   cellClassName?: string
+  minHeight?: number
 }
 
 export interface ITableRows {
   id: string | number
-  columns: ITableRowColumn<IRowTypes>[]
+  columns: Array<ITableRowColumn<IRowTypes>>
 }
 
 export interface ITableProps {
-  labelProps: ILabelProps[]
-  tableRows: ITableRows[]
+  labelProps: Array<ILabelProps>
+  tableRows: Array<ITableRows>
   activeRowId?: string | number
   extraLabelsClassName?: string
   extraContentClassName?: string
@@ -56,11 +58,16 @@ const TableComponent = (props: ITableProps) => {
     }
     switch (cell.type) {
       case 'image':
-        return <img src={cell.value.toString()} alt="" />
+        const style = {
+          backgroundImage: `url(${cell.value})`,
+        }
+        return <div className="image-container" style={style} />
       case 'switch':
         return (
           <div
-            className={`${cell.value ? 'active-switch' : 'inactive-switch'}`}
+            className={`switch-container ${
+              cell.value ? 'active-switch' : 'inactive-switch'
+            }`}
           />
         )
       default:
@@ -79,40 +86,51 @@ const TableComponent = (props: ITableProps) => {
             width: `${label.width}${label.typeWidth}`,
           }
           return (
-            <div key={key} style={style}>
+            <div className="label-column" key={key} style={style}>
               {label.label}
             </div>
           )
         })}
       </header>
       <section
-        className={`${extraContentClassName ? `${extraContentClassName}` : ''}`}
+        className={`table-rows ${
+          extraContentClassName ? `${extraContentClassName}` : ''
+        }`}
       >
         {tableRows.map((row, key) => {
           return (
             <div
               key={key}
-              className={`${activeRowId === row.id && 'row-active'}`}
+              className={`table-row-item ${
+                activeRowId === row.id && 'row-active'
+              }`}
             >
               {labelProps.map((column, columnKey) => {
-                const style = {
+                const style: CSS = {
                   width: `${column.width}${column.typeWidth}`,
                 }
                 const cellValues = row.columns.find(
                   (rowColumn) => rowColumn.id === column.id
                 )
+                if (cellValues?.minHeight) {
+                  style.height = `${cellValues.minHeight}px`
+                }
+                const cellClass: string[] = ['table-row-cell', cellValues?.type]
+                if (cellValues?.cellClassName) {
+                  cellClass.push(cellValues.cellClassName)
+                }
+                if (cellValues?.onClick) {
+                  cellClass.push('click-row')
+                }
                 return (
                   <div
                     onClick={() =>
                       cellValues.onClick && cellValues.onClick(row)
                     }
                     style={style}
-                    className={`${cellValues?.type}${
-                      cellValues?.cellClassName
-                        ? ` ${cellValues.cellClassName}`
-                        : ''
-                    }`}
+                    className={cellClass.join(' ')}
                     key={columnKey}
+                    data-title={column.label}
                   >
                     {getTableContent(cellValues)}
                   </div>

@@ -30,6 +30,7 @@ describe('render component <TableComponent>', () => {
           value: 'image-url.png',
           id: 'avatar',
           cellClassName: 'custom-cell-class-avatar',
+          minHeight: 200
         },
         {
           type: 'switch',
@@ -148,8 +149,8 @@ describe('render component <TableComponent>', () => {
       )
       const currentSelector = container.querySelectorAll('section > div')[0]
         .children[1]
-      expect(currentSelector.querySelector('img').getAttribute('src')).toEqual(
-        'image-url.png'
+      expect(currentSelector.children[0].getAttribute('style')).toEqual(
+        `background-image: url(image-url.png);`
       )
     })
 
@@ -159,7 +160,7 @@ describe('render component <TableComponent>', () => {
       )
       const currentSelector = container.querySelectorAll('section > div')[0]
         .children[2]
-      expect(currentSelector.querySelector('div').className).toEqual(
+      expect(currentSelector.querySelector('div').className).toContain(
         'active-switch'
       )
     })
@@ -172,7 +173,7 @@ describe('render component <TableComponent>', () => {
       )
       const currentSelector = container.querySelectorAll('section > div')[0]
         .children[2]
-      expect(currentSelector.querySelector('div').className).toEqual(
+      expect(currentSelector.querySelector('div').className).toContain(
         'inactive-switch'
       )
     })
@@ -196,7 +197,7 @@ describe('render component <TableComponent>', () => {
         )
         const currentSelector = container.querySelectorAll('section > div')[0]
           .children
-        expect(currentSelector[objectData.key].getAttribute('style')).toEqual(
+        expect(currentSelector[objectData.key].getAttribute('style')).toContain(
           `width: ${objectData.styleWidth};`
         )
       }
@@ -208,8 +209,21 @@ describe('render component <TableComponent>', () => {
       )
       const currentSelector = container.querySelectorAll('section > div')[0]
         .children
-      expect(currentSelector[0].className).toEqual('string custom-cell-class')
-      expect(currentSelector[2].className).toEqual('switch')
+      expect(currentSelector[0].className).toEqual(
+        'table-row-cell string custom-cell-class click-row'
+      )
+      expect(currentSelector[2].className).toEqual('table-row-cell switch')
+    })
+
+    it('should add minHeight style to columnItem when columnItem have minHeight', () => {
+      const { container } = render(
+        <TableComponent labelProps={labelProps} tableRows={tableRows} />
+      )
+      const currentSelector = container.querySelectorAll('section > div')[0]
+        .children
+      expect(currentSelector[1].getAttribute('style')).toEqual(
+        'width: 15%; height: 200px;'
+      )
     })
 
     it('should do not call onClick when press columnItem and columnItem do not have onClick', () => {

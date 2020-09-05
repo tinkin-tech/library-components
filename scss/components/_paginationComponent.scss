@@ -5,7 +5,7 @@
     list-style: none;
     .page-item{
       display: inline-block;
-      border: 1px solid color('gray', 'lighten-1');
+      border: 1px solid $paginator-border-color;
       border-left-width: 0;
       line-height: $paginator-height;
       &:first-child{
