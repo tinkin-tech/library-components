@@ -27,6 +27,8 @@ $gray: (
         'lighten-1': lighten($color-gray, 15%),
         'lighten-2': lighten($color-gray, 30%),
         'lighten-3': lighten($color-gray, 45%),
+        'lighten-4': lighten($color-gray, 60%),
+        'lighten-5': lighten($color-gray, 78%),
 );
 
 $success: (

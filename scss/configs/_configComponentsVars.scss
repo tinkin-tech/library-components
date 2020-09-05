@@ -2,8 +2,22 @@
 
 $paginator-color: $color-gray;
 $paginator-font-size: $fontsize-default;
+$paginator-border-color: color('gray', 'lighten-4');
 $paginator-height: 2.5rem;
 $paginator-padding: 1rem;
 $paginator-radius: $radio-small;
-$paginator-selected-bg: color('gray', 'lighten-1');
+$paginator-selected-bg: color('gray', 'lighten-5');
 $paginator-selected-color: $color-primary;
+
+
+// TableComponent
+
+$table-labels-font-size: $fontsize-small;
+$table-labels-font-color: $color-primary;
+$table-row-border-color: color('gray', 'lighten-4');
+$table-cell-padding: .5rem;
+$table-selected-bg: color('gray', 'lighten-5');
+$table-switch-border-color: color('gray', 'lighten-4');
+$table-switch-bg: color('gray', 'lighten-5');
+$table-switch-inactive-bg: color('gray', 'lighten-3');
+$table-switch-active-bg: $color-primary;
