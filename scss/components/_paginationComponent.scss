@@ -28,6 +28,11 @@
         display: block;
         padding: 0 $paginator-padding;
         font-size: $paginator-font-size;
+        i{
+          &:before{
+            font-size: .5em;
+          }
+        }
       }
     }
   }
