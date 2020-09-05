@@ -1,0 +1,134 @@
+.multilevel-filter-component{
+  position: relative;
+  display: inline-block;
+  &.component-with-label{
+    padding-top: $multilevel-filter-label-height;
+    .option-list{
+      top: calc(#{$multilevel-filter-label-height} + #{$multilevel-filter-button-height});
+    }
+  }
+  .action-button{
+    position: relative;
+    color: $multilevel-filter-button-color;
+    border-radius: $multilevel-filter-button-radius;
+    line-height: $multilevel-filter-button-height;
+    padding: 0 calc(#{$multilevel-filter-button-padding} + 2em) 0 $multilevel-filter-button-padding;
+    background: $multilevel-filter-button-bg;
+    border: 1px solid $multilevel-filter-button-border-color;
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 150px;
+    cursor: pointer;
+    float: left;
+    &:after{
+      content: '';
+      clear: both;
+    }
+    &.place-holder-text{
+      color: $multilevel-filter-button-color-place-holder;
+    }
+    .label{
+      display: block;
+      position: absolute;
+      top: -$multilevel-filter-label-height;
+      left: 0;
+      line-height: $multilevel-filter-label-height;
+    }
+    i{
+      position: absolute;
+      right: 2em;
+      top: 0;
+      font-size: .5em;
+    }
+  }
+  ul{
+    list-style: none;
+    padding: 0;
+    $i: 0;
+    @while $i <= 6 {
+      &.list-level-#{$i}{
+        .option-item{
+          padding-left: #{$i + 1}rem;
+          &.available-selectable-option{
+            padding-left: calc(#{$i + 1}rem + 1rem);
+          }
+        }
+      }
+      $i: $i + 1
+    }
+    &.option-list{
+      display: block;
+      position: absolute;
+      top: $multilevel-filter-button-height;
+      background: $multilevel-filter-options-bg;
+      border-color: $multilevel-filter-options-border-color;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: $multilevel-filter-options-border-radius;
+      box-shadow: $multilevel-filter-options-shadow;
+      margin: 2px 0;
+      max-height: 280px;
+      overflow-y: auto;
+      li{
+        display: block;
+        .option-item{
+          box-sizing: border-box;
+          width: 100%;
+          display: block;
+          padding: .5rem 1rem 0.5rem 0.5rem;
+          border-bottom: 1px solid $multilevel-filter-options-border-color;
+          color: $multilevel-filter-options-text-color;
+          font-size: $multilevel-filter-options-text-size;
+          &.available-selectable-option{
+            cursor: pointer;
+            @media #{$small-and-up} {
+              &:hover{
+                background: $multilevel-filter-options-hover-bg;
+                color: $multilevel-filter-options-hover-and-active-color;
+              }
+            }
+            &.selected-option{
+              color: $multilevel-filter-options-hover-and-active-color;
+              span{
+                &:after{
+                  background: $multilevel-filter-options-check-color;
+                }
+                &:before{
+                  content: '';
+                  box-sizing: border-box;
+                  display: block;
+                  width: .6rem;
+                  height: .4rem;
+                  border: 2px solid #ffffff;
+                  border-bottom-width: 0;
+                  border-left-width: 0;
+                  position: absolute;
+                  left: -1.3rem;
+                  top: calc(50% - .4rem);
+                  z-index: 2;
+                  @include transform(rotate(135deg))
+                }
+              }
+            }
+            span{
+              display: inline-block;
+              position: relative;
+              &:after{
+                box-sizing: content-box;
+                content: '';
+                display: block;
+                width: 1rem;
+                height: 1rem;
+                border-radius: 50%;
+                border: 2px solid $multilevel-filter-options-check-color;
+                position: absolute;
+                left: -1.6rem;
+                top: calc(50% - .75rem);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

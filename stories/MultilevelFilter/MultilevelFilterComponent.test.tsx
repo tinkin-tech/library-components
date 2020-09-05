@@ -101,7 +101,7 @@ describe('render component <MultilevelFilterComponent />', () => {
       )
       expect(container.querySelectorAll('ul')).toHaveLength(0)
       fireEvent.click(getByText('Filtrar'))
-      expect(container.querySelectorAll('ul')[0].className).toEqual(
+      expect(container.querySelectorAll('ul')[0].className).toContain(
         'list-level-0 option-list'
       )
     })
@@ -168,13 +168,13 @@ describe('render component <MultilevelFilterComponent />', () => {
         container
           .querySelectorAll('ul.list-level-0 > li')[0]
           .querySelector('ul').className
-      ).toEqual('list-level-1')
+      ).toContain('list-level-1')
       expect(
         container
           .querySelectorAll('ul.list-level-0 > li')[0]
           .querySelector('ul')
           .children[0].querySelector('ul').className
-      ).toEqual('list-level-2')
+      ).toContain('list-level-2')
     })
 
     it('should show list itenm label', () => {
@@ -458,6 +458,40 @@ describe('render component <MultilevelFilterComponent />', () => {
     })
   })
 
+  describe('when receive selectorClassName prop', () => {
+    it('should replace selector class on the component when have selectorClassName prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          selectorClassName="custom-selector"
+        />
+      )
+      expect(getByText('Filtrar').parentElement.className).toContain(
+        'custom-selector'
+      )
+      expect(getByText('Filtrar').parentElement.className).not.toContain(
+        'action-button'
+      )
+    })
+
+    it('should have class selector on the component when do not have selectorClassName prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+        />
+      )
+      expect(getByText('Filtrar').parentElement.className).toContain(
+        'action-button'
+      )
+    })
+  })
+
   describe('when receive optionsClassName prop', () => {
     it('should replace options class on the component when have optionsClassName prop', () => {
       const { container, getByText } = render(
@@ -470,8 +504,11 @@ describe('render component <MultilevelFilterComponent />', () => {
         />
       )
       fireEvent.click(getByText('Filtrar'))
-      expect(container.querySelector('ul').className).toEqual(
+      expect(container.querySelector('ul').className).toContain(
         'list-level-0 custom-options'
+      )
+      expect(container.querySelector('ul').className).not.toContain(
+        'option-list'
       )
     })
 
@@ -485,7 +522,7 @@ describe('render component <MultilevelFilterComponent />', () => {
         />
       )
       fireEvent.click(getByText('Filtrar'))
-      expect(container.querySelector('ul').className).toEqual(
+      expect(container.querySelector('ul').className).toContain(
         'list-level-0 option-list'
       )
     })
@@ -521,9 +558,127 @@ describe('render component <MultilevelFilterComponent />', () => {
         />
       )
       fireEvent.click(getByText('Filtrar'))
-      expect(container.querySelector('ul').className).toEqual(
+      expect(container.querySelector('ul').className).toContain(
         'list-level-0 option-list extra-options-class'
       )
+    })
+  })
+
+  describe('when receive extraSelectorClassName prop', () => {
+    it('should add to selector class the extraSelectorClassName when have extraSelectorClassName prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          extraSelectorClassName="extra-selector-class"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(getByText('Filtrar').parentElement.className).toContain(
+        'extra-selector-class'
+      )
+    })
+  })
+
+  describe('when receive maxSelectorWidth prop', () => {
+    it('should add to selector style maxWidth equal to maxSelectorWidth prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          maxSelectorWidth="300px"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(getByText('Filtrar').parentElement.getAttribute('style')).toEqual(
+        'max-width: 300px;'
+      )
+    })
+
+    it('should do not have maxWidth when do not have maxSelectorWidth prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(
+        getByText('Filtrar').parentElement.getAttribute('style')
+      ).toBeNull()
+    })
+  })
+
+  describe('when receive minSelectorWidth prop', () => {
+    it('should add to selector style minWidth equal to minSelectorWidth prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          minSelectorWidth="100px"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(getByText('Filtrar').parentElement.getAttribute('style')).toEqual(
+        'min-width: 100px;'
+      )
+    })
+
+    it('should do not have minWidth when do not have minSelectorWidth prop', () => {
+      const { getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(
+        getByText('Filtrar').parentElement.getAttribute('style')
+      ).toBeNull()
+    })
+  })
+
+  describe('when receive minOptionsWidth prop', () => {
+    it('should add to options style minWidth equal to minOptionsWidth prop', () => {
+      const { getByText, container } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+          extraSelectorClassName="extra-selector-class"
+          minOptionsWidth="100px"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(container.querySelectorAll('ul')[0].getAttribute('style')).toEqual(
+        'min-width: 100px;'
+      )
+    })
+
+    it('should do not have options style minWidth when do not have minOptionsWidth prop', () => {
+      const { container, getByText } = render(
+        <MultilevelFilterComponent
+          options={mockOptions}
+          values={[]}
+          onChangeValue={mockOnChange}
+          valueId="multiLevelFilter"
+        />
+      )
+      fireEvent.click(getByText('Filtrar'))
+      expect(
+        container.querySelectorAll('ul')[0].getAttribute('style')
+      ).toBeNull()
     })
   })
 })

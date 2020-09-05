@@ -9,7 +9,6 @@ $paginator-radius: $radio-small;
 $paginator-selected-bg: color('gray', 'lighten-5');
 $paginator-selected-color: $color-primary;
 
-
 // TableComponent
 
 $table-labels-font-size: $fontsize-small;
@@ -21,3 +20,24 @@ $table-switch-border-color: color('gray', 'lighten-4');
 $table-switch-bg: color('gray', 'lighten-5');
 $table-switch-inactive-bg: color('gray', 'lighten-3');
 $table-switch-active-bg: $color-primary;
+
+// MultilevelFilterComponent
+
+$multilevel-filter-button-height: 36px;
+$multilevel-filter-button-padding: .5rem;
+$multilevel-filter-button-radius: $radio-small;
+$multilevel-filter-button-color: $color-primary;
+$multilevel-filter-button-color-place-holder: color('gray', 'lighten-2');
+$multilevel-filter-button-bg: color('gray', 'lighten-5');
+$multilevel-filter-button-border-color: color('gray', 'lighten-2');
+$multilevel-filter-label-height: 20px;
+$multilevel-filter-options-bg: $color-white;
+$multilevel-filter-options-border-color: color('gray', 'lighten-5');
+$multilevel-filter-options-border-radius: $radio-small;
+$multilevel-filter-options-shadow: $z-depth-1;
+$multilevel-filter-options-border-color: color('gray', 'lighten-4');
+$multilevel-filter-options-hover-bg: color('gray', 'lighten-5');
+$multilevel-filter-options-hover-and-active-color: $color-primary;
+$multilevel-filter-options-check-color: $color-primary;
+$multilevel-filter-options-text-color: color('gray', 'lighten-2');
+$multilevel-filter-options-text-size: $fontsize-small;

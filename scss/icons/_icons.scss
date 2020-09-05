@@ -9,7 +9,7 @@
     display: block;
     width: 1em;
     height: 1em;
-    border: 1px solid $color-gray;
+    border: 2px solid $color-gray;
     border-left: 0;
     border-bottom: 0;
     position: absolute;
@@ -27,5 +27,13 @@
   &:before{
     right: calc(50% - .25em);
     @include transform(rotate(45deg))
+  }
+}
+
+.icon-arrow-down{
+  &:before{
+    right: calc(50% - .5em);
+    top: calc(50% - 0.75em);
+    @include transform(rotate(135deg))
   }
 }
