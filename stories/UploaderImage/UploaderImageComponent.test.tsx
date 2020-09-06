@@ -49,7 +49,7 @@ describe('render component <UploaderImageComponent />', () => {
         />
       )
       const element = container.getElementsByClassName(
-        'uploader-container'
+        'uploader-image'
       )[0] as HTMLElement
       expect(element.style).toMatchObject({
         _values: {
@@ -99,6 +99,24 @@ describe('render component <UploaderImageComponent />', () => {
         )
       }
     )
+
+    it('Shouldnt call onUploadImage when files are empty', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData=""
+          valueId="upload"
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          files: [],
+        },
+      })
+      expect(mockedFunction).toHaveBeenCalledTimes(0)
+    })
   })
 
   describe('When recive keyFormData prop', () => {
@@ -403,5 +421,24 @@ describe('render component <UploaderImageComponent />', () => {
       />
     )
     expect(getByText('Tamaño del archivo máximo: 20MB')).toBeInTheDocument()
+  })
+
+  it('Should set 20 of maxSize when nos pass maxSize 0', () => {
+    const { container } = render(
+      <UploaderImageComponent
+        value=""
+        onUploadImage={mockedFunction}
+        deleteAction={deleteMockedFunction}
+        keyFormData="key"
+        valueId="upload"
+        maxSize={0}
+      />
+    )
+    fireEvent.change(container.getElementsByTagName('input')[0], {
+      target: {
+        files: [{ name: 'image.png', size: 4000000 }],
+      },
+    })
+    expect(mockedFunction).not.toHaveBeenCalled()
   })
 })

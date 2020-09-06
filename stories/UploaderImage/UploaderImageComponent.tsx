@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ES_EC from './language/es_EC'
 
-interface IUploaderImageComponent {
+export interface IUploaderImageComponent {
   value: string
   valueId: string
   onUploadImage: (value: FormData, valueId: string) => void
@@ -37,14 +37,14 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   const [fileSizeValid, setFileSizeValid] = React.useState(true)
 
   const selectImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const extensionIndex = e.currentTarget.files[0].name.lastIndexOf('.')
-    const extension = e.currentTarget.files[0].name.substring(
+    const extensionIndex = e.currentTarget.files[0]?.name.lastIndexOf('.')
+    const extension = e.currentTarget.files[0]?.name.substring(
       extensionIndex + 1
     )
     const validFile = !!filesAccepted.find((fileExtension) => {
-      return fileExtension.toLowerCase() === extension.toLowerCase()
+      return fileExtension.toLowerCase() === extension?.toLowerCase()
     })
-    const validSize = e.currentTarget.files[0].size <= maxSize * 1000
+    const validSize = e.currentTarget.files[0]?.size <= (maxSize || 20) * 10000
     if (validFile && validSize) {
       setFileValid(true)
       const formData = new FormData()
@@ -70,38 +70,40 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   ].filter((item) => item)
 
   return (
-    <div className="uploader-componet">
+    <div className="uploader-image-component">
       {label && (
         <label className={labelClassNameObject.join(' ')}>
           {`${label}${required ? '*' : ''}`}
         </label>
       )}
-      {value ? (
-        <div
-          className={`uploader-container ${error ? 'upload-error' : ''}`}
-          style={{ backgroundImage: `url(${value})` }}
-        >
-          <a onClick={(): void => deleteAction(value, valueId)}>
-            <i className="close-icon" />
-          </a>
-        </div>
-      ) : (
-        <>
-          <input
-            accept={filesAccepted.join(',')}
-            type="file"
-            onChange={selectImages}
-            size={maxSize}
-          />
-          {!fileValid && <span>{ES_EC.invalidFormat}</span>}
-          {!fileSizeValid && <span>{ES_EC.invalidSize}</span>}
-          <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
-            ' '
-          )}`}</div>
-          <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>
-        </>
-      )}
-      {error && <span>{error}</span>}
+      <div className={`uploader-container ${error ? 'upload-error' : ''}`}>
+        {value ? (
+          <div
+            className="uploader-image"
+            style={{ backgroundImage: `url(${value})` }}
+          >
+            <a onClick={(): void => deleteAction(value, valueId)}>
+              <span className="icon-close" />
+            </a>
+          </div>
+        ) : (
+          <>
+            <input
+              accept={filesAccepted.join(',')}
+              type="file"
+              onChange={selectImages}
+              size={maxSize}
+            />
+            {!fileValid && <span>{ES_EC.invalidFormat}</span>}
+            {!fileSizeValid && <span>{ES_EC.invalidSize}</span>}
+            <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
+              ' '
+            )}`}</div>
+            <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>
+          </>
+        )}
+      </div>
+      {error && <span className="error-content">{error}</span>}
     </div>
   )
 }
