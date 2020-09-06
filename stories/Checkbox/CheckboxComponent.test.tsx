@@ -29,6 +29,7 @@ describe('render component <CheckboxComponent />', () => {
           options={options}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       expect(container.getElementsByTagName('input')).toHaveLength(3)
@@ -37,7 +38,12 @@ describe('render component <CheckboxComponent />', () => {
 
     it('shouldnt show any options when list is empty', () => {
       const { container } = render(
-        <CheckboxComponent options={[]} values={values} onChangeValues={func} />
+        <CheckboxComponent
+          options={[]}
+          values={values}
+          onChangeValues={func}
+          valueId={'checkboxValueId'}
+        />
       )
       expect(container.getElementsByTagName('input')).toHaveLength(0)
       expect(container.getElementsByTagName('label')).toHaveLength(0)
@@ -51,6 +57,7 @@ describe('render component <CheckboxComponent />', () => {
           options={options}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       values.forEach((value, index) => {
@@ -104,6 +111,7 @@ describe('render component <CheckboxComponent />', () => {
           onChangeValues={func}
           disabled={true}
           values={values}
+          valueId={'checkboxValueId'}
         />
       )
       fireEvent.click(getByText('label1'))
@@ -118,6 +126,7 @@ describe('render component <CheckboxComponent />', () => {
           disabled={true}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       expect(container.firstElementChild.className).toMatch(
@@ -128,17 +137,16 @@ describe('render component <CheckboxComponent />', () => {
 
   describe('when receiving label property', () => {
     it('should render label over list with className "label"', () => {
-      const { container } = render(
+      const { queryByText } = render(
         <CheckboxComponent
           options={options}
           label={'Test label'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
-      expect(container.getElementsByTagName('label')[0].innerHTML).toContain(
-        'Test label'
-      )
+      expect(queryByText('Test label')).toBeInTheDocument()
     })
 
     it('should not render label on top if label not received', () => {
@@ -147,6 +155,7 @@ describe('render component <CheckboxComponent />', () => {
           options={options}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       expect(container.firstElementChild.firstElementChild.tagName).not.toBe(
@@ -163,6 +172,7 @@ describe('render component <CheckboxComponent />', () => {
           listItemClassName={'item-class'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
@@ -178,6 +188,7 @@ describe('render component <CheckboxComponent />', () => {
           options={options}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
@@ -190,32 +201,30 @@ describe('render component <CheckboxComponent />', () => {
 
   describe('when receiving labelClassName property', () => {
     it('should set className on labels', () => {
-      const { container } = render(
+      const { queryByText } = render(
         <CheckboxComponent
           options={options}
           label={'Test Label'}
           labelClassName={'label-class'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
-      expect(container.getElementsByTagName('label')[0].className).toMatch(
-        'label-class'
-      )
+      expect(queryByText('Test Label').className).toMatch('label-class')
     })
 
     it("should set className 'label' on items if labelClassName not provided", () => {
-      const { container } = render(
+      const { queryByText } = render(
         <CheckboxComponent
           options={options}
           label={'Test Label'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
-      expect(container.getElementsByTagName('label')[0].className).toMatch(
-        'label'
-      )
+      expect(queryByText('Test Label').className).toMatch('label')
     })
   })
 
@@ -228,13 +237,14 @@ describe('render component <CheckboxComponent />', () => {
           error={'test error'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       expect(container.firstElementChild.className).toMatch(
         'checkbox-component-error'
       )
       expect(container.firstElementChild.firstElementChild.className).toMatch(
-        'label label-error'
+        'label  label-error'
       )
       expect(container.firstChild.lastChild).toBe(getByText('test error'))
     })
@@ -249,6 +259,7 @@ describe('render component <CheckboxComponent />', () => {
           required={true}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       expect(container.firstElementChild.firstElementChild.innerHTML).toContain(
@@ -265,6 +276,7 @@ describe('render component <CheckboxComponent />', () => {
           extraListItemClassName={'item-class'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
@@ -277,18 +289,17 @@ describe('render component <CheckboxComponent />', () => {
 
   describe('when receiving extraLabelClassName property', () => {
     it('should set className on labels - add to labelClassName', () => {
-      const { container } = render(
+      const { queryByText } = render(
         <CheckboxComponent
           options={options}
           label={'Test Label'}
           extraLabelClassName={'label-class'}
           values={values}
           onChangeValues={func}
+          valueId={'checkboxValueId'}
         />
       )
-      expect(container.getElementsByTagName('label')[0].className).toMatch(
-        'label label-class'
-      )
+      expect(queryByText('Test Label').className).toMatch('label label-class')
     })
   })
 })

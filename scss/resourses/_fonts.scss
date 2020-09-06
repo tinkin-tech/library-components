@@ -23,15 +23,24 @@ body {
   &:focus {
     color: $label-focus-color;
   }
-  &.warning {
+  &.label-error, &.warning {
     color: $color-warning;
   }
-  &.danger {
+  &.label-danger &.danger {
     color: $color-danger;
   }
-  &.disable {
+  &.label-disable &.disable {
     color: $label-disable-color;
   }
+}
+
+// error Styles
+
+.error{
+  font-family: $error-family;
+  font-size: $error-size;
+  color: $error-color;
+  line-height: $error-line-height;
 }
 
 // Header Styles

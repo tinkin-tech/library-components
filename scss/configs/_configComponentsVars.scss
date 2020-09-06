@@ -30,7 +30,7 @@ $multilevel-filter-button-color: $color-primary;
 $multilevel-filter-button-color-place-holder: color('gray', 'lighten-2');
 $multilevel-filter-button-bg: color('gray', 'lighten-5');
 $multilevel-filter-button-border-color: color('gray', 'lighten-2');
-$multilevel-filter-label-height: 20px;
+$multilevel-filter-label-height: $label-line-height;
 $multilevel-filter-options-bg: $color-white;
 $multilevel-filter-options-border-color: color('gray', 'lighten-5');
 $multilevel-filter-options-border-radius: $radio-small;
@@ -41,3 +41,12 @@ $multilevel-filter-options-hover-and-active-color: $color-primary;
 $multilevel-filter-options-check-color: $color-primary;
 $multilevel-filter-options-text-color: color('gray', 'lighten-2');
 $multilevel-filter-options-text-size: $fontsize-small;
+
+// CheckboxComponent
+
+$checkbox-list-item-padding: .5rem;
+$checkbox-list-item-font-color: color('gray', 'lighten-2');
+$checkbox-list-item-font-size: $fontsize-default;
+$checkbox-list-item-check-radius: $radio-small;
+$checkbox-list-item-check-color: $color-primary;
+$checkbox-list-item-check-error-color: $color-warning;
