@@ -72,20 +72,25 @@ const SelectComponent: React.FC<ISelectComponent> = (
     labelClassName || 'label',
     extraLabelClassName || '',
     error ? 'warning' : '',
+    readOnly ? 'disable' : '',
   ].filter((item) => item !== '')
 
   return (
     <div className={selectClassNameObject.join(' ')} ref={selectRef}>
       {label && (
-        <span className={labelClassNameObject.join(' ')}>
+        <a
+          className={labelClassNameObject.join(' ')}
+          onClick={(): void => !readOnly && handleOpenSelector(true)}
+        >
           {`${label}${required ? '*' : ''}`}
-        </span>
+        </a>
       )}
       <a
         className="select-button"
         onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
         {getValue}
+        <i className="icon-arrow-down" />
       </a>
       {options.length && openSelector && (
         <ul className="selector-container">

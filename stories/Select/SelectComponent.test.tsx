@@ -170,6 +170,20 @@ describe('Render component <SelectComponent />', () => {
       )
       expect(container.getElementsByClassName('label')).toHaveLength(0)
     })
+
+    it('Should show options list when click on label', () => {
+      const { getByText, container } = render(
+        <SelectComponent
+          value=""
+          options={optionsMock}
+          valueId=""
+          onChangeValue={mockedFunction}
+          label="Select"
+        />
+      )
+      fireEvent.click(getByText('Select'))
+      expect(container.getElementsByTagName('li')).toHaveLength(3)
+    })
   })
 
   describe('When recive error prop', () => {
@@ -207,7 +221,7 @@ describe('Render component <SelectComponent />', () => {
         expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component select-component-error'
         )
-        expect(container.getElementsByTagName('span')[0].className).toBe(
+        expect(container.getElementsByTagName('a')[0].className).toBe(
           'label warning'
         )
       }
@@ -229,9 +243,7 @@ describe('Render component <SelectComponent />', () => {
         expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component'
         )
-        expect(container.getElementsByTagName('span')[0].className).toBe(
-          'label'
-        )
+        expect(container.getElementsByTagName('a')[0].className).toBe('label')
       }
     )
   })
@@ -289,6 +301,20 @@ describe('Render component <SelectComponent />', () => {
         )
       }
     )
+
+    it('Should add disable class to label when readOnly is true', () => {
+      const { getByText } = render(
+        <SelectComponent
+          onChangeValue={mockedFunction}
+          value="1"
+          valueId=""
+          options={optionsMock}
+          readOnly={true}
+          label="Select label"
+        />
+      )
+      expect(getByText('Select label').className).toContain('disable')
+    })
   })
 
   describe('When recive labelClassName prop', () => {

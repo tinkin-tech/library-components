@@ -1,5 +1,8 @@
 .select-component { 
   position: relative;
+  .label {
+    cursor: pointer;
+  }
   .select-button {
     border: $select-border;
     background: $select-background;
@@ -10,37 +13,46 @@
     width: $select-width;
     display: flex;
     flex-direction: flex-column;
+    cursor: pointer;
+    position: relative;
+    .icon-arrow-down {
+      font-size: .4rem;
+      position: absolute;
+      right: 1rem;
+      top: calc(50% - .4rem)
+    }
   } 
   .selector-container {
     list-style-type: none;
     position: absolute;
     top: 100%;
     z-index: 499;
-    background: $color-white;
+    background: $select-background-selector;
     width: 100%;
     left: 0;
-    box-shadow: $z-depth-1;
+    box-shadow: $select-boxshadow-selector;
     margin: 0;
     padding: 0;
     border-radius: $select-radius;
     .selector-item {
-      padding: .5rem; 
+      padding: $select-item-padding;
       &:hover {
         background: $select-item-hover;
       }
     }
   }
   .error-content {
-    display: flex;
-    justify-content: flex-end;
-    color: $color-warning;
+    position: absolute;
+    top: calc(100% - 5px);
+    right: 0;
+    color: $select-color-error;
   }
   &.select-component-error {
     .select-button {
-      border: 1px solid $color-warning;
+      border: $select-border-error;
     }
   }
   &.select-component-disable {
-    opacity: .6;
+    opacity: $select-disable;
   }
 }
