@@ -12,7 +12,7 @@ describe('render component <DateSelectorComponent />', () => {
   const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
   const maxDate = DateUtils.addDate(currentDate, dateFormat, 2, 'years')
   const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
-  const mockOnChangeDate = jest.fn()
+  const mockOnChangeDate = jest.fn() 
 
   describe('should select year, month and day', () => {
     it('should render DateSelectorComponent and select year', () => {
@@ -77,6 +77,21 @@ describe('render component <DateSelectorComponent />', () => {
       )
       rerender(getComponent())
       expect(getByText(minDateObject.day)).toBeInTheDocument()
+    })
+
+    it('Should close selector when press in document outside selector', () => {
+      const { getByText, container } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={(): void => null}
+          valueId="date"
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.getElementsByTagName('li')).toHaveLength(5)
+      fireEvent.click(document)
+      expect(container.getElementsByTagName('li')).toHaveLength(0)
     })
   })
 
