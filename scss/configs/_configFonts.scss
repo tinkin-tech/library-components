@@ -27,7 +27,13 @@ $label-family: $primary-font;
 $label-color: $color-gray;
 $label-focus-color: $color-gray;
 $label-disable-color: color($color-gray, 'lighten-2');
-$label-line-height: $line-height-small;
+$label-line-height: 20px;
+
+// error
+$error-size: $fontsize-small;
+$error-family: $primary-font;
+$error-color: $color-warning;
+$error-line-height: 20px;
 
 // headers props
 $headers-line-height: $line-height-large !default;
