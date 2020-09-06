@@ -5,11 +5,11 @@ type CheckboxOption = {
   label: string
 }
 
-interface ICheckboxComponent {
+export interface ICheckboxComponent {
   options: CheckboxOption[]
   values: string[]
   onChangeValues: (values: string[], valueId: string) => void
-  valueId?: string
+  valueId: string
   disabled?: boolean
   label?: string
   listItemClassName?: string
@@ -25,7 +25,7 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
 ) => {
   const {
     options,
-    values = [],
+    values,
     onChangeValues,
     disabled,
     label,
@@ -39,26 +39,34 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
   } = props
 
   const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (disabled) {
+      return null
+    }
     const newValues = values.find((value) => value === event.target.id)
       ? values.filter((value) => value !== event.target.id)
       : [...values, event.target.id]
     onChangeValues(newValues, valueId)
   }
+
+  const checkboxClass = [
+    'checkbox-component',
+    disabled && 'disabled-checklist',
+    error && 'checkbox-component-error',
+  ]
+
+  const labelClass = [
+    labelClassName || 'label',
+    extraLabelClassName || '',
+    error && 'label-error',
+  ]
+
   return (
-    <div
-      className={`${disabled ? 'disabled-checklist' : ''} ${
-        error && 'checkbox-component-error'
-      }`}
-    >
+    <div className={`${checkboxClass.join(' ')}`}>
       {label && (
-        <label
-          className={`${labelClassName || 'label'} ${
-            extraLabelClassName || ''
-          }${error && 'label-error'}`}
-        >
+        <div className={`${labelClass.join(' ')}`}>
           {label}
           {required ? '*' : ''}
-        </label>
+        </div>
       )}
       {options.map((option, key) => (
         <div
@@ -71,12 +79,12 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
             type="checkbox"
             id={option.id.toString()}
             checked={!!values.find((value) => value === option.id)}
-            onChange={disabled ? null : onChangeAction}
+            onChange={onChangeAction}
           />
           <label htmlFor={option.id.toString()}>{option.label}</label>
         </div>
       ))}
-      {error && <div>{error}</div>}
+      {error && <div className="error">{error}</div>}
     </div>
   )
 }
