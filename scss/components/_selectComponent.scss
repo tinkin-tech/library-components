@@ -1,0 +1,45 @@
+.select-component { 
+  position: relative;
+  .select-button {
+    max-height: $select-height;
+    border: $select-border;
+    background: $select-background;
+    font-size: $fontsize-default;
+    border-radius: $select-radius;
+    padding: $select-padding;
+    display: flex;
+    width: calc(100% - 1rem);
+  }
+  .selector-container {
+    list-style-type: none;
+    position: absolute;
+    top: $select-height;
+    z-index: 499;
+    background: $color-white;
+    width: 100%;
+    left: 0;
+    box-shadow: $z-depth-1;
+    margin: 0;
+    padding: 0;
+    border-radius: $select-radius;
+    .selector-item {
+      padding: .5rem; 
+      &:hover {
+        background: $select-item-hover;
+      }
+    }
+  }
+  .error-content {
+    display: flex;
+    justify-content: flex-end;
+    color: $color-warning;
+  }
+  &.select-component-error {
+    .select-button {
+      border: 1px solid $color-warning;
+    }
+  }
+  &.select-component-disable {
+    opacity: .6;
+  }
+}
