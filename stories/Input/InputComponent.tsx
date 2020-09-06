@@ -59,11 +59,17 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
     disabled: readOnly,
   }
 
+  const labelClassNameObject = [
+    labelClassName || 'label',
+    error ? 'warning' : '',
+    readOnly ? 'disable' : '',
+  ].filter((item) => item)
+
   return (
     <div className={`input-component${readOnly ? ' disabled' : ''}`}>
       <div className="flex-space-between">
         <label
-          className={`${labelClassName || 'label'} ${error ? 'warning' : ''}`}
+          className={labelClassNameObject.join(' ')}
           htmlFor={valueId}
           data-testid="label-component"
         >

@@ -198,7 +198,7 @@ describe('InputComponent test', () => {
           />
         )
         expect(container.getElementsByTagName('label')[0].className).toBe(
-          'label '
+          'label'
         )
         rerender(
           <InputComponent
@@ -230,9 +230,7 @@ describe('InputComponent test', () => {
           type="text"
         />
       )
-      expect(container.getElementsByTagName('label')[0].className).toBe(
-        'label '
-      )
+      expect(container.getElementsByTagName('label')[0].className).toBe('label')
       rerender(
         <InputComponent
           valueId="input"
@@ -243,7 +241,7 @@ describe('InputComponent test', () => {
         />
       )
       expect(container.getElementsByTagName('label')[0].className).toBe(
-        'custom-className '
+        'custom-className'
       )
     })
   })
@@ -275,34 +273,44 @@ describe('InputComponent test', () => {
   })
 
   describe('readOnly prop', () => {
-    it('Should recive readOnly and not change input value', () => {
-      const mockUtil = new TestUtil()
-      const { container, rerender } = render(
-        <InputComponent
-          valueId="input"
-          value=""
-          onChangeValue={mockUtil.mockedFunction}
-          type="text"
-          readOnly={true}
-        />
-      )
-      expect(container.getElementsByTagName('input')[0].value).toBe('')
-      fireEvent.change(container.getElementsByTagName('input')[0], {
-        target: {
-          value: 'change',
-        },
-      })
-      rerender(
-        <InputComponent
-          valueId="input"
-          value={mockUtil.getValue()}
-          onChangeValue={mockUtil.mockedFunction}
-          type="text"
-          inputClassName="custom-inputClassName"
-        />
-      )
-      expect(container.getElementsByTagName('input')[0].value).toBe('')
-    })
+    it(
+      'Should recive readOnly and not change input value and add disabled ' +
+        'className to label',
+      () => {
+        const mockUtil = new TestUtil()
+        const { container, rerender } = render(
+          <InputComponent
+            valueId="input"
+            value=""
+            onChangeValue={mockUtil.mockedFunction}
+            type="text"
+            readOnly={true}
+            label="Input"
+          />
+        )
+        expect(container.getElementsByTagName('input')[0].value).toBe('')
+        fireEvent.change(container.getElementsByTagName('input')[0], {
+          target: {
+            value: 'change',
+          },
+        })
+        rerender(
+          <InputComponent
+            valueId="input"
+            value={mockUtil.getValue()}
+            onChangeValue={mockUtil.mockedFunction}
+            type="text"
+            inputClassName="custom-inputClassName"
+            label="Input"
+            readOnly={true}
+          />
+        )
+        expect(container.getElementsByTagName('input')[0].value).toBe('')
+        expect(container.getElementsByTagName('label')[0].className).toContain(
+          'disable'
+        )
+      }
+    )
   })
 
   describe('textArea prop', () => {
