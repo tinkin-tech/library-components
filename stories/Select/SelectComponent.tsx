@@ -65,7 +65,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
     selectClassName || 'select-component',
     extraSelectClassName || '',
     error ? 'select-component-error' : '',
-    readOnly ? 'select-component-disable': '',
+    readOnly ? 'select-component-disable' : '',
   ].filter((item) => item !== '')
 
   const labelClassNameObject = [
@@ -87,7 +87,6 @@ const SelectComponent: React.FC<ISelectComponent> = (
       >
         {getValue}
       </a>
-      {error && <span className="error-content">{error}</span>}
       {options.length && openSelector && (
         <ul className="selector-container">
           {options.map((item, index) => (
@@ -102,6 +101,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
           ))}
         </ul>
       )}
+      {error && <span className="error-content">{error}</span>}
     </div>
   )
 }

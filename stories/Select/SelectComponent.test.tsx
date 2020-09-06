@@ -40,7 +40,7 @@ describe('Render component <SelectComponent />', () => {
         />
       )
       fireEvent.click(getByText('Seleccione una opción'))
-      fireEvent.click(container.getElementsByTagName('a')[1])
+      fireEvent.click(container.getElementsByTagName('a')[2])
       expect(container.getElementsByTagName('li')).toHaveLength(0)
     })
 
