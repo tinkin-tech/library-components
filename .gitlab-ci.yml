@@ -18,6 +18,7 @@ setup:
   only:
     - develop
     - master
+    - feature/*
 
 test:
   stage: test-lint
@@ -27,6 +28,7 @@ test:
   only:
     - develop
     - master
+    - feature/*
 
 build:
   stage: build
