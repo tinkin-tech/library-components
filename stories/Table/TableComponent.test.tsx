@@ -103,7 +103,8 @@ describe('render component <TableComponent>', () => {
     )
 
     it.each(cases)(
-      'should have style with width a item.width + item.typeWidth on list item %#',
+      'should have style with width a item.width + item.typeWidth on ' +
+        'list item %#',
       (objectData: { key: number; label: string; styleWidth: string }) => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
@@ -134,63 +135,84 @@ describe('render component <TableComponent>', () => {
       expect(currentSelector).toHaveLength(5)
     })
 
-    it('should add class to the column equal to value.type when find column', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children[0]
-      expect(currentSelector.className).toContain('string')
-    })
+    it(
+      'should add class to the column equal to value.type when ' +
+        'find column',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children[0]
+        expect(currentSelector.className).toContain('string')
+      }
+    )
 
-    it('should to show a image with src equal value when find column and columnItem type is image', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children[1]
-      expect(currentSelector.children[0].getAttribute('style')).toEqual(
-        `background-image: url(image-url.png);`
-      )
-    })
+    it(
+      'should to show a image with src equal value when find column and ' +
+        'columnItem type is image',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children[1]
+        expect(currentSelector.children[0].getAttribute('style')).toEqual(
+          `background-image: url(image-url.png);`
+        )
+      }
+    )
 
-    it('should to show a switch active when find column and columnItem type is switch and value true', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children[2]
-      expect(currentSelector.querySelector('div').className).toContain(
-        'active-switch'
-      )
-    })
+    it(
+      'should to show a switch active when find column and columnItem ' +
+        'type is switch and value true',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children[2]
+        expect(currentSelector.querySelector('div').className).toContain(
+          'active-switch'
+        )
+      }
+    )
 
-    it('should to show a switch inactive when find column and columnItem type is switch and value false', () => {
-      const newTableRows = [...tableRows]
-      newTableRows[0].columns[2].value = false
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={newTableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children[2]
-      expect(currentSelector.querySelector('div').className).toContain(
-        'inactive-switch'
-      )
-    })
+    it(
+      'should to show a switch inactive when find column and columnItem ' +
+        'type is switch and value false',
+      () => {
+        const newTableRows = [...tableRows]
+        newTableRows[0].columns[2].value = false
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={newTableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children[2]
+        expect(currentSelector.querySelector('div').className).toContain(
+          'inactive-switch'
+        )
+      }
+    )
 
-    it('should to show a value when find column and columnItem type is string number or custom', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children
-      expect(currentSelector[0].innerHTML).toEqual('content text')
-      expect(currentSelector[3].innerHTML).toEqual('2')
-      expect(currentSelector[4].innerHTML).toEqual('<a>button</a>')
-    })
+    it(
+      'should to show a value when find column and columnItem type is ' +
+        'string number or custom',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children
+        expect(currentSelector[0].innerHTML).toEqual('content text')
+        expect(currentSelector[3].innerHTML).toEqual('2')
+        expect(currentSelector[4].innerHTML).toEqual('<a>button</a>')
+      }
+    )
 
     it.each(cases)(
-      'should have style with width a item.width + item.typeWidth on columnItem%#',
+      'should have style with width a item.width + item.typeWidth ' +
+        'on columnItem%#',
       (objectData: { key: number; styleWidth: string }) => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
@@ -203,89 +225,117 @@ describe('render component <TableComponent>', () => {
       }
     )
 
-    it('should add className to columnItem when columnItem have cellClassName', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children
-      expect(currentSelector[0].className).toEqual(
-        'table-row-cell string custom-cell-class click-row'
-      )
-      expect(currentSelector[2].className).toEqual('table-row-cell switch')
-    })
+    it(
+      'should add className to columnItem when columnItem have ' +
+        'cellClassName',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children
+        expect(currentSelector[0].className).toEqual(
+          'table-row-cell string custom-cell-class click-row'
+        )
+        expect(currentSelector[2].className).toEqual('table-row-cell switch')
+      }
+    )
 
-    it('should add minHeight style to columnItem when columnItem have minHeight', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children
-      expect(currentSelector[1].getAttribute('style')).toEqual(
-        'width: 15%; height: 200px;'
-      )
-    })
+    it(
+      'should add minHeight style to columnItem when columnItem ' +
+        'have minHeight',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children
+        expect(currentSelector[1].getAttribute('style')).toEqual(
+          'width: 15%; height: 200px;'
+        )
+      }
+    )
 
-    it('should do not call onClick when press columnItem and columnItem do not have onClick', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children
-      fireEvent.click(currentSelector[2])
-      expect(mockFunction).toHaveBeenCalledTimes(0)
-    })
+    it(
+      'should do not call onClick when press columnItem and ' +
+        'columnItem do not have onClick',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children
+        fireEvent.click(currentSelector[2])
+        expect(mockFunction).toHaveBeenCalledTimes(0)
+      }
+    )
 
-    it('should call onClick when press columnItem and columnItem have onClick', () => {
-      const { container } = render(
-        <TableComponent labelProps={labelProps} tableRows={tableRows} />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[0]
-        .children
-      fireEvent.click(currentSelector[0])
-      expect(mockFunction).toHaveBeenCalledWith(tableRows[0])
-    })
+    it(
+      'should call onClick when press columnItem and columnItem ' +
+        'have onClick',
+      () => {
+        const { container } = render(
+          <TableComponent labelProps={labelProps} tableRows={tableRows} />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[0]
+          .children
+        fireEvent.click(currentSelector[0])
+        expect(mockFunction).toHaveBeenCalledWith(tableRows[0])
+      }
+    )
   })
 
   describe('when receive activeRowId', () => {
-    it('should call add class row-active on row when rowId equal to activeRowId', () => {
-      const { container } = render(
-        <TableComponent
-          labelProps={labelProps}
-          tableRows={tableRows}
-          activeRowId={15}
-        />
-      )
-      const currentSelector = container.querySelectorAll('section > div')[1]
-      expect(currentSelector.className).toContain('row-active')
-    })
+    it(
+      'should call add class row-active on row when rowId equal ' +
+        'to activeRowId',
+      () => {
+        const { container } = render(
+          <TableComponent
+            labelProps={labelProps}
+            tableRows={tableRows}
+            activeRowId={15}
+          />
+        )
+        const currentSelector = container.querySelectorAll('section > div')[1]
+        expect(currentSelector.className).toContain('row-active')
+      }
+    )
   })
 
   describe('when receive extraLabelsClassName', () => {
-    it('should call add class equal to extraLabelsClassName on parent labels when extraLabelsClassName exist', () => {
-      const { container } = render(
-        <TableComponent
-          labelProps={labelProps}
-          tableRows={tableRows}
-          extraLabelsClassName="extra-label-class"
-        />
-      )
-      const currentSelector = container.querySelector('header')
-      expect(currentSelector.className).toContain('extra-label-class')
-    })
+    it(
+      'should call add class equal to extraLabelsClassName on parent ' +
+        'labels when extraLabelsClassName exist',
+      () => {
+        const { container } = render(
+          <TableComponent
+            labelProps={labelProps}
+            tableRows={tableRows}
+            extraLabelsClassName="extra-label-class"
+          />
+        )
+        const currentSelector = container.querySelector('header')
+        expect(currentSelector.className).toContain('extra-label-class')
+      }
+    )
   })
 
   describe('when receive extraContentClassName', () => {
-    it('should call add class equal to extraContentClassName on parent content section when extraContentClassName exist', () => {
-      const { container } = render(
-        <TableComponent
-          labelProps={labelProps}
-          tableRows={tableRows}
-          extraContentClassName="extra-content-class"
-        />
-      )
-      const currentSelector = container.querySelector('section')
-      expect(currentSelector.className).toContain('extra-content-class')
-    })
+    it(
+      'should call add class equal to extraContentClassName on ' +
+        'parent content section when extraContentClassName exist',
+      () => {
+        const { container } = render(
+          <TableComponent
+            labelProps={labelProps}
+            tableRows={tableRows}
+            extraContentClassName="extra-content-class"
+          />
+        )
+        const currentSelector = container.querySelector('section')
+        expect(currentSelector.className).toContain('extra-content-class')
+      }
+    )
   })
 })

@@ -4,10 +4,10 @@ interface IDateSelectorLanguage {
   DD: string
 }
 
-const es_EC: IDateSelectorLanguage = {
+const ES_EC: IDateSelectorLanguage = {
   DD: 'Día',
   MM: 'Mes',
   YYYY: 'Año',
 }
 
-export default es_EC
+export default ES_EC

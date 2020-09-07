@@ -113,20 +113,24 @@ describe('render component <RadioButtonComponent />', () => {
       jest.clearAllMocks()
     })
 
-    it('should add disabled-radio-button class to parent when disabled is true', () => {
-      const { container } = render(
-        <RadioButtonComponent
-          options={options}
-          disabled={true}
-          value={value}
-          onChangeValue={func}
-          valueId={'radioButtonValueId'}
-        />
-      )
-      expect(container.firstElementChild.className).toMatch(
-        'disabled-radio-button'
-      )
-    })
+    it(
+      'should add disabled-radio-button class to parent when disabled ' +
+        'is true',
+      () => {
+        const { container } = render(
+          <RadioButtonComponent
+            options={options}
+            disabled={true}
+            value={value}
+            onChangeValue={func}
+            valueId={'radioButtonValueId'}
+          />
+        )
+        expect(container.firstElementChild.className).toMatch(
+          'disabled-radio-button'
+        )
+      }
+    )
   })
 
   describe('when receiving label property', () => {
@@ -162,21 +166,25 @@ describe('render component <RadioButtonComponent />', () => {
       }
     })
 
-    it("should set className 'radio-list-item' on items if listItemClassName not provided", () => {
-      const { container } = render(
-        <RadioButtonComponent
-          options={options}
-          value={value}
-          onChangeValue={func}
-          valueId={'radioButtonValueId'}
-        />
-      )
-      for (const element of container.firstElementChild.getElementsByTagName(
-        'div'
-      )) {
-        expect(element.className).toMatch('radio-list-item')
+    it(
+      'should set className "radio-list-item" on items if listItemClassName ' +
+        'not provided',
+      () => {
+        const { container } = render(
+          <RadioButtonComponent
+            options={options}
+            value={value}
+            onChangeValue={func}
+            valueId={'radioButtonValueId'}
+          />
+        )
+        for (const element of container.firstElementChild.getElementsByTagName(
+          'div'
+        )) {
+          expect(element.className).toMatch('radio-list-item')
+        }
       }
-    })
+    )
   })
 
   describe('when receiving labelClassName property', () => {
@@ -195,19 +203,23 @@ describe('render component <RadioButtonComponent />', () => {
       )
     })
 
-    it("should set className 'label' on items if labelClassName not provided", () => {
-      const { container } = render(
-        <RadioButtonComponent
-          options={options}
-          value={value}
-          onChangeValue={func}
-          valueId={'radioButtonValueId'}
-        />
-      )
-      expect(container.getElementsByTagName('label')[0].className).toMatch(
-        'label'
-      )
-    })
+    it(
+      "should set className 'label' on items if labelClassName " +
+        'not provided',
+      () => {
+        const { container } = render(
+          <RadioButtonComponent
+            options={options}
+            value={value}
+            onChangeValue={func}
+            valueId={'radioButtonValueId'}
+          />
+        )
+        expect(container.getElementsByTagName('label')[0].className).toMatch(
+          'label'
+        )
+      }
+    )
   })
 
   describe('when receiving error property', () => {

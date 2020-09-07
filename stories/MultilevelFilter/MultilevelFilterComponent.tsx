@@ -36,7 +36,9 @@ interface IHelperSelectedItems {
   haveChild: boolean
 }
 
-const MultilevelFilterComponent = (props: IMultilevelFilter) => {
+const MultilevelFilterComponent = (
+  props: IMultilevelFilter
+): React.ReactElement => {
   const {
     placeholder,
     options,
@@ -60,9 +62,11 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
   const [selectedValuesHelper, changeSelectedValuesHelper] = React.useState<
     Array<IHelperSelectedItems>
   >([])
-  const concatIds = (child: Array<IMultilevelOptionChild>) => {
+  const concatIds = (
+    child: Array<IMultilevelOptionChild>
+  ): Array<string | number> => {
     const mergeValues = [...values]
-    const recursiveAdd = (childList: Array<IMultilevelOptionChild>) => {
+    const recursiveAdd = (childList: Array<IMultilevelOptionChild>): void => {
       childList.forEach((item) => {
         if (
           (!item.children || (item.children && !item.children.length)) &&
@@ -78,10 +82,14 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     recursiveAdd(child)
     return mergeValues
   }
-  const filterIds = (children: IMultilevelOptionChild) => {
+  const filterIds = (
+    children: IMultilevelOptionChild
+  ): Array<string | number> => {
     let mergeValues = [...values]
     mergeValues = mergeValues.filter((item) => item !== children.id)
-    const recursiveRemove = (childList: Array<IMultilevelOptionChild>) => {
+    const recursiveRemove = (
+      childList: Array<IMultilevelOptionChild>
+    ): void => {
       childList.forEach((itemChildren) => {
         mergeValues = mergeValues.filter((item) => item !== itemChildren.id)
         if (itemChildren.children) {
@@ -92,7 +100,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     recursiveRemove(children.children)
     return mergeValues
   }
-  const onSelectLevel = (link: IMultilevelOptionChild) => {
+  const onSelectLevel = (link: IMultilevelOptionChild): void => {
     let newValue = []
     changeActiveList(false)
     if (!link.children?.length) {
@@ -111,7 +119,9 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       }
     }
   }
-  const validateAllChildSelected = (listItem: IMultilevelOptionChild) => {
+  const validateAllChildSelected = (
+    listItem: IMultilevelOptionChild
+  ): boolean => {
     const haveChild = !!(listItem.children && listItem.children.length)
     if (values.includes(listItem.id) && !haveChild) {
       return true
@@ -143,9 +153,9 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     }
     return allChildSelected
   }
-  const selectedItemsHelper = () => {
+  const selectedItemsHelper = (): void => {
     const itemsSelected: Array<IHelperSelectedItems> = []
-    const recursiveValidation = (list: Array<IMultilevelOptionChild>) => {
+    const recursiveValidation = (list: Array<IMultilevelOptionChild>): void => {
       list.forEach((item) => {
         const allChildSelected = validateAllChildSelected(item)
         if (allChildSelected) {
@@ -165,7 +175,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     recursiveValidation(options)
     changeSelectedValuesHelper(itemsSelected)
   }
-  const genValue = () => {
+  const genValue = (): string => {
     return selectedValuesHelper.reduce((cumulator, value) => {
       if (!value.haveChild) {
         return `${cumulator}${cumulator ? ',' : ''} ${value.label}`
@@ -173,7 +183,10 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       return cumulator
     }, '')
   }
-  const genLinks = (list: Array<IMultilevelOptionChild>, listKey?: number) => {
+  const genLinks = (
+    list: Array<IMultilevelOptionChild>,
+    listKey?: number
+  ): React.ReactElement => {
     const activeLevel = listKey || 0
     const classList = [`app-scroll list-level-${activeLevel}`]
     if (!activeLevel) {
@@ -206,7 +219,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
             <li key={key}>
               <a
                 className={linkClass.join(' ')}
-                onClick={() => !link.notSelectable && onSelectLevel(link)}
+                onClick={(): void => !link.notSelectable && onSelectLevel(link)}
               >
                 <span>{link.label}</span>
               </a>
@@ -218,7 +231,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     )
   }
 
-  const handleClickOutsideMultilevelFilter = (event: Event) => {
+  const handleClickOutsideMultilevelFilter = (event: Event): void => {
     if (!multiLevelFilterRef.current.contains(event.target)) {
       changeActiveList(false)
     }
@@ -263,7 +276,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       <a
         title={valuesString}
         style={selectorStyle}
-        onClick={() => changeActiveList(!activeList)}
+        onClick={(): void => changeActiveList(!activeList)}
         className={`${selectorClass.join(' ')}`}
       >
         {label && <span className={labelClass.join(' ')}>{label}</span>}

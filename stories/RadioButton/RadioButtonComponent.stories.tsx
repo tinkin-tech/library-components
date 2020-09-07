@@ -3,6 +3,7 @@ import * as React from 'react'
 import RadioButtonComponent, {
   IRadioButtonComponent,
 } from './RadioButtonComponent'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Radio Button',
@@ -21,7 +22,7 @@ Default.args = {
     { id: '2', label: 'Option 2' },
   ],
   value: '2',
-  onChangeValue: (value, _id) => console.log(value),
+  onChangeValue: action('onChangeValue'),
   valueId: 'RadioId',
   label: 'Radio Button',
 }
@@ -34,7 +35,7 @@ Error.args = {
     { id: '2', label: 'Option 2' },
   ],
   value: '2',
-  onChangeValue: (value, _id) => console.log(value),
+  onChangeValue: action('onChangeValue'),
   valueId: 'RadioId',
   label: 'Radio Button',
   error: 'Custom Error',
@@ -48,7 +49,7 @@ Disable.args = {
     { id: '2', label: 'Option 2' },
   ],
   value: '2',
-  onChangeValue: (value, _id) => console.log(value),
+  onChangeValue: action('onChangeValue'),
   valueId: 'RadioId',
   label: 'Radio Button',
   disabled: true,

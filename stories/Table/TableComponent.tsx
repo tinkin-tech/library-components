@@ -25,6 +25,7 @@ type ObjectType = keyof IValue
 export interface ITableRowColumn<T extends ObjectType> {
   type: T
   value: IValue[T]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (item: any) => void
   id: number | string
   cellClassName?: string
@@ -44,7 +45,7 @@ export interface ITableProps {
   extraContentClassName?: string
 }
 
-const TableComponent = (props: ITableProps) => {
+const TableComponent = (props: ITableProps): React.ReactElement => {
   const {
     tableRows,
     labelProps,
@@ -52,7 +53,8 @@ const TableComponent = (props: ITableProps) => {
     extraLabelsClassName,
     extraContentClassName,
   } = props
-  const getTableContent = (cell: ITableRowColumn<IRowTypes>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getTableContent = (cell: ITableRowColumn<IRowTypes>): any => {
     if (!cell) {
       return null
     }
@@ -124,7 +126,7 @@ const TableComponent = (props: ITableProps) => {
                 }
                 return (
                   <div
-                    onClick={() =>
+                    onClick={(): void =>
                       cellValues.onClick && cellValues.onClick(row)
                     }
                     style={style}

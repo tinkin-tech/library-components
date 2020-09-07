@@ -16,7 +16,7 @@ setup:
   script:
     - npm install
 
-test:
+test-lint:
   stage: test-lint
   script:
     - npm run test

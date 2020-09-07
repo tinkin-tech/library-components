@@ -9,7 +9,7 @@
     "test:coverage": "jest --coverage",
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
-    "lint": "eslint . --ext .js,.tsx,.ts --ignore-path .eslintignore"
+    "lint": "eslint . --ext .tsx,.ts"
   },
   "author": "",
   "license": "ISC",
