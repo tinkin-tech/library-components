@@ -6,6 +6,29 @@
       }
     }
   }
+  &.disabled-checklist{
+    .check-list-item{
+      &:after, input{
+        cursor: default;
+      }
+      &:after{
+        border-color: $checkbox-list-item-check-disable-color;
+      }
+      &.selected {
+        &:after {
+          border-color: $checkbox-list-item-check-disable-color;
+          background: $checkbox-list-item-check-disable-color;
+        }
+        &:before{
+          cursor: default;
+        }
+      }
+      label{
+        color: $checkbox-list-item-font-disable-color;
+        cursor: default;
+      }
+    }
+  }
   .check-list-item{
     padding: $checkbox-list-item-padding $checkbox-list-item-padding $checkbox-list-item-padding 2rem;
     position: relative;
