@@ -1,0 +1,48 @@
+image: node:12.18.3
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  - test
+  - build
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm install
+  only:
+    - develop
+    - master
+
+test:
+  stage: test
+  script:
+    - npm run test
+  only:
+    - develop
+    - master
+
+build:
+  stage: build
+  script:
+    - npm run build-storybook
+  artifacts:
+    paths:
+      - storybook-static
+  only:
+    - master
+    - develop
+
+deploy:
+  stage: deploy
+  script:
+    - curl -X POST -d {} $URL_STAGING
+  dependencies:
+    - build
+  only:
+    - develop

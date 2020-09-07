@@ -4,4 +4,6 @@ package-lock.json
 .idea
 coverage/
 storybook-static/
-.DS_Store
+
+# Local Netlify folder
+.netlify
