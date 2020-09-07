@@ -195,6 +195,7 @@ describe('InputComponent test', () => {
             value=""
             onChangeValue={mockOnChangeInput}
             type="text"
+            label="Label"
           />
         )
         expect(container.getElementsByTagName('label')[0].className).toBe(
@@ -207,6 +208,7 @@ describe('InputComponent test', () => {
             onChangeValue={mockOnChangeInput}
             type="text"
             error="error del input"
+            label="Label"
           />
         )
         expect(container.getElementsByTagName('label')[0].className).toBe(
@@ -228,6 +230,7 @@ describe('InputComponent test', () => {
           value=""
           onChangeValue={mockOnChangeInput}
           type="text"
+          label="Label"
         />
       )
       expect(container.getElementsByTagName('label')[0].className).toBe('label')
@@ -237,6 +240,7 @@ describe('InputComponent test', () => {
           value=""
           onChangeValue={mockOnChangeInput}
           type="text"
+          label="Label"
           labelClassName="custom-className"
         />
       )

@@ -46,9 +46,4 @@ Default.args = {
    *  error
    */
   error: '',
-  /**
-   * Cuando el valor es verdadero, muestra un estilo opaco en el
-   * componente y el valor no se puede ingresar en la entrada.
-   */
-  disabled: false,
 }
