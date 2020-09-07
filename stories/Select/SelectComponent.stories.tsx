@@ -13,6 +13,10 @@ const Template = (args: ISelectComponent): JSX.Element => (
 
 export const Default: { args: ISelectComponent } = Template.bind({})
 
+export const Error: { args: ISelectComponent } = Template.bind({})
+
+export const Disable: { args: ISelectComponent } = Template.bind({})
+
 const options = [
   {
     id: '1',
@@ -36,6 +40,38 @@ Default.args = {
   error: '',
   label: '',
   readOnly: false,
+  required: false,
+  placeholder: '',
+  labelClassName: '',
+  selectClassName: '',
+  extraLabelClassName: '',
+  extraSelectClassName: '',
+}
+
+Error.args = {
+  value: '',
+  onChangeValue: action('onChangeValue'),
+  valueId: '',
+  options,
+  error: 'select error default text',
+  label: 'Select Label',
+  readOnly: false,
+  required: true,
+  placeholder: '',
+  labelClassName: '',
+  selectClassName: '',
+  extraLabelClassName: '',
+  extraSelectClassName: '',
+}
+
+Disable.args = {
+  options,
+  onChangeValue: action('onChangeValue'),
+  value: '',
+  valueId: '',
+  error: '',
+  label: '',
+  readOnly: true,
   required: false,
   placeholder: '',
   labelClassName: '',

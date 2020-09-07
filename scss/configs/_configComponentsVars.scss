@@ -53,10 +53,10 @@ $select-height: 40px;
 $select-width: calc(100% - 1rem);
 $select-item-padding: .5rem;
 $select-border-error: 1px solid $color-warning;
-$select-disable: .6;
-$select-color-error: $color-warning;
+$select-disable-opacity: .6;
 $select-background-selector: $color-white;
 $select-boxshadow-selector: $z-depth-1;
+$select-fontsize: $fontsize-default;
 
 // CheckboxComponent
 

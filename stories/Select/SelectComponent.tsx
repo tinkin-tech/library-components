@@ -106,7 +106,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
           ))}
         </ul>
       )}
-      {error && <span className="error-content">{error}</span>}
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }

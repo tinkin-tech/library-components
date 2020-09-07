@@ -6,7 +6,7 @@
   .select-button {
     border: $select-border;
     background: $select-background;
-    font-size: $fontsize-default;
+    font-size: $select-fontsize;
     border-radius: $select-radius;
     padding: $select-padding;
     display: flex;
@@ -16,7 +16,7 @@
     cursor: pointer;
     position: relative;
     .icon-arrow-down {
-      font-size: .4rem;
+      font-size: .4em;
       position: absolute;
       right: 1rem;
       top: calc(50% - .4rem)
@@ -41,11 +41,9 @@
       }
     }
   }
-  .error-content {
-    position: absolute;
-    top: calc(100% - 5px);
-    right: 0;
-    color: $select-color-error;
+  .error {
+    display: flex;
+    justify-content: flex-end;
   }
   &.select-component-error {
     .select-button {
@@ -53,6 +51,6 @@
     }
   }
   &.select-component-disable {
-    opacity: $select-disable;
+    opacity: $select-disable-opacity;
   }
 }
