@@ -95,11 +95,11 @@ const SelectComponent: React.FC<ISelectComponent> = (
       {options.length && openSelector && (
         <ul className="selector-container">
           {options.map((item, index) => (
-            <li className="selector-item" key={index}>
-              <a
-                className={item.id === value ? 'selected' : ''}
-                onClick={(): void => onClickOptionItem(item.id)}
-              >
+            <li
+              className={`selector-item ${item.id === value ? 'selected' : ''}`}
+              key={index}
+            >
+              <a onClick={(): void => onClickOptionItem(item.id)}>
                 {item.label}
               </a>
             </li>

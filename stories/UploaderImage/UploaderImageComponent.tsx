@@ -99,7 +99,7 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
             <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
               ' '
             )}`}</div>
-            {maxSize && <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>}
+            {!!maxSize && <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>}
           </>
         )}
       </div>

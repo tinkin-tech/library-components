@@ -15,6 +15,10 @@ const Template = (args: IUploaderImageComponent): JSX.Element => (
 
 export const Default: { args: IUploaderImageComponent } = Template.bind({})
 
+export const WithoutImage: { args: IUploaderImageComponent } = Template.bind({})
+
+export const Error: { args: IUploaderImageComponent } = Template.bind({})
+
 const valueImage = 'https://cronicaglobal.elespanol.com/uploads/s1/61/11/50/7/main-700b9bff30.jpeg'
 
 Default.args = {
@@ -24,10 +28,39 @@ Default.args = {
   deleteAction: action('deleteAction'),
   onUploadImage: action('onUploadImage'),
   error: '',
-  label: '',
+  label: 'Uploader',
   maxSize: 0,
   required: false,
   filesAccepted: ['jpg', 'png', 'jpeg'],
+  labelClassName: '',
+  extraLabelClassName: '',
+}
+
+WithoutImage.args = {
+  onUploadImage: action('onUploadImage'),
+  deleteAction: action('deleteAction'),
+  keyFormData: '',
+  value: '',
+  valueId: '',
+  error: '',
+  label: 'Uploader',
+  maxSize: 30,
+  required: true,
+  filesAccepted: ['jpeg'],
+  labelClassName: '',
+  extraLabelClassName: '',
+}
+
+Error.args = {
+  value: '',
+  valueId: '',
+  keyFormData: '',
+  deleteAction: action('deleteAction'),
+  onUploadImage: action('onUploadImage'),
+  error: 'error uploader default text',
+  label: 'Uploader',
+  maxSize: 40,
+  required: false,
   labelClassName: '',
   extraLabelClassName: '',
 }
