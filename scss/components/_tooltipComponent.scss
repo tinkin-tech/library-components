@@ -1,0 +1,12 @@
+.tooltip-component {
+  position: relative;
+  display: inline-block;
+  .tooltip-container {
+    position: absolute;
+    color: $tooltip-color;
+    background-color: $tooltip-background;
+    border-radius: $tooltip-radius;
+    box-shadow: $tooltip-boxShadow;
+    padding: $tooltip-padding;
+  }
+}

@@ -36,7 +36,15 @@
     border-radius: $select-radius;
     .selector-item {
       padding: $select-item-padding;
+      display: flex;
+      cursor: pointer;
+      a {
+        width: 100%;
+      }
       &:hover {
+        background: $select-item-hover;
+      }
+      &.selected {
         background: $select-item-hover;
       }
     }
@@ -52,5 +60,8 @@
   }
   &.select-component-disable {
     opacity: $select-disable-opacity;
+    .select-button, .label {
+      cursor: default;
+    }
   }
 }

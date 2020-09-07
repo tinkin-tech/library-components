@@ -78,6 +78,21 @@ describe('render component <DateSelectorComponent />', () => {
       rerender(getComponent())
       expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
+
+    it('Should close selector when press in document outside selector', () => {
+      const { getByText, container } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          date=""
+          onChangeDate={(): void => null}
+          valueId="date"
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.getElementsByTagName('li')).toHaveLength(5)
+      fireEvent.click(document)
+      expect(container.getElementsByTagName('li')).toHaveLength(0)
+    })
   })
 
   describe('should recive date format property', () => {
@@ -729,5 +744,26 @@ describe('render component <DateSelectorComponent />', () => {
         'custom-class-name'
       )
     })
+  })
+
+  describe('when recive disabled prop', () => {
+    it(
+      'Should add dateselector-component-disabled class in ' +
+        'component when disabled prop is true',
+      () => {
+        const { container } = render(
+          <DateSelectorComponent
+            dateFormat="YYYY-MM-DD"
+            onChangeDate={mockOnChangeDate}
+            date="2020-02-01"
+            valueId=""
+            disabled={true}
+          />
+        )
+        expect(container.getElementsByTagName('div')[0].className).toContain(
+          'date-selector-component-disabled'
+        )
+      }
+    )
   })
 })

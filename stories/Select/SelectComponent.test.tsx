@@ -105,8 +105,8 @@ describe('Render component <SelectComponent />', () => {
           />
         )
         fireEvent.click(getByText('value-2'))
-        expect(container.getElementsByTagName('a')[2].className).toBe(
-          'selected'
+        expect(container.getElementsByTagName('li')[1].className).toBe(
+          'selector-item selected'
         )
       }
     )

@@ -1,4 +1,4 @@
-process.env.TZ = 'GMT'
+process.env.TZ = 'America/Guayaquil'
 
 module.exports = {
   roots: ['<rootDir>/'],

@@ -10,7 +10,7 @@ export type IPosition =
   | 'topRight'
   | 'bottomRight'
 
-interface ITooltipComponent {
+export interface ITooltipComponent {
   children: React.ReactElement
   content: React.ReactElement | string
   maxWidth?: number
@@ -30,37 +30,67 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
     position = 'bottom',
     extraContainerClassName,
   } = props
-  const tooltip = React.useRef(null)
-  const [containerHeight, handleContainerHeight] = React.useState(0)
+  const tooltipContainer = React.useRef(null)
   const [showContent, handleShowContent] = React.useState(false)
   const [tooltipStyle, handleTooltipStyle] = React.useState({})
 
-  const calcHeight = (e: React.MouseEvent<HTMLDivElement>): void => {
-    handleShowContent(true)
-    handleContainerHeight(e.currentTarget.offsetHeight)
-  }
-
   const getTooltipStyles = (): void => {
-    const tooltipContent = tooltip.current
-    const tooltipItemWidth = tooltipContent
-      ? tooltipContent.offsetWidth
-      : maxWidth
-    const tooltipItemHeight = tooltipContent
-      ? tooltipContent.clientHeight
-      : containerHeight
+    const tooltipContainerItemHeight = tooltipContainer.current.offsetHeight
     switch (position) {
       case 'bottom':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          top: 'calc(100% + .5rem)',
+          left: `calc(50% - ${maxWidth / 2}px)`,
+        })
+        break
       case 'top':
         handleTooltipStyle({
-          maxWidth: `${maxWidth}px`,
-          marginLeft: `${-tooltipItemWidth / 2}px`,
+          width: `${maxWidth}px`,
+          bottom: 'calc(100% + .5rem)',
+          left: `calc(50% - ${maxWidth / 2}px)`,
         })
         break
       case 'left':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          right: 'calc(100% + 1rem)',
+          bottom: `calc(50% - ${tooltipContainerItemHeight}px)`,
+        })
+        break
       case 'right':
         handleTooltipStyle({
-          maxWidth: `${maxWidth}px`,
-          marginTop: `${-tooltipItemHeight / 2}px`,
+          width: `${maxWidth}px`,
+          left: 'calc(100% + 1rem)',
+          bottom: `calc(50% - ${tooltipContainerItemHeight}px)`,
+        })
+        break
+      case 'bottomRight':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          left: 'calc(100% + 1rem)',
+          top: 'calc(100% + .5rem)',
+        })
+        break
+      case 'bottomLeft':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          right: 'calc(100% + 1rem)',
+          top: 'calc(100% + .5rem)',
+        })
+        break
+      case 'topLeft':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          right: 'calc(100% + 1rem)',
+          bottom: 'calc(100% + .5rem)',
+        })
+        break
+      case 'topRight':
+        handleTooltipStyle({
+          width: `${maxWidth}px`,
+          left: 'calc(100% + 1rem)',
+          bottom: 'calc(100% + .5rem)',
         })
     }
   }
@@ -77,17 +107,14 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
   return (
     <div
       className={tooltipClassObject.join(' ')}
-      onMouseEnter={calcHeight}
+      onMouseEnter={(): void => handleShowContent(true)}
       onMouseLeave={(): void => handleShowContent(false)}
+      ref={tooltipContainer}
     >
       {children}
       {showContent && (
         <div
-          ref={tooltip}
-          className={
-            `tooltip-container text-white bg-secondary small ${position}` +
-            `-position`
-          }
+          className={`tooltip-container ${position}-position`}
           style={tooltipStyle}
         >
           {content}

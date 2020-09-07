@@ -30,6 +30,7 @@ export const setLocationSearchValue = (search: string): void => {
   )
 }
 
+/* istanbul ignore next */
 export const mockOffsetAndClientSizes = (value?: number): void => {
   const originalClientHeight = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,

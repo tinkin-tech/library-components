@@ -1,0 +1,61 @@
+.date-selector-component {
+  width: 100%;
+  box-sizing: border-box;
+  .date-selector-content {
+    display: flex;
+    border: $date-selector-border;
+    border-radius: $date-selector-radius;
+    cursor: pointer;
+    .date-selector {
+      flex: 1;
+      display: flex;
+      position: relative;
+      .selector-value {
+        padding: $date-selector-padding;
+        width: 100%;
+      }
+      .icon-arrow-down {
+        font-size: .3em;
+        position: absolute;
+        right: .5rem;
+        top: calc(50% - .3rem);
+      }
+      .selector-options {
+        box-shadow: $date-selector-boxShadow;
+        border-radius: $date-selector-radius;
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: $date-selector-background;
+        width: 100%;
+        max-height: $date-selector-maxHeight;
+        overflow: auto;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        z-index: 499;
+        .selector-item {
+          &:hover {
+            background-color: $date-selector-item-hover-color;
+          }
+          display: flex;
+          cursor: pointer;
+          a {
+            padding: $date-selector-item-padding;
+            width: 100%;
+          }
+        }
+      }
+    }
+    &.date-selector-error {
+      border: $date-selector-border-error;
+    }
+  }
+  .error {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &.date-selector-component-disabled {
+    opacity: $date-selector-disable-opacity;
+  }
+}
