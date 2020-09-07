@@ -37,3 +37,25 @@
     @include transform(rotate(135deg))
   }
 }
+
+[class*="icon-close"]{
+  position: relative;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  &:before, &:after {
+    position: absolute;
+    left: .5em;
+    content: ' ';
+    height: 1em;
+    width: .1em;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}

@@ -60,6 +60,22 @@ $multilevel-filter-options-check-color: $color-primary;
 $multilevel-filter-options-text-color: color('gray', 'lighten-2');
 $multilevel-filter-options-text-size: $fontsize-small;
 
+// SelectComponent
+
+$select-border: 1px solid color('gray', 'lighten-4');
+$select-background: $color-white;
+$select-padding: .5rem .5rem .4rem .5rem;
+$select-radius: $radio-small;
+$select-item-hover: color('gray', 'lighten-5');
+$select-height: 40px;
+$select-width: calc(100% - 1rem);
+$select-item-padding: .5rem;
+$select-border-error: 1px solid $color-warning;
+$select-disable-opacity: .6;
+$select-background-selector: $color-white;
+$select-boxshadow-selector: $z-depth-1;
+$select-fontsize: $fontsize-default;
+
 // CheckboxComponent
 
 $checkbox-list-item-padding: .5rem;
@@ -69,6 +85,7 @@ $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: $color-primary;
 $checkbox-list-item-check-error-color: $color-warning;
 
+<<<<<<< HEAD
 // DateSelectorComponent
 
 $date-selector-padding: .5rem;
@@ -80,6 +97,19 @@ $date-selector-boxShadow: $z-depth-1;
 $date-selector-item-padding: .5rem;
 $date-selector-item-hover-color: color('gray', 'lighten-5');
 $date-selector-border-error: 1px solid $color-warning;
+=======
+// UploaderImageComponent
+
+$uploader-container-width: 300px;
+$uploader-container-height: 200px;
+$uploader-container-border: 2px dashed color('gray', 'lighten-4');
+$uploader-fontsize: $fontsize-small;
+$uploader-color: color('gray', 'lighten-2');
+$uploader-backgroundColor: color('gray', 'lighten-5');
+$uploader-container-radius: $radio-default;
+$uploader-container-error-border: 2px dashed $color-warning;
+$uploader-error-color: $color-warning;
+>>>>>>> develop
 $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
 $date-selector-disable-opacity: .6;
