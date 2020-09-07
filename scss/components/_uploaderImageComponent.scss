@@ -23,8 +23,8 @@
     }
     .uploader-image {
       position: absolute;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
       border-radius: $uploader-container-radius;
       background-size: cover;
       a {
@@ -46,9 +46,8 @@
       border: $uploader-container-error-border;
     }
   }
-  .error-content {
+  .error {
     display: flex;
     justify-content: flex-end;
-    color: $uploader-error-color;
   }
 }

@@ -410,20 +410,7 @@ describe('render component <UploaderImageComponent />', () => {
     }
   )
 
-  it('Should set 20MB of maxSize when nos pass maxSize prop or be null', () => {
-    const { getByText } = render(
-      <UploaderImageComponent
-        value=""
-        onUploadImage={mockedFunction}
-        deleteAction={deleteMockedFunction}
-        keyFormData="key"
-        valueId="upload"
-      />
-    )
-    expect(getByText('Tamaño del archivo máximo: 20MB')).toBeInTheDocument()
-  })
-
-  it('Should set 20 of maxSize when nos pass maxSize 0', () => {
+  it('Shouldnt have maxSize restriction when not pass maxSize prop', () => {
     const { container } = render(
       <UploaderImageComponent
         value=""
@@ -431,7 +418,6 @@ describe('render component <UploaderImageComponent />', () => {
         deleteAction={deleteMockedFunction}
         keyFormData="key"
         valueId="upload"
-        maxSize={0}
       />
     )
     fireEvent.change(container.getElementsByTagName('input')[0], {
@@ -439,6 +425,6 @@ describe('render component <UploaderImageComponent />', () => {
         files: [{ name: 'image.png', size: 4000000 }],
       },
     })
-    expect(mockedFunction).not.toHaveBeenCalled()
+    expect(mockedFunction).toHaveBeenCalled()
   })
 })

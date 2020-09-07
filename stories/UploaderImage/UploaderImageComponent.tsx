@@ -31,7 +31,7 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     extraLabelClassName,
     error,
     required,
-    maxSize = 20,
+    maxSize,
   } = props
   const [fileValid, setFileValid] = React.useState(true)
   const [fileSizeValid, setFileSizeValid] = React.useState(true)
@@ -44,8 +44,8 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     const validFile = !!filesAccepted.find((fileExtension) => {
       return fileExtension.toLowerCase() === extension?.toLowerCase()
     })
-    const validSize = e.currentTarget.files[0]?.size <= (maxSize || 20) * 10000
-    if (validFile && validSize) {
+    const validSize = e.currentTarget.files[0]?.size <= maxSize * 10000
+    if (validFile && (validSize || !maxSize)) {
       setFileValid(true)
       const formData = new FormData()
       formData.append(keyFormData, e.currentTarget.files[0])
@@ -99,11 +99,11 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
             <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
               ' '
             )}`}</div>
-            <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>
+            {maxSize && <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>}
           </>
         )}
       </div>
-      {error && <span className="error-content">{error}</span>}
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }

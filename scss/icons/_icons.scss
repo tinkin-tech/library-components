@@ -41,12 +41,21 @@
 [class*="icon-close"]{
   position: relative;
   font-size: 1em;
-  &:after {
-    content: '\00a0';
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  &:before, &:after {
+    position: absolute;
+    left: .5em;
+    content: ' ';
+    height: 1em;
+    width: .1em;
+    background-color: #333;
   }
   &:before {
-    content: '\00d7';
-    width: 1rem;
-    height: 1rem;
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
   }
 }

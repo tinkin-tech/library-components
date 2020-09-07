@@ -73,12 +73,12 @@ $checkbox-list-item-check-error-color: $color-warning;
 
 $uploader-container-width: 300px;
 $uploader-container-height: 200px;
-$uploader-container-border: 1.3px dashed color('gray', 'lighten-4');
+$uploader-container-border: 2px dashed color('gray', 'lighten-4');
 $uploader-fontsize: $fontsize-small;
 $uploader-color: color('gray', 'lighten-2');
 $uploader-backgroundColor: color('gray', 'lighten-5');
 $uploader-container-radius: $radio-default;
-$uploader-container-error-border: 1.3px dashed $color-warning;
+$uploader-container-error-border: 2px dashed $color-warning;
 $uploader-error-color: $color-warning;
 $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
