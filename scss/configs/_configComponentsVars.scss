@@ -60,6 +60,22 @@ $multilevel-filter-options-check-color: $color-primary;
 $multilevel-filter-options-text-color: color('gray', 'lighten-2');
 $multilevel-filter-options-text-size: $fontsize-small;
 
+// SelectComponent
+
+$select-border: 1px solid color('gray', 'lighten-4');
+$select-background: $color-white;
+$select-padding: .5rem .5rem .4rem .5rem;
+$select-radius: $radio-small;
+$select-item-hover: color('gray', 'lighten-5');
+$select-height: 40px;
+$select-width: calc(100% - 1rem);
+$select-item-padding: .5rem;
+$select-border-error: 1px solid $color-warning;
+$select-disable-opacity: .6;
+$select-background-selector: $color-white;
+$select-boxshadow-selector: $z-depth-1;
+$select-fontsize: $fontsize-default;
+
 // CheckboxComponent
 
 $checkbox-list-item-padding: .5rem;
