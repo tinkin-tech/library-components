@@ -95,6 +95,19 @@ $tooltip-radius: $radio-small;
 $tooltip-boxShadow: $z-depth-1;
 $tooltip-padding: .5rem;
 
+// DateSelectorComponent
+
+$date-selector-padding: .5rem;
+$date-selector-border: 1px solid color('gray', 'lighten-4');
+$date-selector-radius: $radio-small;
+$date-selector-background: $color-white;
+$date-selector-maxHeight: 150px;
+$date-selector-boxShadow: $z-depth-1;
+$date-selector-item-padding: .5rem;
+$date-selector-item-hover-color: color('gray', 'lighten-5');
+$date-selector-border-error: 1px solid $color-warning;
+$date-selector-disable-opacity: .6;
+
 // UploaderImageComponent
 
 $uploader-container-width: 300px;
@@ -117,3 +130,22 @@ $radio-button-list-item-radio-color: $color-primary;
 $radio-button-list-item-radio-error-color: $color-warning;
 $radio-button-list-item-font-disable-color: color('gray', 'lighten-3');
 $radio-button-list-item-radio-disable-color: color('gray', 'lighten-3');
+
+// Button Component
+
+$button-font-size: 12px;
+$button-small-font-size: $fontsize-small;
+$button-radius: 5px;
+$button-small-radius: 5px;
+$button-small-height: 32px;
+$button-height: 48px;
+$button-font: $secondary-font;
+$button-font-color: $color-white;
+$button-border-font-color: color('gray', 'lighten-2');
+$button-font-weight: 700;
+$button-padding: 2rem;
+$button-letter-spacing: 1px;
+$button-disable-opacity: .5;
+$button-disable-font-color: $color-gray;
+$button-disable-background: color('gray', 'lighten-3');
+$button-border-width: 2px;
