@@ -84,8 +84,9 @@ $checkbox-list-item-font-size: $fontsize-default;
 $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: $color-primary;
 $checkbox-list-item-check-error-color: $color-warning;
+$checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
+$checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
 
-<<<<<<< HEAD
 // DateSelectorComponent
 
 $date-selector-padding: .5rem;
@@ -97,7 +98,8 @@ $date-selector-boxShadow: $z-depth-1;
 $date-selector-item-padding: .5rem;
 $date-selector-item-hover-color: color('gray', 'lighten-5');
 $date-selector-border-error: 1px solid $color-warning;
-=======
+$date-selector-disable-opacity: .6;
+
 // UploaderImageComponent
 
 $uploader-container-width: 300px;
@@ -109,10 +111,6 @@ $uploader-backgroundColor: color('gray', 'lighten-5');
 $uploader-container-radius: $radio-default;
 $uploader-container-error-border: 2px dashed $color-warning;
 $uploader-error-color: $color-warning;
->>>>>>> develop
-$checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
-$checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
-$date-selector-disable-opacity: .6;
 
 // RadioButtonComponent
 
