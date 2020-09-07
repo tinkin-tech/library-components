@@ -26,7 +26,7 @@ $label-size: $fontsize-small;
 $label-family: $primary-font;
 $label-color: $color-gray;
 $label-focus-color: $color-gray;
-$label-disable-color: color($color-gray, 'lighten-2');
+$label-disable-color: color('gray', 'lighten-2');
 $label-line-height: 20px;
 
 // error
