@@ -16,14 +16,16 @@ setup:
   script:
     - npm install
   only:
-    - feature/DRC-51
+    - develop
+    - master
 
 test:
   stage: test
   script:
     - npm run test
   only:
-    - feature/DRC-51
+    - develop
+    - master
 
 build:
   stage: build
@@ -33,13 +35,14 @@ build:
     paths:
       - storybook-static
   only:
-    - feature/DRC-51
+    - master
+    - develop
 
 deploy:
   stage: deploy
   script:
-    - curl -X POST -d {} https://api.netlify.com/build_hooks/5f518dbf2315600154ad1972
+    - curl -X POST -d {} $URL_STAGING
   dependencies:
     - build
   only:
-    - feature/DRC-51
+    - develop
