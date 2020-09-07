@@ -30,7 +30,7 @@ describe('render component <TableComponent>', () => {
           value: 'image-url.png',
           id: 'avatar',
           cellClassName: 'custom-cell-class-avatar',
-          minHeight: 200
+          minHeight: 200,
         },
         {
           type: 'switch',

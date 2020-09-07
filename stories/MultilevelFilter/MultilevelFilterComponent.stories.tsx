@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import MultilevelFilterComponent, {
-  IMultilevelFilter, IMultilevelOptionChild,
+  IMultilevelFilter,
+  IMultilevelOptionChild,
 } from './MultilevelFilterComponent'
 
 export default {

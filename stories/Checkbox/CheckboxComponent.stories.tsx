@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import CheckboxComponent, { ICheckboxComponent } from './CheckboxComponent'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Checkbox',
@@ -19,7 +20,7 @@ Default.args = {
     { id: '2', label: 'Option 2' },
   ],
   values: ['2'],
-  onChangeValues: (value, _id) => console.log(value),
+  onChangeValues: action('onChangeValues'),
   valueId: 'CheckId',
   label: 'Checkbox',
 }
@@ -32,7 +33,7 @@ Error.args = {
     { id: '2', label: 'Option 2' },
   ],
   values: ['2'],
-  onChangeValues: (value, _id) => console.log(value),
+  onChangeValues: action('onChangeValues'),
   valueId: 'CheckId',
   label: 'Checkbox',
   error: 'Custom Error',
@@ -46,7 +47,7 @@ Disable.args = {
     { id: '2', label: 'Option 2' },
   ],
   values: ['2'],
-  onChangeValues: (value, _id) => console.log(value),
+  onChangeValues: action('onChangeValues'),
   valueId: 'CheckId',
   label: 'Checkbox',
   disabled: true,

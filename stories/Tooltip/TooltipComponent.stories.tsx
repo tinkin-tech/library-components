@@ -16,9 +16,7 @@ export const Default: { args: ITooltipComponent } = Template.bind({})
 
 const contentDefault = <div>Tooltip text</div>
 
-const childrenDefault = (
-  <div>Tooltip Component</div>
-)
+const childrenDefault = <div>Tooltip Component</div>
 
 Default.args = {
   content: contentDefault,

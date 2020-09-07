@@ -30,31 +30,41 @@ describe('render component <ButtonComponent />', () => {
   })
 
   describe('when reciving disabled property', () => {
-    it("should set className 'disabled' and onClick shouldnt work, functional disable", () => {
-      const fun = jest.fn()
-      const { queryByText, container } = render(
-        <ButtonComponent buttonText="button" onClick={fun} disabled={true} />
-      )
-      fireEvent.click(container.querySelector('a'))
-      expect(fun).toHaveBeenCalledTimes(0)
-      expect(queryByText('button').className).toContain('button-disable')
-    })
+    it(
+      'should set className disabled and onClick shouldnt work, functional ' +
+        ' disable',
+      () => {
+        const fun = jest.fn()
+        const { queryByText, container } = render(
+          <ButtonComponent buttonText="button" onClick={fun} disabled={true} />
+        )
+        fireEvent.click(container.querySelector('a'))
+        expect(fun).toHaveBeenCalledTimes(0)
+        expect(queryByText('button').className).toContain('button-disable')
+      }
+    )
   })
 
   describe('when reciving visualDisabled property', () => {
-    it("should set className 'disabled' and onClick should work, visual disable", () => {
-      const fun = jest.fn()
-      const { container, queryByText } = render(
-        <ButtonComponent
-          buttonText="button"
-          onClick={fun}
-          visualDisabled={true}
-        />
-      )
-      expect(queryByText('button').className).toContain('button-visual-disable')
-      fireEvent.click(container.querySelector('a'))
-      expect(fun).toHaveBeenCalledTimes(1)
-    })
+    it(
+      'should set className disabled and onClick should work, visual ' +
+        'disable',
+      () => {
+        const fun = jest.fn()
+        const { container, queryByText } = render(
+          <ButtonComponent
+            buttonText="button"
+            onClick={fun}
+            visualDisabled={true}
+          />
+        )
+        expect(queryByText('button').className).toContain(
+          'button-visual-disable'
+        )
+        fireEvent.click(container.querySelector('a'))
+        expect(fun).toHaveBeenCalledTimes(1)
+      }
+    )
   })
 
   describe('when reciving buttonType property', () => {
@@ -88,39 +98,49 @@ describe('render component <ButtonComponent />', () => {
   })
 
   describe('when reciving buttonClass property', () => {
-    it('should set butonClass className, overrides smallButton and buttonType', () => {
-      const { container } = render(
-        <ButtonComponent
-          buttonText="button"
-          smallButton={true}
-          buttonType={'success'}
-          buttonClass={'button-class'}
-        />
-      )
-      expect(container.getElementsByClassName('button-small')).toHaveLength(0)
-      expect(container.getElementsByClassName('success')).toHaveLength(0)
-      expect(
-        container.getElementsByClassName('button-class')[0]
-      ).toBeInTheDocument()
-    })
+    it(
+      'should set butonClass className, overrides smallButton and ' +
+        'buttonType',
+      () => {
+        const { container } = render(
+          <ButtonComponent
+            buttonText="button"
+            smallButton={true}
+            buttonType={'success'}
+            buttonClass={'button-class'}
+          />
+        )
+        expect(container.getElementsByClassName('button-small')).toHaveLength(0)
+        expect(container.getElementsByClassName('success')).toHaveLength(0)
+        expect(
+          container.getElementsByClassName('button-class')[0]
+        ).toBeInTheDocument()
+      }
+    )
   })
 
   describe('when reciving extraButtonClass property', () => {
-    it('should set extraButtonClass className added to smallButton and buttonType', () => {
-      const { container, queryByText } = render(
-        <ButtonComponent
-          buttonText="button"
-          smallButton={true}
-          buttonType={'success'}
-          extraButtonClass={'extra-class'}
-        />
-      )
-      expect(queryByText('button').className).toContain('button-small')
-      expect(container.getElementsByClassName('success')[0]).toBeInTheDocument()
-      expect(
-        container.getElementsByClassName('extra-class')[0]
-      ).toBeInTheDocument()
-    })
+    it(
+      'should set extraButtonClass className added to smallButton and ' +
+        'buttonType',
+      () => {
+        const { container, queryByText } = render(
+          <ButtonComponent
+            buttonText="button"
+            smallButton={true}
+            buttonType={'success'}
+            extraButtonClass={'extra-class'}
+          />
+        )
+        expect(queryByText('button').className).toContain('button-small')
+        expect(
+          container.getElementsByClassName('success')[0]
+        ).toBeInTheDocument()
+        expect(
+          container.getElementsByClassName('extra-class')[0]
+        ).toBeInTheDocument()
+      }
+    )
   })
 
   describe('when reciving formButton property', () => {

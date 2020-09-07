@@ -19,7 +19,8 @@ export const WithoutImage: { args: IUploaderImageComponent } = Template.bind({})
 
 export const Error: { args: IUploaderImageComponent } = Template.bind({})
 
-const valueImage = 'https://cronicaglobal.elespanol.com/uploads/s1/61/11/50/7/main-700b9bff30.jpeg'
+const valueImage =
+  'https://cronicaglobal.elespanol.com/uploads/s1/61/11/50/7/main-700b9bff30.jpeg'
 
 Default.args = {
   value: valueImage,
