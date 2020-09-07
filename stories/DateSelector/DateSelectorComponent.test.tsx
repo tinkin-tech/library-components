@@ -79,6 +79,23 @@ describe('render component <DateSelectorComponent />', () => {
       expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
 
+    it(
+      'should show day options when format is MM-DD, set year with ' +
+        'current',
+      () => {
+        const { getByText, container } = render(
+          <DateSelectorComponent
+            dateFormat="MM-DD"
+            date="04-02"
+            onChangeDate={null}
+            valueId="date"
+          />
+        )
+        fireEvent.click(getByText('02'))
+        expect(container.getElementsByTagName('li')).toHaveLength(30)
+      }
+    )
+
     it('Should close selector when press in document outside selector', () => {
       const { getByText, container } = render(
         <DateSelectorComponent
@@ -765,5 +782,19 @@ describe('render component <DateSelectorComponent />', () => {
         )
       }
     )
+
+    it('Shouldnt open options when disabled prop is true', () => {
+      const { container, getByText } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          onChangeDate={mockOnChangeDate}
+          date=""
+          valueId=""
+          disabled={true}
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.getElementsByTagName('li')).toHaveLength(0)
+    })
   })
 })

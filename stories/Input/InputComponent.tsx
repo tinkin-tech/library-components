@@ -69,12 +69,8 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
     <div className={`input-component${readOnly ? ' disabled' : ''}`}>
       <div className="flex-space-between">
         {label && (
-          <label
-            className={labelClassNameObject.join(' ')}
-            htmlFor={valueId}
-            data-testid="label-component"
-          >
-            {`${label || ''}${required ? '*' : ''}`}
+          <label className={labelClassNameObject.join(' ')} htmlFor={valueId}>
+            {`${label}${required ? '*' : ''}`}
           </label>
         )}
         {error && <span className="warning-content">&#9888;</span>}

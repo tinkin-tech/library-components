@@ -55,41 +55,41 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
         handleTooltipStyle({
           width: `${maxWidth}px`,
           right: 'calc(100% + 1rem)',
-          bottom: `calc(50% - ${tooltipContainerItemHeight}px)`,
+          top: `calc(50% - ${tooltipContainerItemHeight}px)`,
         })
         break
       case 'right':
         handleTooltipStyle({
           width: `${maxWidth}px`,
           left: 'calc(100% + 1rem)',
-          bottom: `calc(50% - ${tooltipContainerItemHeight}px)`,
+          top: `calc(50% - ${tooltipContainerItemHeight}px)`,
         })
         break
       case 'bottomRight':
         handleTooltipStyle({
           width: `${maxWidth}px`,
-          left: 'calc(100% + 1rem)',
+          right: 0,
           top: 'calc(100% + .5rem)',
         })
         break
       case 'bottomLeft':
         handleTooltipStyle({
           width: `${maxWidth}px`,
-          right: 'calc(100% + 1rem)',
+          left: 0,
           top: 'calc(100% + .5rem)',
         })
         break
       case 'topLeft':
         handleTooltipStyle({
           width: `${maxWidth}px`,
-          right: 'calc(100% + 1rem)',
+          left: 0,
           bottom: 'calc(100% + .5rem)',
         })
         break
       case 'topRight':
         handleTooltipStyle({
           width: `${maxWidth}px`,
-          left: 'calc(100% + 1rem)',
+          right: 0,
           bottom: 'calc(100% + .5rem)',
         })
     }

@@ -12,13 +12,17 @@ const Template = (arg: InputComponentPropsInterface): JSX.Element => (
   <InputComponent {...arg} />
 )
 
-export const Default = Template.bind({})
+export const Default: { args: InputComponentPropsInterface } = Template.bind({})
+
+export const Error: { args: InputComponentPropsInterface } = Template.bind({})
+
+export const Disable: { args: InputComponentPropsInterface } = Template.bind({})
 
 Default.args = {
   /**
    * Id del InputComponent
    */
-  id: 'input',
+  valueId: 'input',
   /**
    * Valor del InputComponent
    */
@@ -46,4 +50,32 @@ Default.args = {
    *  error
    */
   error: '',
+}
+
+Disable.args = {
+  valueId: '',
+  type: 'text',
+  onChangeValue: action('onChangeValue'),
+  value: '',
+  error: '',
+  label: 'Input',
+  readOnly: true,
+  required: true,
+  placeholder: '',
+  inputClassName: '',
+  labelClassName: '',
+}
+
+Error.args = {
+  valueId: '',
+  type: 'text',
+  onChangeValue: action('onChangeValue'),
+  value: '',
+  error: 'Error input default text',
+  label: 'Input',
+  readOnly: false,
+  required: true,
+  placeholder: '',
+  inputClassName: '',
+  labelClassName: '',
 }

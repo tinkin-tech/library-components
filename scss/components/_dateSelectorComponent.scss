@@ -57,5 +57,8 @@
   }
   &.date-selector-component-disabled {
     opacity: $date-selector-disable-opacity;
+    .date-selector-content {
+      cursor: default;
+    } 
   }
 }
