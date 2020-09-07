@@ -41,7 +41,7 @@ describe('render component <TooltipComponent />', () => {
       const element = container.getElementsByClassName(
         'tooltip-container'
       )[0] as HTMLElement
-      expect(element.style.maxWidth).toBe('100px')
+      expect(element.style.width).toBe('100px')
     })
 
     it(
@@ -55,7 +55,7 @@ describe('render component <TooltipComponent />', () => {
         const element = container.getElementsByClassName(
           'tooltip-container'
         )[0] as HTMLElement
-        expect(element.style.maxWidth).toBe('200px')
+        expect(element.style.width).toBe('200px')
       }
     )
   })
@@ -117,8 +117,8 @@ describe('render component <TooltipComponent />', () => {
     })
 
     it(
-      'Should add marginLeft style with offsetWidth of container content ' +
-        'when pass position top or bottom and hover',
+      'Should add bottom style with offsetWidth of container content ' +
+        'when pass position top and hover',
       () => {
         const component = (
           <TooltipComponent content={content} position="top">
@@ -130,16 +130,16 @@ describe('render component <TooltipComponent />', () => {
         const element = container.getElementsByClassName(
           'tooltip-container'
         )[0] as HTMLElement
-        expect(element.style.marginLeft).toBe('-250px')
+        expect(element.style.bottom).toBe('calc(100% + .5rem)')
       }
     )
 
     it(
-      'Should add marginTop style with containerHeight of container content ' +
-        'when pass position left or right and hover',
+      'Should add top style with containerHeight of container content ' +
+        'when pass position bottom and hover',
       () => {
         const { container } = render(
-          <TooltipComponent content={content} position="left">
+          <TooltipComponent content={content} position="bottom">
             {children}
           </TooltipComponent>
         )
@@ -147,7 +147,7 @@ describe('render component <TooltipComponent />', () => {
         const element = container.getElementsByClassName(
           'tooltip-container'
         )[0] as HTMLDivElement
-        expect(element.style.marginTop).toBe('-250px')
+        expect(element.style.top).toBe('calc(100% + .5rem)')
       }
     )
   })

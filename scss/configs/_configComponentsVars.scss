@@ -87,6 +87,14 @@ $checkbox-list-item-check-error-color: $color-warning;
 $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
 
+// TooltipComponent
+
+$tooltip-color: color('gray', 'lighten-2');
+$tooltip-background: $color-white;
+$tooltip-radius: $radio-small;
+$tooltip-boxShadow: $z-depth-1;
+$tooltip-padding: .5rem;
+
 // DateSelectorComponent
 
 $date-selector-padding: .5rem;
