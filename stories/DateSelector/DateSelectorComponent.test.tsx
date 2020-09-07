@@ -12,7 +12,7 @@ describe('render component <DateSelectorComponent />', () => {
   const minDateObject = DateUtils.dateStringToObject(minDate, dateFormat)
   const maxDate = DateUtils.addDate(currentDate, dateFormat, 2, 'years')
   const maxDateObject = DateUtils.dateStringToObject(maxDate, dateFormat)
-  const mockOnChangeDate = jest.fn() 
+  const mockOnChangeDate = jest.fn()
 
   describe('should select year, month and day', () => {
     it('should render DateSelectorComponent and select year', () => {
@@ -744,5 +744,26 @@ describe('render component <DateSelectorComponent />', () => {
         'custom-class-name'
       )
     })
+  })
+
+  describe('when recive disabled prop', () => {
+    it(
+      'Should add dateselector-component-disabled class in ' +
+        'component when disabled prop is true',
+      () => {
+        const { container } = render(
+          <DateSelectorComponent
+            dateFormat="YYYY-MM-DD"
+            onChangeDate={mockOnChangeDate}
+            date="2020-02-01"
+            valueId=""
+            disabled={true}
+          />
+        )
+        expect(container.getElementsByTagName('div')[0].className).toContain(
+          'date-selector-component-disabled'
+        )
+      }
+    )
   })
 })

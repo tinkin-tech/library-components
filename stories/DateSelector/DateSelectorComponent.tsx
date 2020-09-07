@@ -16,6 +16,7 @@ export interface IDateSelectorComponent {
   required?: boolean
   labelClassName?: string
   inputClassName?: string
+  disabled?: boolean
 }
 
 const DateSelectorComponent = (
@@ -33,6 +34,7 @@ const DateSelectorComponent = (
     required,
     labelClassName,
     inputClassName,
+    disabled,
   } = props
   const dateSelectRef = React.useRef(null)
   const defaultMinDate =
@@ -285,7 +287,12 @@ const DateSelectorComponent = (
   })
 
   return (
-    <div className="date-selector-component" ref={dateSelectRef}>
+    <div
+      className={`date-selector-component ${
+        disabled ? 'date-selector-component-disabled' : ''
+      }`}
+      ref={dateSelectRef}
+    >
       <label
         className={`${labelClassName || 'label'}${error ? ' label-error' : ''}`}
         htmlFor={valueId}
@@ -300,7 +307,7 @@ const DateSelectorComponent = (
       >
         {renderDateSelectors()}
       </div>
-      {error && <span className="error-content">{error}</span>}
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }
