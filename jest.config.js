@@ -1,3 +1,5 @@
+process.env.TZ = 'America/Guayaquil'
+
 module.exports = {
   roots: ['<rootDir>/'],
   transform: {

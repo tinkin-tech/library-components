@@ -68,3 +68,11 @@ $checkbox-list-item-font-size: $fontsize-default;
 $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: $color-primary;
 $checkbox-list-item-check-error-color: $color-warning;
+
+// TooltipComponent
+
+$tooltip-color: color('gray', 'lighten-2');
+$tooltip-background: $color-white;
+$tooltip-radius: $radio-small;
+$tooltip-boxShadow: $z-depth-1;
+$tooltip-padding: .5rem;
