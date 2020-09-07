@@ -7,7 +7,9 @@ export default {
 }
 
 const Template = (args: ITooltipComponent): React.ReactElement => (
-  <TooltipComponent {...args} />
+  <div style={{ marginTop: 100, marginLeft: 200 }}>
+    <TooltipComponent {...args} />
+  </div>
 )
 
 export const Default: { args: ITooltipComponent } = Template.bind({})
@@ -15,7 +17,7 @@ export const Default: { args: ITooltipComponent } = Template.bind({})
 const contentDefault = <div>Tooltip text</div>
 
 const childrenDefault = (
-  <div style={{ marginTop: 100, marginLeft: 200 }}>Tooltip Component</div>
+  <div>Tooltip Component</div>
 )
 
 Default.args = {
