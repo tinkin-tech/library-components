@@ -87,6 +87,19 @@ $checkbox-list-item-check-error-color: $color-warning;
 $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
 
+// DateSelectorComponent
+
+$date-selector-padding: .5rem;
+$date-selector-border: 1px solid color('gray', 'lighten-4');
+$date-selector-radius: $radio-small;
+$date-selector-background: $color-white;
+$date-selector-maxHeight: 150px;
+$date-selector-boxShadow: $z-depth-1;
+$date-selector-item-padding: .5rem;
+$date-selector-item-hover-color: color('gray', 'lighten-5');
+$date-selector-border-error: 1px solid $color-warning;
+$date-selector-disable-opacity: .6;
+
 // UploaderImageComponent
 
 $uploader-container-width: 300px;

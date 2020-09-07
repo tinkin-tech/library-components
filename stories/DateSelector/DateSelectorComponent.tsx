@@ -4,7 +4,7 @@ import DateUtils from '../../utils/dateUtils/dateUtils'
 
 type dateFormatType = 'YYYY-MM-DD' | 'YYYY-MM' | 'MM-DD'
 
-interface IDateSelectorComponent {
+export interface IDateSelectorComponent {
   dateFormat: dateFormatType
   minDate?: string
   maxDate?: string
@@ -16,6 +16,7 @@ interface IDateSelectorComponent {
   required?: boolean
   labelClassName?: string
   inputClassName?: string
+  disabled?: boolean
 }
 
 const DateSelectorComponent = (
@@ -33,7 +34,9 @@ const DateSelectorComponent = (
     required,
     labelClassName,
     inputClassName,
+    disabled,
   } = props
+  const dateSelectRef = React.useRef(null)
   const defaultMinDate =
     minDate ||
     DateUtils.substractDate(
@@ -169,11 +172,12 @@ const DateSelectorComponent = (
           }
         >
           {dateObject.year || language.YYYY}
+          <i className="icon-arrow-down" />
         </a>
         {openSelectors.year && (
           <ul className="selector-options">
             {getYears().map((year, key) => (
-              <li key={key}>
+              <li key={key} className="selector-item">
                 <a onClick={(): void => changeDateValue('year', year)}>
                   {year}
                 </a>
@@ -199,11 +203,12 @@ const DateSelectorComponent = (
           }
         >
           {dateObject.month || language.MM}
+          <i className="icon-arrow-down" />
         </a>
         {openSelectors.month && (
           <ul className="selector-options">
             {getMonths().map((month, key) => (
-              <li key={key}>
+              <li key={key} className="selector-item">
                 <a onClick={(): void => changeDateValue('month', month)}>
                   {month}
                 </a>
@@ -227,11 +232,12 @@ const DateSelectorComponent = (
           }
         >
           {dateObject.day || language.DD}
+          <i className="icon-arrow-down" />
         </a>
         {openSelectors.day && (
           <ul className="selector-options">
             {getDays().map((day, key) => (
-              <li key={key}>
+              <li key={key} className="selector-item">
                 <a onClick={(): void => changeDateValue('day', day)}>{day}</a>
               </li>
             ))}
@@ -264,8 +270,29 @@ const DateSelectorComponent = (
         )
     }
   }
+
+  const handleClickOutside = (event: Event): void => {
+    if (!dateSelectRef.current.contains(event.target)) {
+      changeOpenSelectors({
+        day: false,
+        year: false,
+        month: false,
+      })
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return (): void => document.removeEventListener('click', handleClickOutside)
+  })
+
   return (
-    <div className="date-selector-component">
+    <div
+      className={`date-selector-component ${
+        disabled ? 'date-selector-component-disabled' : ''
+      }`}
+      ref={dateSelectRef}
+    >
       <label
         className={`${labelClassName || 'label'}${error ? ' label-error' : ''}`}
         htmlFor={valueId}
@@ -280,7 +307,7 @@ const DateSelectorComponent = (
       >
         {renderDateSelectors()}
       </div>
-      <span>{error}</span>
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }
