@@ -9,6 +9,24 @@ $paginator-radius: $radio-small;
 $paginator-selected-bg: color('gray', 'lighten-5');
 $paginator-selected-color: $color-primary;
 
+// InputComponent
+
+$input-padding: .5rem .5rem .4rem .5rem;
+$input-fontsize: $fontsize-default;
+$input-radius: $radio-small;
+$input-backgroud: color('gray', 'lighten-2');
+$input-border: 1px solid color('gray', 'lighten-1');
+$input-color: color('gray', 'darken-3');
+$input-weight: 500;
+$input-background-focus: color('primary', 'lighten-3');
+$input-border-focus: 1px solid $color-primary;
+$input-height: 1.5rem;
+$input-border-warning: 1px solid $color-warning;
+$input-color-placeholder:  color('gray', 'lighten-1');
+$input-error-color-warning: $color-warning;
+$input-label-color-focus: $color-primary;
+$input-fontfamily: $primary-font;
+
 // TableComponent
 
 $table-labels-font-size: $fontsize-small;
