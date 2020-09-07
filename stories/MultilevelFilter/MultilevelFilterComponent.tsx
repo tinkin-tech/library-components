@@ -1,18 +1,19 @@
 import * as React from 'react'
 
 import language from './language/es_EC'
+import { CSS } from 'reactcss'
 
-interface IOptionChild {
+export interface IMultilevelOptionChild {
   id: string | number
   label: string
   notSelectable?: boolean
   customClass?: string
-  children?: Array<IOptionChild>
+  children?: Array<IMultilevelOptionChild>
 }
 
 export interface IMultilevelFilter {
   placeholder?: string
-  options: Array<IOptionChild>
+  options: Array<IMultilevelOptionChild>
   values: Array<string | number>
   onChangeValue: (values: Array<string | number>, valueId: string) => void
   valueId: string
@@ -21,6 +22,12 @@ export interface IMultilevelFilter {
   optionsClassName?: string
   extraLabelClassName?: string
   extraOptionsClassName?: string
+  selectorClassName?: string
+  extraSelectorClassName?: string
+  maxSelectorWidth?: string
+  minSelectorWidth?: string
+  minOptionsWidth?: string
+  customIcon?: JSX.Element
 }
 interface IHelperSelectedItems {
   id: number | string
@@ -41,15 +48,21 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     optionsClassName,
     extraLabelClassName,
     extraOptionsClassName,
+    selectorClassName,
+    extraSelectorClassName,
+    maxSelectorWidth,
+    minSelectorWidth,
+    minOptionsWidth,
+    customIcon,
   } = props
   const multiLevelFilterRef = React.useRef(null)
   const [activeList, changeActiveList] = React.useState(false)
   const [selectedValuesHelper, changeSelectedValuesHelper] = React.useState<
     Array<IHelperSelectedItems>
   >([])
-  const concatIds = (child: Array<IOptionChild>) => {
+  const concatIds = (child: Array<IMultilevelOptionChild>) => {
     const mergeValues = [...values]
-    const recursiveAdd = (childList: Array<IOptionChild>) => {
+    const recursiveAdd = (childList: Array<IMultilevelOptionChild>) => {
       childList.forEach((item) => {
         if (
           (!item.children || (item.children && !item.children.length)) &&
@@ -65,10 +78,10 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     recursiveAdd(child)
     return mergeValues
   }
-  const filterIds = (children: IOptionChild) => {
+  const filterIds = (children: IMultilevelOptionChild) => {
     let mergeValues = [...values]
     mergeValues = mergeValues.filter((item) => item !== children.id)
-    const recursiveRemove = (childList: Array<IOptionChild>) => {
+    const recursiveRemove = (childList: Array<IMultilevelOptionChild>) => {
       childList.forEach((itemChildren) => {
         mergeValues = mergeValues.filter((item) => item !== itemChildren.id)
         if (itemChildren.children) {
@@ -79,7 +92,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
     recursiveRemove(children.children)
     return mergeValues
   }
-  const onSelectLevel = (link: IOptionChild) => {
+  const onSelectLevel = (link: IMultilevelOptionChild) => {
     let newValue = []
     changeActiveList(false)
     if (!link.children?.length) {
@@ -98,7 +111,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       }
     }
   }
-  const validateAllChildSelected = (listItem: IOptionChild) => {
+  const validateAllChildSelected = (listItem: IMultilevelOptionChild) => {
     const haveChild = !!(listItem.children && listItem.children.length)
     if (values.includes(listItem.id) && !haveChild) {
       return true
@@ -132,7 +145,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
   }
   const selectedItemsHelper = () => {
     const itemsSelected: Array<IHelperSelectedItems> = []
-    const recursiveValidation = (list: Array<IOptionChild>) => {
+    const recursiveValidation = (list: Array<IMultilevelOptionChild>) => {
       list.forEach((item) => {
         const allChildSelected = validateAllChildSelected(item)
         if (allChildSelected) {
@@ -160,10 +173,9 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       return cumulator
     }, '')
   }
-  const genLinks = (list: Array<IOptionChild>, listKey?: number) => {
+  const genLinks = (list: Array<IMultilevelOptionChild>, listKey?: number) => {
     const activeLevel = listKey || 0
-    const classList = [`list-level-${activeLevel}`]
-
+    const classList = [`app-scroll list-level-${activeLevel}`]
     if (!activeLevel) {
       classList.push(
         `${optionsClassName || 'option-list'}${
@@ -171,9 +183,12 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
         }`
       )
     }
-
-    const linkList = (
-      <ul className={classList.join(' ')}>
+    const optionsStyle: CSS = {}
+    if (minOptionsWidth) {
+      optionsStyle.minWidth = minOptionsWidth
+    }
+    return (
+      <ul className={classList.join(' ')} style={optionsStyle}>
         {list.map((link, key) => {
           const activeReference = selectedValuesHelper.find(
             (itemRef) => itemRef.id === link.id
@@ -193,7 +208,7 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
                 className={linkClass.join(' ')}
                 onClick={() => !link.notSelectable && onSelectLevel(link)}
               >
-                {link.label}
+                <span>{link.label}</span>
               </a>
               {link.children && genLinks(link.children, activeLevel + 1)}
             </li>
@@ -201,7 +216,6 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
         })}
       </ul>
     )
-    return linkList
   }
 
   const handleClickOutsideMultilevelFilter = (event: Event) => {
@@ -227,11 +241,38 @@ const MultilevelFilterComponent = (props: IMultilevelFilter) => {
       document.removeEventListener('click', handleClickOutsideMultilevelFilter)
   }, [])
 
+  const selectorClass = [
+    extraSelectorClassName || '',
+    !values.length ? ' place-holder-text' : '',
+    selectorClassName || 'action-button',
+  ]
+  const selectorStyle: CSS = {}
+  if (maxSelectorWidth) {
+    selectorStyle.maxWidth = maxSelectorWidth
+  }
+  if (minSelectorWidth) {
+    selectorStyle.minWidth = minSelectorWidth
+  }
   return (
-    <div className="multilevel-filter-component" ref={multiLevelFilterRef}>
-      <a onClick={() => changeActiveList(!activeList)}>
-        {valuesString}
+    <div
+      className={`multilevel-filter-component ${
+        label ? 'component-with-label' : ''
+      }`}
+      ref={multiLevelFilterRef}
+    >
+      <a
+        title={valuesString}
+        style={selectorStyle}
+        onClick={() => changeActiveList(!activeList)}
+        className={`${selectorClass.join(' ')}`}
+      >
         {label && <span className={labelClass.join(' ')}>{label}</span>}
+        <span className="truncate">{valuesString}</span>
+        {customIcon ? (
+          <div className="custom-icon">{customIcon}</div>
+        ) : (
+          <i className="icon-arrow-down" />
+        )}
       </a>
       {activeList && genLinks(options)}
     </div>

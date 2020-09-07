@@ -7,6 +7,8 @@ export type IPosition =
   | 'top'
   | 'bottomLeft'
   | 'topLeft'
+  | 'topRight'
+  | 'bottomRight'
 
 interface ITooltipComponent {
   children: React.ReactElement
@@ -84,7 +86,7 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
           ref={tooltip}
           className={
             `tooltip-container text-white bg-secondary small ${position}` +
-              `-position`
+            `-position`
           }
           style={tooltipStyle}
         >

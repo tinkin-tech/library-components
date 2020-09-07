@@ -1,0 +1,36 @@
+/*** Breakpoints ***/
+
+$screen-small-down: 769px !default;
+$screen-small-up: 770px !default;
+
+$screen-medium-down: 1023px !default;
+$screen-medium-up: 1024px !default;
+
+$screen-large-aux-down: 1129px !default;
+$screen-large-aux-up: 1130px !default;
+
+$screen-large-down: 1299px !default;
+$screen-large-up: 1300px !default;
+
+$screen-extra-large-down: 1440px !default;
+$screen-extra-large-up: 1441px !default;
+
+/*** Media Query Ranges ***/
+
+$small-and-down: 'only screen and (max-width : #{$screen-small-down})' !default;
+$small-and-up: 'only screen and (min-width : #{$screen-small-up})' !default;
+
+$medium-and-down: 'only screen and (max-width : #{$screen-medium-down})' !default;
+$medium-and-up: 'only screen and (min-width : #{$screen-medium-up})' !default;
+$only-medium-and-large: 'only screen and (min-width : #{$screen-medium-up}) and (max-width : #{$screen-large-down})' !default;
+
+$large-aux-and-down: 'only screen and (max-width : #{$screen-large-aux-down})' !default;
+$large-aux-and-up: 'only screen and (min-width : #{$screen-large-aux-up})' !default;
+
+$large-and-down: 'only screen and (max-width : #{$screen-large-down})' !default;
+$large-and-up: 'only screen and (min-width : #{$screen-large-up})' !default;
+
+$only-large: 'only screen and (min-width : #{$screen-large-up}) and (max-width : #{$screen-extra-large-down})' !default;
+
+$extra-large-and-down: 'only screen and (max-width : #{$screen-extra-large-down})' !default;
+$extra-large-and-up: 'only screen and (min-width : #{$screen-extra-large-up})' !default;

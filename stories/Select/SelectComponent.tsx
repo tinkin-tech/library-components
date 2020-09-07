@@ -6,7 +6,7 @@ interface IOption {
   label: string
 }
 
-interface ISelectComponent {
+export interface ISelectComponent {
   options: IOption[]
   valueId: string
   onChangeValue: (id: string | number, valueId: string) => void
@@ -65,32 +65,37 @@ const SelectComponent: React.FC<ISelectComponent> = (
     selectClassName || 'select-component',
     extraSelectClassName || '',
     error ? 'select-component-error' : '',
+    readOnly ? 'select-component-disable' : '',
   ].filter((item) => item !== '')
 
   const labelClassNameObject = [
     labelClassName || 'label',
     extraLabelClassName || '',
-    error ? 'label-error' : '',
+    error ? 'warning' : '',
+    readOnly ? 'disable' : '',
   ].filter((item) => item !== '')
 
   return (
     <div className={selectClassNameObject.join(' ')} ref={selectRef}>
+      {label && (
+        <a
+          className={labelClassNameObject.join(' ')}
+          onClick={(): void => !readOnly && handleOpenSelector(true)}
+        >
+          {`${label}${required ? '*' : ''}`}
+        </a>
+      )}
       <a
-        className={`select-button ${readOnly ? 'disable-select-button' : ''}`}
+        className="select-button"
         onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
-        {label && (
-          <span className={labelClassNameObject.join(' ')}>
-            {`${label}${required ? '*' : ''}`}
-          </span>
-        )}
         {getValue}
+        <i className="icon-arrow-down" />
       </a>
-      {error && <span>{error}</span>}
       {options.length && openSelector && (
-        <ul>
+        <ul className="selector-container">
           {options.map((item, index) => (
-            <li key={index}>
+            <li className="selector-item" key={index}>
               <a
                 className={item.id === value ? 'selected' : ''}
                 onClick={(): void => onClickOptionItem(item.id)}
@@ -101,6 +106,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
           ))}
         </ul>
       )}
+      {error && <span className="error">{error}</span>}
     </div>
   )
 }

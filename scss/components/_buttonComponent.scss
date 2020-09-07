@@ -1,0 +1,94 @@
+.button-component{
+  padding: 0 $button-padding;
+  border-radius: $button-radius;
+  cursor: pointer;
+  display: inline-block;
+  line-height: $button-height;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  font-family: $button-font;
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative;
+  letter-spacing: $button-letter-spacing;
+  box-sizing: border-box;
+  color: $button-font-color;
+  border-width: 0;
+  @media #{$medium-and-up} {
+    &:hover{
+      @include scale(1.1)
+    }
+  }
+  &.button-small{
+    line-height: $button-small-height;
+    font-size: $button-small-font-size;
+    padding: 0 $button-padding;
+    border-radius: $button-small-radius;
+  }
+  &.button-visual-disable, &.button-disable{
+    opacity: $button-disable-opacity;
+    background: $button-disable-background!important;
+    color: $button-disable-font-color!important;
+    border-width: 0!important;
+  }
+  &.button-disable{
+    cursor: default;
+    overflow: hidden;
+    pointer-events: none;
+    @media #{$medium-and-up} {
+      &:hover{
+        @include scale(1)
+      }
+      &:active, &:focus{
+        @include scale(1);
+      }
+    }
+  }
+  &[class*="border-"]{
+    // background: none transparent;
+    border-width: $button-border-width;
+    border-style: solid;
+    color: $button-border-font-color;
+    background: none transparent;
+  }
+  &.primary{
+    background: $color-primary;
+  }
+  &.secondary{
+    background: $color-secondary;
+  }
+  &.warning{
+    background: $color-warning;
+  }
+  &.danger{
+    background: $color-danger;
+  }
+  &.info{
+    background: $color-info;
+  }
+  &.success{
+    background: $color-success;
+  }
+  &.border-primary{
+    border-color: $color-primary;
+  }
+  &.border-secondary{
+    border-color: $color-secondary;
+  }
+  &.border-warning{
+    border-color: $color-warning;
+  }
+  &.border-danger{
+    border-color: $color-danger;
+  }
+  &.border-info{
+    border-color: $color-info;
+  }
+  &.border-success{
+    border-color: $color-success;
+  }
+}
