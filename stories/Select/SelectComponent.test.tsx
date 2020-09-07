@@ -40,7 +40,7 @@ describe('Render component <SelectComponent />', () => {
         />
       )
       fireEvent.click(getByText('Seleccione una opción'))
-      fireEvent.click(container.getElementsByTagName('a')[1])
+      fireEvent.click(container.getElementsByTagName('a')[2])
       expect(container.getElementsByTagName('li')).toHaveLength(0)
     })
 
@@ -170,6 +170,20 @@ describe('Render component <SelectComponent />', () => {
       )
       expect(container.getElementsByClassName('label')).toHaveLength(0)
     })
+
+    it('Should show options list when click on label', () => {
+      const { getByText, container } = render(
+        <SelectComponent
+          value=""
+          options={optionsMock}
+          valueId=""
+          onChangeValue={mockedFunction}
+          label="Select"
+        />
+      )
+      fireEvent.click(getByText('Select'))
+      expect(container.getElementsByTagName('li')).toHaveLength(3)
+    })
   })
 
   describe('When recive error prop', () => {
@@ -191,7 +205,7 @@ describe('Render component <SelectComponent />', () => {
     )
 
     it(
-      'Should add "label-error" in label className and ' +
+      'Should add "warning" in label className and ' +
         '"select-component-error" when pass error prop',
       () => {
         const { container } = render(
@@ -207,8 +221,8 @@ describe('Render component <SelectComponent />', () => {
         expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component select-component-error'
         )
-        expect(container.getElementsByTagName('span')[0].className).toBe(
-          'label label-error'
+        expect(container.getElementsByTagName('a')[0].className).toBe(
+          'label warning'
         )
       }
     )
@@ -229,9 +243,7 @@ describe('Render component <SelectComponent />', () => {
         expect(container.getElementsByTagName('div')[0].className).toBe(
           'select-component'
         )
-        expect(container.getElementsByTagName('span')[0].className).toBe(
-          'label'
-        )
+        expect(container.getElementsByTagName('a')[0].className).toBe('label')
       }
     )
   })
@@ -272,10 +284,10 @@ describe('Render component <SelectComponent />', () => {
     )
 
     it(
-      'Should add "disable-select" to className of select when recive ' +
-        'readOnly prop',
+      'Should add "select-component-disable" to className of select when ' +
+        'recive readOnly prop',
       () => {
-        const { getByText } = render(
+        const { container } = render(
           <SelectComponent
             onChangeValue={mockedFunction}
             value="1"
@@ -284,9 +296,25 @@ describe('Render component <SelectComponent />', () => {
             readOnly={true}
           />
         )
-        expect(getByText('value-1').className).toContain('disable-select')
+        expect(container.getElementsByTagName('div')[0].className).toContain(
+          'select-component-disable'
+        )
       }
     )
+
+    it('Should add disable class to label when readOnly is true', () => {
+      const { getByText } = render(
+        <SelectComponent
+          onChangeValue={mockedFunction}
+          value="1"
+          valueId=""
+          options={optionsMock}
+          readOnly={true}
+          label="Select label"
+        />
+      )
+      expect(getByText('Select label').className).toContain('disable')
+    })
   })
 
   describe('When recive labelClassName prop', () => {
