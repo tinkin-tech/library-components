@@ -14,7 +14,7 @@ type buttonType =
   | 'border-info'
   | 'border-success'
 
-interface IButtonComponent {
+export interface IButtonComponent {
   buttonText: string
   onClick?: () => void
   disabled?: boolean
@@ -39,15 +39,17 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     formButton,
   } = props
 
-  const buttonClassName =
+  const buttonClassName = [
+    visualDisabled ? 'button-visual-disable' : '',
+    disabled ? 'button-disable' : '',
     buttonClass ||
-    `${(visualDisabled || disabled) && 'disabled'} ${buttonType} ${
-      smallButton && 'btn-small'
-    } ${extraButtonClass}`
+      `button-component ${buttonType} ${smallButton && 'button-small'}`,
+    extraButtonClass || '',
+  ]
 
   const componentProps = {
     onClick: disabled ? null : onClick,
-    className: buttonClassName,
+    className: buttonClassName.join(' '),
   }
   return formButton ? (
     <button {...componentProps}>{buttonText}</button>
