@@ -119,20 +119,24 @@ describe('render component <CheckboxComponent />', () => {
       jest.clearAllMocks()
     })
 
-    it('should add disabled-checklist class to parent when disabled is true', () => {
-      const { container } = render(
-        <CheckboxComponent
-          options={options}
-          disabled={true}
-          values={values}
-          onChangeValues={func}
-          valueId={'checkboxValueId'}
-        />
-      )
-      expect(container.firstElementChild.className).toMatch(
-        'disabled-checklist'
-      )
-    })
+    it(
+      'should add disabled-checklist class to parent when disabled is ' +
+        'true',
+      () => {
+        const { container } = render(
+          <CheckboxComponent
+            options={options}
+            disabled={true}
+            values={values}
+            onChangeValues={func}
+            valueId={'checkboxValueId'}
+          />
+        )
+        expect(container.firstElementChild.className).toMatch(
+          'disabled-checklist'
+        )
+      }
+    )
   })
 
   describe('when receiving label property', () => {
@@ -182,21 +186,25 @@ describe('render component <CheckboxComponent />', () => {
       }
     })
 
-    it("should set className 'check-list-item' on items if listItemClassName not provided", () => {
-      const { container } = render(
-        <CheckboxComponent
-          options={options}
-          values={values}
-          onChangeValues={func}
-          valueId={'checkboxValueId'}
-        />
-      )
-      for (const element of container.firstElementChild.getElementsByTagName(
-        'div'
-      )) {
-        expect(element.className).toMatch('check-list-item')
+    it(
+      'should set className check-list-item on items if listItemClassName ' +
+        'not provided',
+      () => {
+        const { container } = render(
+          <CheckboxComponent
+            options={options}
+            values={values}
+            onChangeValues={func}
+            valueId={'checkboxValueId'}
+          />
+        )
+        for (const element of container.firstElementChild.getElementsByTagName(
+          'div'
+        )) {
+          expect(element.className).toMatch('check-list-item')
+        }
       }
-    })
+    )
   })
 
   describe('when receiving labelClassName property', () => {
@@ -214,40 +222,48 @@ describe('render component <CheckboxComponent />', () => {
       expect(queryByText('Test Label').className).toMatch('label-class')
     })
 
-    it("should set className 'label' on items if labelClassName not provided", () => {
-      const { queryByText } = render(
-        <CheckboxComponent
-          options={options}
-          label={'Test Label'}
-          values={values}
-          onChangeValues={func}
-          valueId={'checkboxValueId'}
-        />
-      )
-      expect(queryByText('Test Label').className).toMatch('label')
-    })
+    it(
+      'should set className "label" on items if labelClassName not ' +
+        'provided',
+      () => {
+        const { queryByText } = render(
+          <CheckboxComponent
+            options={options}
+            label={'Test Label'}
+            values={values}
+            onChangeValues={func}
+            valueId={'checkboxValueId'}
+          />
+        )
+        expect(queryByText('Test Label').className).toMatch('label')
+      }
+    )
   })
 
   describe('when receiving error property', () => {
-    it('should render error below list, add className "label-error" to label and "checkbox-component-error" to}', () => {
-      const { container, getByText } = render(
-        <CheckboxComponent
-          options={options}
-          label={'Test Label'}
-          error={'test error'}
-          values={values}
-          onChangeValues={func}
-          valueId={'checkboxValueId'}
-        />
-      )
-      expect(container.firstElementChild.className).toMatch(
-        'checkbox-component-error'
-      )
-      expect(container.firstElementChild.firstElementChild.className).toMatch(
-        'label  label-error'
-      )
-      expect(container.firstChild.lastChild).toBe(getByText('test error'))
-    })
+    it(
+      'should render error below list, add className "label-error" to ' +
+        'label and "checkbox-component-error" to}',
+      () => {
+        const { container, getByText } = render(
+          <CheckboxComponent
+            options={options}
+            label={'Test Label'}
+            error={'test error'}
+            values={values}
+            onChangeValues={func}
+            valueId={'checkboxValueId'}
+          />
+        )
+        expect(container.firstElementChild.className).toMatch(
+          'checkbox-component-error'
+        )
+        expect(container.firstElementChild.firstElementChild.className).toMatch(
+          'label  label-error'
+        )
+        expect(container.firstChild.lastChild).toBe(getByText('test error'))
+      }
+    )
   })
 
   describe('when receiving required property', () => {

@@ -106,13 +106,14 @@ const DateSelectorComponent = (
         const isGreater = +minDateObject.month <= key + 1
         const isLower = +maxDateObject.month >= key + 1
         if (
+          dateObject.year &&
           minDateObject.year === dateObject.year &&
           maxDateObject.year === dateObject.year
         ) {
           return isGreater && isLower
-        } else if (minDateObject.year === dateObject.year) {
+        } else if (minDateObject.year === dateObject.year && dateObject.year) {
           return isGreater
-        } else if (maxDateObject.year === dateObject.year) {
+        } else if (maxDateObject.year === dateObject.year && dateObject.year) {
           return isLower
         }
         return true
@@ -120,8 +121,9 @@ const DateSelectorComponent = (
   }
 
   const getDays = (): Array<string> => {
+    const defaultYear = new Date().getFullYear().toString()
     const totalDays = DateUtils.getDaysInMonth(
-      `${dateObject.year}-${dateObject.month}`,
+      `${dateObject.year || defaultYear}-${dateObject.month}`,
       'YYYY-MM'
     )
     return [...new Array(totalDays)]
@@ -157,7 +159,13 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            changeOpenSelectors({ ...openSelectors, year: !openSelectors.year })
+            disabled
+              ? null
+              : changeOpenSelectors({
+                  day: false,
+                  month: false,
+                  year: !openSelectors.year,
+                })
           }
         >
           {dateObject.year || language.YYYY}
@@ -182,10 +190,12 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            !dateFormatObject.find((dateKey) => dateKey === 'YYYY') ||
-            dateObject.year
+            (!dateFormatObject.find((dateKey) => dateKey === 'YYYY') ||
+              dateObject.year) &&
+            !disabled
               ? changeOpenSelectors({
-                  ...openSelectors,
+                  day: false,
+                  year: false,
                   month: !openSelectors.month,
                 })
               : null
@@ -212,9 +222,10 @@ const DateSelectorComponent = (
         <a
           className="selector-value"
           onClick={(): void =>
-            dateObject.year
+            (dateObject.year || dateObject.month) && !disabled
               ? changeOpenSelectors({
-                  ...openSelectors,
+                  month: false,
+                  year: false,
                   day: !openSelectors.day,
                 })
               : null
@@ -282,13 +293,16 @@ const DateSelectorComponent = (
       }`}
       ref={dateSelectRef}
     >
-      <label
-        className={`${labelClassName || 'label'}${error ? ' label-error' : ''}`}
-        htmlFor={valueId}
-        data-testid="label-component"
-      >
-        {`${label || ''}${required ? '*' : ''}`}&nbsp;
-      </label>
+      {label ? (
+        <label
+          className={`${labelClassName || 'label'}${
+            error ? ' label-error' : ''
+          }`}
+          htmlFor={valueId}
+        >
+          {`${label}${required ? '*' : ''}`}
+        </label>
+      ) : null}
       <div
         className={`${inputClassName || 'date-selector-content'}${
           error ? ' date-selector-error' : ''

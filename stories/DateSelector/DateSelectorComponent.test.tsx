@@ -79,6 +79,23 @@ describe('render component <DateSelectorComponent />', () => {
       expect(getByText(minDateObject.day)).toBeInTheDocument()
     })
 
+    it(
+      'should show day options when format is MM-DD, set year with ' +
+        'current',
+      () => {
+        const { getByText, container } = render(
+          <DateSelectorComponent
+            dateFormat="MM-DD"
+            date="04-02"
+            onChangeDate={null}
+            valueId="date"
+          />
+        )
+        fireEvent.click(getByText('02'))
+        expect(container.getElementsByTagName('li')).toHaveLength(30)
+      }
+    )
+
     it('Should close selector when press in document outside selector', () => {
       const { getByText, container } = render(
         <DateSelectorComponent
@@ -545,84 +562,104 @@ describe('render component <DateSelectorComponent />', () => {
   })
 
   describe('should pass date', () => {
-    it('Should set date in year, month and day section when pass date property', () => {
-      const { getByText } = render(
-        <DateSelectorComponent
-          dateFormat={dateFormat}
-          date="2020-10-12"
-          onChangeDate={mockOnChangeDate}
-          valueId="date"
-        />
-      )
-      expect(getByText('2020')).toBeInTheDocument()
-      expect(getByText('10')).toBeInTheDocument()
-      expect(getByText('12')).toBeInTheDocument()
-    })
+    it(
+      'Should set date in year, month and day section when pass date ' +
+        'property',
+      () => {
+        const { getByText } = render(
+          <DateSelectorComponent
+            dateFormat={dateFormat}
+            date="2020-10-12"
+            onChangeDate={mockOnChangeDate}
+            valueId="date"
+          />
+        )
+        expect(getByText('2020')).toBeInTheDocument()
+        expect(getByText('10')).toBeInTheDocument()
+        expect(getByText('12')).toBeInTheDocument()
+      }
+    )
 
-    it('Should not open month or date selectors when selected date in null or empty', () => {
-      const { getByText, container } = render(
-        <DateSelectorComponent
-          dateFormat={dateFormat}
-          date=""
-          onChangeDate={mockOnChangeDate}
-          valueId="date"
-        />
-      )
-      fireEvent.click(getByText('Mes'))
-      expect(container.querySelectorAll('li')).toHaveLength(0)
-      fireEvent.click(getByText('Día'))
-      expect(container.querySelectorAll('li')).toHaveLength(0)
-    })
+    it(
+      'Should not open month or date selectors when selected date in null ' +
+        'or empty',
+      () => {
+        const { getByText, container } = render(
+          <DateSelectorComponent
+            dateFormat={dateFormat}
+            date=""
+            onChangeDate={mockOnChangeDate}
+            valueId="date"
+          />
+        )
+        fireEvent.click(getByText('Mes'))
+        expect(container.querySelectorAll('li')).toHaveLength(0)
+        fireEvent.click(getByText('Día'))
+        expect(container.querySelectorAll('li')).toHaveLength(0)
+      }
+    )
   })
 
   describe('should pass onChangeDate', () => {
-    it('Should call onChangeDate and receive the date selected from user and valueId prop', () => {
-      const { getByText } = render(
-        <DateSelectorComponent
-          minDate="2019-12-24"
-          maxDate="2020-12-24"
-          dateFormat={dateFormat}
-          date=""
-          valueId="date"
-          onChangeDate={mockOnChangeDate}
-        />
-      )
-      fireEvent.click(getByText('Año'))
-      fireEvent.click(getByText('2020'))
-      expect(mockOnChangeDate).toHaveBeenCalledWith('2020-01-01', 'date')
-    })
+    it(
+      'Should call onChangeDate and receive the date selected from user and ' +
+        'valueId prop',
+      () => {
+        const { getByText } = render(
+          <DateSelectorComponent
+            minDate="2019-12-24"
+            maxDate="2020-12-24"
+            dateFormat={dateFormat}
+            date=""
+            valueId="date"
+            onChangeDate={mockOnChangeDate}
+          />
+        )
+        fireEvent.click(getByText('Año'))
+        fireEvent.click(getByText('2020'))
+        expect(mockOnChangeDate).toHaveBeenCalledWith('2020-01-01', 'date')
+      }
+    )
 
-    it('Should call onChangeDate and receive the date selected from user and valueId prop in the dateFormat MM-DD', () => {
-      const { getByText } = render(
-        <DateSelectorComponent
-          minDate="01-30"
-          maxDate="12-30"
-          dateFormat="MM-DD"
-          date=""
-          valueId="date"
-          onChangeDate={mockOnChangeDate}
-        />
-      )
-      fireEvent.click(getByText('Mes'))
-      fireEvent.click(getByText('05'))
-      expect(mockOnChangeDate).toHaveBeenCalledWith('05-01', 'date')
-    })
+    it(
+      'Should call onChangeDate and receive the date selected from user and ' +
+        'valueId prop in the dateFormat MM-DD',
+      () => {
+        const { getByText } = render(
+          <DateSelectorComponent
+            minDate="01-30"
+            maxDate="12-30"
+            dateFormat="MM-DD"
+            date=""
+            valueId="date"
+            onChangeDate={mockOnChangeDate}
+          />
+        )
+        fireEvent.click(getByText('Mes'))
+        fireEvent.click(getByText('05'))
+        expect(mockOnChangeDate).toHaveBeenCalledWith('05-01', 'date')
+      }
+    )
 
-    it('Should call onChangeDate and receive the date selected from user and valueId prop in the dateFormat YYYY-MM', () => {
-      const { getByText } = render(
-        <DateSelectorComponent
-          minDate="2020-08"
-          maxDate="2022-06"
-          dateFormat="YYYY-MM"
-          date=""
-          valueId="date"
-          onChangeDate={mockOnChangeDate}
-        />
-      )
-      fireEvent.click(getByText('Año'))
-      fireEvent.click(getByText('2020'))
-      expect(mockOnChangeDate).toHaveBeenCalledWith('2020-08', 'date')
-    })
+    it(
+      'Should call onChangeDate and receive the date selected from user and ' +
+        'valueId prop in the dateFormat YYYY-MM',
+      () => {
+        const { getByText } = render(
+          <DateSelectorComponent
+            minDate="2020-08"
+            maxDate="2022-06"
+            dateFormat="YYYY-MM"
+            date=""
+            valueId="date"
+            onChangeDate={mockOnChangeDate}
+          />
+        )
+        fireEvent.click(getByText('Año'))
+        fireEvent.click(getByText('2020'))
+        expect(mockOnChangeDate).toHaveBeenCalledWith('2020-08', 'date')
+      }
+    )
   })
 
   describe('should pass label', () => {
@@ -765,5 +802,19 @@ describe('render component <DateSelectorComponent />', () => {
         )
       }
     )
+
+    it('Shouldnt open options when disabled prop is true', () => {
+      const { container, getByText } = render(
+        <DateSelectorComponent
+          dateFormat="YYYY-MM-DD"
+          onChangeDate={mockOnChangeDate}
+          date=""
+          valueId=""
+          disabled={true}
+        />
+      )
+      fireEvent.click(getByText('Año'))
+      expect(container.getElementsByTagName('li')).toHaveLength(0)
+    })
   })
 })

@@ -54,7 +54,7 @@ const tableRows: Array<ITableRows> = [
     columns: [
       {
         id: 'avatar',
-        onClick: (_item) => null,
+        onClick: (_item): void => null,
         type: 'image',
         value: 'https://tinkin.one/images/about.png',
         minHeight: 100,
@@ -79,7 +79,10 @@ const tableRows: Array<ITableRows> = [
         type: 'custom',
         cellClassName: 'align-right',
         value: (
-          <div className="inline-block p-l-s p-r-s small bg-info bg-lighten-1 radius-small">
+          <div
+            className="inline-block p-l-s p-r-s small bg-info
+          bg-lighten-1 radius-small"
+          >
             new user
           </div>
         ),
@@ -91,7 +94,7 @@ const tableRows: Array<ITableRows> = [
     columns: [
       {
         id: 'avatar',
-        onClick: (_item) => null,
+        onClick: (_item): void => null,
         type: 'image',
         value: 'https://tinkin.one/images/about.png',
         minHeight: 100,
@@ -111,7 +114,10 @@ const tableRows: Array<ITableRows> = [
         type: 'custom',
         cellClassName: 'align-right',
         value: (
-          <div className="inline-block p-l-s p-r-s small bg-success bg-lighten-1 radius-small">
+          <div
+            className="inline-block p-l-s p-r-s small bg-success
+          bg-lighten-1 radius-small"
+          >
             old user
           </div>
         ),

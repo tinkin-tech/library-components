@@ -1,8 +1,10 @@
 import * as React from 'react'
 
 import MultilevelFilterComponent, {
-  IMultilevelFilter, IMultilevelOptionChild,
+  IMultilevelFilter,
+  IMultilevelOptionChild,
 } from './MultilevelFilterComponent'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Multi Level Filter',
@@ -74,7 +76,7 @@ Default.args = {
   options: componentOptions,
   valueId: 'componentValueId',
   values: ['1-1-1', '1-1-2'],
-  onChangeValue: (value, _id) => console.log(value),
+  onChangeValue: action('onChangeValue'),
   label: 'Component Label',
   placeholder: 'Selec a option',
   minOptionsWidth: '250px',

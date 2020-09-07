@@ -2,8 +2,8 @@ interface IMultilevelFilterLanguage {
   FILTER: string
 }
 
-const es_EC: IMultilevelFilterLanguage = {
+const ES_EC: IMultilevelFilterLanguage = {
   FILTER: 'Filtrar',
 }
 
-export default es_EC
+export default ES_EC

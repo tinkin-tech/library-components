@@ -344,7 +344,7 @@ export default class DateUtils {
     return dateTime / (1000 * 3600 * 24)
   }
 
-  static dateFormatToObject = (dateFormat: IFormatTypes) => {
+  static dateFormatToObject = (dateFormat: IFormatTypes): string[] => {
     return dateFormat.replace(new RegExp(`[: ]`, 'g'), '-').split('-')
   }
 
@@ -363,6 +363,7 @@ export default class DateUtils {
   ): IObjectDate {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.dateFormatToObject(dateFormat).reduce(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (accumulator, value: any) => {
         accumulator[this.dateKeys[value]] = this.formatDate(
           date,
