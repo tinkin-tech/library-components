@@ -29,6 +29,7 @@ describe('render component <RadioButtonComponent />', () => {
           options={options}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.getElementsByTagName('input')).toHaveLength(3)
@@ -37,7 +38,12 @@ describe('render component <RadioButtonComponent />', () => {
 
     it('should show any options when list is empty', () => {
       const { container } = render(
-        <RadioButtonComponent options={[]} value={value} onChangeValue={func} />
+        <RadioButtonComponent
+          options={[]}
+          value={value}
+          onChangeValue={func}
+          valueId={'radioButtonValueId'}
+        />
       )
       expect(container.getElementsByTagName('input')).toHaveLength(0)
       expect(container.getElementsByTagName('label')).toHaveLength(0)
@@ -45,12 +51,13 @@ describe('render component <RadioButtonComponent />', () => {
   })
 
   describe('when receiving values property', () => {
-    it('should receive values property with checked values', () => {
+    it('should receive values property with radio value', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(
@@ -81,6 +88,7 @@ describe('render component <RadioButtonComponent />', () => {
           options={options}
           onChangeValue={func}
           value={value}
+          valueId={'radioButtonValueId'}
         />
       )
       fireEvent.click(getByText('label1'))
@@ -90,61 +98,49 @@ describe('render component <RadioButtonComponent />', () => {
   })
 
   describe('when receiving disabled property', () => {
-    it('should not execute onChangeValues when disabled is true', () => {
+    it('should not execute onChangeValues when is disabled', () => {
       const { getByText } = render(
         <RadioButtonComponent
           options={options}
           onChangeValue={func}
           disabled={true}
           value={value}
+          valueId={'radioButtonValueId'}
         />
       )
-      fireEvent.click(getByText('label1'))
+      fireEvent.click(getByText('label2'))
       expect(func).toHaveBeenCalledTimes(0)
       jest.clearAllMocks()
     })
 
-    it('should add disabled-checklist class to parent when disabled is true', () => {
+    it('should add disabled-radio-button class to parent when disabled is true', () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           disabled={true}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.firstElementChild.className).toMatch(
-        'disabled-checklist'
+        'disabled-radio-button'
       )
     })
   })
 
   describe('when receiving label property', () => {
-    it('should receive label property', () => {
-      const { container } = render(
+    it('should show label property', () => {
+      const { queryByText } = render(
         <RadioButtonComponent
           options={options}
           label={'Test label'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
-      expect(container.firstElementChild.firstElementChild.tagName).toBe(
-        'LABEL'
-      )
-    })
-
-    it('should not render label on top if label not received', () => {
-      const { container } = render(
-        <RadioButtonComponent
-          options={options}
-          value={value}
-          onChangeValue={func}
-        />
-      )
-      expect(container.firstElementChild.firstElementChild.tagName).not.toBe(
-        'LABEL'
-      )
+      expect(queryByText('Test label')).toBeInTheDocument()
     })
   })
 
@@ -156,6 +152,7 @@ describe('render component <RadioButtonComponent />', () => {
           listItemClassName={'item-class'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
@@ -165,18 +162,19 @@ describe('render component <RadioButtonComponent />', () => {
       }
     })
 
-    it("should set className 'check-list-item' on items if listItemClassName not provided", () => {
+    it("should set className 'radio-list-item' on items if listItemClassName not provided", () => {
       const { container } = render(
         <RadioButtonComponent
           options={options}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
         'div'
       )) {
-        expect(element.className).toMatch('check-list-item')
+        expect(element.className).toMatch('radio-list-item')
       }
     })
   })
@@ -189,6 +187,7 @@ describe('render component <RadioButtonComponent />', () => {
           labelClassName={'label-class'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.getElementsByTagName('label')[0].className).toMatch(
@@ -202,6 +201,7 @@ describe('render component <RadioButtonComponent />', () => {
           options={options}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.getElementsByTagName('label')[0].className).toMatch(
@@ -219,13 +219,14 @@ describe('render component <RadioButtonComponent />', () => {
           error={'test error'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.firstElementChild.className).toMatch(
-        'checkbox-component-error'
+        'radio-button-component-error'
       )
       expect(container.firstElementChild.firstElementChild.className).toMatch(
-        'label label-error'
+        'label  label-error'
       )
       expect(container.firstChild.lastChild).toBe(getByText('test error'))
     })
@@ -240,6 +241,7 @@ describe('render component <RadioButtonComponent />', () => {
           required={true}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.firstElementChild.firstElementChild.innerHTML).toContain(
@@ -256,12 +258,13 @@ describe('render component <RadioButtonComponent />', () => {
           extraListItemClassName={'item-class'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       for (const element of container.firstElementChild.getElementsByTagName(
         'div'
       )) {
-        expect(element.className).toMatch('check-list-item item-class')
+        expect(element.className).toMatch('radio-list-item item-class')
       }
     })
   })
@@ -274,6 +277,7 @@ describe('render component <RadioButtonComponent />', () => {
           extraLabelClassName={'label-class'}
           value={value}
           onChangeValue={func}
+          valueId={'radioButtonValueId'}
         />
       )
       expect(container.getElementsByTagName('label')[0].className).toMatch(

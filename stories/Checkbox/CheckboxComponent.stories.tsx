@@ -37,3 +37,17 @@ Error.args = {
   label: 'Checkbox',
   error: 'Custom Error',
 }
+
+export const Disable: { args: ICheckboxComponent } = Template.bind({})
+
+Disable.args = {
+  options: [
+    { id: 1, label: 'Option 1' },
+    { id: '2', label: 'Option 2' },
+  ],
+  values: ['2'],
+  onChangeValues: (value, _id) => console.log(value),
+  valueId: 'CheckId',
+  label: 'Checkbox',
+  disabled: true,
+}

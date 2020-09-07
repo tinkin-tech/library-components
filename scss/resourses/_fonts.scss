@@ -26,10 +26,10 @@ body {
   &.label-error, &.warning {
     color: $color-warning;
   }
-  &.label-danger &.danger {
+  &.label-danger, &.danger {
     color: $color-danger;
   }
-  &.label-disable &.disable {
+  &.label-disable, &.disable {
     color: $label-disable-color;
   }
 }
