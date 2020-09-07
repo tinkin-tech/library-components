@@ -5,11 +5,11 @@ type RadioOption = {
   label: string
 }
 
-interface IRadioButtonComponent {
+export interface IRadioButtonComponent {
   options: RadioOption[]
   value: string
   onChangeValue: (id: string, valueId: string) => void
-  valueId?: string
+  valueId: string
   disabled?: boolean
   label?: string
   listItemClassName?: string
@@ -39,29 +39,37 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
   } = props
 
   const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newValue = event.target.id === value ? null : event.target.id
-    onChangeValue(newValue, valueId)
+    if (disabled || event.target.id === value) {
+      return null
+    }
+    onChangeValue(event.target.id, valueId)
   }
+
+  const radioButtonClass = [
+    'radio-button-component',
+    disabled && 'disabled-radio-button',
+    error && 'radio-button-component-error',
+  ]
+
+  const labelClass = [
+    labelClassName || 'label',
+    extraLabelClassName || '',
+    error && 'label-error',
+    disabled && 'disable',
+  ]
+
   return (
-    <div
-      className={`${disabled ? 'disabled-checklist' : ''} ${
-        error && 'checkbox-component-error'
-      }`}
-    >
+    <div className={`${radioButtonClass.join(' ')}`}>
       {label && (
-        <label
-          className={`${labelClassName || 'label'} ${
-            extraLabelClassName || ''
-          }${error && 'label-error'}`}
-        >
+        <div className={`${labelClass.join(' ')}`}>
           {label}
           {required ? '*' : ''}
-        </label>
+        </div>
       )}
       {options.map((option, key) => (
         <div
           key={key}
-          className={`${listItemClassName || 'check-list-item'} ${
+          className={`${listItemClassName || 'radio-list-item'} ${
             extraListItemClassName || ''
           } ${value === option.id ? 'selected' : ''}`}
         >
@@ -69,7 +77,7 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
             type="radio"
             id={option.id.toString()}
             checked={value === option.id.toString()}
-            onChange={disabled ? null : onChangeAction}
+            onChange={onChangeAction}
           />
           <label
             htmlFor={option.id.toString()}
@@ -81,7 +89,7 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
           </label>
         </div>
       ))}
-      {error && <div>{error}</div>}
+      {error && <div className="error">{error}</div>}
     </div>
   )
 }

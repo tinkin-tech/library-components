@@ -68,3 +68,16 @@ $checkbox-list-item-font-size: $fontsize-default;
 $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: $color-primary;
 $checkbox-list-item-check-error-color: $color-warning;
+$checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
+$checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
+
+// RadioButtonComponent
+
+$radio-button-list-item-padding: .5rem;
+$radio-button-list-item-font-color: color('gray', 'lighten-2');
+$radio-button-list-item-font-size: $fontsize-default;
+$radio-button-list-item-radio-radius: 50%;
+$radio-button-list-item-radio-color: $color-primary;
+$radio-button-list-item-radio-error-color: $color-warning;
+$radio-button-list-item-font-disable-color: color('gray', 'lighten-3');
+$radio-button-list-item-radio-disable-color: color('gray', 'lighten-3');
