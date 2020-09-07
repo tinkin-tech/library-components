@@ -15,20 +15,12 @@ setup:
   stage: setup
   script:
     - npm install
-  only:
-    - develop
-    - master
-    - feature/*
 
 test:
   stage: test-lint
   script:
     - npm run test
     - npm run lint
-  only:
-    - develop
-    - master
-    - feature/*
 
 build:
   stage: build
