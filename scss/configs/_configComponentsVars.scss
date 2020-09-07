@@ -76,3 +76,16 @@ $tooltip-background: $color-white;
 $tooltip-radius: $radio-small;
 $tooltip-boxShadow: $z-depth-1;
 $tooltip-padding: .5rem;
+$checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
+$checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
+
+// RadioButtonComponent
+
+$radio-button-list-item-padding: .5rem;
+$radio-button-list-item-font-color: color('gray', 'lighten-2');
+$radio-button-list-item-font-size: $fontsize-default;
+$radio-button-list-item-radio-radius: 50%;
+$radio-button-list-item-radio-color: $color-primary;
+$radio-button-list-item-radio-error-color: $color-warning;
+$radio-button-list-item-font-disable-color: color('gray', 'lighten-3');
+$radio-button-list-item-radio-disable-color: color('gray', 'lighten-3');

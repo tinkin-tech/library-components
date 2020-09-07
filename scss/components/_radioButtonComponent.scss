@@ -1,0 +1,83 @@
+.radio-button-component{
+  &.radio-button-component-error{
+    .radio-list-item{
+      &:after{
+        border-color: $radio-button-list-item-radio-error-color;
+      }
+    }
+  }
+  &.disabled-radio-button{
+    .radio-list-item{
+      &:after, input{
+        cursor: default;
+      }
+      &:after{
+        border-color: $radio-button-list-item-radio-disable-color;
+      }
+      &.selected {
+        &:after {
+          border-color: $radio-button-list-item-radio-disable-color;
+          background: $radio-button-list-item-radio-disable-color;
+        }
+        &:before{
+          cursor: default;
+        }
+      }
+      label{
+        color: $radio-button-list-item-font-disable-color;
+        cursor: default;
+      }
+    }
+  }
+  .radio-list-item{
+    padding: $radio-button-list-item-padding $radio-button-list-item-padding $radio-button-list-item-padding 2rem;
+    position: relative;
+    &:after, input{
+      cursor: pointer;
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -12px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid $radio-button-list-item-radio-color;
+      box-sizing: border-box;
+      border-radius: $radio-button-list-item-radio-radius;
+    }
+    input{
+      opacity: 0;
+    }
+    label{
+      font-size: $radio-button-list-item-font-size;
+      color: $radio-button-list-item-font-color;
+      cursor: pointer;
+    }
+    &.selected{
+      &:after{
+        border-color: $radio-button-list-item-radio-color;
+        background: $radio-button-list-item-radio-color;
+      }
+      &:before{
+        cursor: pointer;
+        z-index: 2;
+        content: '';
+        display: block;
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        margin-top: -8px;
+        width: 16px;
+        height: 16px;
+        box-sizing: border-box;
+        border: #ffffff solid 2px;
+        border-radius: $radio-button-list-item-radio-radius;
+      }
+    }
+  }
+  .error{
+    width: 100%;
+    text-align: right;
+  }
+}

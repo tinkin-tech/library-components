@@ -58,6 +58,7 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
     labelClassName || 'label',
     extraLabelClassName || '',
     error && 'label-error',
+    disabled && 'disable',
   ]
 
   return (
