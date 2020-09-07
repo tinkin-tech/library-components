@@ -7,7 +7,7 @@ cache:
 
 stages:
   - setup
-  - test
+  - test & lint
   - build
   - deploy
 
@@ -23,6 +23,7 @@ test:
   stage: test
   script:
     - npm run test
+    - npm run lint
   only:
     - develop
     - master
