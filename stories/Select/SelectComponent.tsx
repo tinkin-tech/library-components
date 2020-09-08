@@ -50,6 +50,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
     options.find((item) => item.id === value)?.label ||
     placeholder ||
     ES_EC.placeholder
+
   const handleClickOutside = (event: Event): void => {
     if (!selectRef.current.contains(event.target)) {
       handleOpenSelector(false)
