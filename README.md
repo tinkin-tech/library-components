@@ -4,9 +4,14 @@
 
 - Node -v > 12
 
+## Setup
+- run `yarn install`
+
+Para instalar los githooks en el proyecto:
+- run `pip3 install hooks4git`
+
 ## Start Project
 
-- run `yarn install`
 - run `yarn start`
 
 ## Run test 
