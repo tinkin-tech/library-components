@@ -9,7 +9,9 @@
     "test:coverage": "jest --coverage",
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
-    "lint": "eslint . --ext .tsx,.ts"
+    "lint": "eslint . --ext .tsx,.ts",
+    "lint:git": "LIST=`git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.(ts|tsx)$\" | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi",
+    "test:git": "jest -o"
   },
   "author": "",
   "license": "ISC",
