@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage-above-90": "jest --coverage",
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint . --ext .tsx,.ts",
