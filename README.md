@@ -8,7 +8,8 @@
 - run `yarn install`
 
 Para instalar los githooks en el proyecto:
-- run `pip3 install hooks4git`
+- run `pip install pre-commit`
+- run `pre-commit install`
 
 ## Start Project
 
