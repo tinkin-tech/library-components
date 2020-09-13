@@ -36,7 +36,7 @@ describe('render component <DateSelectorComponent />', () => {
       const mockUtil = new TestUtil()
       const getComponent = (): React.ReactElement => (
         <DateSelectorComponent
-          dateFormat="YYYY-MM-DD"
+          dateFormat="YYYY-MM"
           date={mockUtil.getValue()}
           onChangeDate={mockUtil.mockedFunction}
           valueId="date"
@@ -202,13 +202,24 @@ describe('render component <DateSelectorComponent />', () => {
       )
       fireEvent.click(getByText(minDateObject.year))
       rerender(getComponent())
-      fireEvent.click(getByText(minDateObject.month))
+      fireEvent.click(
+        minDateObject.day === minDateObject.month
+          ? getAllByText(minDateObject.month)[0]
+          : getByText(minDateObject.month)
+      )
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.month
       )
-      fireEvent.click(getAllByText(minDateObject.month)[1])
-      rerender(getComponent())
-      fireEvent.click(getByText(minDateObject.day))
+      fireEvent.click(
+        minDateObject.day === minDateObject.month
+          ? getAllByText(minDateObject.day)[1]
+          : getByText(minDateObject.day)
+      )
+      fireEvent.click(
+        minDateObject.day === minDateObject.month
+          ? getAllByText(minDateObject.day)[1]
+          : getByText(minDateObject.day)
+      )
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.day
       )

@@ -5,39 +5,32 @@ cache:
   paths:
     - node_modules/
 
+before_script:
+  - npm ci --cache
+
 stages:
-  - setup
-  - test-lint
-  - build
+  - ci
   - deploy
 
-setup:
-  stage: setup
+ci:lint:
+  stage: ci
   script:
-    - npm install
-
-test-lint:
-  stage: test-lint
-  script:
-    - npm run test
     - npm run lint
 
-build:
-  stage: build
+ci:test:
+  stage: ci
   script:
-    - npm run build-storybook
-  artifacts:
-    paths:
-      - storybook-static
-  only:
-    - master
-    - develop
+    - npm run test
+
+ci:coverage-above-90:
+  stage: ci
+  script:
+    - npm run test:coverage-above-90
 
 deploy:
   stage: deploy
   script:
-    - curl -X POST -d {} $URL_STAGING
-  dependencies:
-    - build
+    # Trigger to run build and deploy on netlify
+    - curl -X POST -d {} $URL_STAGING 
   only:
     - develop
