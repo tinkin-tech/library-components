@@ -8,22 +8,23 @@ describe('render component <DateSelectorComponent />', () => {
     {
       label: 'label1',
       id: 'id1',
-      content: React.createElement('a'),
+      content: <div>Content A</div>,
     },
     {
       label: 'label2',
       id: 'id2',
-      content: React.createElement('a'),
+      content: <div>Content B</div>,
     },
     {
       label: 'label3',
       id: 'id3',
-      content: React.createElement('a'),
+      content: <div>Content C</div>,
     },
   ]
 
   describe('when reciving list property', () => {
-    it('should recive a list of { label: string, id: string | number, content: React.Component}, and render into a list', () => {
+    it(`should recive a list of { label: string, id: string | number, content:
+    React.Component}, and render into a list`, () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
@@ -57,17 +58,18 @@ describe('render component <DateSelectorComponent />', () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
-          activeTabId={elementList[0].id}
+          activeTabId={'id3'}
           onChangeTab={jest.fn()}
         />
       )
       expect(container.getElementsByClassName('active-tab')[0]).toHaveProperty(
         'id',
-        elementList[0].id
+        'id3'
       )
     })
 
-    it('should add "active-tab" class, if id doest match, add class to first item', () => {
+    it(`should add "active-tab" class, if id doest match, add class to
+    first item`, () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
@@ -82,22 +84,24 @@ describe('render component <DateSelectorComponent />', () => {
     })
   })
 
-  describe('when reciving tabListClassName property', () => {
-    it('should add tabListClassName and "tab-list" className to parent', () => {
+  describe('when reciving extraTabListClassName property', () => {
+    it(`should add extraTabListClassName and "tab-list" className to
+    parent`, () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
           activeTabId={elementList[0].id}
-          tabListClassName={'test-class'}
+          extraTabListClassName={'test-class'}
           onChangeTab={jest.fn()}
         />
       )
-      expect(container.firstElementChild.className).toMatch(
+      expect(container.querySelector('ul').className).toMatch(
         'test-class tab-list'
       )
     })
 
-    it('should add "tab-list" class to parent if tabListClassName not recived', () => {
+    it(`should add "tab-list" class to parent if extraTabListClassName not
+    recived`, () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
@@ -105,7 +109,7 @@ describe('render component <DateSelectorComponent />', () => {
           onChangeTab={jest.fn()}
         />
       )
-      expect(container.firstElementChild.className).toMatch('tab-list')
+      expect(container.querySelector('ul').className).toMatch('tab-list')
     })
   })
 
@@ -119,12 +123,13 @@ describe('render component <DateSelectorComponent />', () => {
           onChangeTab={jest.fn()}
         />
       )
-      expect(container.getElementsByTagName('div')[0].className).toMatch(
+      expect(container.getElementsByTagName('div')[1].className).toMatch(
         'test-class tab-content'
       )
     })
 
-    it('content class should add class "tab-list" if tabContentClassName not recived', () => {
+    it(`content class should add class "tab-list" if tabContentClassName not
+    recived`, () => {
       const { container } = render(
         <TabsComponent
           list={elementList}
@@ -132,14 +137,15 @@ describe('render component <DateSelectorComponent />', () => {
           onChangeTab={jest.fn()}
         />
       )
-      expect(container.getElementsByTagName('div')[0].className).toMatch(
+      expect(container.getElementsByTagName('div')[1].className).toMatch(
         'tab-content'
       )
     })
   })
 
   describe('when reciving onChangeTab property', () => {
-    it('should execute onChangeTab when list item clicked, called with the whole selected item', () => {
+    it(`should execute onChangeTab when list item clicked, called with the whole
+    selected item`, () => {
       const func = jest.fn()
       const { container } = render(
         <TabsComponent

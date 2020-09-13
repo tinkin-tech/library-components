@@ -6,11 +6,11 @@ interface IListItem {
   content: React.ReactElement
 }
 
-interface ITabsComponent {
+export interface ITabsComponent {
   list: IListItem[]
   activeTabId: string | number
   onChangeTab: (item: IListItem) => void
-  tabListClassName?: string
+  extraTabListClassName?: string
   tabContentClassName?: string
 }
 
@@ -18,7 +18,7 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
   const {
     list,
     activeTabId,
-    tabListClassName,
+    extraTabListClassName,
     tabContentClassName,
     onChangeTab,
   } = props
@@ -26,8 +26,8 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
   const activeItem = list.find((item) => item.id === activeTabId)
   const activeId = activeItem ? activeItem.id : list[0].id
   return (
-    <>
-      <ul className={`${tabListClassName || ''} tab-list`}>
+    <div className="tabs-component">
+      <ul className={`${extraTabListClassName || ''} tab-list`}>
         {list.map((item) => (
           <li
             key={item.id}
@@ -47,7 +47,7 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
       <div className={`${tabContentClassName || ''} tab-content`}>
         {activeItem ? activeItem.content : list[0].content}
       </div>
-    </>
+    </div>
   )
 }
 

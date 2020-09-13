@@ -215,11 +215,6 @@ describe('render component <DateSelectorComponent />', () => {
           ? getAllByText(minDateObject.day)[1]
           : getByText(minDateObject.day)
       )
-      fireEvent.click(
-        minDateObject.day === minDateObject.month
-          ? getAllByText(minDateObject.day)[1]
-          : getByText(minDateObject.day)
-      )
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.day
       )

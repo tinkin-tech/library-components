@@ -149,3 +149,20 @@ $button-disable-opacity: .5;
 $button-disable-font-color: $color-gray;
 $button-disable-background: color('gray', 'lighten-3');
 $button-border-width: 2px;
+
+// Tabs Component
+
+$tabs-border-width: 0 0 1px 0;
+$tabs-border-color: color('gray', 'lighten-4');
+$tabs-item-border-width: 0 0 4px 0;
+$tabs-item-border-color: transparent;
+$tabs-item-active-border-color: color('primary', 'lighten-1');
+$tabs-item-margin: 0;
+$tabs-item-padding: .5rem 1rem;
+$tabs-item-background: transparent;
+$tabs-item-active-background: transparent;
+$tabs-item-text-color: color('gray', 'lighten-3');
+$tabs-item-active-text-color: color('gray', 'base');
+$tabs-item-text-size: $fontsize-default;
+$tabs-item-text-weight: 700;
+$tabs-item-text-family: $secondary-font;
