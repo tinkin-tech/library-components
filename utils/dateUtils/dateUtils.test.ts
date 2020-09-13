@@ -62,7 +62,7 @@ describe('Test for date utils', () => {
       () => {
         const currentDay = new Date().getDate()
         expect(DateUtils.formatDate(new Date(), null, 'DD')).toBe(
-          +currentDay >= 10 ? currentDay : `0${currentDay}`
+          +currentDay >= 10 ? currentDay.toString() : `0${currentDay}`
         )
       }
     )

@@ -1,0 +1,49 @@
+.tabs-component {
+  width: 100%;
+  .tab-list{
+    display: block;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-width: $tabs-border-width;
+    border-color: $tabs-border-color;
+    border-style: solid;
+    box-sizing: border-box;
+    &:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    li{
+      display: block;
+      float: left;
+      &.active-tab{
+        a{
+          background: $tabs-item-active-background;
+          border-color: $tabs-item-active-border-color;
+          color: $tabs-item-active-text-color;
+        }
+      }
+      a{
+        cursor: pointer;
+        display: block;
+        background: $tabs-item-background;
+        border-width: $tabs-item-border-width;
+        border-color: $tabs-item-border-color;
+        border-style: solid;
+        box-sizing: border-box;
+        margin: $tabs-item-margin;
+        padding: $tabs-item-padding;
+        color: $tabs-item-text-color;
+        font-size: $tabs-item-text-size;
+        font-weight: $tabs-item-text-weight;
+        font-family: $tabs-item-text-family;
+        @include transition(all .4s)
+      }
+    }
+  }
+  .tab-content{
+    width: 100%;
+  }
+}
