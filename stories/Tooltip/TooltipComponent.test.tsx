@@ -58,6 +58,32 @@ describe('render component <TooltipComponent />', () => {
         expect(element.style.width).toBe('200px')
       }
     )
+
+    it(
+      'Should set maxWidth 200 in styles of container of content when remove ' +
+        'maxWidth on rerender',
+      async () => {
+        const { container, rerender } = render(
+          <TooltipComponent content={content} maxWidth={200}>
+            {children}
+          </TooltipComponent>
+        )
+        fireEvent.mouseOver(container.getElementsByTagName('div')[0])
+        let element = container.getElementsByClassName(
+          'tooltip-container'
+        )[0] as HTMLElement
+        expect(element.style.width).toBe('200px')
+        rerender(
+          <TooltipComponent content={content} maxWidth={null}>
+            {children}
+          </TooltipComponent>
+        )
+        element = container.getElementsByClassName(
+          'tooltip-container'
+        )[0] as HTMLElement
+        expect(element.style.width).toBe('200px')
+      }
+    )
   })
 
   describe('When recive containerClassName prop', () => {
