@@ -20,7 +20,7 @@ const childrenDefault = <div>Tooltip Component</div>
 
 Default.args = {
   content: contentDefault,
-  maxWidth: null,
+  maxWidth: 200,
   position: 'topRight',
   containerClassName: '',
   extraContainerClassName: '',
