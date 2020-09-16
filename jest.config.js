@@ -12,6 +12,7 @@ module.exports = {
     '**/*.ts',
     '!**/*.stories.tsx',
     '!**/*.fixture.tsx',
+    '!./index.tsx',
   ],
   coverageThreshold: {
     global: {
