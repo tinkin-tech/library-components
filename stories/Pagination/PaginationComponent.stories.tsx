@@ -2,6 +2,7 @@ import * as React from 'react'
 import PaginationComponent, {
   IPaginationComponent,
 } from './PaginationComponent'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Pagination',
@@ -18,5 +19,5 @@ Default.args = {
   totalPages: 20,
   currentPage: 10,
   pageNeighbours: 2,
-  goToPage: (): void => null,
+  goToPage: action('goToPage'),
 }
