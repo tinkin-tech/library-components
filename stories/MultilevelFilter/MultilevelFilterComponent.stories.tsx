@@ -75,7 +75,7 @@ const componentOptions: Array<IMultilevelOptionChild> = [
 Default.args = {
   options: componentOptions,
   valueId: 'componentValueId',
-  values: ['1-1-1', '1-1-2'],
+  values: ['3-1-2'],
   onChangeValue: action('onChangeValue'),
   label: 'Component Label',
   placeholder: 'Selec a option',

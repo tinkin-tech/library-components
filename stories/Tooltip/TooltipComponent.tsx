@@ -25,7 +25,7 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
   const {
     content,
     children,
-    maxWidth = 200,
+    maxWidth,
     containerClassName,
     position = 'bottom',
     extraContainerClassName,
@@ -33,62 +33,63 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
   const tooltipContainer = React.useRef(null)
   const [showContent, handleShowContent] = React.useState(false)
   const [tooltipStyle, handleTooltipStyle] = React.useState({})
+  const width = maxWidth || 200
 
   const getTooltipStyles = (): void => {
     const tooltipContainerItemHeight = tooltipContainer.current.offsetHeight
     switch (position) {
       case 'bottom':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           top: 'calc(100% + .5rem)',
-          left: `calc(50% - ${maxWidth / 2}px)`,
+          left: `calc(50% - ${width / 2}px)`,
         })
         break
       case 'top':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           bottom: 'calc(100% + .5rem)',
-          left: `calc(50% - ${maxWidth / 2}px)`,
+          left: `calc(50% - ${width / 2}px)`,
         })
         break
       case 'left':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           right: 'calc(100% + 1rem)',
           top: `calc(50% - ${tooltipContainerItemHeight}px)`,
         })
         break
       case 'right':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           left: 'calc(100% + 1rem)',
           top: `calc(50% - ${tooltipContainerItemHeight}px)`,
         })
         break
       case 'bottomRight':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           right: 0,
           top: 'calc(100% + .5rem)',
         })
         break
       case 'bottomLeft':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           left: 0,
           top: 'calc(100% + .5rem)',
         })
         break
       case 'topLeft':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           left: 0,
           bottom: 'calc(100% + .5rem)',
         })
         break
       case 'topRight':
         handleTooltipStyle({
-          width: `${maxWidth}px`,
+          width: `${width}px`,
           right: 0,
           bottom: 'calc(100% + .5rem)',
         })
