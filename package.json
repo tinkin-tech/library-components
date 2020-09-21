@@ -1,7 +1,7 @@
 {
-  "name": "storybook",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@tinkin/storybook",
+  "version": "0.0.5",
+  "description": "Front End components Library for tinkin projects",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,8 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:git": "LIST=`git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.(ts|tsx)$\" | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi",
-    "test:git": "jest -o"
+    "test:git": "jest -o",
+    "build-npm": "rm -rf ./dist && tsc && cp -R ./scss ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -43,5 +44,12 @@
     "global": "^4.4.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "ts-jest": "^26.1.1"
-  }
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "files": [
+    "dist"
+  ]
 }
