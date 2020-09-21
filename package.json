@@ -1,7 +1,7 @@
 {
-  "name": "storybook",
+  "name": "@tinkin/storybook",
   "version": "1.0.0",
-  "description": "",
+  "description": "Front Endo components Library for tinkin projects",
   "main": "index.js",
   "scripts": {
     "test": "jest",
