@@ -1,0 +1,67 @@
+.select-component { 
+  position: relative;
+  .label {
+    cursor: pointer;
+  }
+  .select-button {
+    border: $select-border;
+    background: $select-background;
+    font-size: $select-fontsize;
+    border-radius: $select-radius;
+    padding: $select-padding;
+    display: flex;
+    width: $select-width;
+    display: flex;
+    flex-direction: flex-column;
+    cursor: pointer;
+    position: relative;
+    .icon-arrow-down {
+      font-size: .4em;
+      position: absolute;
+      right: 1rem;
+      top: calc(50% - .4rem)
+    }
+  } 
+  .selector-container {
+    list-style-type: none;
+    position: absolute;
+    top: 100%;
+    z-index: 499;
+    background: $select-background-selector;
+    width: 100%;
+    left: 0;
+    box-shadow: $select-boxshadow-selector;
+    margin: 0;
+    padding: 0;
+    border-radius: $select-radius;
+    .selector-item {
+      padding: $select-item-padding;
+      display: flex;
+      cursor: pointer;
+      a {
+        width: 100%;
+      }
+      &:hover {
+        background: $select-item-hover;
+      }
+      &.selected {
+        background: $select-item-hover;
+      }
+    }
+  }
+  .error {
+    display: flex;
+    justify-content: flex-end;
+  }
+  &.select-component-error {
+    .select-button {
+      border: $select-border-error;
+    }
+  }
+  &.select-component-disable {
+    opacity: $select-disable-opacity;
+    .select-button, .label {
+      cursor: default;
+    }
+  }
+}

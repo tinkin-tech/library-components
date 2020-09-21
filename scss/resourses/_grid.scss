@@ -1,0 +1,36 @@
+.container{
+  width: 100%;
+  margin: 0 auto;
+  .row{
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    div[class*="col-"] {
+      float: left;
+      padding: 0 $gutter-width / 2;
+    }
+  }
+}
+
+.container-static{
+  max-width: $container-max-width;
+}
+
+//flex grid
+.container-flex{
+  @extend .container;
+  .row{
+    width: 100%;
+    @include flexbox();
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    div[class*="col-"] {
+      @include flexbox();
+      &.center-align{
+        @include justify-content(center)
+      }
+    }
+  }
+}
