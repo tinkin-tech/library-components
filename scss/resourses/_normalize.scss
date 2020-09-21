@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+$optional-code: true;
+// Code blocks
+$code-block-uncategorized: true;
+$code-block-HTML5-display-definitions: true;
+$code-block-links: true;
+$code-block-embedded-content: true;
+
+// ===========================================
+// The code
+// ===========================================
+body, html{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@if $code-block-uncategorized == true {
+
+  // * Remove the margin in all browsers (opinionated).
+  body {
+    margin: 0;
+  }
+
+}
+
+@if $code-block-HTML5-display-definitions == true {
+
+  // HTML5 display definitions
+  // ===========================================
+
+  // * Add the correct display in IE 9-.
+  // 1. Add the correct display in Edge, IE, and Firefox.
+  // 2. Add the correct display in IE.
+  article,
+  aside,
+  details, // 1
+  figcaption,
+  figure,
+  footer,
+  header,
+  main, // 2
+  menu,
+  nav,
+  section,
+  div,
+  summary {
+    box-sizing: border-box;
+    display: block; // 1
+  }
+
+  // * Add the correct display in IE 9-.
+  audio,
+  canvas,
+  progress,
+  video {
+    display: inline-block;
+  }
+
+  // * Add the correct display in iOS 4-7.
+  audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
+
+}
+
+@if $code-block-links == true {
+
+  // Links
+  // ===========================================
+
+  // 1. Remove the gray background on active links in IE 10.
+  // 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+  a {
+    text-decoration: none;
+    background-color: transparent; // 1
+    -webkit-text-decoration-skip: objects; // 2
+  }
+}
+
+@if $code-block-embedded-content == true {
+
+  // Text-level semantics
+  // ===========================================
+
+  // * Remove the border on images inside links in IE 10-.
+  img {
+    border-style: none;
+  }
+
+  // * Hide the overflow in IE.
+  svg:not(:root) {
+    overflow: hidden;
+  }
+
+}
+
+input, textarea {
+  outline: none;
+}

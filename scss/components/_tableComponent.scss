@@ -1,0 +1,98 @@
+.table-component{
+  .table-labels{
+    @include flexbox();
+    @include flex-direction(row);
+    border-bottom: 1px solid $table-row-border-color;
+    @media #{$small-and-down} {
+      display: none;
+    }
+    .label-column{
+      @include flexbox();
+      @include flex-direction(column);
+      font-size: $table-labels-font-size;
+      color: $table-labels-font-color;
+      padding: $table-cell-padding;
+    }
+  }
+  .table-rows{
+    width: 100%;
+    .table-row-item{
+      width: 100%;
+      @include flexbox();
+      @include flex-direction(row);
+      @include align(center);
+      border-bottom: 1px solid $table-row-border-color;
+      @media #{$small-and-down} {
+        display: block;
+        width: 100%;
+      }
+      &.row-active{
+        background: $table-selected-bg;
+      }
+      .table-row-cell{
+        padding: $table-cell-padding;
+        @media #{$small-and-down} {
+          display: block;
+          width: 100%!important;
+          position: relative;
+          padding-top: 2rem;
+          &:after{
+            content: attr(data-title);
+            position: absolute;
+            top: .25rem;
+            left: .5rem;
+            font-size: $table-labels-font-size;
+            color: $table-labels-font-color;
+          }
+        }
+        &.image{
+         .image-container{
+           width: 100%;
+           height: 100%;
+           background-size: cover;
+           background-position: center;
+         }
+        }
+        &.switch{
+          .switch-container{
+            background: $table-switch-bg;
+            display: block;
+            width: 42px;
+            height: 26px;
+            border: 2px solid $table-switch-border-color;
+            border-radius: 13px;
+            position: relative;
+            &.active-switch, &.inactive-switch{
+              &:after{
+                content: '';
+                display: block;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+              }
+            }
+            &.active-switch{
+              &:after{
+                left: inherit;
+                right: 0;
+                background: $table-switch-active-bg;
+              }
+            }
+            &.inactive-switch{
+              &:after{
+                background: $table-switch-inactive-bg;
+              }
+            }
+          }
+        }
+        &.click-row{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

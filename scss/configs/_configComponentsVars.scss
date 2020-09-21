@@ -1,0 +1,168 @@
+// PaginatorComponent
+
+$paginator-color: $color-gray;
+$paginator-font-size: $fontsize-default;
+$paginator-border-color: color('gray', 'lighten-4');
+$paginator-height: 2.5rem;
+$paginator-padding: 1rem;
+$paginator-radius: $radio-small;
+$paginator-selected-bg: color('gray', 'lighten-5');
+$paginator-selected-color: $color-primary;
+
+// InputComponent
+
+$input-padding: .5rem .5rem .4rem .5rem;
+$input-fontsize: $fontsize-default;
+$input-radius: $radio-small;
+$input-backgroud: color('gray', 'lighten-5');
+$input-border: 1px solid color('gray', 'lighten-4');
+$input-color: color('gray', 'darken-3');
+$input-weight: 500;
+$input-background-focus: color('primary', 'lighten-3');
+$input-border-focus: 1px solid $color-primary;
+$input-height: 1.5rem;
+$input-border-warning: 1px solid $color-warning;
+$input-color-placeholder:  color('gray', 'lighten-1');
+$input-error-color-warning: $color-warning;
+$input-label-color-focus: $color-primary;
+$input-fontfamily: $primary-font;
+
+// TableComponent
+
+$table-labels-font-size: $fontsize-small;
+$table-labels-font-color: $color-primary;
+$table-row-border-color: color('gray', 'lighten-4');
+$table-cell-padding: .5rem;
+$table-selected-bg: color('gray', 'lighten-5');
+$table-switch-border-color: color('gray', 'lighten-4');
+$table-switch-bg: color('gray', 'lighten-5');
+$table-switch-inactive-bg: color('gray', 'lighten-3');
+$table-switch-active-bg: $color-primary;
+
+// MultilevelFilterComponent
+
+$multilevel-filter-button-height: 36px;
+$multilevel-filter-button-padding: .5rem;
+$multilevel-filter-button-radius: $radio-small;
+$multilevel-filter-button-color: $color-primary;
+$multilevel-filter-button-color-place-holder: color('gray', 'lighten-2');
+$multilevel-filter-button-bg: color('gray', 'lighten-5');
+$multilevel-filter-button-border-color: color('gray', 'lighten-2');
+$multilevel-filter-label-height: $label-line-height;
+$multilevel-filter-options-bg: $color-white;
+$multilevel-filter-options-border-color: color('gray', 'lighten-5');
+$multilevel-filter-options-border-radius: $radio-small;
+$multilevel-filter-options-shadow: $z-depth-1;
+$multilevel-filter-options-border-color: color('gray', 'lighten-4');
+$multilevel-filter-options-hover-bg: color('gray', 'lighten-5');
+$multilevel-filter-options-hover-and-active-color: $color-primary;
+$multilevel-filter-options-check-color: $color-primary;
+$multilevel-filter-options-text-color: color('gray', 'lighten-2');
+$multilevel-filter-options-text-size: $fontsize-small;
+
+// SelectComponent
+
+$select-border: 1px solid color('gray', 'lighten-4');
+$select-background: $color-white;
+$select-padding: .5rem .5rem .4rem .5rem;
+$select-radius: $radio-small;
+$select-item-hover: color('gray', 'lighten-5');
+$select-height: 40px;
+$select-width: calc(100% - 1rem);
+$select-item-padding: .5rem;
+$select-border-error: 1px solid $color-warning;
+$select-disable-opacity: .6;
+$select-background-selector: $color-white;
+$select-boxshadow-selector: $z-depth-1;
+$select-fontsize: $fontsize-default;
+
+// CheckboxComponent
+
+$checkbox-list-item-padding: .5rem;
+$checkbox-list-item-font-color: color('gray', 'lighten-2');
+$checkbox-list-item-font-size: $fontsize-default;
+$checkbox-list-item-check-radius: $radio-small;
+$checkbox-list-item-check-color: $color-primary;
+$checkbox-list-item-check-error-color: $color-warning;
+$checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
+$checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
+
+// TooltipComponent
+
+$tooltip-color: color('gray', 'lighten-2');
+$tooltip-background: $color-white;
+$tooltip-radius: $radio-small;
+$tooltip-boxShadow: $z-depth-1;
+$tooltip-padding: .5rem;
+
+// DateSelectorComponent
+
+$date-selector-padding: .5rem;
+$date-selector-border: 1px solid color('gray', 'lighten-4');
+$date-selector-radius: $radio-small;
+$date-selector-background: $color-white;
+$date-selector-maxHeight: 150px;
+$date-selector-boxShadow: $z-depth-1;
+$date-selector-item-padding: .5rem;
+$date-selector-item-hover-color: color('gray', 'lighten-5');
+$date-selector-border-error: 1px solid $color-warning;
+$date-selector-disable-opacity: .6;
+
+// UploaderImageComponent
+
+$uploader-container-width: 300px;
+$uploader-container-height: 200px;
+$uploader-container-border: 2px dashed color('gray', 'lighten-4');
+$uploader-fontsize: $fontsize-small;
+$uploader-color: color('gray', 'lighten-2');
+$uploader-backgroundColor: color('gray', 'lighten-5');
+$uploader-container-radius: $radio-default;
+$uploader-container-error-border: 2px dashed $color-warning;
+$uploader-error-color: $color-warning;
+
+// RadioButtonComponent
+
+$radio-button-list-item-padding: .5rem;
+$radio-button-list-item-font-color: color('gray', 'lighten-2');
+$radio-button-list-item-font-size: $fontsize-default;
+$radio-button-list-item-radio-radius: 50%;
+$radio-button-list-item-radio-color: $color-primary;
+$radio-button-list-item-radio-error-color: $color-warning;
+$radio-button-list-item-font-disable-color: color('gray', 'lighten-3');
+$radio-button-list-item-radio-disable-color: color('gray', 'lighten-3');
+
+// Button Component
+
+$button-font-size: 12px;
+$button-small-font-size: $fontsize-small;
+$button-radius: 5px;
+$button-small-radius: 5px;
+$button-small-height: 32px;
+$button-height: 48px;
+$button-font: $secondary-font;
+$button-font-color: $color-white;
+$button-border-font-color: color('gray', 'lighten-2');
+$button-font-weight: 700;
+$button-padding: 2rem;
+$button-letter-spacing: 1px;
+$button-disable-opacity: .5;
+$button-disable-font-color: $color-gray;
+$button-disable-background: color('gray', 'lighten-3');
+$button-border-width: 2px;
+
+// Tabs Component
+
+$tabs-border-width: 0 0 1px 0;
+$tabs-border-color: color('gray', 'lighten-4');
+$tabs-item-border-width: 0 0 4px 0;
+$tabs-item-border-color: transparent;
+$tabs-item-active-border-color: color('primary', 'lighten-1');
+$tabs-item-margin: 0;
+$tabs-item-padding: .5rem 1rem;
+$tabs-item-background: transparent;
+$tabs-item-active-background: transparent;
+$tabs-item-text-color: color('gray', 'lighten-3');
+$tabs-item-active-text-color: color('gray', 'base');
+$tabs-item-text-size: $fontsize-default;
+$tabs-item-text-weight: 700;
+$tabs-item-text-family: $secondary-font;

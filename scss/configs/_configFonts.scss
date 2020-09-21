@@ -1,0 +1,40 @@
+/*** Typography ***/
+
+$primary-font: muli, sans-serif;
+$secondary-font: muli, sans-serif;
+
+$font-default-color: $color-black;
+// Header Styles
+
+$fontsize-h1: 32px !default;
+$fontsize-h2: 24px !default;
+$fontsize-h3: 20px !default;
+$fontsize-h4: 14px !default;
+$fontsize-h5: 12px !default;
+
+$fontsize-default: 14px;
+$fontsize-small: 12px;
+
+// line height
+
+$line-height-large: 2;
+$line-height-normal: 1.71;
+$line-height-small: 1.14;
+
+// labels
+$label-size: $fontsize-small;
+$label-family: $primary-font;
+$label-color: $color-gray;
+$label-focus-color: $color-gray;
+$label-disable-color: color('gray', 'lighten-2');
+$label-line-height: 20px;
+
+// error
+$error-size: $fontsize-small;
+$error-family: $primary-font;
+$error-color: $color-warning;
+$error-line-height: 20px;
+
+// headers props
+$headers-line-height: $line-height-large !default;
+$headers-font-family: $secondary-font !default;

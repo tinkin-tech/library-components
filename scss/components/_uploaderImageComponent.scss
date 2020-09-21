@@ -1,0 +1,53 @@
+.uploader-image-component {
+  width: $uploader-container-width;
+  height: $uploader-container-height;
+  .uploader-container {
+    width: 100%;
+    height: 100%;
+    border: $uploader-container-border;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: $uploader-fontsize;
+    color: $uploader-color;
+    background-color: $uploader-backgroundColor;
+    border-radius: $uploader-container-radius;
+    input {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      cursor: pointer;
+      opacity: 0;
+    }
+    .uploader-image {
+      position: absolute;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border-radius: $uploader-container-radius;
+      background-size: cover;
+      a {
+        position: absolute;
+        z-index: 499;
+        right: .5rem;
+        top: 0;
+        font-size: 1.5rem;
+        display: none;
+        cursor: pointer;
+      }
+      &:hover {
+        a {
+          display: block;
+        }
+      }
+    }
+    &.upload-error {
+      border: $uploader-container-error-border;
+    }
+  }
+  .error {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

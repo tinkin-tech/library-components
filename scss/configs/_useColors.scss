@@ -1,0 +1,144 @@
+/*** color ***/
+$primary: (
+        'darken-3': darken($color-primary, 45%),
+        'darken-2': darken($color-primary, 30%),
+        'darken-1': darken($color-primary, 15%),
+        'base': $color-primary,
+        'lighten-1': lighten($color-primary, 15%),
+        'lighten-2': lighten($color-primary, 30%),
+        'lighten-3': lighten($color-primary, 45%),
+);
+
+$secondary: (
+        'darken-3': darken($color-secondary, 45%),
+        'darken-2': darken($color-secondary, 30%),
+        'darken-1': darken($color-secondary, 15%),
+        'base': $color-secondary,
+        'lighten-1': lighten($color-secondary, 15%),
+        'lighten-2': lighten($color-secondary, 30%),
+        'lighten-3': lighten($color-secondary, 45%),
+);
+
+$gray: (
+        'darken-3': darken($color-gray, 45%),
+        'darken-2': darken($color-gray, 30%),
+        'darken-1': darken($color-gray, 15%),
+        'base': $color-gray,
+        'lighten-1': lighten($color-gray, 15%),
+        'lighten-2': lighten($color-gray, 30%),
+        'lighten-3': lighten($color-gray, 45%),
+        'lighten-4': lighten($color-gray, 60%),
+        'lighten-5': lighten($color-gray, 78%),
+);
+
+$success: (
+        'darken-1': darken($color-success, 15%),
+        'base': $color-success,
+        'lighten-1': lighten($color-success, 15%),
+);
+
+$warning: (
+        'darken-1': darken($color-warning, 15%),
+        'base': $color-warning,
+        'lighten-1': lighten($color-warning, 15%),
+);
+
+$danger: (
+        'darken-1': darken($color-danger, 15%),
+        'base': $color-danger,
+        'lighten-1': lighten($color-danger, 15%),
+);
+
+$info: (
+        'darken-1': darken($color-info, 15%),
+        'base': $color-info,
+        'lighten-1': lighten($color-info, 15%),
+);
+
+$colors: (
+        'primary': $primary,
+        'secondary': $secondary,
+        'warning': $warning,
+        'success': $success,
+        'danger': $danger,
+        'info': $info,
+        'gray': $gray
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'gray': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true
+                ),
+                'bg'
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true,
+                        'gray': true
+                ),
+                'text'
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true,
+                        'gray': true
+                ),
+                'border'
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true,
+                        'gray': true
+                ),
+                'link'
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true,
+                        'gray': true
+                ),
+                'gradient'
+);
+
+@include useColors(
+                (
+                        'primary': true,
+                        'secondary': true,
+                        'warning': true,
+                        'success': true,
+                        'danger': true,
+                        'info': true,
+                        'gray': true
+                ),
+                'fill'
+);

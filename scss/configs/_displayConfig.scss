@@ -1,0 +1,19 @@
+//radius
+
+$rem-unit-size: 16px;
+
+$radio-big: 16px;
+$radio-default: 8px;
+$radio-small: 4px;
+
+/*shadows*/
+
+$z-depth-0: none !important;
+$z-depth-1: 0 4px 8px 0 color('gray', 'lighten-4');
+$z-depth-2: 0 8px 16px 0 color('gray', 'lighten-2');
+
+/*scroll*/
+
+$scroll-bar-container-bg: color($color-gray, 'lighte-2');
+$scroll-bar-bg: $color-gray;
+$scroll-bar-arrows-bg: color($color-gray, 'lighte-1');
