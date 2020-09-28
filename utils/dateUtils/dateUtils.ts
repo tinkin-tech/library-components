@@ -124,14 +124,13 @@ export default class DateUtils {
       typeof datetoTranform === 'string'
         ? this.transformDateStringToDate(datetoTranform, format)
         : datetoTranform
-    const dateTimeFormatObject = new Intl.DateTimeFormat('en-US', {
+    const dateTimeFormatObject = new Intl.DateTimeFormat('en-US-u-hc-h23', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: false,
     })
     const [
       { value: month },
