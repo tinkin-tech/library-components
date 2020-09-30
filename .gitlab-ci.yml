@@ -31,6 +31,6 @@ deploy:
   stage: deploy
   script:
     # Trigger to run build and deploy on netlify
-    - curl -X POST -d {} $URL_STAGING 
+    - curl -X POST -d {} $URL_STAGING
   only:
     - develop
