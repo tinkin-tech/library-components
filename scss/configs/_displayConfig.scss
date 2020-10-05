@@ -14,6 +14,6 @@ $z-depth-2: 0 8px 16px 0 color('gray', 'lighten-2');
 
 /*scroll*/
 
-$scroll-bar-container-bg: color($color-gray, 'lighte-2');
+$scroll-bar-container-bg: color('gray', 'lighten-2');
 $scroll-bar-bg: $color-gray;
-$scroll-bar-arrows-bg: color($color-gray, 'lighte-1');
+$scroll-bar-arrows-bg: color('gray', 'lighten-1');

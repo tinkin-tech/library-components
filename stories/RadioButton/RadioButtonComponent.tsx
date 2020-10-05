@@ -7,8 +7,8 @@ type RadioOption = {
 
 export interface IRadioButtonComponent {
   options: RadioOption[]
-  value: string
-  onChangeValue: (id: string, valueId: string) => void
+  value: string | number
+  onChangeValue: (id: string | number, valueId: string) => void
   valueId: string
   disabled?: boolean
   label?: string
@@ -38,11 +38,11 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
     valueId,
   } = props
 
-  const onChangeAction = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (disabled || event.target.id === value) {
+  const onChangeAction = (newValue: string | number): void => {
+    if (disabled || newValue === value) {
       return null
     }
-    onChangeValue(event.target.id, valueId)
+    onChangeValue(newValue, valueId)
   }
 
   const radioButtonClass = [
@@ -76,8 +76,8 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
           <input
             type="radio"
             id={option.id.toString()}
-            checked={value === option.id.toString()}
-            onChange={onChangeAction}
+            checked={value === option.id}
+            onChange={(): void => onChangeAction(option.id)}
           />
           <label
             htmlFor={option.id.toString()}
