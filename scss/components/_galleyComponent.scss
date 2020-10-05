@@ -63,7 +63,7 @@
       left: 0;
       z-index: 10;
       a{
-        margin-top: calc(#{$gallery-arrows-width} / 2);
+        margin-top: calc(-#{$gallery-arrows-width} / 2);
         background: $gallery-arrows-background;
         font-size: calc(#{$gallery-arrows-width} / 4);
         line-height: (calc(#{$gallery-arrows-width} - 15%));
@@ -129,6 +129,7 @@
     background: $gallery-full-screen-bg;
     padding: 3rem 2rem;
     width: 100%!important;
+    z-index: 750;
     @include flexbox();
     @include flex-direction(column);
     @include justify-content(center);
