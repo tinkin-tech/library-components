@@ -1,6 +1,6 @@
 {
   "name": "@tinkin/storybook",
-  "version": "0.0.7",
+  "version": "0.1.1",
   "description": "Front End components Library for tinkin projects",
   "main": "index.js",
   "scripts": {
