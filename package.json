@@ -1,17 +1,18 @@
 {
-  "name": "storybook",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@tinkin/storybook",
+  "version": "0.0.5",
+  "description": "Front End components Library for tinkin projects",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest",
     "test:watch": "jest --watch",
     "test:coverage-above-90": "jest --coverage",
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:git": "LIST=`git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.(ts|tsx)$\" | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi",
-    "test:git": "jest -o"
+    "test:git": "jest -o",
+    "build-npm": "rm -rf ./dist && tsc && cp -R ./scss ./dist"
   },
   "author": "",
   "license": "ISC",
@@ -27,10 +28,12 @@
     "@tinkin/eslint-config": "^0.1.7",
     "@types/react-test-renderer": "^16.9.2",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
     "eslint": "^7.8.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "full-icu": "^1.3.1",
     "jest": "^26.1.0",
     "node-sass": "^4.14.1",
     "react-test-renderer": "^16.13.1",
@@ -43,5 +46,12 @@
     "global": "^4.4.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "ts-jest": "^26.1.1"
-  }
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "files": [
+    "dist"
+  ]
 }
