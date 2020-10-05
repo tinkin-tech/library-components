@@ -73,8 +73,6 @@ const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
             extraListItemClassName || ''
           } ${value === option.id ? 'selected' : ''}`}
         >
-          {console.log('option', option.id)}
-          {console.log('value', value)}
           <input
             type="radio"
             id={option.id.toString()}
