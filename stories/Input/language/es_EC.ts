@@ -2,8 +2,8 @@ interface IInputLanguage {
   placeholder: string
 }
 
-const ES_EC: IInputLanguage = {
+const es_EC: IInputLanguage = {
   placeholder: 'Ingresa un texto',
 }
 
-export default ES_EC
+export default es_EC

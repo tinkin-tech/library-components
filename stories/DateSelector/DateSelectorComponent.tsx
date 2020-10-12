@@ -19,7 +19,7 @@ export interface IDateSelectorComponent {
   disabled?: boolean
 }
 
-const DateSelectorComponent = (
+export const DateSelectorComponent = (
   props: IDateSelectorComponent
 ): React.ReactElement => {
   const {
@@ -38,10 +38,12 @@ const DateSelectorComponent = (
   } = props
   const currentDate = DateUtils.formatDate(new Date(), null, dateFormat)
   const dateSelectRef = React.useRef(null)
+  const diffDays = 2
   const defaultMinDate =
-    minDate || DateUtils.substractDate(currentDate, dateFormat, 2, 'years')
+    minDate ||
+    DateUtils.substractDate(currentDate, dateFormat, diffDays, 'years')
   const defaultMaxDate =
-    maxDate || DateUtils.addDate(currentDate, dateFormat, 2, 'years')
+    maxDate || DateUtils.addDate(currentDate, dateFormat, diffDays, 'years')
 
   const defaultDate = { year: '', month: '', day: '' }
 
@@ -83,25 +85,25 @@ const DateSelectorComponent = (
       dateToUpdate = { ...dateObject, [dateKey]: value }
     }
 
-    const newDate = DateUtils.dateFormatToObject(dateFormat)
-      .reduce((cumulator, value) => {
-        cumulator.push(dateToUpdate[DateUtils.dateKeys[value]])
-        return cumulator
-      }, [])
+    const newDate = DateUtils.dateFormatToArray(dateFormat)
+      .map((value) => dateToUpdate[DateUtils.dateKeys[value]])
       .join('-')
 
     onChangeDate(newDate, valueId)
   }
 
-  const getYears = (): Array<string> => {
-    return [
+  const getYears = (): Array<string> =>
+    [
       ...new Array(+maxDateObject.year - +minDateObject.year + 1),
     ].map((_, index) => (+minDateObject.year + index).toString())
-  }
 
   const getMonths = (): Array<string> => {
-    return [...new Array(12)]
-      .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
+    const monthsInAYear = 12
+    const limitSetZeroNumber = 10
+    return [...new Array(monthsInAYear)]
+      .map(
+        (_, index) => `${index + 1 < limitSetZeroNumber ? 0 : ''}${index + 1}`
+      )
       .filter((_, key) => {
         const isGreater = +minDateObject.month <= key + 1
         const isLower = +maxDateObject.month >= key + 1
@@ -126,8 +128,11 @@ const DateSelectorComponent = (
       `${dateObject.year || defaultYear}-${dateObject.month}`,
       'YYYY-MM'
     )
+    const limitSetZeroNumber = 10
     return [...new Array(totalDays)]
-      .map((_, index) => `${index + 1 < 10 ? 0 : ''}${index + 1}`)
+      .map(
+        (_, index) => `${index + 1 < limitSetZeroNumber ? 0 : ''}${index + 1}`
+      )
       .filter((_, key) => {
         const isGreater = +minDateObject.day <= key + 1
         const isLower = +maxDateObject.day >= key + 1
@@ -184,7 +189,7 @@ const DateSelectorComponent = (
         )}
       </div>
     )
-    const dateFormatObject = DateUtils.dateFormatToObject(dateFormat)
+    const dateFormatObject = DateUtils.dateFormatToArray(dateFormat)
     const monthSelector = (
       <div className="date-selector">
         <a
@@ -314,5 +319,3 @@ const DateSelectorComponent = (
     </div>
   )
 }
-
-export default DateSelectorComponent

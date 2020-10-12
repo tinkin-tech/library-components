@@ -5,9 +5,7 @@ export class TestUtil {
     this.setValue(value)
   }
 
-  getValue = (): string => {
-    return this.value
-  }
+  getValue = (): string => this.value
 
   private setValue = (value: string): void => {
     this.value = value
@@ -32,6 +30,7 @@ export const setLocationSearchValue = (search: string): void => {
 
 /* istanbul ignore next */
 export const mockOffsetAndClientSizes = (value?: number): void => {
+  const defaultValue = 500
   const originalClientHeight = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
     'clientHeight'
@@ -51,19 +50,19 @@ export const mockOffsetAndClientSizes = (value?: number): void => {
   beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
       configurable: true,
-      value: value || 500,
+      value: value || defaultValue,
     })
     Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
       configurable: true,
-      value: value || 500,
+      value: value || defaultValue,
     })
     Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
       configurable: true,
-      value: value || 500,
+      value: value || defaultValue,
     })
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
       configurable: true,
-      value: value || 500,
+      value: value || defaultValue,
     })
   })
 

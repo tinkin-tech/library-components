@@ -1,8 +1,10 @@
 import * as React from 'react'
-import UploaderImageComponent, {
+import { action } from '@storybook/addon-actions'
+
+import {
+  UploaderImageComponent,
   IUploaderImageComponent,
 } from './UploaderImageComponent'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Uploder Image',

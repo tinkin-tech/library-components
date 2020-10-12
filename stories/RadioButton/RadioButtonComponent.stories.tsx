@@ -1,9 +1,10 @@
 import * as React from 'react'
+import { action } from '@storybook/addon-actions'
 
-import RadioButtonComponent, {
+import {
+  RadioButtonComponent,
   IRadioButtonComponent,
 } from './RadioButtonComponent'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Radio Button',

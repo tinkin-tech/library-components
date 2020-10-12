@@ -3,6 +3,8 @@ interface IQueryParam {
   value: string | boolean
 }
 
+const maxNumberOfSplitVar = 2
+
 export const paramsArrayToString = (params: IQueryParam[]): string => {
   let url = ''
   params.forEach((item, key) => {
@@ -25,7 +27,7 @@ export const getQueryParams = (
   } = {}
   for (const row of vars) {
     const pair = row.split('=')
-    if (pair.length === 2) {
+    if (pair.length === maxNumberOfSplitVar) {
       const paramKey = pair[0].replace(/\?/g, '')
       params[paramKey] =
         pair[1] === 'true'
@@ -45,7 +47,7 @@ export const getQueryParamsArray = (variableData?: string): IQueryParam[] => {
   const params: IQueryParam[] = []
   for (const row of vars) {
     const pair = row.split('=')
-    if (pair.length === 2) {
+    if (pair.length === maxNumberOfSplitVar) {
       const paramKey = pair[0].replace(/\?/g, '')
       params.push({
         key: paramKey,

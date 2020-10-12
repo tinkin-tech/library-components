@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import ButtonComponent from './ButtonComponent'
 import '@testing-library/jest-dom/extend-expect'
+
+import { ButtonComponent } from './ButtonComponent'
 
 describe('render component <ButtonComponent />', () => {
   describe('when reciving buttonText property', () => {

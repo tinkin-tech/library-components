@@ -1,5 +1,6 @@
 import * as React from 'react'
-import GalleryComponent, { IGalleryComponent } from './GalleryComponent'
+
+import { GalleryComponent, IGalleryComponent } from './GalleryComponent'
 
 export default {
   title: 'Gallery',

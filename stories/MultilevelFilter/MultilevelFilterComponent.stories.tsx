@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { action } from '@storybook/addon-actions'
 
-import MultilevelFilterComponent, {
+import {
+  MultilevelFilterComponent,
   IMultilevelFilter,
   IMultilevelOptionChild,
 } from './MultilevelFilterComponent'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Multi Level Filter',

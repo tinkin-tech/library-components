@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 
-import TableComponent, { ILabelProps, ITableRows } from './TableComponent'
+import { TableComponent, ILabelProps, ITableRows } from './TableComponent'
 
 describe('render component <TableComponent>', () => {
   const labelProps: ILabelProps[] = [

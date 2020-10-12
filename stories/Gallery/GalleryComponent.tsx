@@ -17,7 +17,7 @@ export interface IGalleryComponent {
   disableFullScreen?: boolean
 }
 
-const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
+export const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
   const {
     imageList,
     target,
@@ -72,6 +72,7 @@ const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
     width: width || '100%',
     height: height || '250px',
   }
+  const leftPercentPosition = 100
   return (
     <div
       className={`gallery-component ${fullScreen && 'full-screen-gallery'}`}
@@ -108,7 +109,7 @@ const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
         )}
         <div
           className="gallery-block"
-          style={{ left: `-${(activeImage - 1) * 100}%` }}
+          style={{ left: `-${(activeImage - 1) * leftPercentPosition}%` }}
         >
           {imageList.map((image, key) => {
             const imageProps = {
@@ -144,5 +145,3 @@ const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
     </div>
   )
 }
-
-export default GalleryComponent

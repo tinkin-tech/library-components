@@ -1,8 +1,10 @@
 import * as React from 'react'
-import DateSelectorComponent, {
+import { action } from '@storybook/addon-actions'
+
+import {
+  DateSelectorComponent,
   IDateSelectorComponent,
 } from './DateSelectorComponent'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Date Selector',

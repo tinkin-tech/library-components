@@ -20,7 +20,7 @@ export interface IRadioButtonComponent {
   extraLabelClassName?: string
 }
 
-const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
+export const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
   props: IRadioButtonComponent
 ) => {
   const {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import GalleryComponent from './GalleryComponent'
+import { GalleryComponent } from './GalleryComponent'
 
 describe('Render component <GalleryComponent/>', () => {
   const imageListMock = [

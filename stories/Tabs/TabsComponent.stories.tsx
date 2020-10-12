@@ -1,6 +1,7 @@
 import * as React from 'react'
-import TabsComponent, { ITabsComponent } from './TabsComponent'
 import { action } from '@storybook/addon-actions'
+
+import { TabsComponent, ITabsComponent } from './TabsComponent'
 
 export default {
   title: 'Tabs',

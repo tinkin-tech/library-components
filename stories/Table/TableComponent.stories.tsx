@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import TableComponent, {
+import {
+  TableComponent,
   ILabelProps,
   ITableProps,
   ITableRows,

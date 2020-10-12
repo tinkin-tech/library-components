@@ -19,7 +19,7 @@ export interface ITooltipComponent {
   extraContainerClassName?: string
 }
 
-const TooltipComponent: React.FC<ITooltipComponent> = (
+export const TooltipComponent: React.FC<ITooltipComponent> = (
   props: ITooltipComponent
 ) => {
   const {
@@ -33,23 +33,25 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
   const tooltipContainer = React.useRef(null)
   const [showContent, handleShowContent] = React.useState(false)
   const [tooltipStyle, handleTooltipStyle] = React.useState({})
-  const width = maxWidth || 200
+  const defaultWidth = 200
+  const width = maxWidth || defaultWidth
 
   const getTooltipStyles = (): void => {
     const tooltipContainerItemHeight = tooltipContainer.current.offsetHeight
+    const leftPixels = 2
     switch (position) {
       case 'bottom':
         handleTooltipStyle({
           width: `${width}px`,
           top: 'calc(100% + .5rem)',
-          left: `calc(50% - ${width / 2}px)`,
+          left: `calc(50% - ${width / leftPixels}px)`,
         })
         break
       case 'top':
         handleTooltipStyle({
           width: `${width}px`,
           bottom: 'calc(100% + .5rem)',
-          left: `calc(50% - ${width / 2}px)`,
+          left: `calc(50% - ${width / leftPixels}px)`,
         })
         break
       case 'left':
@@ -124,5 +126,3 @@ const TooltipComponent: React.FC<ITooltipComponent> = (
     </div>
   )
 }
-
-export default TooltipComponent

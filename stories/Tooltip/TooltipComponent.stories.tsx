@@ -1,5 +1,6 @@
 import * as React from 'react'
-import TooltipComponent, { ITooltipComponent } from './TooltipComponent'
+
+import { TooltipComponent, ITooltipComponent } from './TooltipComponent'
 
 export default {
   title: 'Tooltip',

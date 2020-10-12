@@ -16,16 +16,22 @@ ci:lint:
   stage: ci
   script:
     - npm run lint
+  only:
+    - merge_requests
 
 ci:test:
   stage: ci
   script:
     - npm run test
+  only:
+    - merge_requests
 
 ci:coverage-above-90:
   stage: ci
   script:
     - npm run test:coverage-above-90
+  only:
+    - merge_requests
 
 deploy:
   stage: deploy

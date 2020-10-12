@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import DateSelectorComponent from './DateSelectorComponent'
 import '@testing-library/jest-dom/extend-expect'
+
 import DateUtils from '../../utils/dateUtils/dateUtils'
 import { TestUtil } from '../../utils/testUtils/testUtils'
+import { DateSelectorComponent } from './DateSelectorComponent'
 
 describe('render component <DateSelectorComponent />', () => {
   const dateFormat = 'YYYY-MM-DD'
@@ -63,20 +64,20 @@ describe('render component <DateSelectorComponent />', () => {
         />
       )
       const { getByText, getAllByText, rerender } = render(getComponent())
+      const getDateByQuery = (): HTMLElement =>
+        minDateObject.day === '01' || minDateObject.day === '12'
+          ? getAllByText(minDateObject.day)[1]
+          : getByText(minDateObject.day)
       fireEvent.click(getByText('Año'))
       fireEvent.click(getByText((parseInt(minDateObject.year) + 1).toString()))
       rerender(getComponent())
       fireEvent.click(getAllByText('01')[0])
-      fireEvent.click(getByText('12'))
+      fireEvent.click(getAllByText('12')[0])
       rerender(getComponent())
       fireEvent.click(getByText('01'))
-      fireEvent.click(
-        minDateObject.day === '01' || minDateObject.day === '12'
-          ? getAllByText(minDateObject.day)[1]
-          : getByText(minDateObject.day)
-      )
+      fireEvent.click(getDateByQuery())
       rerender(getComponent())
-      expect(getByText(minDateObject.day)).toBeInTheDocument()
+      expect(getDateByQuery()).toBeInTheDocument()
     })
 
     it(
@@ -210,14 +211,12 @@ describe('render component <DateSelectorComponent />', () => {
       expect(container.querySelectorAll('li')[0].innerHTML).toContain(
         minDateObject.month
       )
-      fireEvent.click(
+      fireEvent.click(getAllByText(minDateObject.month)[1])
+      const getDateByQuery =
         minDateObject.day === minDateObject.month
           ? getAllByText(minDateObject.day)[1]
           : getByText(minDateObject.day)
-      )
-      expect(container.querySelectorAll('li')[0].innerHTML).toContain(
-        minDateObject.day
-      )
+      expect(getDateByQuery).toBeTruthy()
     })
 
     it(

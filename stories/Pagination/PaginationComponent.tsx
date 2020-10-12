@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { updateUrlParams } from '../../utils/urlUtils/urlUtils'
 
 export interface IPaginationComponent {
@@ -8,10 +9,12 @@ export interface IPaginationComponent {
   pageNeighbours?: number
 }
 
-const PaginationComponent: React.FC<IPaginationComponent> = (
+export const PaginationComponent: React.FC<IPaginationComponent> = (
   props: IPaginationComponent
 ) => {
-  const { totalPages, pageNeighbours = 2, currentPage } = props
+  const { totalPages, pageNeighbours, currentPage } = props
+  const defaultPageNeighbours = 2
+  const sidePages = pageNeighbours || defaultPageNeighbours
   const goToPage = (page: React.ReactText): void => {
     const currentPage = Math.max(0, Math.min(+page, totalPages))
     props.goToPage(updateUrlParams('page', currentPage))
@@ -52,11 +55,13 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
   }
 
   const fetchPageNumbers = (): React.ReactText[] => {
-    const totalNumbers = pageNeighbours + 3
-    const totalBlocks = totalNumbers + 2
+    const staticPagesNumber = 3
+    const totalNumbers = sidePages + staticPagesNumber
+    const staticBlocksNumber = 2
+    const totalBlocks = totalNumbers + staticBlocksNumber
     if (totalPages > totalBlocks) {
-      const startPage = Math.max(2, currentPage - pageNeighbours)
-      const endPage = Math.min(totalPages - 1, currentPage + pageNeighbours)
+      const startPage = Math.max(staticBlocksNumber, currentPage - sidePages)
+      const endPage = Math.min(totalPages - 1, currentPage + sidePages)
       const pages = range(startPage, endPage)
       return [LEFT_PAGE, 1, ...pages, totalPages, RIGHT_PAGE]
     }
@@ -114,5 +119,3 @@ const PaginationComponent: React.FC<IPaginationComponent> = (
     </nav>
   )
 }
-
-export default PaginationComponent

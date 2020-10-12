@@ -26,7 +26,9 @@ export interface IButtonComponent {
   formButton?: boolean
 }
 
-const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
+export const ButtonComponent = (
+  props: IButtonComponent
+): React.ReactElement => {
   const {
     buttonText,
     onClick,
@@ -57,5 +59,3 @@ const ButtonComponent = (props: IButtonComponent): React.ReactElement => {
     <a {...componentProps}>{buttonText}</a>
   )
 }
-
-export default ButtonComponent
