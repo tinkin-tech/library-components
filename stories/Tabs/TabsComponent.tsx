@@ -14,7 +14,7 @@ export interface ITabsComponent {
   tabContentClassName?: string
 }
 
-const TabsComponent = (props: ITabsComponent): React.ReactElement => {
+export const TabsComponent = (props: ITabsComponent): React.ReactElement => {
   const {
     list,
     activeTabId,
@@ -50,5 +50,3 @@ const TabsComponent = (props: ITabsComponent): React.ReactElement => {
     </div>
   )
 }
-
-export default TabsComponent

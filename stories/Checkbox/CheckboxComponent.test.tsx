@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import CheckboxComponent from './CheckboxComponent'
+
+import { CheckboxComponent } from './CheckboxComponent'
 
 describe('render component <CheckboxComponent />', () => {
   const func = jest.fn()

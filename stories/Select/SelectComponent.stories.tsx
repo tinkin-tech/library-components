@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { action } from '@storybook/addon-actions'
-import SelectComponent, { ISelectComponent } from './SelectComponent'
+
+import { SelectComponent, ISelectComponent } from './SelectComponent'
 
 export default {
   title: 'Select',

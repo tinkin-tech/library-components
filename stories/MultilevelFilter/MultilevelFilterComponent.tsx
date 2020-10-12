@@ -29,6 +29,7 @@ export interface IMultilevelFilter {
   minOptionsWidth?: string
   customIcon?: JSX.Element
 }
+
 interface IHelperSelectedItems {
   id: number | string
   label: string
@@ -36,7 +37,7 @@ interface IHelperSelectedItems {
   haveChild: boolean
 }
 
-const MultilevelFilterComponent = (
+export const MultilevelFilterComponent = (
   props: IMultilevelFilter
 ): React.ReactElement => {
   const {
@@ -175,14 +176,14 @@ const MultilevelFilterComponent = (
     recursiveValidation(options)
     changeSelectedValuesHelper(itemsSelected)
   }
-  const genValue = (): string => {
-    return selectedValuesHelper.reduce((cumulator, value) => {
-      if (!value.haveChild) {
-        return `${cumulator}${cumulator ? ',' : ''} ${value.label}`
-      }
-      return cumulator
-    }, '')
-  }
+  const genValue = (): string =>
+    selectedValuesHelper.reduce(
+      (accumulator, value) =>
+        !value.haveChild
+          ? `${accumulator}${accumulator ? ',' : ''} ${value.label}`
+          : accumulator,
+      ''
+    )
   const genLinks = (
     list: Array<IMultilevelOptionChild>,
     listKey?: number
@@ -291,5 +292,3 @@ const MultilevelFilterComponent = (
     </div>
   )
 }
-
-export default MultilevelFilterComponent

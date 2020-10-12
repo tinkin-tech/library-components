@@ -34,8 +34,8 @@ interface IObjectDate {
   seconds?: string
 }
 
-const split = (dateFormat: string): string[] => {
-  return dateFormat
+const split = (dateFormat: string): string[] =>
+  dateFormat
     .toString()
     .split('-')
     .toString()
@@ -44,7 +44,11 @@ const split = (dateFormat: string): string[] => {
     .split(':')
     .toString()
     .split(',')
-}
+
+const millisecondsInASecond = 1000
+const millisecondsInAMinute = 60000
+const millisecondsInAnHour = 3600000
+const daysInAWeek = 7
 
 export default class DateUtils {
   static transformDateStringToDate(date: string, format: IFormatTypes): Date {
@@ -166,19 +170,19 @@ export default class DateUtils {
     } else {
       switch (option.toLowerCase()) {
         case 'seconds':
-          newDate.setTime(newDate.getTime() + units * 1000)
+          newDate.setTime(newDate.getTime() + units * millisecondsInASecond)
           break
         case 'minutes':
-          newDate.setTime(newDate.getTime() + units * 60000)
+          newDate.setTime(newDate.getTime() + units * millisecondsInAMinute)
           break
         case 'hours':
-          newDate.setTime(newDate.getTime() + units * 3600000)
+          newDate.setTime(newDate.getTime() + units * millisecondsInAnHour)
           break
         case 'days':
           newDate.setDate(newDate.getDate() + units)
           break
         case 'weeks':
-          newDate.setDate(newDate.getDate() + 7 * units)
+          newDate.setDate(newDate.getDate() + daysInAWeek * units)
           break
         case 'months':
           newDate.setMonth(newDate.getMonth() + units)
@@ -202,19 +206,19 @@ export default class DateUtils {
     } else {
       switch (option.toLowerCase()) {
         case 'seconds':
-          newDate.setTime(newDate.getTime() - units * 1000)
+          newDate.setTime(newDate.getTime() - units * millisecondsInASecond)
           break
         case 'minutes':
-          newDate.setTime(newDate.getTime() - units * 60000)
+          newDate.setTime(newDate.getTime() - units * millisecondsInAMinute)
           break
         case 'hours':
-          newDate.setTime(newDate.getTime() - units * 3600000)
+          newDate.setTime(newDate.getTime() - units * millisecondsInAnHour)
           break
         case 'days':
           newDate.setDate(newDate.getDate() - units)
           break
         case 'weeks':
-          newDate.setDate(newDate.getDate() - 7 * units)
+          newDate.setDate(newDate.getDate() - daysInAWeek * units)
           break
         case 'months':
           newDate.setMonth(newDate.getMonth() - units)
@@ -271,7 +275,8 @@ export default class DateUtils {
     format: IFormatTypes
   ): number {
     const date = this.transformDateStringToDate(dateString, format)
-    return date.getTime() / 1000
+    const milliseconds = 1000
+    return date.getTime() / milliseconds
   }
 
   static setYear(date: string, format: IFormatTypes, year: number): string {
@@ -320,10 +325,11 @@ export default class DateUtils {
       secondDate,
       format
     )
+    const monthsInYear = 12
     return (
-      transformFirstDate.getFullYear() * 12 +
+      transformFirstDate.getFullYear() * monthsInYear +
       transformFirstDate.getMonth() -
-      transformSecondDate.getFullYear() * 12 +
+      transformSecondDate.getFullYear() * monthsInYear +
       transformSecondDate.getMonth()
     )
   }
@@ -340,12 +346,14 @@ export default class DateUtils {
     )
     const dateTime =
       transformFirstDate.getTime() - transformSecondDate.getTime()
-    return dateTime / (1000 * 3600 * 24)
+    const millisecondsInASecond = 1000
+    const secondsInAHour = 3600
+    const hoursInADay = 24
+    return dateTime / (millisecondsInASecond * secondsInAHour * hoursInADay)
   }
 
-  static dateFormatToObject = (dateFormat: IFormatTypes): string[] => {
-    return dateFormat.replace(new RegExp(`[: ]`, 'g'), '-').split('-')
-  }
+  static dateFormatToArray = (dateFormat: IFormatTypes): string[] =>
+    dateFormat.replace(new RegExp(`[: ]`, 'g'), '-').split('-')
 
   static dateKeys = {
     YYYY: 'year',
@@ -360,10 +368,8 @@ export default class DateUtils {
     date: string,
     dateFormat: IFormatTypes
   ): IObjectDate {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.dateFormatToObject(dateFormat).reduce(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (accumulator, value: any) => {
+    return this.dateFormatToArray(dateFormat).reduce(
+      (accumulator, value: IFormatTypes) => {
         accumulator[this.dateKeys[value]] = this.formatDate(
           date,
           dateFormat,

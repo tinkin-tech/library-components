@@ -20,7 +20,7 @@ export interface ICheckboxComponent {
   extraLabelClassName?: string
 }
 
-const CheckboxComponent: React.FC<ICheckboxComponent> = (
+export const CheckboxComponent: React.FC<ICheckboxComponent> = (
   props: ICheckboxComponent
 ) => {
   const {
@@ -89,5 +89,3 @@ const CheckboxComponent: React.FC<ICheckboxComponent> = (
     </div>
   )
 }
-
-export default CheckboxComponent

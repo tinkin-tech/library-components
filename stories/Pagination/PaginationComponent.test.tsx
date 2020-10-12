@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import PaginationComponent from './PaginationComponent'
+
+import { PaginationComponent } from './PaginationComponent'
 import { setLocationSearchValue } from '../../utils/testUtils/testUtils'
 
 describe('Render component <PaginationComponent />', () => {

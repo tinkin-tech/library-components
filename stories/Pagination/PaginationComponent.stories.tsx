@@ -1,8 +1,10 @@
 import * as React from 'react'
-import PaginationComponent, {
+import { action } from '@storybook/addon-actions'
+
+import {
+  PaginationComponent,
   IPaginationComponent,
 } from './PaginationComponent'
-import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Pagination',

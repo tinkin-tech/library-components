@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import language from './language/es_EC'
 
 export type IInputTypes = 'text' | 'email' | 'number' | 'password'
@@ -18,7 +19,7 @@ export interface InputComponentPropsInterface {
   textArea?: boolean
 }
 
-const InputComponent: React.FC<InputComponentPropsInterface> = (
+export const InputComponent: React.FC<InputComponentPropsInterface> = (
   props: InputComponentPropsInterface
 ) => {
   const {
@@ -84,5 +85,3 @@ const InputComponent: React.FC<InputComponentPropsInterface> = (
     </div>
   )
 }
-
-export default InputComponent

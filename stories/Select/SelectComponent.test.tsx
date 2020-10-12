@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import SelectComponent from './SelectComponent'
+
+import { SelectComponent } from './SelectComponent'
 
 describe('Render component <SelectComponent />', () => {
   const mockedFunction = jest.fn()

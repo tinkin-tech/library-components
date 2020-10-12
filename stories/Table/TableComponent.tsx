@@ -45,7 +45,7 @@ export interface ITableProps {
   extraContentClassName?: string
 }
 
-const TableComponent = (props: ITableProps): React.ReactElement => {
+export const TableComponent = (props: ITableProps): React.ReactElement => {
   const {
     tableRows,
     labelProps,
@@ -99,51 +99,47 @@ const TableComponent = (props: ITableProps): React.ReactElement => {
           extraContentClassName ? `${extraContentClassName}` : ''
         }`}
       >
-        {tableRows.map((row, key) => {
-          return (
-            <div
-              key={key}
-              className={`table-row-item ${
-                activeRowId === row.id && 'row-active'
-              }`}
-            >
-              {labelProps.map((column, columnKey) => {
-                const style: CSS = {
-                  width: `${column.width}${column.typeWidth}`,
-                }
-                const cellValues = row.columns.find(
-                  (rowColumn) => rowColumn.id === column.id
-                )
-                if (cellValues?.minHeight) {
-                  style.height = `${cellValues.minHeight}px`
-                }
-                const cellClass: string[] = ['table-row-cell', cellValues?.type]
-                if (cellValues?.cellClassName) {
-                  cellClass.push(cellValues.cellClassName)
-                }
-                if (cellValues?.onClick) {
-                  cellClass.push('click-row')
-                }
-                return (
-                  <div
-                    onClick={(): void =>
-                      cellValues.onClick && cellValues.onClick(row)
-                    }
-                    style={style}
-                    className={cellClass.join(' ')}
-                    key={columnKey}
-                    data-title={column.label}
-                  >
-                    {getTableContent(cellValues)}
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })}
+        {tableRows.map((row, key) => (
+          <div
+            key={key}
+            className={`table-row-item ${
+              activeRowId === row.id && 'row-active'
+            }`}
+          >
+            {labelProps.map((column, columnKey) => {
+              const style: CSS = {
+                width: `${column.width}${column.typeWidth}`,
+              }
+              const cellValues = row.columns.find(
+                (rowColumn) => rowColumn.id === column.id
+              )
+              if (cellValues?.minHeight) {
+                style.height = `${cellValues.minHeight}px`
+              }
+              const cellClass: string[] = ['table-row-cell', cellValues?.type]
+              if (cellValues?.cellClassName) {
+                cellClass.push(cellValues.cellClassName)
+              }
+              if (cellValues?.onClick) {
+                cellClass.push('click-row')
+              }
+              return (
+                <div
+                  onClick={(): void =>
+                    cellValues.onClick && cellValues.onClick(row)
+                  }
+                  style={style}
+                  className={cellClass.join(' ')}
+                  key={columnKey}
+                  data-title={column.label}
+                >
+                  {getTableContent(cellValues)}
+                </div>
+              )
+            })}
+          </div>
+        ))}
       </section>
     </div>
   )
 }
-
-export default TableComponent

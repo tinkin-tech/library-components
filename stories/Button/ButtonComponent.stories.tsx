@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import ButtonComponent, { IButtonComponent } from './ButtonComponent'
+import { IButtonComponent, ButtonComponent } from './ButtonComponent'
 
 export default {
   title: 'Button',

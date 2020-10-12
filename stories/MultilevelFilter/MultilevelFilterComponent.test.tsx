@@ -2,7 +2,7 @@ import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import MultilevelFilterComponent from './MultilevelFilterComponent'
+import { MultilevelFilterComponent } from './MultilevelFilterComponent'
 
 describe('render component <MultilevelFilterComponent />', () => {
   const mockOptions = [

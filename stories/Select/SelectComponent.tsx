@@ -1,5 +1,6 @@
 import * as React from 'react'
-import ES_EC from './languages/es_EC'
+
+import es_EC from './languages/es_EC'
 
 interface IOption {
   id: string | number
@@ -22,7 +23,7 @@ export interface ISelectComponent {
   extraSelectClassName?: string
 }
 
-const SelectComponent: React.FC<ISelectComponent> = (
+export const SelectComponent: React.FC<ISelectComponent> = (
   props: ISelectComponent
 ) => {
   const {
@@ -49,7 +50,7 @@ const SelectComponent: React.FC<ISelectComponent> = (
   const getValue =
     options.find((item) => item.id === value)?.label ||
     placeholder ||
-    ES_EC.placeholder
+    es_EC.placeholder
 
   const handleClickOutside = (event: Event): void => {
     if (!selectRef.current.contains(event.target)) {
@@ -111,5 +112,3 @@ const SelectComponent: React.FC<ISelectComponent> = (
     </div>
   )
 }
-
-export default SelectComponent

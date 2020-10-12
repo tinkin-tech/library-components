@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import ES_EC from './language/es_EC'
 
 export interface IUploaderImageComponent {
@@ -16,7 +17,7 @@ export interface IUploaderImageComponent {
   maxSize?: number
 }
 
-const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
+export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   props: IUploaderImageComponent
 ) => {
   const {
@@ -41,10 +42,12 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     const extension = e.currentTarget.files[0]?.name.substring(
       extensionIndex + 1
     )
-    const validFile = !!filesAccepted.find((fileExtension) => {
-      return fileExtension.toLowerCase() === extension?.toLowerCase()
-    })
-    const validSize = e.currentTarget.files[0]?.size <= maxSize * 10000
+    const validFile = !!filesAccepted.find(
+      (fileExtension) =>
+        fileExtension.toLowerCase() === extension?.toLowerCase()
+    )
+    const limitImageSize = 10000
+    const validSize = e.currentTarget.files[0]?.size <= maxSize * limitImageSize
     if (validFile && (validSize || !maxSize)) {
       setFileValid(true)
       const formData = new FormData()
@@ -58,9 +61,7 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
 
   const transformFilesAccepted = (): string[] => {
     const files = filesAccepted.map((file) => file.toLowerCase())
-    return files.filter((item, pos) => {
-      return files.indexOf(item) === pos
-    })
+    return files.filter((item, pos) => files.indexOf(item) === pos)
   }
 
   const labelClassNameObject = [
@@ -107,5 +108,3 @@ const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     </div>
   )
 }
-
-export default UploaderImageComponent
