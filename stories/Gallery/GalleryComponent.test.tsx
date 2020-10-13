@@ -287,4 +287,46 @@ describe('Render component <GalleryComponent/>', () => {
       ).toEqual('width: 100%; height: 250px;')
     })
   })
+
+  describe('When it receives gallery link text', () => {
+    it('Should display text instead of images', () => {
+      const { container, queryByText } = render(
+        <GalleryComponent
+          imageList={imageListMock}
+          width="20px"
+          height="20px"
+          galleryLinkText="View Gallery"
+        />
+      )
+      expect(queryByText('View Gallery')).toBeInTheDocument()
+      expect(container.querySelectorAll('img')).toHaveLength(0)
+    })
+
+    it('Should show the gallery in full screen when clicking the link text', () => {
+      const { container, queryByText } = render(
+        <GalleryComponent
+          imageList={imageListMock}
+          width="20px"
+          height="20px"
+          galleryLinkText="View Gallery"
+        />
+      )
+      fireEvent.click(queryByText('View Gallery'))
+      expect(queryByText('View Gallery')).not.toBeInTheDocument()
+      expect(container.querySelector('.gallery-component')).toBeInTheDocument()
+    })
+
+    it('Should add class in link text when it receives linkTextClassName ', () => {
+      const { container } = render(
+        <GalleryComponent
+          imageList={imageListMock}
+          width="20px"
+          height="20px"
+          galleryLinkText="View Gallery"
+          linkTextClassName="extra-class"
+        />
+      )
+      expect(container.querySelector('a.extra-class')).toBeInTheDocument()
+    })
+  })
 })

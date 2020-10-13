@@ -15,6 +15,8 @@ export interface IGalleryComponent {
   width?: string
   height?: string
   disableFullScreen?: boolean
+  galleryLinkText?: string
+  linkTextClassName?: string
 }
 
 export const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
@@ -26,6 +28,8 @@ export const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
     height,
     width,
     disableFullScreen,
+    galleryLinkText,
+    linkTextClassName,
   } = props
   const [activeImage, changeActiveImage] = React.useState(1)
   const [fullScreen, toggleFullScreen] = React.useState(false)
@@ -73,6 +77,16 @@ export const GalleryComponent = (props: IGalleryComponent): JSX.Element => {
     height: height || '250px',
   }
   const leftPercentPosition = 100
+  if (galleryLinkText && !fullScreen) {
+    return (
+      <a
+        className={`${linkTextClassName || ''}`}
+        onClick={(): void => toggleFullScreen(true)}
+      >
+        {galleryLinkText}
+      </a>
+    )
+  }
   return (
     <div
       className={`gallery-component ${fullScreen && 'full-screen-gallery'}`}

@@ -48,6 +48,7 @@
     }
     input{
       opacity: 0;
+      z-index: 5;
     }
     label{
       font-size: $radio-button-list-item-font-size;

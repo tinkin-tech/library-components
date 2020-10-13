@@ -2,7 +2,7 @@ import * as React from 'react'
 
 type CheckboxOption = {
   id: string | number
-  label: string
+  label: string | JSX.Element
 }
 
 export interface ICheckboxComponent {
