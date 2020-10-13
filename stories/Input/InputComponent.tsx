@@ -8,7 +8,7 @@ export interface InputComponentPropsInterface {
   valueId: string
   value: string
   onChangeValue: (value: string, valueId: string) => void
-  type: IInputTypes
+  type?: IInputTypes
   label?: string
   required?: boolean
   placeholder?: string
@@ -54,7 +54,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     autoComplete: 'off',
     spellCheck: false,
     onChange: readOnly ? null : onChangeAction,
-    type: type === 'number' ? 'text' : type,
+    type: type === 'number' || !type ? 'text' : type,
     placeholder: placeholder || language.placeholder,
     className: `${inputClassName || ''} ${error ? 'warning' : ''}`,
     disabled: readOnly,

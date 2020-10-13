@@ -2,7 +2,7 @@ import * as React from 'react'
 
 type RadioOption = {
   id: string | number
-  label: string
+  label: string | JSX.Element
 }
 
 export interface IRadioButtonComponent {
