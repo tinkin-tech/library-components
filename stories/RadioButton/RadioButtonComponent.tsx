@@ -41,10 +41,9 @@ export const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
   } = props
 
   const onChangeAction = (newValue: string | number): void => {
-    if (disabled || (newValue === value && !deselectEnabled)) {
-      return null
+    if (!(disabled || (newValue === value && !deselectEnabled))) {
+      onChangeValue(newValue, valueId)
     }
-    onChangeValue(newValue, valueId)
   }
 
   const radioButtonClass = [
