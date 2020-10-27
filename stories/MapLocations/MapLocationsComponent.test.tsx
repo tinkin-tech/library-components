@@ -5,6 +5,7 @@ import '@testing-library/jest-dom'
 import MapLocationsComponent from './MapLocationsComponent'
 
 describe('Render component <MapLocationsComponent/>', () => {
+  const mockFunction = jest.fn()
   const mapLocations = [
     {
       id: 'city1',
@@ -146,6 +147,31 @@ describe('Render component <MapLocationsComponent/>', () => {
     })
   })
 
+  describe('When receive placeholder', () => {
+    it('Should show custom placeholder', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent
+          mapLocations={[...mapLocations]}
+          placeholder="Select a city"
+        />
+      )
+      expect(queryByText('Seleccione una opción')).not.toBeInTheDocument()
+      expect(queryByText('Select a city')).toBeInTheDocument()
+    })
+  })
+
+  describe('When receive label', () => {
+    it('Should show label above the select', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent
+          mapLocations={[...mapLocations]}
+          label="Cities"
+        />
+      )
+      expect(queryByText('Cities')).toBeInTheDocument()
+    })
+  })
+
   describe('When receives alphabeticalOrder prop', () => {
     it('Should show list of cities and locations ordered alphabetically', () => {
       const { getByText, container } = render(
@@ -175,6 +201,7 @@ describe('Render component <MapLocationsComponent/>', () => {
       )
       fireEvent.click(queryByText('Seleccione una opción'))
       fireEvent.click(queryByText('B City 1'))
+      expect(queryByText('B City 1')).toBeInTheDocument()
       const locationsBlocks = container.querySelectorAll('.locations-block')
       expect(locationsBlocks).toHaveLength(1)
       const locationList = locationsBlocks[0].querySelectorAll(
@@ -185,6 +212,75 @@ describe('Render component <MapLocationsComponent/>', () => {
         expect(queryByText(location.name)).toBeInTheDocument()
       })
       expect(queryByText('Locaciones en: B City 1')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('When select a location', () => {
+    it('Should not call onSelect when no prop exists', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent mapLocations={[...mapLocations]} />
+      )
+      fireEvent.click(queryByText('Location 3'))
+      expect(mockFunction).not.toHaveBeenCalled()
+    })
+
+    it('Should add selector flag at the location when click this', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent
+          mapLocations={[...mapLocations]}
+          onSelectLocation={mockFunction}
+        />
+      )
+      fireEvent.click(queryByText('Location 3'))
+      expect(mockFunction).toHaveBeenCalledWith('location3')
+      expect(queryByText('Location 3').parentElement.className).toContain(
+        'selected'
+      )
+      expect(queryByText('B Location 1').parentElement.className).not.toContain(
+        'selected'
+      )
+      fireEvent.click(queryByText('B Location 1'))
+      expect(queryByText('Location 3').parentElement.className).not.toContain(
+        'selected'
+      )
+      expect(queryByText('B Location 1').parentElement.className).toContain(
+        'selected'
+      )
+    })
+
+    it('Should remove all selector flag when selecting a city', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent
+          mapLocations={[...mapLocations]}
+          onSelectLocation={mockFunction}
+        />
+      )
+      fireEvent.click(queryByText('Location 3'))
+      expect(queryByText('Location 3').parentElement.className).toContain(
+        'selected'
+      )
+      fireEvent.click(queryByText('Seleccione una opción'))
+      fireEvent.click(queryByText('C City 2'))
+      expect(queryByText('Location 3').parentElement.className).not.toContain(
+        'selected'
+      )
+      expect(mockFunction).toHaveBeenCalledWith(null)
+    })
+  })
+
+  describe('When receive defaultLocationSelected', () => {
+    it('Should select city and location when receive prop and the values exist', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent
+          mapLocations={[...mapLocations]}
+          placeholder="Select a city"
+          defaultLocationSelected="location4"
+        />
+      )
+      expect(queryByText('C City 2')).toBeInTheDocument()
+      expect(queryByText('Location 4').parentElement.className).toContain(
+        'selected'
+      )
     })
   })
 })
