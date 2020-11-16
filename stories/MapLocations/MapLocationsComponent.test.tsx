@@ -76,11 +76,16 @@ describe('Render component <MapLocationsComponent/>', () => {
     },
   ]
 
+  const mapProps = {
+    mapLocations: [...mapLocations],
+    mapHeight: '400px',
+    mapWidth: '400px',
+    googleMapsApiKey: '',
+  }
+
   describe('When receives a list of cities with locations', () => {
     it('Should show a select component with a list of cities', () => {
-      const { getByText } = render(
-        <MapLocationsComponent mapLocations={[...mapLocations]} />
-      )
+      const { getByText } = render(<MapLocationsComponent {...mapProps} />)
       fireEvent.click(getByText('Seleccione una opción'))
       mapLocations.forEach((city) => {
         expect(getByText(city.name)).toBeInTheDocument()
@@ -90,9 +95,7 @@ describe('Render component <MapLocationsComponent/>', () => {
     it.each(mapLocations)(
       'Should show all locations data for %p',
       ({ name, locations }) => {
-        const { getByText } = render(
-          <MapLocationsComponent mapLocations={[...mapLocations]} />
-        )
+        const { getByText } = render(<MapLocationsComponent {...mapProps} />)
         expect(getByText(`Locaciones en: ${name}`)).toBeInTheDocument()
         locations.forEach((location) => {
           expect(getByText(location.name)).toBeInTheDocument()
@@ -104,6 +107,7 @@ describe('Render component <MapLocationsComponent/>', () => {
     it('Should hide description container if location description does not exist', () => {
       const { getByText } = render(
         <MapLocationsComponent
+          {...mapProps}
           mapLocations={[
             {
               id: 'cityND',
@@ -130,6 +134,7 @@ describe('Render component <MapLocationsComponent/>', () => {
     it('Should hide city if no have locations', () => {
       const { queryByText } = render(
         <MapLocationsComponent
+          {...mapProps}
           mapLocations={[
             {
               id: 'cityND',
@@ -150,10 +155,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When receive placeholder', () => {
     it('Should show custom placeholder', () => {
       const { queryByText } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          placeholder="Select a city"
-        />
+        <MapLocationsComponent {...mapProps} placeholder="Select a city" />
       )
       expect(queryByText('Seleccione una opción')).not.toBeInTheDocument()
       expect(queryByText('Select a city')).toBeInTheDocument()
@@ -163,10 +165,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When receive label', () => {
     it('Should show label above the select', () => {
       const { queryByText } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          label="Cities"
-        />
+        <MapLocationsComponent {...mapProps} label="Cities" />
       )
       expect(queryByText('Cities')).toBeInTheDocument()
     })
@@ -175,10 +174,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When receives alphabeticalOrder prop', () => {
     it('Should show list of cities and locations ordered alphabetically', () => {
       const { getByText, container } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          alphabeticalOrder={true}
-        />
+        <MapLocationsComponent {...mapProps} alphabeticalOrder={true} />
       )
       fireEvent.click(getByText('Seleccione una opción'))
       const optionList = container.querySelectorAll('.locations-nav li')
@@ -197,7 +193,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When select a city', () => {
     it('Should show only the locations of that city without the city name', () => {
       const { queryByText, container } = render(
-        <MapLocationsComponent mapLocations={[...mapLocations]} />
+        <MapLocationsComponent {...mapProps} />
       )
       fireEvent.click(queryByText('Seleccione una opción'))
       fireEvent.click(queryByText('B City 1'))
@@ -218,7 +214,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When select a location', () => {
     it('Should not call onSelect when no prop exists', () => {
       const { queryByText } = render(
-        <MapLocationsComponent mapLocations={[...mapLocations]} />
+        <MapLocationsComponent {...mapProps} />
       )
       fireEvent.click(queryByText('Location 3'))
       expect(mockFunction).not.toHaveBeenCalled()
@@ -226,9 +222,7 @@ describe('Render component <MapLocationsComponent/>', () => {
 
     it('Should add selector flag at the location when click this', () => {
       const { queryByText } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          onSelectLocation={mockFunction}
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction}
         />
       )
       fireEvent.click(queryByText('Location 3'))
@@ -250,9 +244,7 @@ describe('Render component <MapLocationsComponent/>', () => {
 
     it('Should remove all selector flag when selecting a city', () => {
       const { queryByText } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          onSelectLocation={mockFunction}
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction}
         />
       )
       fireEvent.click(queryByText('Location 3'))
@@ -271,9 +263,7 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When receive defaultLocationSelected', () => {
     it('Should select city and location when receive prop and the values exist', () => {
       const { queryByText } = render(
-        <MapLocationsComponent
-          mapLocations={[...mapLocations]}
-          placeholder="Select a city"
+        <MapLocationsComponent {...mapProps} placeholder="Select a city"
           defaultLocationSelected="location4"
         />
       )

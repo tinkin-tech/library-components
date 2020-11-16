@@ -11,7 +11,7 @@ import {
 import { SelectComponent } from '..'
 import es_EC from './languages/es_EC'
 
-interface ILocation {
+export interface ILocation {
   id: string
   name: string
   lat: number
@@ -19,7 +19,7 @@ interface ILocation {
   description?: string
 }
 
-interface ICity {
+export interface ICity {
   id: string | number
   name: string
   locations: Array<ILocation>
