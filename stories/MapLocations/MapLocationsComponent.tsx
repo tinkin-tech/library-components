@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ClustererProps } from '@react-google-maps/api/dist/components/addons/MarkerClusterer'
 import {
   GoogleMap,
   MarkerClusterer,
@@ -40,6 +41,11 @@ export interface IMapLocationComponentProps {
   optionDescriptionExtraClass?: string
   title?: string
   titleExtraClass?: string
+  markerClusterIcon?: string
+  markerClusterIconExtension?: string
+  markerIcon?: string
+  clusterSuffix?: string
+  viewAllLabel?: string
   customInfoContent?: (ILocation) => JSX.Element
 }
 const MapLocationsComponent = (
@@ -63,6 +69,11 @@ const MapLocationsComponent = (
     mapHeight,
     mapWidth,
     customInfoContent,
+    markerClusterIcon,
+    markerIcon,
+    markerClusterIconExtension,
+    clusterSuffix,
+    viewAllLabel,
   } = props
   const mapContainer = React.useRef(null)
   const [isOpenDetail, ChangeIsOpenDetail] = React.useState(false)
@@ -156,8 +167,11 @@ const MapLocationsComponent = (
 
   const locationsPoints = genMapLocations()
 
-  const optionsLocations = {
+  const optionsLocations: ClustererProps = {
+    children: null,
+    imageExtension: markerClusterIconExtension || 'png',
     imagePath:
+      markerClusterIcon ||
       'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
   }
 
@@ -251,7 +265,7 @@ const MapLocationsComponent = (
             ): { text: string; index: number; title: string } => {
               const clusterCity = findCityByLat(markers[0].position.lat())
               return {
-                text: `${markers.length} agencias`,
+                text: `${markers.length} ${clusterSuffix || ''}`,
                 index: num,
                 title: clusterCity.name,
               }
@@ -272,6 +286,7 @@ const MapLocationsComponent = (
             {(clusterer): Array<JSX.Element> =>
               locationsPoints.map((locationPoint) => (
                 <Marker
+                  icon={markerIcon}
                   key={`${locationPoint.lat}${locationPoint.lng}`}
                   position={locationPoint}
                   clusterer={clusterer}
@@ -284,15 +299,13 @@ const MapLocationsComponent = (
           </MarkerClusterer>
           {!!(activeLocation && isOpenDetail) && (
             <InfoWindow
-              options={
-                {
-                  pixelOffset: {
-                    height: -50,
-                    width: 0,
-                  },
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                } as any
-              }
+              options={{
+                pixelOffset: {
+                  height: -50,
+                  width: 0,
+                  equals: (): boolean => true,
+                },
+              }}
               onCloseClick={(): void => ChangeIsOpenDetail(false)}
               position={{ lat: activeLocation.lat, lng: activeLocation.lng }}
             >
@@ -316,7 +329,7 @@ const MapLocationsComponent = (
     }))
 
   if (activeCity) {
-    selectOptions.push({ label: 'Ver Todos', id: null })
+    selectOptions.push({ label: viewAllLabel || es_EC.VIEW_ALL, id: null })
   }
 
   return (
@@ -326,7 +339,7 @@ const MapLocationsComponent = (
         ref={mapContainer}
         style={{ height: mapHeight, width: mapWidth }}
       >
-        {isLoaded ? renderMap() : 'cargando'}
+        {isLoaded ? renderMap() : es_EC.LOADING}
       </div>
       <div className="locations-nav">
         <div className="location-selector">
@@ -348,11 +361,7 @@ const MapLocationsComponent = (
           className="location-list"
           style={{ height: `calc(${mapHeight} - 4rem)` }}
         >
-          {!!title && (
-            <h2 className={titleExtraClass}>
-              Selecciona tu agencia más cercana
-            </h2>
-          )}
+          {!!title && <h2 className={titleExtraClass}>{title}</h2>}
           {activeCity || defaultSelectedCity
             ? genLocations(
                 !activeCity && defaultSelectedCity
