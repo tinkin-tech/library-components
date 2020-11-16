@@ -1,4 +1,4 @@
-.select-component { 
+.select-component {
   position: relative;
   .label {
     cursor: pointer;
@@ -11,8 +11,7 @@
     padding: $select-padding;
     display: flex;
     width: $select-width;
-    display: flex;
-    flex-direction: flex-column;
+    flex-direction: column;
     cursor: pointer;
     position: relative;
     .icon-arrow-down {
@@ -21,7 +20,7 @@
       right: 1rem;
       top: calc(50% - .4rem)
     }
-  } 
+  }
   .selector-container {
     list-style-type: none;
     position: absolute;
@@ -35,10 +34,10 @@
     padding: 0;
     border-radius: $select-radius;
     .selector-item {
-      padding: $select-item-padding;
       display: flex;
       cursor: pointer;
       a {
+        padding: $select-item-padding;
         width: 100%;
       }
       &:hover {

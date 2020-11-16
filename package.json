@@ -1,6 +1,6 @@
 {
   "name": "@tinkin/storybook",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Front End components Library for tinkin projects",
   "files": [
     "dist"
@@ -29,7 +29,8 @@
     "@storybook/react": "^6.0.22",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.4",
-    "@tinkin/eslint-config": "^0.2.23",
+    "@tinkin/eslint-config": "^0.2.25",
+    "@types/googlemaps": "^3.40.3",
     "@types/react-test-renderer": "^16.9.2",
     "babel-loader": "^8.1.0",
     "cross-env": "^7.0.2",

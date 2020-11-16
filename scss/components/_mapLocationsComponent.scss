@@ -1,0 +1,65 @@
+$map-locations-navigation-padding: 1rem;
+$map-locations-locations-martin-top: 1rem;
+$map-locations-list-padding: 2.5rem;
+$map-locations-list-bottom-margin: 1rem;
+$map-locations-list-border-separator: 1px solid rgba($color-secondary, .2);
+$map-locations-check-size: 24px;
+$map-locations-check-inactive-color: rgba($color-secondary, .4);
+$map-locations-check-active-color: $color-primary;
+
+.map-locations-component{
+  @include flexbox();
+  @include flex-direction(row);
+  width: 100%;
+  .location-selector{
+    padding: 0 $map-locations-locations-martin-top;
+  }
+  .locations-nav{
+    @include flex(1);
+    .location-list {
+     overflow: auto;
+      padding: 0 $map-locations-navigation-padding $map-locations-navigation-padding;
+      margin-top: $map-locations-locations-martin-top;
+      .locations-block{
+        .location-item{
+          position: relative;
+          cursor: pointer;
+          padding-left: $map-locations-list-padding;
+          margin-bottom: calc(#{$map-locations-list-bottom-margin} / 2);
+          padding-bottom: calc(#{$map-locations-list-bottom-margin} / 2);
+          border-bottom: $map-locations-list-border-separator;
+          &:last-child{
+            border-bottom-width: 0;
+          }
+          &:after{
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: $map-locations-check-size;
+            height: $map-locations-check-size;
+            border: 2px solid $map-locations-check-inactive-color;
+          }
+          &.selected{
+            &:after{
+              border-color: $map-locations-check-active-color;
+            }
+            &:before{
+              content: '';
+              display: block;
+              position: absolute;
+              width: calc((70 * #{$map-locations-check-size}) / 100);
+              height: calc(#{$map-locations-check-size} / 3.5);
+              border-bottom: 2px solid $map-locations-check-active-color;
+              border-left: 2px solid $map-locations-check-active-color;
+              @include transform(rotate(-55deg));
+              top: calc((#{$map-locations-check-size} - 4px) * 0.35);
+              left: calc((#{$map-locations-check-size} - 4px) * 0.25);
+            }
+          }
+        }
+      }
+    }
+  }
+}
