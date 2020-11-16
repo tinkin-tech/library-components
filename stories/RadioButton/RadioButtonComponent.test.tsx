@@ -298,4 +298,21 @@ describe('render component <RadioButtonComponent />', () => {
       )
     })
   })
+
+  describe('when receive deselect enabled', () => {
+    it('should call onChangeValue when selected or not', () => {
+      const { getByText } = render(
+        <RadioButtonComponent
+          options={options}
+          extraLabelClassName={'label-class'}
+          value="id2"
+          onChangeValue={func}
+          valueId={'radioButtonValueId'}
+          deselectEnabled={true}
+        />
+      )
+      fireEvent.click(getByText('label2'))
+      expect(func).toHaveBeenCalledWith('id2', 'radioButtonValueId')
+    })
+  })
 })
