@@ -30,7 +30,7 @@
     }
   }
   .radio-list-item{
-    padding: $radio-button-list-item-padding $radio-button-list-item-padding $radio-button-list-item-padding calc(#{$radio-button-list-item-padding} + 1rem);
+    padding: $radio-button-list-item-padding $radio-button-list-item-padding $radio-button-list-item-padding calc(#{$radio-button-item-width-height} + 1rem);
     position: relative;
     &:after, input{
       cursor: pointer;
@@ -39,7 +39,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      margin-top: calc(#{$radio-button-item-width-height} / 2);
+      margin-top: calc(-#{$radio-button-item-width-height} / 2);
       width: $radio-button-item-width-height;
       height: $radio-button-item-width-height;
       border: $radio-button-item-border-width solid $radio-button-list-item-radio-color;

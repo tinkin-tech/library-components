@@ -39,7 +39,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      margin-top: calc(#{$checkbox-list-item-width-height} / 2);
+      margin-top: calc(-#{$checkbox-list-item-width-height} / 2);
       width: $checkbox-list-item-width-height;
       height: $checkbox-list-item-width-height;
       border: $checkbox-list-item-border-width solid $checkbox-list-item-border-color;
