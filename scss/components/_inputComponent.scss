@@ -5,19 +5,21 @@
     font-family: $input-fontfamily;
     border-radius: $input-radius;
     background: $input-backgroud;
-    border: $input-border;
+    border-width: $input-border-width;
+    border-style: $input-border-style;
+    border-color: $input-border-color;
     color: $input-color;
     font-weight: $input-weight;
     width: calc(100% - 1rem);
     line-height: $input-height;
     &:focus {
       background: $input-background-focus;
-      border: $input-border-focus;
+      border: $input-border-focus-color;
     }
     &.warning {
-      border: $input-border-warning;
+      border: $input-border-warning-color;
     }
-    &:placeholder {
+    &::placeholder {
       color: $input-color-placeholder;
     }
   }

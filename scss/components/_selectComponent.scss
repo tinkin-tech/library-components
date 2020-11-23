@@ -4,7 +4,9 @@
     cursor: pointer;
   }
   .select-button {
-    border: $select-border;
+    border-width: $select-border-width;
+    border-style: $select-border-style;
+    border-color: $select-border-color;
     background: $select-background;
     font-size: $select-fontsize;
     border-radius: $select-radius;
@@ -54,7 +56,7 @@
   }
   &.select-component-error {
     .select-button {
-      border: $select-border-error;
+      border-color: $select-border-error-color;
     }
   }
   &.select-component-disable {

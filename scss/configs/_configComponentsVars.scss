@@ -15,13 +15,15 @@ $input-padding: .5rem .5rem .4rem .5rem;
 $input-fontsize: $fontsize-default;
 $input-radius: $radio-small;
 $input-backgroud: color('gray', 'lighten-5');
-$input-border: 1px solid color('gray', 'lighten-4');
+$input-border-width: 1px;
+$input-border-style: solid;
+$input-border-color: color('gray', 'lighten-4');
 $input-color: color('gray', 'darken-3');
 $input-weight: 500;
 $input-background-focus: color('primary', 'lighten-3');
-$input-border-focus: 1px solid $color-primary;
+$input-border-focus-color: $color-primary;
 $input-height: 1.5rem;
-$input-border-warning: 1px solid $color-warning;
+$input-border-warning-color: $color-warning;
 $input-color-placeholder:  color('gray', 'lighten-1');
 $input-error-color-warning: $color-warning;
 $input-label-color-focus: $color-primary;
@@ -62,7 +64,9 @@ $multilevel-filter-options-text-size: $fontsize-small;
 
 // SelectComponent
 
-$select-border: 1px solid color('gray', 'lighten-4');
+$select-border-width: 1px;
+$select-border-style: solid;
+$select-border-color: color('gray', 'lighten-4');
 $select-background: $color-white;
 $select-padding: .5rem .5rem .4rem .5rem;
 $select-radius: $radio-small;
@@ -70,7 +74,7 @@ $select-item-hover: color('gray', 'lighten-5');
 $select-height: 40px;
 $select-width: calc(100% - 1rem);
 $select-item-padding: .5rem;
-$select-border-error: 1px solid $color-warning;
+$select-border-error-color: $color-warning;
 $select-disable-opacity: .6;
 $select-background-selector: $color-white;
 $select-boxshadow-selector: $z-depth-1;

@@ -18,6 +18,7 @@ export interface IRadioButtonComponent {
   required?: boolean
   extraListItemClassName?: string
   extraLabelClassName?: string
+  deselectEnabled?: boolean
 }
 
 export const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
@@ -36,13 +37,13 @@ export const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
     extraListItemClassName,
     extraLabelClassName,
     valueId,
+    deselectEnabled,
   } = props
 
   const onChangeAction = (newValue: string | number): void => {
-    if (disabled || newValue === value) {
-      return null
+    if (!(disabled || (newValue === value && !deselectEnabled))) {
+      onChangeValue(newValue, valueId)
     }
-    onChangeValue(newValue, valueId)
   }
 
   const radioButtonClass = [
@@ -74,7 +75,7 @@ export const RadioButtonComponent: React.FC<IRadioButtonComponent> = (
           } ${value === option.id ? 'selected' : ''}`}
         >
           <input
-            type="radio"
+            type="checkbox"
             id={option.id.toString()}
             checked={value === option.id}
             onChange={(): void => onChangeAction(option.id)}
