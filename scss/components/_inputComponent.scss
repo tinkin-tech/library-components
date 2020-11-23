@@ -14,10 +14,10 @@
     line-height: $input-height;
     &:focus {
       background: $input-background-focus;
-      border: $input-border-focus-color;
+      border-color: $input-border-focus-color;
     }
     &.warning {
-      border: $input-border-warning-color;
+      border-color: $input-border-warning-color;
     }
     &::placeholder {
       color: $input-color-placeholder;
