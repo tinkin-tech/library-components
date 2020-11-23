@@ -82,14 +82,19 @@ $select-fontsize: $fontsize-default;
 
 // CheckboxComponent
 
+$checkbox-list-item-border-width: 2px;
+$checkbox-list-item-width-height: 24px;
 $checkbox-list-item-padding: .5rem;
 $checkbox-list-item-font-color: color('gray', 'lighten-2');
+$checkbox-list-item-border-color: #ffffff;
 $checkbox-list-item-font-size: $fontsize-default;
 $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: $color-primary;
 $checkbox-list-item-check-error-color: $color-warning;
 $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
+$checkbox-list-item-selected-border-color: $color-primary;
+$checkbox-list-item-selected-background-color: $color-primary;
 
 // TooltipComponent
 
@@ -126,6 +131,8 @@ $uploader-error-color: $color-warning;
 
 // RadioButtonComponent
 
+$radio-button-item-width-height: 24px;
+$radio-button-item-border-width: 2px;
 $radio-button-list-item-padding: .5rem;
 $radio-button-list-item-font-color: color('gray', 'lighten-2');
 $radio-button-list-item-font-size: $fontsize-default;
@@ -134,6 +141,9 @@ $radio-button-list-item-radio-color: $color-primary;
 $radio-button-list-item-radio-error-color: $color-warning;
 $radio-button-list-item-font-disable-color: color('gray', 'lighten-3');
 $radio-button-list-item-radio-disable-color: color('gray', 'lighten-3');
+$radio-button-list-item-selected-border-color: $color-primary;
+$radio-button-list-item-selected-background: $color-primary;
+$radio-button-list-item-selected-border-separator-color: #ffffff;
 
 // Button Component
 

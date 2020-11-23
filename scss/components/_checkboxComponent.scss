@@ -30,7 +30,7 @@
     }
   }
   .check-list-item{
-    padding: $checkbox-list-item-padding $checkbox-list-item-padding $checkbox-list-item-padding 2rem;
+    padding: $checkbox-list-item-padding $checkbox-list-item-padding $checkbox-list-item-padding calc(#{$checkbox-list-item-width-height} + 1rem);
     position: relative;
     &:after, input{
       cursor: pointer;
@@ -39,10 +39,10 @@
       position: absolute;
       left: 0;
       top: 50%;
-      margin-top: -12px;
-      width: 24px;
-      height: 24px;
-      border: 2px solid $checkbox-list-item-check-color;
+      margin-top: calc(#{$checkbox-list-item-width-height} / 2);
+      width: $checkbox-list-item-width-height;
+      height: $checkbox-list-item-width-height;
+      border: $checkbox-list-item-border-width solid $checkbox-list-item-border-color;
       box-sizing: border-box;
       border-radius: $checkbox-list-item-check-radius;
     }
@@ -57,8 +57,8 @@
     }
     &.selected{
       &:after{
-        border-color: $checkbox-list-item-check-color;
-        background: $checkbox-list-item-check-color;
+        border-color: $checkbox-list-item-selected-border-color;
+        background: $checkbox-list-item-selected-background-color;
       }
       &:before{
         cursor: pointer;
@@ -72,7 +72,7 @@
         width: 8px;
         height: 14px;
         box-sizing: border-box;
-        border: #ffffff solid 2px;
+        border-color: $checkbox-list-item-check-color;
         border-left-width: 0;
         border-top-width: 0;
         @include transform(rotate(35deg))

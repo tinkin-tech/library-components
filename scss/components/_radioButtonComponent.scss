@@ -30,7 +30,7 @@
     }
   }
   .radio-list-item{
-    padding: $radio-button-list-item-padding $radio-button-list-item-padding $radio-button-list-item-padding 2rem;
+    padding: $radio-button-list-item-padding $radio-button-list-item-padding $radio-button-list-item-padding calc(#{$radio-button-list-item-padding} + 1rem);
     position: relative;
     &:after, input{
       cursor: pointer;
@@ -39,10 +39,10 @@
       position: absolute;
       left: 0;
       top: 50%;
-      margin-top: -12px;
-      width: 24px;
-      height: 24px;
-      border: 2px solid $radio-button-list-item-radio-color;
+      margin-top: calc(#{$radio-button-item-width-height} / 2);
+      width: $radio-button-item-width-height;
+      height: $radio-button-item-width-height;
+      border: $radio-button-item-border-width solid $radio-button-list-item-radio-color;
       box-sizing: border-box;
       border-radius: $radio-button-list-item-radio-radius;
     }
@@ -57,8 +57,8 @@
     }
     &.selected{
       &:after{
-        border-color: $radio-button-list-item-radio-color;
-        background: $radio-button-list-item-radio-color;
+        border-color: $radio-button-list-item-selected-border-color;
+        background: $radio-button-list-item-selected-background;
       }
       &:before{
         cursor: pointer;
@@ -72,7 +72,7 @@
         width: 16px;
         height: 16px;
         box-sizing: border-box;
-        border: #ffffff solid 2px;
+        border-color: $radio-button-list-item-selected-border-separator-color;
         border-radius: $radio-button-list-item-radio-radius;
       }
     }
