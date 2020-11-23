@@ -72,7 +72,7 @@
         width: 16px;
         height: 16px;
         box-sizing: border-box;
-        border-color: $radio-button-list-item-selected-border-separator-color;
+        border: $radio-button-list-item-selected-border-separator;
         border-radius: $radio-button-list-item-radio-radius;
       }
     }
