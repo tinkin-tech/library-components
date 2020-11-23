@@ -186,12 +186,17 @@ $tabs-item-text-family: $secondary-font;
 // Gallery Component
 
 $gallery-bullet-size: 20px;
+$gallery-thumbnail-width: 60px;
+$gallery-thumbnail-height: 50px;
+$gallery-thumbnail-align: center;
 $gallery-bullet-background: $color-white;
 $gallery-bullet-background-active: $color-primary;
 $gallery-bullet-border: 2px solid rgba(color('gray', 'lighten-5'), .5);
 $gallery-bullet-border-active: 2px solid rgba(color('gray', 'lighten-1'), .5);
-$gallery-thumbnail-border: 2px solid rgba(color('gray', 'lighten-1'), .5);
-$gallery-thumbnail-border-active: 2px solid rgba(color('gray', 'lighten-5'), .5);
+$gallery-thumbnail-border-width: 2px;
+$gallery-thumbnail-border-color: rgba(color('gray', 'lighten-1'), .5);
+$gallery-thumbnail-border-style: solid;
+$gallery-thumbnail-border-active-color: rgba(color('gray', 'lighten-5'), .5);
 $gallery-arrows-width: 40px;
 $gallery-arrows-background: rgba(color('gray', 'lighten-1'), .3);
 $gallery-arrows-color: $color-white;

@@ -30,7 +30,7 @@
   .gallery-thumbnails {
     position: relative;
     width: 100%;
-    text-align: center;
+    text-align: $gallery-thumbnail-align;
     z-index: 5;
     @media #{$small-and-down} {
       bottom: auto;
@@ -38,15 +38,17 @@
     }
     a {
       display: inline-block;
-      width: 50px;
-      height: 50px;
+      width: $gallery-thumbnail-width;
+      height: $gallery-thumbnail-height;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
       margin: 5px;
-      border: $gallery-thumbnail-border;
+      border-width: $gallery-thumbnail-border-width;
+      border-style: $gallery-thumbnail-border-style;
+      border-color: $gallery-thumbnail-border-color;
       &.active {
-        border: $gallery-thumbnail-border-active;
+        border-color: $gallery-thumbnail-border-active-color;
       }
     }
   }
