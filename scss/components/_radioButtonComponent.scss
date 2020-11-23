@@ -66,9 +66,9 @@
         content: '';
         display: block;
         position: absolute;
-        left: 50%;
+        left: 0;
         top: 50%;
-        margin-left: calc(-#{$radio-button-list-item-selected-bullet-width-height} / 2);
+        margin-left: calc((#{$radio-button-item-width-height} - #{$radio-button-list-item-selected-bullet-width-height}) / 2);
         margin-top: calc(-#{$radio-button-list-item-selected-bullet-width-height} / 2);
         width: $radio-button-list-item-selected-bullet-width-height;
         height: $radio-button-list-item-selected-bullet-width-height;

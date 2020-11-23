@@ -73,6 +73,9 @@
         height: 14px;
         box-sizing: border-box;
         border-color: $checkbox-list-item-check-color;
+        border-style: solid;
+        border-bottom-width: 1px;
+        border-riht-width: 1px;
         border-left-width: 0;
         border-top-width: 0;
         @include transform(rotate(35deg))
