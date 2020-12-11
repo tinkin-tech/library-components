@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-type buttonType =
+export type IButtonType =
   | 'primary'
   | 'secondary'
   | 'warning'
@@ -19,7 +19,7 @@ export interface IButtonComponent {
   onClick?: () => void
   disabled?: boolean
   visualDisabled?: boolean
-  buttonType?: buttonType
+  buttonType?: IButtonType
   smallButton?: boolean
   buttonClass?: string
   extraButtonClass?: string

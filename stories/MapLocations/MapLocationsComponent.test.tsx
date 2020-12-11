@@ -1,8 +1,24 @@
-import * as React from 'react'
+import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import googleApi from '@react-google-maps/api'
 
 import MapLocationsComponent from './MapLocationsComponent'
+import { IAbstractProp } from '../../utils/interface/SharedInterface'
+import {
+  googleMock,
+  mockGoogleMap,
+  mockInfoWindow,
+  mockMarker,
+  mockMarkerCluster,
+} from './GoogleMapsMock'
+
+const mockLatLng = (): IAbstractProp => ({
+  lat: jest.fn().mockImplementation(() => 0.00834),
+  lng: jest.fn().mockImplementation(() => 0.00534),
+})
+
+global.google = googleMock(mockLatLng)
 
 describe('Render component <MapLocationsComponent/>', () => {
   const mockFunction = jest.fn()
@@ -70,7 +86,7 @@ describe('Render component <MapLocationsComponent/>', () => {
           name: 'C Location 7',
           description: 'Description location 7',
           lat: 0.00058,
-          lng: 0.000088,
+          lng: 0.000078,
         },
       ],
     },
@@ -162,6 +178,15 @@ describe('Render component <MapLocationsComponent/>', () => {
     })
   })
 
+  describe('When receive title', () => {
+    it('Should show title', () => {
+      const { queryByText } = render(
+        <MapLocationsComponent {...mapProps} title="Map Title" />
+      )
+      expect(queryByText('Map Title')).toBeInTheDocument()
+    })
+  })
+
   describe('When receive label', () => {
     it('Should show label above the select', () => {
       const { queryByText } = render(
@@ -213,20 +238,23 @@ describe('Render component <MapLocationsComponent/>', () => {
 
   describe('When select a location', () => {
     it('Should not call onSelect when no prop exists', () => {
-      const { queryByText } = render(
-        <MapLocationsComponent {...mapProps} />
-      )
+      const { queryByText } = render(<MapLocationsComponent {...mapProps} />)
       fireEvent.click(queryByText('Location 3'))
       expect(mockFunction).not.toHaveBeenCalled()
     })
 
     it('Should add selector flag at the location when click this', () => {
       const { queryByText } = render(
-        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction}
-        />
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction} />
       )
       fireEvent.click(queryByText('Location 3'))
-      expect(mockFunction).toHaveBeenCalledWith('location3')
+      expect(mockFunction).toHaveBeenCalledWith({
+        description: 'Description location 3',
+        id: 'location3',
+        lat: 0.0015,
+        lng: 0.00095,
+        name: 'Location 3',
+      })
       expect(queryByText('Location 3').parentElement.className).toContain(
         'selected'
       )
@@ -244,8 +272,7 @@ describe('Render component <MapLocationsComponent/>', () => {
 
     it('Should remove all selector flag when selecting a city', () => {
       const { queryByText } = render(
-        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction}
-        />
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction} />
       )
       fireEvent.click(queryByText('Location 3'))
       expect(queryByText('Location 3').parentElement.className).toContain(
@@ -263,7 +290,9 @@ describe('Render component <MapLocationsComponent/>', () => {
   describe('When receive defaultLocationSelected', () => {
     it('Should select city and location when receive prop and the values exist', () => {
       const { queryByText } = render(
-        <MapLocationsComponent {...mapProps} placeholder="Select a city"
+        <MapLocationsComponent
+          {...mapProps}
+          placeholder="Select a city"
           defaultLocationSelected="location4"
         />
       )
@@ -271,6 +300,111 @@ describe('Render component <MapLocationsComponent/>', () => {
       expect(queryByText('Location 4').parentElement.className).toContain(
         'selected'
       )
+    })
+  })
+
+  describe('When call google maps api', () => {
+    const googleApiMock: IAbstractProp = googleApi as jest.MockOptions
+    const mockReact: IAbstractProp = React as jest.MockOptions
+
+    beforeAll(() => {
+      mockReact.useRef = jest.fn()
+      mockReact.useRef.mockImplementation(() => ({
+        current: {
+          offsetWidth: 400,
+          offsetHeight: 300,
+        },
+      }))
+      googleApiMock.useLoadScript = jest.fn()
+      googleApiMock.InfoWindow = mockInfoWindow
+      googleApiMock.Marker = mockMarker
+      googleApiMock.MarkerClusterer = mockMarkerCluster(0.00058)
+      googleApiMock.GoogleMap = mockGoogleMap
+      googleApiMock.useLoadScript.mockImplementation(() => ({ isLoaded: true }))
+    })
+
+    it('Should render a google map', () => {
+      const { queryByText, queryAllByText } = render(
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction} />
+      )
+      expect(queryByText('Google Map is Load')).toBeInTheDocument()
+      expect(queryByText('zoom: 21')).toBeInTheDocument()
+      fireEvent.click(queryByText('Location 3'))
+      expect(queryByText('zoom: 16')).toBeInTheDocument()
+      fireEvent.click(queryByText('Cluster Click'))
+      expect(queryByText('Cluster item: A City 3')).toBeInTheDocument()
+      expect(queryAllByText('Marker - Item')).toHaveLength(7)
+    })
+
+    it('Should select a city when clicking on the mark', () => {
+      const { queryAllByText, queryByText } = render(
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction} />
+      )
+      fireEvent.click(queryAllByText('Marker - Item')[2])
+      expect(mockFunction).toHaveBeenCalledWith({
+        id: 'location3',
+        name: 'Location 3',
+        description: 'Description location 3',
+        lat: 0.0015,
+        lng: 0.00095,
+      })
+      expect(queryByText('Move Mark Location')).toBeInTheDocument()
+      expect(queryByText('Active Info Mark')).toBeInTheDocument()
+      fireEvent.click(queryByText('close button'))
+      expect(queryByText('Active Info Mark')).not.toBeInTheDocument()
+    })
+
+    it('Should show custom info component if it has customInfoContent', () => {
+      const { queryAllByText, queryByText } = render(
+        <MapLocationsComponent
+          {...mapProps}
+          customInfoContent={(): IAbstractProp => <div>Custom Content</div>}
+        />
+      )
+      fireEvent.click(queryAllByText('Marker - Item')[2])
+      expect(queryByText('Custom Content')).toBeInTheDocument()
+    })
+
+    it('Should select a city when locations are not grouped', () => {
+      googleApiMock.MarkerClusterer = jest.fn().mockImplementation((props) => (
+        <div>
+          <a
+            onClick={(): IAbstractProp =>
+              props.onClick({
+                getMarkers: () => [
+                  { position: { lat: (): IAbstractProp => 0.00058 } },
+                  { position: { lat: (): IAbstractProp => 0.00068 } },
+                  { position: { lat: (): IAbstractProp => 0.00078 } },
+                ],
+              })
+            }
+          >
+            Cluster Click
+          </a>
+        </div>
+      ))
+      const { queryByText } = render(
+        <MapLocationsComponent {...mapProps} onSelectLocation={mockFunction} />
+      )
+      fireEvent.click(queryByText('Cluster Click'))
+      expect(mockFunction).toHaveBeenCalledWith(null)
+    })
+
+    it('Should set zoom in relation to height prop', () => {
+      mockReact.useRef.mockImplementation(() => ({
+        current: {
+          offsetWidth: 400,
+          offsetHeight: null,
+        },
+      }))
+      const { queryByText } = render(
+        <MapLocationsComponent
+          {...mapProps}
+          onSelectLocation={mockFunction}
+          mapHeight="800"
+        />
+      )
+      expect(queryByText('zoom: 21')).toBeInTheDocument()
     })
   })
 })

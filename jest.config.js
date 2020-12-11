@@ -14,6 +14,7 @@ module.exports = {
     '!**/*.fixture.tsx',
     '!./index.ts',
     '!./stories/index.ts',
+    '!./stories/MapLocations/GoogleMapsMock.tsx',
   ],
   coverageThreshold: {
     global: {
