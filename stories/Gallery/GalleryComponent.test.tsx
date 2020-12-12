@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { act } from 'react-dom/test-utils'
 
 import { GalleryComponent } from './GalleryComponent'
 
@@ -16,6 +17,29 @@ describe('Render component <GalleryComponent/>', () => {
       image: 'image2.jpg',
       thumbnail: 'image2_tm.jpg',
       title: 'Image Title 2',
+    },
+  ]
+
+  const imageListWithCategoriesMock = [
+    {
+      image: 'image4.jpg',
+      thumbnail: 'image4_tm.jpg',
+      category: 'Exterior',
+    },
+    {
+      image: 'image5.jpg',
+      thumbnail: 'image5_tm.jpg',
+      category: 'Exterior',
+    },
+    {
+      image: 'image6.jpg',
+      thumbnail: 'image6_tm.jpg',
+      category: 'Interior',
+    },
+    {
+      image: 'image7.jpg',
+      thumbnail: 'image7_tm.jpg',
+      category: 'Exterior',
     },
   ]
 
@@ -182,17 +206,20 @@ describe('Render component <GalleryComponent/>', () => {
       expect(container.querySelector('.gallery-arrow-nav')).toBeNull()
     })
 
-    it('Should be disabled prev arrow when active slide is equal 1', () => {
+    it('Should change to the last image when the active image is the first one and prev is clicked', () => {
       const { container } = render(
-        <GalleryComponent imageList={imageListMock} />
+        <GalleryComponent imageList={imageListMock} bulletType="thumbnails" />
       )
-      expect(container.querySelector('.arrow-prev').className).toContain(
-        'disable'
+      fireEvent.click(
+        container.querySelectorAll('.gallery-thumbnails .button-thumbnails')[0]
       )
       fireEvent.click(container.querySelector('.arrow-prev'))
       expect(
+        container.querySelector('.gallery-item.active').getAttribute('style')
+      ).toEqual('background-image: url(image2.jpg);')
+      expect(
         container.querySelector('.gallery-block').getAttribute('style')
-      ).toEqual('left: -0%;')
+      ).toEqual('left: -100%;')
     })
 
     it('Should activate next image when click on next arrow', () => {
@@ -240,21 +267,20 @@ describe('Render component <GalleryComponent/>', () => {
       ).toContain('active')
     })
 
-    it('Should be disabled next arrow when active slide is last item', () => {
+    it('Should change to the first image when the active image is the last one and next is clicked', () => {
       const { container } = render(
-        <GalleryComponent imageList={imageListMock} />
+        <GalleryComponent imageList={imageListMock} bulletType="thumbnails" />
       )
-      expect(container.querySelector('.arrow-next').className).not.toContain(
-        'disable'
-      )
-      fireEvent.click(container.querySelector('.arrow-next'))
-      expect(container.querySelector('.arrow-next').className).toContain(
-        'disable'
+      fireEvent.click(
+        container.querySelectorAll('.gallery-thumbnails .button-thumbnails')[1]
       )
       fireEvent.click(container.querySelector('.arrow-next'))
       expect(
+        container.querySelector('.gallery-item.active').getAttribute('style')
+      ).toEqual('background-image: url(image1.jpg);')
+      expect(
         container.querySelector('.gallery-block').getAttribute('style')
-      ).toEqual('left: -100%;')
+      ).toEqual('left: -0%;')
     })
   })
 
@@ -327,6 +353,91 @@ describe('Render component <GalleryComponent/>', () => {
         />
       )
       expect(container.querySelector('a.extra-class')).toBeInTheDocument()
+    })
+
+    it('Should open link in new tab when image item target is blank and has link ', () => {
+      const { container } = render(
+        <GalleryComponent
+          imageList={[
+            ...imageListMock,
+            {
+              image: 'image3.jpg',
+              link: 'https://www.tinkin.one',
+              thumbnail: 'image3_tm.jpg',
+              title: 'Image Title 3',
+              target: '_blank',
+            },
+          ]}
+          target={'_self'}
+        />
+      )
+      expect(
+        container.querySelectorAll('.gallery-item')[2].closest('a')
+      ).toHaveAttribute('target', '_blank')
+    })
+  })
+
+  describe('When it receives categories filter', () => {
+    it('Should show category navigation if it have items with category prop', () => {
+      const { container } = render(
+        <GalleryComponent
+          imageList={imageListWithCategoriesMock}
+          showCategoryFilter={true}
+        />
+      )
+      expect(container.querySelector('.categories-filter')).toBeInTheDocument()
+      expect(container.querySelectorAll('.category-tab')).toHaveLength(3)
+      expect(
+        container.querySelectorAll('.category-tab')[0].classList
+      ).toContain('active')
+    })
+
+    it("Should hide category navigation if it don't have items with category property", () => {
+      const { container } = render(
+        <GalleryComponent imageList={imageListMock} showCategoryFilter={true} />
+      )
+      expect(
+        container.querySelector('.categories-filter')
+      ).not.toBeInTheDocument()
+    })
+
+    it('Should filter images by category when clicking on it', () => {
+      const { container } = render(
+        <GalleryComponent
+          imageList={imageListWithCategoriesMock}
+          showCategoryFilter={true}
+        />
+      )
+      expect(container.querySelectorAll('.gallery-item')).toHaveLength(4)
+      fireEvent.click(container.querySelectorAll('.category-tab')[1])
+      expect(container.querySelectorAll('.gallery-item')).toHaveLength(3)
+      fireEvent.click(container.querySelector('.arrow-next'))
+      fireEvent.click(container.querySelectorAll('.category-tab')[2])
+      expect(container.querySelectorAll('.gallery-item')).toHaveLength(1)
+      expect(
+        container.querySelector('.gallery-item.active').getAttribute('style')
+      ).toEqual('background-image: url(image6.jpg);')
+    })
+  })
+
+  describe('When it receives auto play interval', () => {
+    it('Should switch to the next image after the time interval', async () => {
+      let component = null
+      act(() => {
+        jest.useFakeTimers()
+        component = render(
+          <GalleryComponent imageList={imageListMock} autoPlayInterval={2000} />
+        )
+        jest.advanceTimersByTime(3000)
+      })
+      expect(
+        component.container
+          .querySelector('.gallery-block')
+          .getAttribute('style')
+      ).toEqual('left: -100%;')
+      expect(
+        component.container.querySelectorAll('.gallery-item')[1].className
+      ).toContain('active')
     })
   })
 })

@@ -1,6 +1,49 @@
 .gallery-component {
   display: block;
   position: relative;
+  .categories-filter{
+    display: block;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-width: $gallery-categories-tab-border-width;
+    border-color: $gallery-categories-tab-border-color;
+    border-style: solid;
+    box-sizing: border-box;
+    &:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    li{
+      display: block;
+      float: left;
+      &.active{
+        a{
+          background: $gallery-categories-tab-item-active-background;
+          border-color: $gallery-categories-tab-item-active-border-color;
+          color: $gallery-categories-tab-item-active-text-color;
+        }
+      }
+      a{
+        cursor: pointer;
+        display: block;
+        background: $gallery-categories-tab-item-background;
+        border-width: $gallery-categories-tab-item-border-width;
+        border-color: $gallery-categories-tab-item-border-color;
+        border-style: solid;
+        box-sizing: border-box;
+        margin: $gallery-categories-tab-item-margin;
+        padding: $gallery-categories-tab-item-padding;
+        color: $gallery-categories-tab-item-text-color;
+        font-size: $gallery-categories-tab-item-text-size;
+        font-weight: $gallery-categories-tab-item-text-weight;
+        font-family: $gallery-categories-tab-item-text-family;
+        @include transition(all .4s)
+      }
+    }
+  }
   .gallery-bullets {
     position: absolute;
     bottom: 2rem;
