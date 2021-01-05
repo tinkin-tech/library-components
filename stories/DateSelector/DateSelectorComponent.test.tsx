@@ -404,7 +404,7 @@ describe('render component <DateSelectorComponent />', () => {
       expect(curretSelector[curretSelector.length - 1].innerHTML).toContain(
         maxDateObject.month
       )
-      fireEvent.click(getByText(maxDateObject.month))
+      fireEvent.click(getAllByText(maxDateObject.month)[0])
       rerender(getComponent())
       fireEvent.click(
         maxDateObject.month === '01' ? getAllByText('01')[1] : getByText('01')
@@ -552,7 +552,7 @@ describe('render component <DateSelectorComponent />', () => {
         expect(querySelector[querySelector.length - 1].innerHTML).toContain(
           maxDateObject.month
         )
-        fireEvent.click(getByText(maxDateObject.month))
+        fireEvent.click(getAllByText(maxDateObject.month)[0])
         rerender(getComponent())
         fireEvent.click(
           maxDateObject.month === '01' ? getAllByText('01')[1] : getByText('01')

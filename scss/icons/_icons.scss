@@ -38,6 +38,14 @@
   }
 }
 
+.icon-arrow-top {
+  &:before{
+    right: calc(50% - .5em);
+    top: calc(50% - 0.10em);
+    @include transform(rotate(-45deg))
+  }
+}
+
 [class*="icon-close"]{
   position: relative;
   font-size: 1em;
