@@ -221,3 +221,15 @@ $gallery-categories-tab-item-active-text-color: color('gray', 'base');
 $gallery-categories-tab-item-text-size: $fontsize-default;
 $gallery-categories-tab-item-text-weight: 700;
 $gallery-categories-tab-item-text-family: $secondary-font;
+
+// MapComponent
+
+$map-locations-navigation-padding: 1rem;
+$map-locations-locations-martin-top: 1rem;
+$map-locations-list-padding: 2.5rem;
+$map-locations-list-bottom-margin: 1rem;
+$map-locations-list-border-separator: 1px solid rgba($color-secondary, .2);
+$map-locations-check-size: 24px;
+$map-locations-check-inactive-color: rgba($color-secondary, .4);
+$map-locations-check-active-color: $color-primary;
+$map-locations-check-border-width: 1px;
