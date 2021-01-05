@@ -1,0 +1,31 @@
+$accordion-component-toggle-width: 170px;
+$accordion-component-border: 2px solid $color-primary;
+$accordion-component-icon-border-width: 1px;
+$accordion-component-icon-border-color: $color-primary;
+
+.accordion-component {
+  .accordion-item {
+	  border-top: $accordion-component-border;
+    position: relative;
+    .toggle-switch {
+      width: $accordion-component-toggle-width;
+      position: absolute;
+      top: -.9rem;
+      left: calc(50% - #{$accordion-component-toggle-width / 2});
+      display: flex;
+      .icon-content {
+        position: relative;
+        width: 1rem;
+        .icon-arrow-down, .icon-arrow-top {
+          &:before {
+            border-width: $accordion-component-icon-border-width;
+            border-color: $accordion-component-icon-border-color;
+          }
+        }
+      }
+      .toggle-text {
+        padding-left: .5rem;
+      }
+    }
+  }
+}
