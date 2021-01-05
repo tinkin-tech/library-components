@@ -1,22 +1,16 @@
-$accordion-component-toggle-width: 170px;
-$accordion-component-border: 2px solid $color-primary;
-$accordion-component-icon-border-width: 1px;
-$accordion-component-icon-border-color: $color-primary;
-
 .accordion-component {
   .accordion-item {
-    border-top: $accordion-component-border;
-    position: relative;
+    border-width: $accordion-component-border-width;
+    border-color: $accordion-component-border-color;
+    border-style: $accordion-component-border-style;
+    width: $accordion-component-width;
+    padding: $accordion-component-padding;
     .toggle-switch {
-      width: $accordion-component-toggle-width;
-      position: absolute;
-      top: -.9rem;
-      left: calc(50% - #{$accordion-component-toggle-width / 2});
-      display: flex;
       .icon-content {
         position: relative;
-        width: 1rem;
+        width: $accordion-component-icon-width;
         .icon-arrow-down, .icon-arrow-top {
+          top: .4rem;
           &:before {
             border-width: $accordion-component-icon-border-width;
             border-color: $accordion-component-icon-border-color;
@@ -24,7 +18,8 @@ $accordion-component-icon-border-color: $color-primary;
         }
       }
       .toggle-text {
-        padding-left: .5rem;
+        color: $accordion-component-color;
+        padding: $accordion-component-padding-text;
       }
     }
   }
