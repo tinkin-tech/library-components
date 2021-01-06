@@ -62,6 +62,7 @@ export interface IMapLocationComponentProps {
   customInfoContent?: (ILocation) => JSX.Element
   cityPrefix?: string
   mapHeader?: JSX.Element
+  locationsListFooter?: JSX.Element
   customLayout?: Array<IMapStyle>
 }
 const MapLocationsComponent = (
@@ -93,6 +94,7 @@ const MapLocationsComponent = (
     viewAllLabel,
     cityPrefix,
     mapHeader,
+    locationsListFooter,
     customLayout,
   } = props
   const mapContainer = React.useRef(null)
@@ -312,7 +314,7 @@ const MapLocationsComponent = (
               locationsPoints.map((locationPoint) => (
                 <Marker
                   icon={
-                    activeLocation.id === locationPoint.id && markerIconActive
+                    activeLocation?.id === locationPoint.id && markerIconActive
                       ? markerIconActive
                       : markerIcon
                   }
@@ -405,6 +407,7 @@ const MapLocationsComponent = (
                   !!city.locations.length && genLocations(city, cityKey)
               )}
         </div>
+        {!!locationsListFooter && locationsListFooter}
       </div>
     </div>
   )
