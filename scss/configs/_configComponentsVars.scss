@@ -222,6 +222,19 @@ $gallery-categories-tab-item-text-size: $fontsize-default;
 $gallery-categories-tab-item-text-weight: 700;
 $gallery-categories-tab-item-text-family: $secondary-font;
 
+// Accordion Component
+
+$accordion-component-padding: .5rem;
+$accordion-component-width: 500px;
+$accordion-component-border-width: 2px;
+$accordion-component-border-color: $color-primary;
+$accordion-component-border-style: solid;
+$accordion-component-icon-width: 1rem;
+$accordion-component-icon-border-width: 1px;
+$accordion-component-icon-border-color: $color-primary;
+$accordion-component-padding-text: .5rem;
+$accordion-component-color: $color-primary;
+
 // MapComponent
 
 $map-locations-navigation-padding: 1rem;
