@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import AccordionComponent from './AccordionComponent'
+import { AccordionComponent } from './AccordionComponent'
 
 describe('when render <AccordionComponent />', () => {
   const defaultAccordionList = [
