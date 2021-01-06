@@ -10,6 +10,7 @@ import {
 
 import { SelectComponent } from '..'
 import es_EC from './languages/es_EC'
+import { IAbstractObject } from '../../utils/interface/SharedInterface'
 
 export interface ILocation {
   id: string
@@ -24,6 +25,17 @@ export interface ICity {
   name: string
   locations: Array<ILocation>
 }
+
+interface IMapStylers {
+  [name: string]: string | number
+}
+
+export interface IMapStyle {
+  featureType?: string
+  elementType?: string
+  stylers: Array<IMapStylers>
+}
+
 export interface IMapLocationComponentProps {
   googleMapsApiKey: string
   mapHeight: string
@@ -44,9 +56,14 @@ export interface IMapLocationComponentProps {
   markerClusterIcon?: string
   markerClusterIconExtension?: string
   markerIcon?: string
+  markerIconActive?: string
   clusterSuffix?: string
   viewAllLabel?: string
   customInfoContent?: (ILocation) => JSX.Element
+  cityPrefix?: string
+  mapHeader?: JSX.Element
+  locationsListFooter?: JSX.Element
+  customLayout?: Array<IMapStyle>
 }
 const MapLocationsComponent = (
   props: IMapLocationComponentProps
@@ -71,9 +88,14 @@ const MapLocationsComponent = (
     customInfoContent,
     markerClusterIcon,
     markerIcon,
+    markerIconActive,
     markerClusterIconExtension,
     clusterSuffix,
     viewAllLabel,
+    cityPrefix,
+    mapHeader,
+    locationsListFooter,
+    customLayout,
   } = props
   const mapContainer = React.useRef(null)
   const [isOpenDetail, ChangeIsOpenDetail] = React.useState(false)
@@ -119,9 +141,11 @@ const MapLocationsComponent = (
   ): JSX.Element => (
     <div key={key} className="locations-block">
       {!hideTitle && (
-        <h3
-          className={cityNameClass}
-        >{`${es_EC.LOCATION_CITY_PREFIX} ${cityLocations.name}`}</h3>
+        <h3 className={cityNameClass}>{`${
+          cityPrefix || cityPrefix === ''
+            ? cityPrefix
+            : es_EC.LOCATION_CITY_PREFIX
+        } ${cityLocations.name}`}</h3>
       )}
       {cityLocations.locations.map((location, locationKey) => (
         <div
@@ -244,17 +268,20 @@ const MapLocationsComponent = (
       mapLocations.find((city) =>
         city.locations.find((location) => location.lat === lat)
       )
+    const mapOptions: IAbstractObject = {
+      streetViewControl: false,
+    }
+    if (customLayout) {
+      mapOptions.styles = customLayout
+    }
     return (
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={centerPoint}
         zoom={mapZoom}
         clickableIcons={false}
-        options={{
-          streetViewControl: false,
-        }}
+        options={{ ...mapOptions }}
       >
-        {/* Child components, such as markers, info windows, etc. */}
         <>
           <MarkerClusterer
             options={optionsLocations}
@@ -286,7 +313,11 @@ const MapLocationsComponent = (
             {(clusterer): Array<JSX.Element> =>
               locationsPoints.map((locationPoint) => (
                 <Marker
-                  icon={markerIcon}
+                  icon={
+                    activeLocation?.id === locationPoint.id && markerIconActive
+                      ? markerIconActive
+                      : markerIcon
+                  }
                   key={`${locationPoint.lat}${locationPoint.lng}`}
                   position={locationPoint}
                   clusterer={clusterer}
@@ -339,6 +370,7 @@ const MapLocationsComponent = (
         ref={mapContainer}
         style={{ height: mapHeight, width: mapWidth }}
       >
+        {!!mapHeader && mapHeader}
         {isLoaded ? renderMap() : es_EC.LOADING}
       </div>
       <div className="locations-nav">
@@ -375,6 +407,7 @@ const MapLocationsComponent = (
                   !!city.locations.length && genLocations(city, cityKey)
               )}
         </div>
+        {!!locationsListFooter && locationsListFooter}
       </div>
     </div>
   )
