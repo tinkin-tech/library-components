@@ -1,6 +1,6 @@
 {
   "name": "@tinkin/storybook",
-  "version": "0.2.18",
+  "version": "0.2.22",
   "description": "Front End components Library for tinkin projects",
   "files": [
     "dist"
@@ -16,7 +16,7 @@
     "lint": "eslint . --ext .tsx,.ts",
     "lint:git": "LIST=`git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.(ts|tsx)$\" | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi",
     "test:git": "jest -o",
-    "build-npm": "rm -rf ./dist && tsc && cp -R ./scss ./dist"
+    "build-npm": "rm -rf ./dist && tsc --build tsconfig.json && cp -R ./scss ./dist"
   },
   "author": "",
   "license": "ISC",
