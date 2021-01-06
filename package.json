@@ -1,6 +1,6 @@
 {
   "name": "@tinkin/storybook",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "Front End components Library for tinkin projects",
   "files": [
     "dist"
