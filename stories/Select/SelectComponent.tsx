@@ -94,7 +94,7 @@ export const SelectComponent: React.FC<ISelectComponent> = (
         {getValue}
         <i className="icon-arrow-down" />
       </a>
-      {options.length && openSelector && (
+      {!!(options.length && openSelector) && (
         <ul className="selector-container">
           {options.map((item, index) => (
             <li
