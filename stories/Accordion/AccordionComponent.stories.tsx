@@ -1,6 +1,7 @@
 import * as React from 'react'
-import AccordionComponent, {
+import {
   IAccordionComponentProps,
+  AccordionComponent,
 } from './AccordionComponent'
 
 export default {

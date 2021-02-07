@@ -11,7 +11,7 @@ export interface IAccordionComponentProps {
   accordionList: IAccordionList[]
 }
 
-const AccordionComponent = (
+export const AccordionComponent = (
   props: IAccordionComponentProps
 ): React.ReactElement => {
   const { accordionList, defaultKeyOpen } = props
@@ -63,5 +63,3 @@ const AccordionComponent = (
     </div>
   )
 }
-
-export default AccordionComponent
