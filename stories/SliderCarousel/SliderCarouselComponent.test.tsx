@@ -161,6 +161,9 @@ describe('Render component <SliderCarouselComponent />', () => {
       ).toContain(
         'margin-left: -40%; opacity: 1; transition: none; width: 140%;'
       )
+      act(() => {
+        jest.useRealTimers()
+      })
     })
   })
 
@@ -179,8 +182,8 @@ describe('Render component <SliderCarouselComponent />', () => {
             transitionTime={transitionTime}
           />
         )
-        fireEvent.click(component.container.querySelector('.icon-arrow-right'))
       })
+      fireEvent.click(component.container.querySelector('.icon-arrow-right'))
       expect(
         component.container.querySelector('.aux-content').getAttribute('style')
       ).toEqual('opacity: 0;')
@@ -278,27 +281,25 @@ describe('Render component <SliderCarouselComponent />', () => {
           <SliderCarouselComponent
             numberOfCards={5}
             cards={cards}
-            transitionTime={4000}
+            transitionTime={1000}
           />
         )
-        fireEvent.click(component.container.querySelector('.icon-arrow-right'))
-        jest.advanceTimersByTime(3000)
-        fireEvent.click(component.container.querySelector('.icon-arrow-right'))
-        jest.advanceTimersByTime(4000)
-        expect(
-          component.container
-            .querySelectorAll('.carousel-content .card-block')[0]
-            .querySelector('div').innerHTML
-        ).toEqual('card1')
-        jest.advanceTimersByTime(4000)
-        expect(
-          component.container
-            .querySelectorAll('.carousel-content .card-block')[0]
-            .querySelector('div').innerHTML
-        ).toEqual('card1')
-        act(() => {
-          jest.useRealTimers()
-        })
+      })
+      fireEvent.click(component.container.querySelector('.icon-arrow-right'))
+      act(() => {
+        jest.advanceTimersByTime(800)
+      })
+      fireEvent.click(component.container.querySelector('.icon-arrow-right'))
+      act(() => {
+        jest.advanceTimersByTime(1200)
+      })
+      expect(
+        component.container
+          .querySelectorAll('.carousel-content .card-block')[0]
+          .querySelector('div').innerHTML
+      ).toEqual('card1')
+      act(() => {
+        jest.useRealTimers()
       })
     })
   })
@@ -318,8 +319,8 @@ describe('Render component <SliderCarouselComponent />', () => {
             transitionTime={transitionTime}
           />
         )
-        fireEvent.click(component.container.querySelector('.icon-arrow-left'))
       })
+      fireEvent.click(component.container.querySelector('.icon-arrow-left'))
       expect(
         component.container.querySelector('.aux-content').getAttribute('style')
       ).toEqual('opacity: 0;')
@@ -377,7 +378,6 @@ describe('Render component <SliderCarouselComponent />', () => {
       expect(
         component.container.querySelector('.aux-content').getAttribute('style')
       ).toEqual('opacity: 1;')
-
       act(() => {
         jest.advanceTimersByTime(transitionSafeTime)
       })
@@ -415,7 +415,6 @@ describe('Render component <SliderCarouselComponent />', () => {
           .querySelectorAll('.aux-content .card-block')[4]
           .querySelector('div').innerHTML
       ).toEqual('card3')
-
       act(() => {
         jest.useRealTimers()
       })
@@ -438,8 +437,8 @@ describe('Render component <SliderCarouselComponent />', () => {
         )
       })
       const rightArrow = component.container.querySelector('.icon-arrow-right')
+      fireEvent.click(rightArrow)
       act(() => {
-        fireEvent.click(rightArrow)
         jest.advanceTimersByTime(transitionSafeTime)
       })
       expect(
@@ -447,10 +446,12 @@ describe('Render component <SliderCarouselComponent />', () => {
           .querySelectorAll('.carousel-content .card-block')[1]
           .querySelector('div').innerHTML
       ).toEqual('card2')
+      fireEvent.click(rightArrow)
       act(() => {
-        fireEvent.click(rightArrow)
         jest.advanceTimersByTime(transitionSafeTime)
-        fireEvent.click(rightArrow)
+      })
+      fireEvent.click(rightArrow)
+      act(() => {
         jest.advanceTimersByTime(transitionSafeTime)
       })
       expect(
@@ -478,8 +479,8 @@ describe('Render component <SliderCarouselComponent />', () => {
         )
       })
       const leftArrow = component.container.querySelector('.icon-arrow-left')
+      fireEvent.click(leftArrow)
       act(() => {
-        fireEvent.click(leftArrow)
         jest.advanceTimersByTime(transitionSafeTime)
       })
       expect(
@@ -487,10 +488,12 @@ describe('Render component <SliderCarouselComponent />', () => {
           .querySelectorAll('.carousel-content .card-block')[1]
           .querySelector('div').innerHTML
       ).toEqual('card3')
+      fireEvent.click(leftArrow)
       act(() => {
-        fireEvent.click(leftArrow)
         jest.advanceTimersByTime(transitionSafeTime)
-        fireEvent.click(leftArrow)
+      })
+      fireEvent.click(leftArrow)
+      act(() => {
         jest.advanceTimersByTime(transitionSafeTime)
       })
       expect(
