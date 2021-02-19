@@ -9,7 +9,7 @@
     box-sizing: content-box;
     width: calc(#{$slider-carousel-arrow-width} * 2);
     height: calc(#{$slider-carousel-arrow-width} * 2);
-    background: $slider-carousel-background;
+    background: $slider-carousel-arrow-background;
     @include flexbox();
     @include justify-content(center);
     @include align(center);
