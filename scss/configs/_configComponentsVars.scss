@@ -28,6 +28,11 @@ $input-color-placeholder:  color('gray', 'lighten-1');
 $input-error-color-warning: $color-warning;
 $input-label-color-focus: $color-primary;
 $input-fontfamily: $primary-font;
+$input-icon-container-position: absolute;
+$input-icon-container-right-position: .3rem;
+$input-icon-container-top-position: calc(50% - .5rem);
+$input-icon-container-left-position: 3rem;
+
 
 // TableComponent
 
@@ -246,3 +251,39 @@ $map-locations-check-size: 24px;
 $map-locations-check-inactive-color: rgba($color-secondary, .4);
 $map-locations-check-active-color: $color-primary;
 $map-locations-check-border-width: 1px;
+
+// KushkiCreditCardFormComponent
+
+$kushki-form-border: 1px solid color('gray', 'lighten-4');
+$kushki-form-border-radius: .3rem;
+$kushki-form-padding: 1rem;
+$kushki-form-input-margin: 1rem;
+$kushki-form-card-icons-display: flex;
+$kushki-form-card-icons-justify-content: center;
+$kushki-form-card-icons-align-items: center;
+$kushki-form-card-icons-margin: 0 0 1rem 0;
+$kushki-form-display: flex;
+$kushki-form-flex-wrap: wrap;
+$kushki-form-input-margin-bottom: 0 0 1rem 0;
+$kushki-form-input-name-width: 100%;
+$kushki-form-input-name-padding: 0;
+$kushki-form-input-card-number-width: 100%;
+$kushki-form-input-card-number-padding: 0;
+$kushki-form-input-expiration-date-width: 50%;
+$kushki-form-input-expiration-date-padding: 0;
+$kushki-form-input-cvv-padding: 0;
+$kushki-form-input-cvv-width: 50%;
+$kushki-checkbox-padding: 0 0 1rem 0;
+$kushki-button-width: 100%;
+$kushki-logo-container-display: flex;
+$kushki-logo-container-align-items: center;
+$kushki-form-error-message-padding: .5rem;
+$kushki-form-error-message-color: $color-white;
+$kushki-form-error-message-background: $color-danger;
+$kushki-form-error-message-fontsize: $fontsize-small;
+$kushki-form-error-message-border-radius: .3rem;
+$kushki-form-error-message-margin: 1rem 0;
+$kushki-form-error-message-display: flex;
+$kushki-form-error-message-align-items: center;
+$kushki-form-error-message-justify-content: space-between;
+$kushki-form-error-message-icon-background: $color-white;

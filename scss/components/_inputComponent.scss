@@ -1,4 +1,5 @@
 .input-component {
+  position: relative;
   input, textarea {
     padding: $input-padding;
     font-size: $input-fontsize;
@@ -35,6 +36,17 @@
   &:focus-within {
     label {
       color: $input-label-color-focus;
+    }
+  }
+  .icon-container {
+    position: $input-icon-container-position;
+    &.right {
+      right: $input-icon-container-right-position;
+      top: $input-icon-container-top-position;
+    }
+    &.left {
+      left: $input-icon-container-left-position;
+      top: $input-icon-container-top-position;
     }
   }
 }

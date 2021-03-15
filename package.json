@@ -11,7 +11,7 @@
     "test:watch": "jest --watch",
     "test:coverage-above-90": "jest --coverage",
     "test:coverage": "jest --coverage",
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6006 --no-dll -s ./public",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint . --ext .tsx,.ts",
     "lint:git": "LIST=`git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.(ts|tsx)$\" | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi",
