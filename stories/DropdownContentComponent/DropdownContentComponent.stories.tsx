@@ -1,82 +1,46 @@
 import * as React from 'react'
-import { action } from '@storybook/addon-actions'
 
-import { DropdownContentComponent, ISelectComponent } from './SelectComponent'
+import {
+  DropdownContentComponent,
+  IDropDownContentProps,
+} from './DropdownContentComponent'
 
 export default {
-  title: 'Select',
+  title: 'Dropdown Content',
   component: DropdownContentComponent,
 }
 
-const Template = (args: ISelectComponent): JSX.Element => (
+const Template = (args: IDropDownContentProps): JSX.Element => (
   <DropdownContentComponent {...args} />
 )
 
-export const Default: { args: ISelectComponent } = Template.bind({})
-
-export const Error: { args: ISelectComponent } = Template.bind({})
-
-export const Disable: { args: ISelectComponent } = Template.bind({})
-
-const options = [
-  {
-    id: '1',
-    label: 'Option 1',
-  },
-  {
-    id: '2',
-    label: 'Option 2',
-  },
-  {
-    id: '3',
-    label: 'Option 3',
-  },
-]
+export const Default: { args: IDropDownContentProps } = Template.bind({})
 
 Default.args = {
-  value: '1',
-  options,
-  valueId: '',
-  onChangeValue: action('onChangeValue'),
-  error: '',
-  label: '',
-  readOnly: false,
-  required: false,
-  placeholder: '',
-  labelClassName: '',
-  selectClassName: '',
-  extraLabelClassName: '',
-  extraSelectClassName: '',
-}
-
-Error.args = {
-  value: '',
-  onChangeValue: action('onChangeValue'),
-  valueId: '',
-  options,
-  error: 'select error default text',
-  label: 'Select Label',
-  readOnly: false,
-  required: true,
-  placeholder: '',
-  labelClassName: '',
-  selectClassName: '',
-  extraLabelClassName: '',
-  extraSelectClassName: '',
-}
-
-Disable.args = {
-  options,
-  onChangeValue: action('onChangeValue'),
-  value: '',
-  valueId: '',
-  error: '',
-  label: '',
-  readOnly: true,
-  required: false,
-  placeholder: '',
-  labelClassName: '',
-  selectClassName: '',
-  extraLabelClassName: '',
-  extraSelectClassName: '',
+  buttonLabel: 'Demo button',
+  dropDownContentLabel: 'Demo Label',
+  dropDownContent: [
+    {
+      id: 1,
+      label: 'Option 1',
+    },
+    {
+      id: 2,
+      label: 'Option 2',
+    },
+    {
+      id: 3,
+      label: 'Option 3',
+    },
+    {
+      id: 4,
+      label: 'Option 4',
+    },
+  ],
+  clearLabel: 'clear',
+  applyLabel: 'apply',
+  clearAction: (): void => null,
+  closeOnClear: true,
+  optionValues: [1],
+  applyAction: (): void => null,
 }

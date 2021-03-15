@@ -4,400 +4,292 @@ import '@testing-library/jest-dom/extend-expect'
 
 import { DropdownContentComponent } from './DropdownContentComponent'
 
-describe('Render component <SelectComponent />', () => {
+describe('Render component <DropdownContentComponent />', () => {
   const mockedFunction = jest.fn()
   const optionsMock = [
-    { id: '1', label: 'value-1' },
-    { id: '2', label: 'value-2' },
-    { id: '3', label: 'value-3' },
+    {
+      id: 1,
+      label: 'Option 1',
+    },
+    {
+      id: 2,
+      label: 'Option 2',
+    },
+    {
+      id: 3,
+      label: 'Option 3',
+    },
+    {
+      id: 4,
+      label: 'Option 4',
+    },
   ]
 
-  describe('When recibe options prop', () => {
-    it(
-      'Should show list of options when click in default text "Seleccione ' +
-        'una opción"',
-      () => {
-        const { container, getByText } = render(
-          <DropdownContentComponent
-            options={optionsMock}
-            valueId="selectComponent"
-            onChangeValue={mockedFunction}
-            value=""
-          />
-        )
-        expect(container.querySelectorAll('li')).toHaveLength(0)
-        fireEvent.click(getByText('Seleccione una opción'))
-        expect(container.querySelectorAll('li')).toHaveLength(3)
-      }
-    )
-
-    it('Should close options list when select an item', () => {
-      const { container, getByText } = render(
+  describe('When receive default prop', () => {
+    it('Should show button text and class name same to component', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          options={optionsMock}
-          valueId="select"
-          value=""
-          onChangeValue={mockedFunction}
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
         />
       )
-      fireEvent.click(getByText('Seleccione una opción'))
-      fireEvent.click(container.getElementsByTagName('a')[2])
-      expect(container.getElementsByTagName('li')).toHaveLength(0)
+      expect(container.firstElementChild.className).toContain(
+        'drop-down-content-component'
+      )
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
+      expect(queryByText('Label Button')).toBeInTheDocument()
     })
 
-    it('Should close options when click outside component', () => {
-      const { getByText, container } = render(
+    it('Should handle open and close options', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          options={optionsMock}
-          valueId="select"
-          value=""
-          onChangeValue={mockedFunction}
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
         />
       )
-      fireEvent.click(getByText('Seleccione una opción'))
+      fireEvent.click(queryByText('Label Button'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).toBeInTheDocument()
+      expect(queryByText('Option 1')).toBeInTheDocument()
+      expect(container.querySelectorAll('li')).toHaveLength(4)
+      fireEvent.click(container.querySelector('.close-icon'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).toBeInTheDocument()
       fireEvent.click(document)
-      expect(container.getElementsByTagName('li')).toHaveLength(0)
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
     })
-  })
 
-  describe('When recive onChangeValue prop', () => {
-    it(
-      'Should call with item id and valueId prop when select an item of ' +
-        'options list',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            options={optionsMock}
-            value=""
-            valueId="select-component"
-            onChangeValue={mockedFunction}
-          />
-        )
-        fireEvent.click(container.getElementsByTagName('a')[0])
-        fireEvent.click(container.getElementsByTagName('a')[2])
-        expect(mockedFunction).toHaveBeenCalledWith('2', 'select-component')
-      }
-    )
-  })
-
-  describe('When recive value prop', () => {
-    it('Should show value in component when is not empty or null', () => {
-      const { getByText } = render(
+    it('Should preselect options', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          value="1"
-          onChangeValue={mockedFunction}
-          valueId="select"
-          options={optionsMock}
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
         />
       )
-      expect(getByText('value-1')).toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Option 3'))
+      expect(queryByText('Option 3').className).toContain('active')
+      fireEvent.click(queryByText('Option 1'))
+      expect(queryByText('Option 1').className).toContain('active')
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(1)
+      expect(container.querySelectorAll('.option-icon')[0].className).toContain(
+        'checkbox'
+      )
+      fireEvent.click(queryByText('Option 1'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(0)
     })
-
-    it(
-      'Should add "selected" className on item of options when item id is' +
-        ' equal to value',
-      () => {
-        const { container, getByText } = render(
-          <DropdownContentComponent
-            value="2"
-            onChangeValue={mockedFunction}
-            valueId="select"
-            options={optionsMock}
-          />
-        )
-        fireEvent.click(getByText('value-2'))
-        expect(container.getElementsByTagName('li')[1].className).toBe(
-          'selector-item selected'
-        )
-      }
-    )
   })
 
-  describe('When recive placeholder prop', () => {
-    it('Should show placeholder when value is empty or null', () => {
-      const { getByText } = render(
+  describe('When receive clearAction and clearLabel prop', () => {
+    it('Should show clear label and call to clear action', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          value=""
-          options={optionsMock}
-          valueId=""
-          onChangeValue={mockedFunction}
-          placeholder="Selector placeholder"
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          clearAction={mockedFunction}
+          clearLabel="Label Clear"
         />
       )
-      expect(getByText('Selector placeholder')).toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      expect(queryByText('Label Clear')).toBeInTheDocument()
+      fireEvent.click(queryByText('Option 3'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(1)
+      fireEvent.click(queryByText('Label Clear'))
+      expect(mockedFunction).toHaveBeenCalled()
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(0)
     })
 
-    it(
-      'Should show default text "Seleccione una opción" when value and ' +
-        ' placeholder are empty or null',
-      () => {
-        const { getByText } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            placeholder=""
-          />
-        )
-        expect(getByText('Seleccione una opción')).toBeInTheDocument()
-      }
-    )
-  })
-
-  describe('When recive label prop', () => {
-    it('Should show label text when pass label prop', () => {
-      const { getByText } = render(
+    it('Should close options when receive closeOnClear', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          value=""
-          options={optionsMock}
-          valueId=""
-          onChangeValue={mockedFunction}
-          label="Label Select"
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          clearAction={mockedFunction}
+          clearLabel="Label Clear"
+          closeOnClear={true}
         />
       )
-      expect(getByText('Label Select')).toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Label Clear'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
     })
 
-    it('Shouldnt create elemen label when label prop is null or empty', () => {
-      const { container } = render(
+    it('Should show call to clear action and clear multiple selection', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          value=""
-          options={optionsMock}
-          valueId=""
-          onChangeValue={mockedFunction}
-          label=""
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          clearAction={mockedFunction}
+          clearLabel="Label Clear"
+          multipleOptionSelect={true}
         />
       )
-      expect(container.getElementsByClassName('label')).toHaveLength(0)
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Option 3'))
+      fireEvent.click(queryByText('Option 1'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(2)
+      fireEvent.click(queryByText('Label Clear'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(0)
     })
+  })
 
-    it('Should show options list when click on label', () => {
-      const { getByText, container } = render(
+  describe('When receive applyAction and applyLabel prop', () => {
+    it('Should show apply label and call to apply action', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          value=""
-          options={optionsMock}
-          valueId=""
-          onChangeValue={mockedFunction}
-          label="Select"
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          applyAction={mockedFunction}
+          applyLabel="Label Apply"
         />
       )
-      fireEvent.click(getByText('Select'))
-      expect(container.getElementsByTagName('li')).toHaveLength(3)
+      fireEvent.click(queryByText('Label Button'))
+      expect(queryByText('Label Apply')).toBeInTheDocument()
+      fireEvent.click(queryByText('Option 3'))
+      fireEvent.click(queryByText('Label Apply'))
+      expect(mockedFunction).toHaveBeenCalledWith(3)
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
     })
   })
 
-  describe('When recive error prop', () => {
-    it(
-      'Should show error message below of component when recive error ' +
-        'prop',
-      () => {
-        const { getByText } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            error="error message for select"
-          />
-        )
-        expect(getByText('error message for select')).toBeInTheDocument()
-      }
-    )
-
-    it(
-      'Should add "warning" in label className and ' +
-        '"select-component-error" when pass error prop',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            error="error message for select"
-            label="label"
-          />
-        )
-        expect(container.getElementsByTagName('div')[0].className).toBe(
-          'select-component select-component-error'
-        )
-        expect(container.getElementsByTagName('a')[0].className).toBe(
-          'label warning'
-        )
-      }
-    )
-
-    it(
-      'Shouldnt add "label-error" in label className and ' +
-        '"select-component-error" when error prop is empty or null',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            label="label"
-          />
-        )
-        expect(container.getElementsByTagName('div')[0].className).toBe(
-          'select-component'
-        )
-        expect(container.getElementsByTagName('a')[0].className).toBe('label')
-      }
-    )
-  })
-
-  describe('When recive required prop', () => {
-    it('Should add * next to the label when recive required prop', () => {
-      const { getByText } = render(
+  describe('When receive multipleOptionSelect prop', () => {
+    it('Should show apply label and call to apply action', () => {
+      const { container, queryByText } = render(
         <DropdownContentComponent
-          onChangeValue={mockedFunction}
-          options={optionsMock}
-          value=""
-          valueId=""
-          label="Select Component"
-          required={true}
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          multipleOptionSelect={true}
         />
       )
-      expect(getByText('Select Component*')).toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Option 1'))
+      expect(queryByText('Option 1').className).toContain('active')
+      fireEvent.click(queryByText('Option 4'))
+      expect(queryByText('Option 4').className).toContain('active')
+      fireEvent.click(queryByText('Option 2'))
+      expect(queryByText('Option 2').className).toContain('active')
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(3)
+      fireEvent.click(queryByText('Option 2'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(2)
+      expect(queryByText('Option 2').className).not.toContain('active')
     })
   })
 
-  describe('When recive readOnly prop', () => {
-    it(
-      'Should not show options list after click on "Seleccione una opción" ' +
-        'when recive readOnly prop',
-      () => {
-        const { getByText, container } = render(
-          <DropdownContentComponent
-            onChangeValue={mockedFunction}
-            value=""
-            valueId=""
-            options={optionsMock}
-            readOnly={true}
-          />
-        )
-        fireEvent.click(getByText('Seleccione una opción'))
-        expect(container.getElementsByTagName('li')).toHaveLength(0)
-      }
-    )
-
-    it(
-      'Should add "select-component-disable" to className of select when ' +
-        'recive readOnly prop',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            onChangeValue={mockedFunction}
-            value="1"
-            valueId=""
-            options={optionsMock}
-            readOnly={true}
-          />
-        )
-        expect(container.getElementsByTagName('div')[0].className).toContain(
-          'select-component-disable'
-        )
-      }
-    )
-
-    it('Should add disable class to label when readOnly is true', () => {
-      const { getByText } = render(
+  describe('When receive onSelectOption prop', () => {
+    it('Should call to onSelectOption when click on option', () => {
+      const { queryByText } = render(
         <DropdownContentComponent
-          onChangeValue={mockedFunction}
-          value="1"
-          valueId=""
-          options={optionsMock}
-          readOnly={true}
-          label="Select label"
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          onSelectOption={mockedFunction}
+          multipleOptionSelect={true}
         />
       )
-      expect(getByText('Select label').className).toContain('disable')
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Option 1'))
+      expect(mockedFunction).toHaveBeenCalledWith([1])
+      fireEvent.click(queryByText('Option 4'))
+      expect(mockedFunction).toHaveBeenCalledWith([1, 4])
+    })
+
+    it('Should close options if have closeOnSelect prop', () => {
+      const { container, queryByText } = render(
+        <DropdownContentComponent
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          onSelectOption={mockedFunction}
+          multipleOptionSelect={true}
+          closeOnSelect={true}
+        />
+      )
+      fireEvent.click(queryByText('Label Button'))
+      fireEvent.click(queryByText('Option 1'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
     })
   })
 
-  describe('When recive labelClassName prop', () => {
-    it(
-      'Should replace className of label with text passed in ' +
-        'labelClassName',
-      () => {
-        const { getByText } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            label="Label"
-            labelClassName="custom-label-className"
-          />
-        )
-        expect(getByText('Label').className).toBe('custom-label-className')
-      }
-    )
+  describe('When receive optionValues prop', () => {
+    it('Should preselect option includes on optionValues', () => {
+      const { container, queryByText } = render(
+        <DropdownContentComponent
+          dropDownContent={optionsMock}
+          buttonLabel="Label Button"
+          multipleOptionSelect={true}
+          optionValues={[2, 4]}
+        />
+      )
+      fireEvent.click(queryByText('Label Button'))
+      expect(queryByText('Option 2').className).toContain('active')
+      expect(queryByText('Option 4').className).toContain('active')
+      fireEvent.click(queryByText('Option 1'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(3)
+      fireEvent.click(queryByText('Label Button'))
+      expect(
+        container.querySelector('.drop-down-container')
+      ).not.toBeInTheDocument()
+      fireEvent.click(queryByText('Label Button'))
+      expect(
+        container.querySelectorAll('.drop-down-option.active')
+      ).toHaveLength(2)
+    })
   })
 
-  describe('When recive selectClassName prop', () => {
-    it(
-      'Should replace className of select with text of selectClassName ' +
-        'prop',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            label="Label"
-            selectClassName="custom-select-className"
-          />
-        )
-        expect(container.getElementsByTagName('div')[0].className).toBe(
-          'custom-select-className'
-        )
-      }
-    )
+  describe('When receive customButton', () => {
+    it('Should show custom button', () => {
+      const { queryByText } = render(
+        <DropdownContentComponent
+          dropDownContent={optionsMock}
+          customButton={<div>Demo Custom</div>}
+        />
+      )
+      expect(queryByText('Demo Custom')).toBeInTheDocument()
+    })
   })
 
-  describe('When recive extraLabelClassName prop', () => {
-    it(
-      'Should add text of extraLabelClassName next to className of label ' +
-        'when pass extraLabelClassName prop',
-      () => {
-        const { getByText } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            label="Label"
-            extraLabelClassName="extra-label-className"
-          />
-        )
-        expect(getByText('Label').className).toContain('extra-label-className')
-      }
-    )
-  })
-
-  describe('When recive extraSelectClassName prop', () => {
-    it(
-      'Should add text of extraSelectClassName next to className of select ' +
-        'when pass extraSelectClassName prop',
-      () => {
-        const { container } = render(
-          <DropdownContentComponent
-            value=""
-            options={optionsMock}
-            valueId=""
-            onChangeValue={mockedFunction}
-            extraSelectClassName="extra-select-className"
-          />
-        )
-        expect(container.getElementsByTagName('div')[0].className).toBe(
-          'select-component extra-select-className'
-        )
-      }
-    )
+  describe('When receive JSX options', () => {
+    it('Should show option html content', () => {
+      const { queryByText } = render(
+        <DropdownContentComponent
+          dropDownContent={<div>Demo Options</div>}
+          buttonLabel="Label Button"
+        />
+      )
+      fireEvent.click(queryByText('Label Button'))
+      expect(queryByText('Demo Options')).toBeInTheDocument()
+    })
   })
 })
