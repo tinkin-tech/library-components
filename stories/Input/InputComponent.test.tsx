@@ -343,4 +343,33 @@ describe('InputComponent test', () => {
       expect(container.getElementsByTagName('textarea')).toHaveLength(1)
     })
   })
+
+  describe('when receive bottomDescription prop', () => {
+    it('Should show bottom when error is empty', () => {
+      const { queryByText } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          bottomDescription={<div>description content</div>}
+        />
+      )
+      expect(queryByText('description content')).toBeInTheDocument()
+    })
+
+    it('Should hide bottom when has error', () => {
+      const { queryByText } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          bottomDescription={<div>description content</div>}
+          error="Error message"
+        />
+      )
+      expect(queryByText('description content')).not.toBeInTheDocument()
+    })
+  })
 })

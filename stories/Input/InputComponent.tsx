@@ -13,6 +13,7 @@ export interface InputComponentPropsInterface {
   required?: boolean
   placeholder?: string
   error?: string
+  bottomDescription?: JSX.Element
   labelClassName?: string
   inputClassName?: string
   readOnly?: boolean
@@ -35,6 +36,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     inputClassName,
     readOnly,
     textArea,
+    bottomDescription,
   } = props
 
   const onChangeAction = (
@@ -81,6 +83,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       ) : (
         <input {...propsComponent} />
       )}
+      {!!(bottomDescription && !error) && bottomDescription}
       {error && <span className="error-message">{error}</span>}
     </div>
   )

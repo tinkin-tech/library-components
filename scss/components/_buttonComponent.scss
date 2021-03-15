@@ -28,6 +28,9 @@
     font-size: $button-small-font-size;
     padding: 0 $button-padding;
     border-radius: $button-small-radius;
+    &[class*="border-"]{
+      line-height: calc(#{$button-small-height} - #{$button-border-width} * 2);
+    }
   }
   &.button-visual-disable, &.button-disable{
     opacity: $button-disable-opacity;
@@ -53,9 +56,10 @@
     border-style: solid;
     color: $button-border-font-color;
     background: none transparent;
+    line-height: calc(#{$button-height} - #{$button-border-width} * 2);
   }
   &.primary{
-    background: $color-primary;
+    background: $button-primary-color;
   }
   &.secondary{
     background: $color-secondary;
@@ -73,7 +77,7 @@
     background: $color-success;
   }
   &.border-primary{
-    border-color: $color-primary;
+    border-color: $button-primary-color;
   }
   &.border-secondary{
     border-color: $color-secondary;

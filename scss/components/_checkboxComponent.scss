@@ -43,6 +43,7 @@
       width: $checkbox-list-item-width-height;
       height: $checkbox-list-item-width-height;
       border: $checkbox-list-item-border-width solid $checkbox-list-item-border-color;
+      background: $checkbox-list-item-background-color;
       box-sizing: border-box;
       border-radius: $checkbox-list-item-check-radius;
     }
@@ -74,8 +75,8 @@
         box-sizing: border-box;
         border-color: $checkbox-list-item-check-color;
         border-style: solid;
-        border-bottom-width: 1px;
-        border-right-width: 1px;
+        border-bottom-width: $checkbox-list-item-check-border-width;
+        border-right-width: $checkbox-list-item-check-border-width;
         border-left-width: 0;
         border-top-width: 0;
         @include transform(rotate(35deg))

@@ -1,0 +1,57 @@
+.slider-carousel-component{
+  width: 100%;
+  position: relative;
+  .nav-arrow{
+    z-index: 5;
+    position: absolute;
+    top: calc(50% - #{$slider-carousel-arrow-width} - #{$slider-carousel-padding} - #{$slider-carousel-border-width});
+    cursor: pointer;
+    box-sizing: content-box;
+    width: calc(#{$slider-carousel-arrow-width} * 2);
+    height: calc(#{$slider-carousel-arrow-width} * 2);
+    background: $slider-carousel-arrow-background;
+    @include flexbox();
+    @include justify-content(center);
+    @include align(center);
+    padding: $slider-carousel-padding;
+    border-radius: $slider-carousel-radius;
+    border: #{$slider-carousel-border-width} solid #{$slider-carousel-border-color};
+    box-shadow: $slider-carousel-shadow;
+    &.left-button{
+      left: 0;
+    }
+    &.right-button{
+      right: 0;
+    }
+    i{
+      font-size: $slider-carousel-arrow-width;
+    }
+  }
+  .aux-content{
+    position: absolute;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  .carouser-view-area{
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    .carousel-content{
+      left: 0;
+      position: relative;
+      display: block;
+      &:after{
+        content: '';
+        display: block;
+        clear: both;
+      }
+    }
+  }
+  .card-block{
+    display: inline-block;
+    float: left;
+  }
+}

@@ -68,7 +68,7 @@ $select-border-width: 1px;
 $select-border-style: solid;
 $select-border-color: color('gray', 'lighten-4');
 $select-background: $color-white;
-$select-padding: .5rem .5rem .4rem .5rem;
+$select-padding-left-right: .5rem;
 $select-radius: $radio-small;
 $select-item-hover: color('gray', 'lighten-5');
 $select-height: 40px;
@@ -87,6 +87,7 @@ $checkbox-list-item-width-height: 24px;
 $checkbox-list-item-padding: .5rem;
 $checkbox-list-item-font-color: color('gray', 'lighten-2');
 $checkbox-list-item-border-color: $color-primary;
+$checkbox-list-item-background-color: $color-white;
 $checkbox-list-item-font-size: $fontsize-default;
 $checkbox-list-item-check-radius: $radio-small;
 $checkbox-list-item-check-color: #ffffff;
@@ -95,6 +96,7 @@ $checkbox-list-item-font-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-check-disable-color: color('gray', 'lighten-3');
 $checkbox-list-item-selected-border-color: $color-primary;
 $checkbox-list-item-selected-background-color: $color-primary;
+$checkbox-list-item-check-border-width: 1px;
 
 // TooltipComponent
 
@@ -164,6 +166,7 @@ $button-disable-opacity: .5;
 $button-disable-font-color: $color-gray;
 $button-disable-background: color('gray', 'lighten-3');
 $button-border-width: 2px;
+$button-primary-color: $color-primary;
 
 // Tabs Component
 
@@ -246,3 +249,87 @@ $map-locations-check-size: 24px;
 $map-locations-check-inactive-color: rgba($color-secondary, .4);
 $map-locations-check-active-color: $color-primary;
 $map-locations-check-border-width: 1px;
+
+// SliderCarouselComponent
+
+$slider-carousel-arrow-width: 8px;
+$slider-carousel-arrow-background: color('secondary', 'lighten-2');
+$slider-carousel-padding: .5rem;
+$slider-carousel-radius: 4px;
+$slider-carousel-border-width: 2px;
+$slider-carousel-border-color: $color-primary;
+$slider-carousel-shadow: $z-depth-1;
+
+// Dropdown content
+
+$drop-down-button-border-width: 1px;
+$drop-down-button-border-color: color('gray', 'lighten-2');
+$drop-down-button-active-border-color: $color-primary;
+$drop-down-button-height: 42px;
+$drop-down-button-background: $color-white;
+$drop-down-button-active-background: color('gray', 'lighten-3');
+$drop-down-button-font-size: $fontsize-default;
+$drop-down-button-font-color: color('secondary', 'lighten-1');
+$drop-down-button-active-font-color: $color-secondary;
+$drop-down-button-padding: 0 1rem;
+$drop-down-button-radius: 21px;
+$drop-down-content-padding: 1rem 0;
+$drop-down-content-border-color: color('secondary', 'lighten-1');
+$drop-down-content-border-width: 1px;
+$drop-down-content-background: $color-white;
+$drop-down-content-radius: $color-primary;
+$drop-down-content-min-width: 300px;
+$drop-down-content-max-width: 300px;
+$drop-down-content-shadow: $z-depth-1;
+$drop-down-options-padding: .5rem 1rem;
+$drop-down-options-background: transparent;
+$drop-down-options-border-color: transparent;
+$drop-down-options-border-width: 0;
+$drop-down-options-max-height: 300px;
+$drop-down-options-icon-margin-right: 1rem;
+$drop-down-options-check-width-height: 24px;
+$drop-down-options-check-border-radius: 12px;
+$drop-down-options-check-border-width: 1px;
+$drop-down-options-check-border-color: $color-primary;
+$drop-down-options-check-background: $color-white;
+$drop-down-options-check-active-border-color: $color-primary;
+$drop-down-options-check-active-background: $color-primary;
+$drop-down-options-check-icon-width: 2px;
+$drop-down-options-check-icon-color: $color-white;
+$drop-down-options-radio-width-height: 24px;
+$drop-down-options-radio-border-radius: 12px;
+$drop-down-options-radio-border-width: 1px;
+$drop-down-options-radio-border-color: $color-primary;
+$drop-down-options-radio-background: $color-white;
+$drop-down-options-radio-active-border-color: $color-primary;
+$drop-down-options-radio-active-border-background: $color-white;
+$drop-down-options-radio-icon-width-height: 14px;
+$drop-down-options-radio-icon-radius: 7px;
+$drop-down-options-radio-icon-color: $color-primary;
+$drop-down-content-label-font-size: $fontsize-default;
+$drop-down-content-label-font-color: $color-secondary;
+$drop-down-content-label-padding: 1rem 1rem 0;
+$drop-down-content-label-weight: 700;
+$drop-down-content-cta-area-padding: 1rem;
+$drop-down-content-cta-area-border-color: color('secondary', 'lighten-1');
+$drop-down-content-cta-area-border-width: 1px;
+$drop-down-content-cta-area-background: transparent;
+$drop-down-content-clear-background: transparent;
+$drop-down-content-clear-border-color: $color-primary;
+$drop-down-content-clear-border-width: 2px;
+$drop-down-content-clear-border-radius: 5px;
+$drop-down-content-clear-text-color: $color-primary;
+$drop-down-content-clear-text-size: $fontsize-small;
+$drop-down-content-clear-height: 32px;
+$drop-down-content-clear-text-weight: 700;
+$drop-down-content-apply-background: $color-primary;
+$drop-down-content-apply-border-color: $color-primary;
+$drop-down-content-apply-border-width: 2px;
+$drop-down-content-apply-border-radius: 5px;
+$drop-down-content-apply-text-color: $color-white;
+$drop-down-content-apply-text-size: $fontsize-small;
+$drop-down-content-apply-height: 32px;
+$drop-down-content-apply-text-weight: 700;
+$drop-down-content-close-size: 24px;
+$drop-down-content-close-width: 2px;
+$drop-down-content-close-color: color('secondary', 'lighten-1');
