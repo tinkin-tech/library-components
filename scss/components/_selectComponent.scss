@@ -2,6 +2,7 @@
   position: relative;
   .label {
     cursor: pointer;
+    display: block;
   }
   .select-button {
     border-width: $select-border-width;
@@ -10,7 +11,8 @@
     background: $select-background;
     font-size: $select-fontsize;
     border-radius: $select-radius;
-    padding: $select-padding;
+    padding: 0 $select-padding-left-right;
+    line-height: $select-height;
     display: flex;
     width: $select-width;
     flex-direction: column;
@@ -20,7 +22,7 @@
       font-size: .4em;
       position: absolute;
       right: 1rem;
-      top: calc(50% - .4rem)
+      top: calc(50% - #{$select-height} / 2)
     }
   }
   .selector-container {

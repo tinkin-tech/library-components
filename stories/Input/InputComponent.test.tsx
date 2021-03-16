@@ -388,6 +388,35 @@ describe('InputComponent test', () => {
     })
   })
 
+  describe('when receive bottomDescription prop', () => {
+    it('Should show bottom when error is empty', () => {
+      const { queryByText } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          bottomDescription={<div>description content</div>}
+        />
+      )
+      expect(queryByText('description content')).toBeInTheDocument()
+    })
+
+    it('Should hide bottom when has error', () => {
+      const { queryByText } = render(
+        <InputComponent
+          valueId="input"
+          value=""
+          onChangeValue={mockOnChangeInput}
+          type="text"
+          bottomDescription={<div>description content</div>}
+          error="Error message"
+        />
+      )
+      expect(queryByText('description content')).not.toBeInTheDocument()
+    })
+  })
+
   describe('when receives maxLength', () => {
     describe('when changes input value with more than maxLength value', () => {
       it('does not call function passed in onChangeValue prop', () => {
