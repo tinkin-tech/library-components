@@ -3,14 +3,14 @@
   border-radius: $kushki-form-border-radius;
   padding: $kushki-form-padding;
   .card-icons-content {
-    display: $kushki-form-card-icons-display;
-    justify-content: $kushki-form-card-icons-justify-content;
-    align-items: $kushki-form-card-icons-align-items;
+    @include flexbox();
+    @include justify-content(center);
+    @include align(center);
     margin: $kushki-form-card-icons-margin;
   }
   .form-content {
-    display: $kushki-form-display;
-    flex-wrap: $kushki-form-flex-wrap;
+    @include flexbox();
+    @include flex-wrap(wrap);
     .input-component {
       margin: $kushki-form-input-margin;
     }
@@ -38,19 +38,19 @@
     width: $kushki-button-width;
   }
   .kushki-logo-container {
-    display: $kushki-logo-container-display;
+    @include flexbox();
     align-items: $kushki-logo-container-align-items;
   }
   .form-error-mesage {
+    @include flexbox();
+    @include justify-content(center);
+    @include align(center);
     padding: $kushki-form-error-message-padding;
     color: $kushki-form-error-message-color;
     background: $kushki-form-error-message-background;
     font-size: $kushki-form-error-message-fontsize;
     border-radius: $kushki-form-error-message-border-radius;
     margin: $kushki-form-error-message-margin;
-    display: $kushki-form-error-message-display;
-    align-items: $kushki-form-error-message-align-items;
-    justify-content: $kushki-form-error-message-justify-content;
     .icon-close {
       &:before, &:after {
         background-color: $kushki-form-error-message-icon-background;
