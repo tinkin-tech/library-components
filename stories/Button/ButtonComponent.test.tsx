@@ -3,6 +3,9 @@ import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 import { ButtonComponent } from './ButtonComponent'
+import { SvgImport } from '../../utils/imageUtils/SvgImport'
+
+jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
 describe('render component <ButtonComponent />', () => {
   describe('when reciving buttonText property', () => {
@@ -157,6 +160,20 @@ describe('render component <ButtonComponent />', () => {
         <ButtonComponent buttonText="button" formButton={false} />
       )
       expect(container.querySelector('a')).toBeInTheDocument()
+    })
+  })
+
+  describe('when receives iconButton prop', () => {
+    it('shows icon inside button', () => {
+      const icon = <SvgImport icon="img.svg" />
+      const { container } = render(
+        <ButtonComponent
+          buttonText="button"
+          formButton={true}
+          iconButton={icon}
+        />
+      )
+      expect(container.children[0]).toHaveTextContent('img.svg')
     })
   })
 })

@@ -4,9 +4,14 @@ import '@testing-library/jest-dom/extend-expect'
 
 import { InputComponent } from './InputComponent'
 import { TestUtil } from '../../utils/testUtils/testUtils'
+import { SvgImport } from '../../utils/imageUtils/SvgImport'
+
+jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
 describe('InputComponent test', () => {
   const mockOnChangeInput = jest.fn()
+
+  const defaultIcon = <SvgImport icon="icon-test.svg" />
 
   describe('Value prop', () => {
     it('Should recive value, set in input value', () => {
@@ -370,6 +375,48 @@ describe('InputComponent test', () => {
         />
       )
       expect(queryByText('description content')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('when receives maxLength', () => {
+    describe('when changes input value with more than maxLength value', () => {
+      it('does not call function passed in onChangeValue prop', () => {
+        const mockChange = jest.fn()
+        const { container } = render(
+          <InputComponent
+            valueId="input"
+            value="aoe"
+            onChangeValue={mockChange}
+            type="text"
+            maxLength={3}
+          />
+        )
+        fireEvent.change(container.getElementsByTagName('input')[0], {
+          target: { value: 'aoeu' },
+        })
+        expect(mockChange).not.toHaveBeenCalled()
+      })
+    })
+  })
+
+  describe('when receive icon prop', () => {
+    it('shows icon with default className', () => {
+      const { container } = render(
+        <InputComponent
+          valueId="input"
+          value="aoe"
+          onChangeValue={null}
+          type="text"
+          maxLength={3}
+          icon={defaultIcon}
+        />
+      )
+      expect(
+        container.getElementsByClassName('svgImport-mock')[0]
+      ).toBeInTheDocument()
+      expect(
+        container.getElementsByClassName('svgImport-mock')[0]
+      ).toHaveTextContent('icon-test.svg')
     })
   })
 })

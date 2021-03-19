@@ -333,3 +333,32 @@ $drop-down-content-apply-text-weight: 700;
 $drop-down-content-close-size: 24px;
 $drop-down-content-close-width: 2px;
 $drop-down-content-close-color: color('secondary', 'lighten-1');
+
+// KushkiCreditCardFormComponent
+
+$kushki-form-border: 1px solid color('gray', 'lighten-4');
+$kushki-form-border-radius: .3rem;
+$kushki-form-padding: 1rem;
+$kushki-form-input-margin: 1rem;
+$kushki-form-card-icons-margin: 0 0 1rem 0;
+$kushki-form-card-icon-width: 32px;
+$kushki-form-card-icon-height: 32px;
+$kushki-form-input-margin-bottom: 0 0 1rem 0;
+$kushki-form-input-name-width: 100%;
+$kushki-form-input-name-padding: 0;
+$kushki-form-input-card-number-width: 100%;
+$kushki-form-input-card-number-padding: 0;
+$kushki-form-input-expiration-date-width: 50%;
+$kushki-form-input-expiration-date-padding: 0;
+$kushki-form-input-cvv-padding: 0;
+$kushki-form-input-cvv-width: 50%;
+$kushki-checkbox-padding: 0 0 1rem 0;
+$kushki-button-width: 100%;
+$kushki-logo-container-align-items: center;
+$kushki-form-error-message-padding: .5rem;
+$kushki-form-error-message-color: $color-white;
+$kushki-form-error-message-background: $color-danger;
+$kushki-form-error-message-fontsize: $fontsize-small;
+$kushki-form-error-message-border-radius: .3rem;
+$kushki-form-error-message-margin: 1rem 0;
+$kushki-form-error-message-icon-background: $color-white;

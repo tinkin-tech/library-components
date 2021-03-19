@@ -16,7 +16,7 @@ export type IButtonType =
 
 export interface IButtonComponent {
   buttonText: string
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void
   disabled?: boolean
   visualDisabled?: boolean
   buttonType?: IButtonType
@@ -24,6 +24,7 @@ export interface IButtonComponent {
   buttonClass?: string
   extraButtonClass?: string
   formButton?: boolean
+  iconButton?: JSX.Element
 }
 
 export const ButtonComponent = (
@@ -39,6 +40,7 @@ export const ButtonComponent = (
     buttonClass,
     extraButtonClass,
     formButton,
+    iconButton,
   } = props
 
   const buttonClassName = [
@@ -47,6 +49,7 @@ export const ButtonComponent = (
     buttonClass ||
       `button-component ${buttonType} ${smallButton && 'button-small'}`,
     extraButtonClass || '',
+    iconButton ? 'button-icon' : '',
   ]
 
   const componentProps = {
@@ -54,8 +57,14 @@ export const ButtonComponent = (
     className: buttonClassName.join(' '),
   }
   return formButton ? (
-    <button {...componentProps}>{buttonText}</button>
+    <button {...componentProps}>
+      {buttonText}
+      {iconButton}
+    </button>
   ) : (
-    <a {...componentProps}>{buttonText}</a>
+    <a {...componentProps}>
+      {buttonText}
+      {iconButton}
+    </a>
   )
 }

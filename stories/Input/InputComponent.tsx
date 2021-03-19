@@ -18,6 +18,8 @@ export interface InputComponentPropsInterface {
   inputClassName?: string
   readOnly?: boolean
   textArea?: boolean
+  maxLength?: number
+  icon?: JSX.Element
 }
 
 export const InputComponent: React.FC<InputComponentPropsInterface> = (
@@ -37,16 +39,24 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     readOnly,
     textArea,
     bottomDescription,
+    maxLength,
+    icon,
   } = props
 
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    let currentValue = event.currentTarget.value
-    if (type === 'number') {
-      currentValue = currentValue.replace(/[^\d.-]/g, '')
+    if (!maxLength || event.currentTarget.value.length <= maxLength) {
+      let currentValue = event.currentTarget.value
+      switch (type) {
+        case 'number':
+          currentValue = currentValue.replace(/[^\d.-]/g, '')
+          break
+        default:
+          break
+      }
+      onChangeValue(currentValue, valueId)
     }
-    onChangeValue(currentValue, valueId)
   }
 
   const propsComponent = {
@@ -83,6 +93,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       ) : (
         <input {...propsComponent} />
       )}
+      {icon && <div className="icon-container">{icon}</div>}
       {!!(bottomDescription && !error) && bottomDescription}
       {error && <span className="error-message">{error}</span>}
     </div>

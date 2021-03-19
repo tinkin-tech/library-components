@@ -94,4 +94,9 @@
   &.border-success{
     border-color: $color-success;
   }
+  &.button-icon {
+    @include flexbox();
+    @include justify-content(center);
+    @include align(center);
+  }
 }
