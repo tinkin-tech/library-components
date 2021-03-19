@@ -16,7 +16,7 @@ export type IButtonType =
 
 export interface IButtonComponent {
   buttonText: string
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void
   disabled?: boolean
   visualDisabled?: boolean
   buttonType?: IButtonType

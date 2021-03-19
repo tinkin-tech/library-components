@@ -98,7 +98,8 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
     }
     onChangeInputValue(currentValue, 'expirationDate')
   }
-  const onClickSubmitButton = (): void => {
+  const onClickSubmitButton = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault()
     onChangeSubmitPressed(true)
     if (checkboxValue) {
       onSubmit(formData)
@@ -137,102 +138,104 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
             />
           </div>
         ))}
-      <div className="form-content">
-        <div className="input-name">
-          <InputComponent
-            value={formData.name}
-            valueId="name"
-            onChangeValue={onChangeInputValue}
-            error={inputErrors?.name}
-            placeholder={language.NAME_PH}
-            label={showLabel ? language.NAME_LABEL : ''}
-            required={true}
-          />
-        </div>
-        <div className="input-card-number">
-          <InputComponent
-            value={formData.cardNumber}
-            valueId="cardNumber"
-            type="number"
-            maxLength={16}
-            onChangeValue={onChangeInputValue}
-            error={inputErrors?.cardNumber}
-            placeholder={language.CARD_NUMBER_PH}
-            label={showLabel ? language.CARD_NUMBER_LABEL : ''}
-            required={true}
-          />
-        </div>
-        <div className="input-expiration-date">
-          <InputComponent
-            value={formData.expirationDate}
-            valueId="expirationDate"
-            type="text"
-            onChangeValue={onChangeExpirationDate}
-            error={inputErrors?.expirationDate}
-            placeholder={language.EXPIRATION_DATE_PH}
-            label={showLabel ? language.EXPIRATION_DATE_LABEL : ''}
-            required={true}
-            icon={
-              <SvgImport
-                icon={icons.calendar}
-                className="flex-column flex-center m-l-s icon-16x"
-              />
-            }
-          />
-        </div>
-        <div className="input-cvv">
-          <InputComponent
-            value={formData.cvv}
-            valueId="cvv"
-            type="number"
-            maxLength={3}
-            onChangeValue={onChangeInputValue}
-            error={inputErrors?.cvv}
-            placeholder={language.CVV_PH}
-            label={showLabel ? language.CVV_LABEL : ''}
-            required={true}
-          />
-        </div>
-      </div>
-      {checkboxLabelComponent && (
-        <CheckboxComponent
-          valueId="checkbox"
-          values={[checkboxValue ? 'terms' : '']}
-          onChangeValues={(): void => onChangeCheckboxValue(!checkboxValue)}
-          options={[{ id: 'terms', label: checkboxLabelComponent }]}
-          error={!checkboxValue && submitPressed ? checkboxErrorMessage : ''}
-        />
-      )}
-      {formError && showFormError && (
-        <div className="form-error-mesage">
-          {formError}
-          <a className="icon-close" onClick={closeFormError} />
-        </div>
-      )}
-      <div className="footer-container">
-        <div className="button-container">
-          <ButtonComponent
-            buttonText={buttonText}
-            onClick={onClickSubmitButton}
-            formButton={true}
-            iconButton={
-              checkButtonIcon && (
+      <form>
+        <div className="form-content">
+          <div className="input-name">
+            <InputComponent
+              value={formData.name}
+              valueId="name"
+              onChangeValue={onChangeInputValue}
+              error={inputErrors?.name}
+              placeholder={language.NAME_PH}
+              label={showLabel ? language.NAME_LABEL : ''}
+              required={true}
+            />
+          </div>
+          <div className="input-card-number">
+            <InputComponent
+              value={formData.cardNumber}
+              valueId="cardNumber"
+              type="number"
+              maxLength={16}
+              onChangeValue={onChangeInputValue}
+              error={inputErrors?.cardNumber}
+              placeholder={language.CARD_NUMBER_PH}
+              label={showLabel ? language.CARD_NUMBER_LABEL : ''}
+              required={true}
+            />
+          </div>
+          <div className="input-expiration-date">
+            <InputComponent
+              value={formData.expirationDate}
+              valueId="expirationDate"
+              type="text"
+              onChangeValue={onChangeExpirationDate}
+              error={inputErrors?.expirationDate}
+              placeholder={language.EXPIRATION_DATE_PH}
+              label={showLabel ? language.EXPIRATION_DATE_LABEL : ''}
+              required={true}
+              icon={
                 <SvgImport
-                  icon={icons.check}
-                  className="flex-column flex-center m-l-s icon-32x"
+                  icon={icons.calendar}
+                  className="flex-column flex-center m-l-s icon-16x"
                 />
-              )
-            }
-          />
+              }
+            />
+          </div>
+          <div className="input-cvv">
+            <InputComponent
+              value={formData.cvv}
+              valueId="cvv"
+              type="number"
+              maxLength={3}
+              onChangeValue={onChangeInputValue}
+              error={inputErrors?.cvv}
+              placeholder={language.CVV_PH}
+              label={showLabel ? language.CVV_LABEL : ''}
+              required={true}
+            />
+          </div>
         </div>
-        <div className="kushki-logo-container">
-          <div>{language.SUPPORT_BY}</div>
-          <SvgImport
-            icon={icons.logoKushki}
-            className="flex-column flex-center m-l-s icon-64x"
+        {checkboxLabelComponent && (
+          <CheckboxComponent
+            valueId="checkbox"
+            values={[checkboxValue ? 'terms' : '']}
+            onChangeValues={(): void => onChangeCheckboxValue(!checkboxValue)}
+            options={[{ id: 'terms', label: checkboxLabelComponent }]}
+            error={!checkboxValue && submitPressed ? checkboxErrorMessage : ''}
           />
+        )}
+        {formError && showFormError && (
+          <div className="form-error-mesage">
+            {formError}
+            <a className="icon-close" onClick={closeFormError} />
+          </div>
+        )}
+        <div className="footer-container">
+          <div className="button-container">
+            <ButtonComponent
+              buttonText={buttonText}
+              onClick={onClickSubmitButton}
+              formButton={true}
+              iconButton={
+                checkButtonIcon && (
+                  <SvgImport
+                    icon={icons.check}
+                    className="flex-column flex-center m-l-s icon-32x"
+                  />
+                )
+              }
+            />
+          </div>
+          <div className="kushki-logo-container">
+            <div>{language.SUPPORT_BY}</div>
+            <SvgImport
+              icon={icons.logoKushki}
+              className="flex-column flex-center m-l-s icon-64x"
+            />
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

@@ -73,8 +73,8 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     )
 
     describe('when change cardNumber', () => {
-      describe('when enter only letters', () => {
-        it('does not change input value and does not call mockChangeInputError', () => {
+      describe('when enter letters with numbers', () => {
+        it('changes input value only with numbers', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
               onSubmit={null}
@@ -87,12 +87,11 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
             />
           )
           fireEvent.change(container.getElementsByTagName('input')[1], {
-            target: { value: 'a' },
+            target: { value: 'ai34equ' },
           })
-          expect(mockChangeInputError).not.toHaveBeenCalled()
           expect(
             container.getElementsByTagName('input')[1].getAttribute('value')
-          ).toBe('')
+          ).toBe('34')
         })
       })
 
