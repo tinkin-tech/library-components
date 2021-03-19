@@ -39,14 +39,8 @@
     }
   }
   .icon-container {
-    position: $input-icon-container-position;
-    &.right {
-      right: $input-icon-container-right-position;
-      top: $input-icon-container-top-position;
-    }
-    &.left {
-      left: $input-icon-container-left-position;
-      top: $input-icon-container-top-position;
-    }
+    position: absolute;
+    top: calc(50% - .5rem);
+    right: .3rem;
   }
 }

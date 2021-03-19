@@ -15,6 +15,9 @@ export type IFormatTypes =
   | 'HH:mm DD-MM-YYYY'
   | 'YYYY-MM-DD'
   | 'YYYY-MM'
+  | 'MM/YYYY'
+  | 'MM/DD'
+  | 'YYYY/MM/DD'
   | 'MM-DD-YYYY'
   | 'DD-MM-YYYY HH:mm'
   | 'DD-MM-YYYY HH:mm:ss'
@@ -38,6 +41,8 @@ const split = (dateFormat: string): string[] =>
   dateFormat
     .toString()
     .split('-')
+    .toString()
+    .split('/')
     .toString()
     .split(' ')
     .toString()

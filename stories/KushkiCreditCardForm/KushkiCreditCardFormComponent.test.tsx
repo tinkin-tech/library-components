@@ -3,6 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
 
 import { KushkiCreditCardFormComponent } from './KushkiCreditCardFormComponent'
+import { SvgImport } from '../../utils/imageUtils/SvgImport'
 
 jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
@@ -109,12 +110,17 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
             />
           )
           fireEvent.change(container.getElementsByTagName('input')[1], {
-            target: { value: '01234567890123456' },
+            target: { value: '0123456789012345' },
           })
-          expect(mockChangeInputError).not.toHaveBeenCalled()
-          expect(
-            container.getElementsByTagName('input')[1].getAttribute('value')
-          ).toBe('')
+          expect(container.getElementsByTagName('input')[1].value).toBe(
+            '0123456789012345'
+          )
+          fireEvent.change(container.getElementsByTagName('input')[1], {
+            target: { value: '01234567890123453' },
+          })
+          expect(container.getElementsByTagName('input')[1].value).toBe(
+            '0123456789012345'
+          )
         })
       })
     })
@@ -143,7 +149,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
 
     describe('when change cvv', () => {
       describe('when enter input with letters', () => {
-        it('does not change input value and does not call mockChangeInputError', () => {
+        it('changes only numbers characters', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
               onSubmit={null}
@@ -156,17 +162,16 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
             />
           )
           fireEvent.change(container.getElementsByTagName('input')[3], {
-            target: { value: 'ae' },
+            target: { value: '34a' },
           })
-          expect(mockChangeInputError).not.toHaveBeenCalled()
           expect(
             container.getElementsByTagName('input')[3].getAttribute('value')
-          ).toBe('')
+          ).toBe('34')
         })
       })
 
       describe('when enter more than 3 characters', () => {
-        it('does not change input value and does not call mockChangeInputError', () => {
+        it('does not change input value', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
               onSubmit={null}
@@ -179,12 +184,17 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
             />
           )
           fireEvent.change(container.getElementsByTagName('input')[3], {
-            target: { value: '0321' },
+            target: { value: '032' },
           })
-          expect(mockChangeInputError).not.toHaveBeenCalled()
           expect(
             container.getElementsByTagName('input')[3].getAttribute('value')
-          ).toBe('')
+          ).toBe('032')
+          fireEvent.change(container.getElementsByTagName('input')[3], {
+            target: { value: '0323' },
+          })
+          expect(
+            container.getElementsByTagName('input')[3].getAttribute('value')
+          ).toBe('032')
         })
       })
     })
@@ -411,6 +421,65 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
       expect(getByText('/icons/card_amex.svg')).toBeInTheDocument()
       expect(getByText('/icons/card_master.svg')).toBeInTheDocument()
       expect(getByText('/icons/card_visa.svg')).toBeInTheDocument()
+    })
+  })
+
+  describe('when receives componentClassName', () => {
+    it('replaces the first element className with componentClassName value', () => {
+      const { container } = render(
+        <KushkiCreditCardFormComponent
+          onSubmit={null}
+          inputErrors={null}
+          checkboxErrorMessage="Debe aceptar las condiciones"
+          formError="Ocurrio un problema"
+          changeInputErrors={null}
+          buttonText="Confirmar Pago"
+          componentClassName="new-className"
+          creditCardIcons={true}
+        />
+      )
+      expect(container.children[0].className).toBe('new-className ')
+    })
+  })
+
+  describe('when receives customCreditCards', () => {
+    it('replace default creditCards icons with customCreditCards', () => {
+      const { container } = render(
+        <KushkiCreditCardFormComponent
+          onSubmit={null}
+          inputErrors={null}
+          checkboxErrorMessage="Debe aceptar las condiciones"
+          formError="Ocurrio un problema"
+          changeInputErrors={null}
+          buttonText="Confirmar Pago"
+          componentClassName="new-className"
+          creditCardIcons={true}
+          customCreditCards={<SvgImport icon="img.svg" />}
+        />
+      )
+      expect(container.children[0].children[0]).toHaveTextContent('img.svg')
+    })
+  })
+
+  describe('when change expirationDate with invalida month', () => {
+    it('replace month value with last month', () => {
+      const { container } = render(
+        <KushkiCreditCardFormComponent
+          onSubmit={null}
+          inputErrors={null}
+          checkboxErrorMessage="Debe aceptar las condiciones"
+          formError="Ocurrio un problema"
+          changeInputErrors={mockChangeInputError}
+          buttonText="Confirmar Pago"
+          componentClassName="new-className"
+          creditCardIcons={true}
+          customCreditCards={<SvgImport icon="img.svg" />}
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[2], {
+        target: { value: '130' },
+      })
+      expect(container.getElementsByTagName('input')[2].value).toBe('12/0')
     })
   })
 })

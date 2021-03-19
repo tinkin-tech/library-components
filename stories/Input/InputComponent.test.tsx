@@ -4,11 +4,14 @@ import '@testing-library/jest-dom/extend-expect'
 
 import { InputComponent } from './InputComponent'
 import { TestUtil } from '../../utils/testUtils/testUtils'
+import { SvgImport } from '../../utils/imageUtils/SvgImport'
 
 jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
 describe('InputComponent test', () => {
   const mockOnChangeInput = jest.fn()
+
+  const defaultIcon = <SvgImport icon="icon-test.svg" />
 
   describe('Value prop', () => {
     it('Should recive value, set in input value', () => {
@@ -107,48 +110,6 @@ describe('InputComponent test', () => {
       )
       expect(container.getElementsByTagName('input')[0]).toMatchObject({
         value: '123',
-      })
-    })
-
-    describe('when type is equal to "date"', () => {
-      describe('when enter 3 values', () => {
-        it('calls onChangeValue with value with "/" added', () => {
-          const mockUtil = jest.fn()
-          const { container } = render(
-            <InputComponent
-              valueId="input"
-              value=""
-              onChangeValue={mockUtil}
-              type="date"
-            />
-          )
-          fireEvent.change(container.getElementsByTagName('input')[0], {
-            target: {
-              value: '022',
-            },
-          })
-          expect(mockUtil).toHaveBeenCalledWith('02/2', 'input')
-        })
-      })
-
-      describe('when enter more than 5 values included slash character', () => {
-        it('calls onChangeValue with first 5 values', () => {
-          const mockUtil = jest.fn()
-          const { container } = render(
-            <InputComponent
-              valueId="input"
-              value=""
-              onChangeValue={mockUtil}
-              type="date"
-            />
-          )
-          fireEvent.change(container.getElementsByTagName('input')[0], {
-            target: {
-              value: '02/283',
-            },
-          })
-          expect(mockUtil).toHaveBeenCalledWith('02/28', 'input')
-        })
       })
     })
   })
@@ -447,7 +408,7 @@ describe('InputComponent test', () => {
           onChangeValue={null}
           type="text"
           maxLength={3}
-          icon="icon-test.svg"
+          icon={defaultIcon}
         />
       )
       expect(
@@ -456,81 +417,6 @@ describe('InputComponent test', () => {
       expect(
         container.getElementsByClassName('svgImport-mock')[0]
       ).toHaveTextContent('icon-test.svg')
-    })
-
-    describe('when not receive iconPosition', () => {
-      it('adds className "right" to icon-container', () => {
-        const { container } = render(
-          <InputComponent
-            valueId="input"
-            value="aoe"
-            onChangeValue={null}
-            type="text"
-            maxLength={3}
-            icon="new-icon.svg"
-          />
-        )
-        expect(
-          container.getElementsByClassName('icon-container')[0].className
-        ).toContain('right')
-      })
-    })
-
-    describe('when receive iconPosition right', () => {
-      it('adds className "right" to icon-container', () => {
-        const { container } = render(
-          <InputComponent
-            valueId="input"
-            value="aoe"
-            onChangeValue={null}
-            type="text"
-            maxLength={3}
-            icon="new-icon.svg"
-            iconPosition="right"
-          />
-        )
-        expect(
-          container.getElementsByClassName('icon-container')[0].className
-        ).toContain('right')
-      })
-    })
-
-    describe('when receive iconPosition left', () => {
-      it('adds className "left" to icon-container', () => {
-        const { container } = render(
-          <InputComponent
-            valueId="input"
-            value="aoe"
-            onChangeValue={null}
-            type="text"
-            maxLength={3}
-            icon="new-icon.svg"
-            iconPosition="left"
-          />
-        )
-        expect(
-          container.getElementsByClassName('icon-container')[0].className
-        ).toContain('left')
-      })
-    })
-
-    describe('when receive iconStyle', () => {
-      it('adds iconSyle value to icon className', () => {
-        const { container } = render(
-          <InputComponent
-            valueId="input"
-            value="aoe"
-            onChangeValue={null}
-            type="text"
-            maxLength={3}
-            icon="new-icon.svg"
-            iconStyle="new-style"
-          />
-        )
-        expect(
-          container.getElementsByClassName('svgImport-mock')[0].className
-        ).toContain('new-style')
-      })
     })
   })
 })

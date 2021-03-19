@@ -1,11 +1,8 @@
 import * as React from 'react'
 
 import language from './language/es_EC'
-import { SvgImport } from '../../utils/imageUtils/SvgImport'
 
-export type IInputTypes = 'text' | 'email' | 'number' | 'password' | 'date'
-
-export type IIconPositionType = 'right' | 'left'
+export type IInputTypes = 'text' | 'email' | 'number' | 'password'
 
 export interface InputComponentPropsInterface {
   valueId: string
@@ -22,9 +19,7 @@ export interface InputComponentPropsInterface {
   readOnly?: boolean
   textArea?: boolean
   maxLength?: number
-  icon?: string
-  iconPosition?: IIconPositionType
-  iconStyle?: string
+  icon?: JSX.Element
 }
 
 export const InputComponent: React.FC<InputComponentPropsInterface> = (
@@ -46,27 +41,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     bottomDescription,
     maxLength,
     icon,
-    iconPosition,
-    iconStyle,
   } = props
-
-  const tranformValueToValueDate = (value: string): string => {
-    const LIMIT_STRING_LENGTH_WITH_SLASH = 3
-    const LIMIT_STRING_LENGTH_FOR_CUT = 2
-    const MAX_STRING_LENGTH = 4
-    let currentValue = value.replace(/\//g, '')
-    const limitIndex =
-      currentValue.length <= MAX_STRING_LENGTH
-        ? currentValue.length
-        : MAX_STRING_LENGTH
-    if (currentValue.length >= LIMIT_STRING_LENGTH_WITH_SLASH) {
-      currentValue = currentValue
-        .substring(0, LIMIT_STRING_LENGTH_FOR_CUT)
-        .concat('/')
-        .concat(currentValue.substring(LIMIT_STRING_LENGTH_FOR_CUT, limitIndex))
-    }
-    return currentValue
-  }
 
   const onChangeAction = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,9 +51,6 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       switch (type) {
         case 'number':
           currentValue = currentValue.replace(/[^\d.-]/g, '')
-          break
-        case 'date':
-          currentValue = tranformValueToValueDate(currentValue)
           break
         default:
           break
@@ -94,7 +66,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
     autoComplete: 'off',
     spellCheck: false,
     onChange: readOnly ? null : onChangeAction,
-    type: type === 'number' || type === 'date' || !type ? 'text' : type,
+    type: type === 'number' || !type ? 'text' : type,
     placeholder: placeholder || language.placeholder,
     className: `${inputClassName || ''} ${error ? 'warning' : ''}`,
     disabled: readOnly,
@@ -121,14 +93,7 @@ export const InputComponent: React.FC<InputComponentPropsInterface> = (
       ) : (
         <input {...propsComponent} />
       )}
-      {icon && (
-        <div className={`icon-container ${iconPosition || 'right'}`}>
-          <SvgImport
-            icon={icon}
-            className={`flex-column flex-center m-l-s icon-16x ${iconStyle}`}
-          />
-        </div>
-      )}
+      {icon && <div className="icon-container">{icon}</div>}
       {!!(bottomDescription && !error) && bottomDescription}
       {error && <span className="error-message">{error}</span>}
     </div>

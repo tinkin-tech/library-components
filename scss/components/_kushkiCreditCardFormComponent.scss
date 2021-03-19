@@ -7,6 +7,10 @@
     @include justify-content(center);
     @include align(center);
     margin: $kushki-form-card-icons-margin;
+    .card-icon {
+      width: $kushki-form-card-icon-width;
+      height: $kushki-form-card-icon-height;
+    }
   }
   .form-content {
     @include flexbox();

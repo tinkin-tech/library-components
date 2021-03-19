@@ -5,6 +5,7 @@ import language from './language/es_EC'
 import { InputComponent } from '../Input/InputComponent'
 import { CheckboxComponent } from '../Checkbox/CheckboxComponent'
 import { SvgImport } from '../../utils/imageUtils/SvgImport'
+import { ButtonComponent } from '../Button/ButtonComponent'
 
 export interface IInputErrors {
   [name: string]: string
@@ -30,6 +31,8 @@ export interface IKushkiCreditCardFormComponent {
   maxWidth?: string
   checkButtonIcon?: boolean
   creditCardIcons?: boolean
+  componentClassName?: string
+  customCreditCards?: JSX.Element
 }
 
 export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormComponent> = (
@@ -48,6 +51,8 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
     extraClassName,
     checkButtonIcon,
     creditCardIcons,
+    componentClassName,
+    customCreditCards,
   } = props
 
   const [checkboxValue, onChangeCheckboxValue] = React.useState(false)
@@ -71,6 +76,28 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
       changeInputErrors(newInputErrors)
     }
   }
+  const onChangeExpirationDate = (value: string): void => {
+    const NUMBER_OF_MONTHS = 12
+    const LIMIT_STRING_LENGTH_WITH_SLASH = 3
+    const LIMIT_STRING_LENGTH_FOR_CUT = 2
+    const MAX_STRING_LENGTH = 4
+    let currentValue = value.replace(/[^\d]/g, '')
+    const limitIndex =
+      currentValue.length <= MAX_STRING_LENGTH
+        ? currentValue.length
+        : MAX_STRING_LENGTH
+    if (currentValue.length >= LIMIT_STRING_LENGTH_WITH_SLASH) {
+      const monthValue = currentValue.slice(0, LIMIT_STRING_LENGTH_FOR_CUT)
+      currentValue = (+monthValue <= NUMBER_OF_MONTHS
+        ? monthValue
+        : NUMBER_OF_MONTHS
+      )
+        .toString()
+        .concat('/')
+        .concat(currentValue.substring(LIMIT_STRING_LENGTH_FOR_CUT, limitIndex))
+    }
+    onChangeInputValue(currentValue, 'expirationDate')
+  }
   const onClickSubmitButton = (): void => {
     onChangeSubmitPressed(true)
     if (checkboxValue) {
@@ -88,25 +115,28 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
 
   return (
     <div
-      className={`kushki-credit-card-form-component ${extraClassName}`}
+      className={`${
+        componentClassName || 'kushki-credit-card-form-component'
+      } ${extraClassName || ''}`}
       style={{ maxWidth: maxWidth || '100%' }}
     >
-      {creditCardIcons && (
-        <div className="card-icons-content">
-          <SvgImport
-            icon={icons.cardVisa}
-            className="flex-column flex-center m-l-s icon-32x"
-          />
-          <SvgImport
-            icon={icons.cardMaster}
-            className="flex-column flex-center m-l-s icon-32x"
-          />
-          <SvgImport
-            icon={icons.cardAmex}
-            className="flex-column flex-center m-l-s icon-32x"
-          />
-        </div>
-      )}
+      {creditCardIcons &&
+        (customCreditCards || (
+          <div className="card-icons-content">
+            <SvgImport
+              icon={icons.cardVisa}
+              className="flex-column flex-center m-l-s card-icon"
+            />
+            <SvgImport
+              icon={icons.cardMaster}
+              className="flex-column flex-center m-l-s card-icon"
+            />
+            <SvgImport
+              icon={icons.cardAmex}
+              className="flex-column flex-center m-l-s card-icon"
+            />
+          </div>
+        ))}
       <div className="form-content">
         <div className="input-name">
           <InputComponent
@@ -136,13 +166,18 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
           <InputComponent
             value={formData.expirationDate}
             valueId="expirationDate"
-            type="date"
-            onChangeValue={onChangeInputValue}
+            type="text"
+            onChangeValue={onChangeExpirationDate}
             error={inputErrors?.expirationDate}
             placeholder={language.EXPIRATION_DATE_PH}
             label={showLabel ? language.EXPIRATION_DATE_LABEL : ''}
             required={true}
-            icon={icons.calendar}
+            icon={
+              <SvgImport
+                icon={icons.calendar}
+                className="flex-column flex-center m-l-s icon-16x"
+              />
+            }
           />
         </div>
         <div className="input-cvv">
@@ -176,20 +211,19 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
       )}
       <div className="footer-container">
         <div className="button-container">
-          <a
+          <ButtonComponent
+            buttonText={buttonText}
             onClick={onClickSubmitButton}
-            className="button-component bg-primary"
-          >
-            <span className="flex-row flex-no-wrap flex-center flex-middle">
-              <span>{buttonText}</span>
-              {checkButtonIcon && (
+            formButton={true}
+            iconButton={
+              checkButtonIcon && (
                 <SvgImport
                   icon={icons.check}
                   className="flex-column flex-center m-l-s icon-32x"
                 />
-              )}
-            </span>
-          </a>
+              )
+            }
+          />
         </div>
         <div className="kushki-logo-container">
           <div>{language.SUPPORT_BY}</div>
