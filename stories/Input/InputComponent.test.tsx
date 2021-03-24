@@ -4,14 +4,11 @@ import '@testing-library/jest-dom/extend-expect'
 
 import { InputComponent } from './InputComponent'
 import { TestUtil } from '../../utils/testUtils/testUtils'
-import { SvgImport } from '../../utils/imageUtils/SvgImport'
-
-jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
 describe('InputComponent test', () => {
   const mockOnChangeInput = jest.fn()
 
-  const defaultIcon = <SvgImport icon="icon-test.svg" />
+  const defaultIcon = <div className="icon-mock">icon-test.svg</div>
 
   describe('Value prop', () => {
     it('Should recive value, set in input value', () => {
@@ -412,10 +409,7 @@ describe('InputComponent test', () => {
         />
       )
       expect(
-        container.getElementsByClassName('svgImport-mock')[0]
-      ).toBeInTheDocument()
-      expect(
-        container.getElementsByClassName('svgImport-mock')[0]
+        container.getElementsByClassName('icon-mock')[0]
       ).toHaveTextContent('icon-test.svg')
     })
   })
