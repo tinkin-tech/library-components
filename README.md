@@ -1,30 +1,43 @@
-# storybook
+# Tinkin Storybook
 
-## Environment
+## Descripción
 
-- Node -v > 12
+Nuestra librería de componentes compartidos para React hecha en [Storybook](https://storybook.js.org/).
 
-## Setup
-- run `yarn install`
+## Dependencias
 
-Para instalar los githooks en el proyecto:
-- run `pip install pre-commit`
-- run `pre-commit install`
+* node versión >= 14
+* pre-commit
 
-## Start Project
+## Instalación
 
-- run `yarn start`
+Primero se necesitan instalar las dependencias del proyecto, para ello debe correr el siguiente comando:
 
-## Run test 
+```bash
+$ npm install
+```
 
-- run `yarn test`
+Luego se necesita instalar los [pre-commit](https://gitlab.com/tinkin.one/shared/tinkin-pre-commit-hooks) compartidos de tinkin, correr los siguientes comandos:
 
-### Watch test
+```bash
+$ pip install pre-commit
+$ pre-commit install
+```
 
-- run `yarn test:watch`
+## Correr el proyecto y las pruebas
 
+Para correr el proyectos usar el siguiente comando:
 
-## Test Coverage
+```bash
+$ npm run start
+```
 
-- run `test:coverage`
+Para correr las pruebas del proyecto:
 
+```bash
+$ npm run test
+```
+
+Consultar el `package.json` para ver todos los comandos posibles.
+
+## Crear o modificar un componente
