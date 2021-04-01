@@ -47,7 +47,7 @@
       border: $uploader-container-error-border;
     }
     &.drag-style {
-      background-color: white;
+      background-color: $drag-in-background-color;
     }
   }
   .error {
