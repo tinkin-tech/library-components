@@ -1,10 +1,9 @@
 import * as React from 'react'
 
-import icons from '../../constants/icons'
 import language from './language/es_EC'
 import { InputComponent } from '../Input/InputComponent'
 import { CheckboxComponent } from '../Checkbox/CheckboxComponent'
-import { SvgImport } from '../../utils/imageUtils/SvgImport'
+
 import { ButtonComponent } from '../Button/ButtonComponent'
 
 export interface IInputErrors {
@@ -29,10 +28,12 @@ export interface IKushkiCreditCardFormComponent {
   checkboxErrorMessage?: string
   showLabel?: boolean
   maxWidth?: string
-  checkButtonIcon?: boolean
+  checkButtonIcon?: JSX.Element
   creditCardIcons?: boolean
   componentClassName?: string
   customCreditCards?: JSX.Element
+  iconKushki?: JSX.Element
+  inputIconCalendar: JSX.Element
 }
 
 export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormComponent> = (
@@ -53,6 +54,8 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
     creditCardIcons,
     componentClassName,
     customCreditCards,
+    iconKushki,
+    inputIconCalendar,
   } = props
 
   const [checkboxValue, onChangeCheckboxValue] = React.useState(false)
@@ -121,23 +124,7 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
       } ${extraClassName || ''}`}
       style={{ maxWidth: maxWidth || '100%' }}
     >
-      {creditCardIcons &&
-        (customCreditCards || (
-          <div className="card-icons-content">
-            <SvgImport
-              icon={icons.cardVisa}
-              className="flex-column flex-center m-l-s card-icon"
-            />
-            <SvgImport
-              icon={icons.cardMaster}
-              className="flex-column flex-center m-l-s card-icon"
-            />
-            <SvgImport
-              icon={icons.cardAmex}
-              className="flex-column flex-center m-l-s card-icon"
-            />
-          </div>
-        ))}
+      {creditCardIcons && customCreditCards}
       <form>
         <div className="form-content">
           <div className="input-name">
@@ -174,12 +161,7 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
               placeholder={language.EXPIRATION_DATE_PH}
               label={showLabel ? language.EXPIRATION_DATE_LABEL : ''}
               required={true}
-              icon={
-                <SvgImport
-                  icon={icons.calendar}
-                  className="flex-column flex-center m-l-s icon-16x"
-                />
-              }
+              icon={inputIconCalendar}
             />
           </div>
           <div className="input-cvv">
@@ -217,22 +199,12 @@ export const KushkiCreditCardFormComponent: React.FC<IKushkiCreditCardFormCompon
               buttonText={buttonText}
               onClick={onClickSubmitButton}
               formButton={true}
-              iconButton={
-                checkButtonIcon && (
-                  <SvgImport
-                    icon={icons.check}
-                    className="flex-column flex-center m-l-s icon-32x"
-                  />
-                )
-              }
+              iconButton={checkButtonIcon}
             />
           </div>
           <div className="kushki-logo-container">
             <div>{language.SUPPORT_BY}</div>
-            <SvgImport
-              icon={icons.logoKushki}
-              className="flex-column flex-center m-l-s icon-64x"
-            />
+            {iconKushki}
           </div>
         </div>
       </form>

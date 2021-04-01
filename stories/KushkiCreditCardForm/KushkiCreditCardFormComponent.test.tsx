@@ -3,9 +3,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
 
 import { KushkiCreditCardFormComponent } from './KushkiCreditCardFormComponent'
-import { SvgImport } from '../../utils/imageUtils/SvgImport'
-
-jest.mock('../../utils/imageUtils/SvgImport.tsx')
 
 describe('When render <KushkiCreditCardFormComponent /> component', () => {
   const mockChangeInputError = jest.fn()
@@ -25,6 +22,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('renders first element with className equal to component name', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           formError=""
@@ -51,6 +49,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
       (id, index, value) => {
         const { container } = render(
           <KushkiCreditCardFormComponent
+            inputIconCalendar={null}
             onSubmit={null}
             inputErrors={inputErrors}
             formError=""
@@ -77,6 +76,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
         it('changes input value only with numbers', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
+              inputIconCalendar={null}
               onSubmit={null}
               checkboxErrorMessage="Debe aceptar las condiciones"
               inputErrors={inputErrors}
@@ -99,6 +99,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
         it('does not change input and not call mockChangeInputError', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
+              inputIconCalendar={null}
               onSubmit={null}
               checkboxErrorMessage="Debe aceptar las condiciones"
               inputErrors={inputErrors}
@@ -128,6 +129,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
       it('adds slash character when enter more than 2 characters', () => {
         const { container } = render(
           <KushkiCreditCardFormComponent
+            inputIconCalendar={null}
             onSubmit={null}
             inputErrors={inputErrors}
             checkboxErrorMessage="Debe aceptar las condiciones"
@@ -151,6 +153,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
         it('changes only numbers characters', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
+              inputIconCalendar={null}
               onSubmit={null}
               checkboxErrorMessage="Debe aceptar las condiciones"
               inputErrors={inputErrors}
@@ -173,6 +176,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
         it('does not change input value', () => {
           const { container } = render(
             <KushkiCreditCardFormComponent
+              inputIconCalendar={null}
               onSubmit={null}
               checkboxErrorMessage="Debe aceptar las condiciones"
               inputErrors={inputErrors}
@@ -203,6 +207,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows button text with paymentValue', () => {
       const { getByText } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
           inputErrors={inputErrors}
@@ -221,6 +226,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
       const mockSubmit = jest.fn()
       const { getByText, container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={mockSubmit}
           checkboxErrorMessage="Debe aceptar las condiciones"
           inputErrors={inputErrors}
@@ -251,6 +257,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
         const mockSubmit = jest.fn()
         const { getByText } = render(
           <KushkiCreditCardFormComponent
+            inputIconCalendar={null}
             onSubmit={mockSubmit}
             inputErrors={inputErrors}
             formError=""
@@ -271,6 +278,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows checkboxLabelComponent in document', () => {
       const { getByText } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
           inputErrors={null}
@@ -288,6 +296,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows inputErrors in document', () => {
       const { getByText } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
           inputErrors={inputErrors}
@@ -310,6 +319,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows formError message in document', () => {
       const { getByText } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -327,6 +337,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows label of each input', () => {
       const { getByText } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -349,6 +360,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('sets maxWidth style of first element equal to maxWidth', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -370,6 +382,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('adds className to first element', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -387,6 +400,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('shows check icon in button', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -394,19 +408,20 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
           changeInputErrors={null}
           buttonText="Confirmar Pago"
           extraClassName="extra-class"
-          checkButtonIcon={true}
+          checkButtonIcon={<img />}
         />
       )
       expect(
-        container.querySelectorAll('.button-component .svgImport-mock')[0]
-      ).toHaveTextContent('check.svg')
+        container.querySelectorAll('.button-component img')[0]
+      ).toBeInTheDocument()
     })
   })
 
   describe('when receives creditCardIcons prop', () => {
-    it('shows creditCardIcons', () => {
-      const { getByText } = render(
+    it('shows svg className inside card-icons-content', () => {
+      const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -415,11 +430,16 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
           buttonText="Confirmar Pago"
           extraClassName="extra-class"
           creditCardIcons={true}
+          customCreditCards={
+            <div className="card-icons-content">
+              <img /> <img /> <img />
+            </div>
+          }
         />
       )
-      expect(getByText('/icons/card_amex.svg')).toBeInTheDocument()
-      expect(getByText('/icons/card_master.svg')).toBeInTheDocument()
-      expect(getByText('/icons/card_visa.svg')).toBeInTheDocument()
+      expect(
+        container.querySelectorAll('.card-icons-content img')
+      ).toHaveLength(3)
     })
   })
 
@@ -427,6 +447,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('replaces the first element className with componentClassName value', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -445,6 +466,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('replace default creditCards icons with customCreditCards', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -453,7 +475,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
           buttonText="Confirmar Pago"
           componentClassName="new-className"
           creditCardIcons={true}
-          customCreditCards={<SvgImport icon="img.svg" />}
+          customCreditCards={<div>img.svg</div>}
         />
       )
       expect(container.children[0].children[0]).toHaveTextContent('img.svg')
@@ -464,6 +486,7 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
     it('replace month value with last month', () => {
       const { container } = render(
         <KushkiCreditCardFormComponent
+          inputIconCalendar={null}
           onSubmit={null}
           inputErrors={null}
           checkboxErrorMessage="Debe aceptar las condiciones"
@@ -472,13 +495,35 @@ describe('When render <KushkiCreditCardFormComponent /> component', () => {
           buttonText="Confirmar Pago"
           componentClassName="new-className"
           creditCardIcons={true}
-          customCreditCards={<SvgImport icon="img.svg" />}
+          customCreditCards={<div>img.svg</div>}
         />
       )
       fireEvent.change(container.getElementsByTagName('input')[2], {
         target: { value: '130' },
       })
       expect(container.getElementsByTagName('input')[2].value).toBe('12/0')
+    })
+  })
+
+  describe('when receives inputIconCalendar', () => {
+    it('shows component passed inside input-component', () => {
+      const { container } = render(
+        <KushkiCreditCardFormComponent
+          inputIconCalendar={<img />}
+          onSubmit={null}
+          inputErrors={null}
+          checkboxErrorMessage="Debe aceptar las condiciones"
+          formError="Ocurrio un problema"
+          changeInputErrors={mockChangeInputError}
+          buttonText="Confirmar Pago"
+          componentClassName="new-className"
+          creditCardIcons={true}
+          customCreditCards={<div>img.svg</div>}
+        />
+      )
+      expect(
+        container.querySelectorAll('.input-component img')[0]
+      ).toBeInTheDocument()
     })
   })
 })
