@@ -92,8 +92,14 @@ MultipleUploader.args = {
   changeValues: action('changeValues'),
   isMultiple: true,
   values: [
-    'https://upload.wikimedia.org/wikipedia/commons/9/90/Spiderman.JPG',
-    'https://i1.wp.com/elsolnewsmedia.com/wp-content/uploads/2020/10/1601498876_582320_1601498920_noticia_normal.jpg',
+    {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Spiderman.JPG',
+    },
+    {
+      url:
+        'https://i1.wp.com/elsolnewsmedia.com/wp-content/uploads/2020/10/1601498876_582320_1601498920_noticia_normal.jpg',
+      size: 39,
+    },
   ],
   removeImageIcon: <div>Eliminar</div>,
   width: '500px',

@@ -504,7 +504,7 @@ describe('render component <UploaderImageComponent />', () => {
             keyFormData="key"
             valueId="upload"
             isMultiple={true}
-            values={['image.png', 'image2.png']}
+            values={[{ url: 'image.png' }, { url: 'image2.png' }]}
           />
         )
         expect(container.getElementsByClassName('image-item')).toHaveLength(2)
@@ -529,7 +529,10 @@ describe('render component <UploaderImageComponent />', () => {
             keyFormData="key"
             valueId="upload"
             isMultiple={true}
-            values={['image.png', 'http://localhost/image2.png']}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
           />
         )
         expect(getByText('image.png')).toBeInTheDocument()
@@ -546,13 +549,16 @@ describe('render component <UploaderImageComponent />', () => {
             keyFormData="key"
             valueId="upload"
             isMultiple={true}
-            values={['image.png', 'http://localhost/image2.png']}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
             changeValues={mockChangeValues}
           />
         )
         fireEvent.click(container.getElementsByTagName('a')[0])
         expect(mockChangeValues).toHaveBeenCalledWith([
-          'http://localhost/image2.png',
+          { url: 'http://localhost/image2.png' },
         ])
       })
 
@@ -565,7 +571,10 @@ describe('render component <UploaderImageComponent />', () => {
             keyFormData="key"
             valueId="upload"
             isMultiple={true}
-            values={['image.png', 'http://localhost/image2.png']}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
             removeImageIcon={<div className="icon-trash" />}
           />
         )

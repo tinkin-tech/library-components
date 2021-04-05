@@ -2,6 +2,11 @@ import * as React from 'react'
 
 import ES_EC from './language/es_EC'
 
+export interface IImageValues {
+  url: string
+  size?: number
+}
+
 export interface IUploaderImageComponent {
   value: string
   width?: string
@@ -17,8 +22,8 @@ export interface IUploaderImageComponent {
   required?: boolean
   maxSize?: number
   isMultiple?: boolean
-  values?: string[]
-  changeValues?: (images: string[]) => void
+  values?: IImageValues[]
+  changeValues?: (images: IImageValues[]) => void
   removeImageIcon?: JSX.Element
   customUploaderContent?: JSX.Element
 }
@@ -100,7 +105,7 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     const files = Array.from(e.currentTarget.files)
     if (isMultiple) {
       files.forEach((file) => {
-        formData.append(`${keyFormData}[]`, file, file.name)
+        formData.append(keyFormData, file, file.name)
       })
     } else {
       formData.append(keyFormData, files[0])
@@ -129,7 +134,7 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     image.substring(image.lastIndexOf('/') + 1)
 
   const removeImage = (image: string): void => {
-    changeValues(values.filter((value) => value !== image))
+    changeValues(values.filter((value) => value.url !== image))
   }
 
   const onDragOver = (): void => {
@@ -208,16 +213,21 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
             <div className="left-content">
               <div
                 className="image-item"
-                style={{ backgroundImage: `url(${item})` }}
+                style={{ backgroundImage: `url(${item.url})` }}
               />
-              <div>{getImageName(item)}</div>
+              <div className="image-name truncate">
+                {getImageName(item.url)}
+              </div>
             </div>
-            <a
-              className="cursor-pointer remove-button"
-              onClick={(): void => removeImage(item)}
-            >
-              {removeImageIcon}
-            </a>
+            <div className="right-content">
+              {item.size && <div className="size-text m-r">{item.size}Mb</div>}
+              <a
+                className="cursor-pointer remove-button"
+                onClick={(): void => removeImage(item.url)}
+              >
+                {removeImageIcon}
+              </a>
+            </div>
           </div>
         ))}
     </div>
