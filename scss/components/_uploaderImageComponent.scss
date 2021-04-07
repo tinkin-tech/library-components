@@ -67,7 +67,7 @@
     }
     width: 100%;
     .left-content {
-      width: 75%;
+      width: calc(100% - 5rem);
       @include flexbox();
       @include flex-direction(row);
       @include align(center);
