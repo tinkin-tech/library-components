@@ -55,43 +55,27 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   const [fileSizeValid, setFileSizeValid] = React.useState(true)
   const [isDragIn, changeDragState] = React.useState(false)
 
-  const filesExtensionAreValid = (
+  const filesExtensionAreInvalid = (
     e: React.ChangeEvent<HTMLInputElement>
   ): boolean =>
-    Array.from(e.currentTarget.files).some((file, index) => {
-      const extensionIndex = file.name.lastIndexOf('.')
-      const extension = file.name.substring(extensionIndex + 1)
-      const isValidFile = filesAccepted.find(
-        (fileExtension) =>
-          fileExtension.toLowerCase() === extension?.toLowerCase()
-      )
-      if (!isValidFile) {
-        return false
-      } else if (
-        Array.from(e.currentTarget.files).length - 1 === index &&
-        isValidFile
-      ) {
+    Array.from(e.currentTarget.files).some((file) => {
+      const extension = file.type.split('/')[1]
+      const isInvalidFile = !filesAccepted.includes(extension)
+      if (isInvalidFile) {
         return true
       }
     })
 
-  const filesSizeAreValid = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    maxSize: number
+  const filesSizeAreInvalid = (
+    e: React.ChangeEvent<HTMLInputElement>
   ): boolean => {
     const BITS_IN_KILOBITS_NUMBER = 1024
     const KILOBITES_IN_MEGABITES_NUMBER = 1024
-    return Array.from(e.currentTarget.files).some((file, index) => {
-      const isValidSize = maxSize
-        ? file.size <=
-          maxSize / BITS_IN_KILOBITS_NUMBER / KILOBITES_IN_MEGABITES_NUMBER
-        : true
-      if (!isValidSize) {
-        return false
-      } else if (
-        Array.from(e.currentTarget.files).length - 1 === index &&
-        isValidSize
-      ) {
+    return Array.from(e.currentTarget.files).some((file) => {
+      const fileSizeInMb =
+        file.size / BITS_IN_KILOBITS_NUMBER / KILOBITES_IN_MEGABITES_NUMBER
+      const isInvalidSize = maxSize ? fileSizeInMb >= maxSize : false
+      if (isInvalidSize) {
         return true
       }
     })
@@ -104,21 +88,24 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   ): void => {
     const formData = new FormData()
     const files = Array.from(e.currentTarget.files)
-    files.forEach((file) => {
-      formData.append(keyFormData, file, file.name)
-    })
-    onUploadImage(formData, valueId)
+    if (files.length) {
+      files.forEach((file) => {
+        formData.append(keyFormData, file, file.name)
+      })
+      onUploadImage(formData, valueId)
+    }
   }
 
   const selectImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const validFile = filesExtensionAreValid(e)
-    const validSize = filesSizeAreValid(e, maxSize)
-    setFileSizeValid(validSize)
-    setFileValid(validFile)
-    if (validFile && validSize) {
+    const isInvalidFile = filesExtensionAreInvalid(e)
+    const isInvalidSize = filesSizeAreInvalid(e)
+    if (!isInvalidFile && !isInvalidSize) {
       uploadImages(keyFormData, e, valueId)
-      setFileValid(validFile)
-      setFileSizeValid(validSize)
+      setFileValid(true)
+      setFileSizeValid(true)
+    } else {
+      setFileSizeValid(false)
+      setFileValid(false)
     }
   }
 
@@ -156,9 +143,6 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     .filter((item) => item)
     .join(' ')
 
-  const acceptedFilesName = ES_EC.filesAccepted.concat(
-    transformFilesAccepted().join(' ')
-  )
   return (
     <div className="uploader-image-component" style={{ width }}>
       {label && (
@@ -196,7 +180,9 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
             {!fileSizeValid && <span>{ES_EC.invalidSize}</span>}
             {customUploaderContent || (
               <>
-                <div>{acceptedFilesName}</div>
+                <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
+                  ' '
+                )}`}</div>
                 {!!maxSize && <div>{`${ES_EC.fileSize}${maxSize}MB`}</div>}
               </>
             )}
