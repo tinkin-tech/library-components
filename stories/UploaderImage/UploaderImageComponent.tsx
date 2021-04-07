@@ -55,9 +55,8 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   const [fileSizeValid, setFileSizeValid] = React.useState(true)
   const [isDragIn, changeDragState] = React.useState(false)
 
-  const validateFilesExtension = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    filesAccepted: string[]
+  const filesExtensionAreValid = (
+    e: React.ChangeEvent<HTMLInputElement>
   ): boolean =>
     Array.from(e.currentTarget.files).some((file, index) => {
       const extensionIndex = file.name.lastIndexOf('.')
@@ -76,14 +75,16 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
       }
     })
 
-  const validateFileSize = (
+  const filesSizeAreValid = (
     e: React.ChangeEvent<HTMLInputElement>,
     maxSize: number
   ): boolean => {
-    const LIMIT_IMAGE_SIZE = 10000
+    const BITS_IN_KILOBITS_NUMBER = 1024
+    const KILOBITES_IN_MEGABITES_NUMBER = 1024
     return Array.from(e.currentTarget.files).some((file, index) => {
       const isValidSize = maxSize
-        ? file.size <= maxSize * LIMIT_IMAGE_SIZE
+        ? file.size <=
+          maxSize / BITS_IN_KILOBITS_NUMBER / KILOBITES_IN_MEGABITES_NUMBER
         : true
       if (!isValidSize) {
         return false
@@ -103,19 +104,15 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
   ): void => {
     const formData = new FormData()
     const files = Array.from(e.currentTarget.files)
-    if (isMultiple) {
-      files.forEach((file) => {
-        formData.append(keyFormData, file, file.name)
-      })
-    } else {
-      formData.append(keyFormData, files[0])
-    }
+    files.forEach((file) => {
+      formData.append(keyFormData, file, file.name)
+    })
     onUploadImage(formData, valueId)
   }
 
   const selectImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const validFile = validateFilesExtension(e, filesAccepted)
-    const validSize = validateFileSize(e, maxSize)
+    const validFile = filesExtensionAreValid(e)
+    const validSize = filesSizeAreValid(e, maxSize)
     setFileSizeValid(validSize)
     setFileValid(validFile)
     if (validFile && validSize) {

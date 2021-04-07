@@ -421,9 +421,11 @@ describe('render component <UploaderImageComponent />', () => {
         valueId="upload"
       />
     )
+    const fileBigSize = file
+    Object.defineProperty(fileBigSize, 'size', { value: 1024 * 1024 + 120 })
     fireEvent.change(container.getElementsByTagName('input')[0], {
       target: {
-        files: [{ name: 'image.png', size: 4000000 }],
+        files: [fileBigSize],
       },
     })
     expect(mockedFunction).toHaveBeenCalled()
