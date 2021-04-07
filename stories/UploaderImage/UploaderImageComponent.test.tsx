@@ -8,6 +8,9 @@ describe('render component <UploaderImageComponent />', () => {
   const mockedFunction = jest.fn()
   const deleteMockedFunction = jest.fn()
   const file = new File(['any'], 'my_image.png', { type: 'image/png' })
+  Object.defineProperty(file, 'size', { value: 1 * 1024 * 1024 })
+  const fileBigSize = new File(['any'], 'my_image.png', { type: 'image/png' })
+  Object.defineProperty(fileBigSize, 'size', { value: 120 * 1024 * 1024 })
 
   beforeEach(() => {
     mockedFunction.mockClear()
@@ -403,7 +406,7 @@ describe('render component <UploaderImageComponent />', () => {
       )
       fireEvent.change(container.getElementsByTagName('input')[0], {
         target: {
-          files: [{ name: 'image.png', size: 2000000 }],
+          files: [fileBigSize],
         },
       })
       expect(mockedFunction).not.toHaveBeenCalled()
@@ -421,8 +424,6 @@ describe('render component <UploaderImageComponent />', () => {
         valueId="upload"
       />
     )
-    const fileBigSize = file
-    Object.defineProperty(fileBigSize, 'size', { value: 1024 * 1024 + 120 })
     fireEvent.change(container.getElementsByTagName('input')[0], {
       target: {
         files: [fileBigSize],
@@ -487,10 +488,7 @@ describe('render component <UploaderImageComponent />', () => {
       )
       fireEvent.change(container.getElementsByTagName('input')[0], {
         target: {
-          files: [
-            file,
-            new File(['any'], 'my_image2.png', { type: 'image/png' }),
-          ],
+          files: [file, fileBigSize],
         },
       })
       expect(mockedFunction).toHaveBeenCalledWith(expect.any(FormData), 'value')
