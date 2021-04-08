@@ -598,4 +598,52 @@ describe('render component <UploaderImageComponent />', () => {
       expect(getByText('Arrastra o sube tus imágenes')).toBeInTheDocument()
     })
   })
+
+  describe('when receive maxUploadImages prop', () => {
+    it('shows error message when try to upload more than limit of images', () => {
+      const { container, getByText } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          customUploaderContent={<div>Arrastra o sube tus imágenes</div>}
+          isMultiple={true}
+          maxUploadImages={2}
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          files: [file, fileBigSize, file],
+        },
+      })
+      expect(
+        getByText('Excede el número máximo de archivos')
+      ).toBeInTheDocument()
+    })
+
+    it('disable input uploader when receives more than limit of images', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          customUploaderContent={<div>Arrastra o sube tus imágenes</div>}
+          isMultiple={true}
+          maxUploadImages={2}
+          values={[
+            { url: 'http://localhost/image2.png' },
+            { url: 'http://localhost/image2.png' },
+            { url: 'http://localhost/image2.png' },
+          ]}
+        />
+      )
+      expect(
+        container.getElementsByTagName('input')[0].getAttribute('disabled')
+      ).toBe('')
+    })
+  })
 })

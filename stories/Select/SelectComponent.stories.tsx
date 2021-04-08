@@ -18,6 +18,8 @@ export const Error: { args: ISelectComponent } = Template.bind({})
 
 export const Disable: { args: ISelectComponent } = Template.bind({})
 
+export const BottomDescription: { args: ISelectComponent } = Template.bind({})
+
 const options = [
   {
     id: '1',
@@ -79,4 +81,21 @@ Disable.args = {
   selectClassName: '',
   extraLabelClassName: '',
   extraSelectClassName: '',
+}
+
+BottomDescription.args = {
+  options,
+  onChangeValue: action('onChangeValue'),
+  value: '',
+  valueId: '',
+  error: '',
+  label: '',
+  readOnly: true,
+  required: false,
+  placeholder: '',
+  labelClassName: '',
+  selectClassName: '',
+  extraLabelClassName: '',
+  extraSelectClassName: '',
+  bottomDescription: <div>Descripción del select</div>,
 }

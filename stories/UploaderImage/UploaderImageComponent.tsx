@@ -26,6 +26,7 @@ export interface IUploaderImageComponent {
   changeValues?: (images: IImageValues[]) => void
   removeImageIcon?: JSX.Element
   customUploaderContent?: JSX.Element
+  maxUploadImages?: number
 }
 
 export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
@@ -49,10 +50,12 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     changeValues,
     removeImageIcon,
     customUploaderContent,
+    maxUploadImages,
     width,
   } = props
   const [fileValid, setFileValid] = React.useState(true)
   const [fileSizeValid, setFileSizeValid] = React.useState(true)
+  const [filesValidLength, setFilesValidLength] = React.useState(true)
   const [isDragIn, changeDragState] = React.useState(false)
 
   const filesExtensionAreInvalid = (
@@ -96,16 +99,24 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
     }
   }
 
+  const filesLenghtAreInValid = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): boolean =>
+    maxUploadImages && e.currentTarget.files.length > maxUploadImages
+
   const selectImages = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const isInvalidFile = filesExtensionAreInvalid(e)
     const isInvalidSize = filesSizeAreInvalid(e)
-    if (!isInvalidFile && !isInvalidSize) {
+    const areFilesLenghtAreInValid = filesLenghtAreInValid(e)
+    if (!isInvalidFile && !isInvalidSize && !areFilesLenghtAreInValid) {
       uploadImages(keyFormData, e, valueId)
       setFileValid(true)
       setFileSizeValid(true)
+      setFilesValidLength(true)
     } else {
       setFileSizeValid(false)
       setFileValid(false)
+      setFilesValidLength(false)
     }
   }
 
@@ -175,9 +186,23 @@ export const UploaderImageComponent: React.FC<IUploaderImageComponent> = (
               onChange={selectImages}
               size={maxSize}
               multiple={isMultiple}
+              disabled={
+                values && maxUploadImages && values.length >= maxUploadImages
+              }
             />
-            {!fileValid && <span>{ES_EC.invalidFormat}</span>}
-            {!fileSizeValid && <span>{ES_EC.invalidSize}</span>}
+            {!fileValid && (
+              <span className="invalid-format-error">
+                {ES_EC.invalidFormat}
+              </span>
+            )}
+            {!fileSizeValid && (
+              <span className="invalid-format-error">{ES_EC.invalidSize}</span>
+            )}
+            {!filesValidLength && (
+              <span className="invalid-format-error">
+                {ES_EC.invalidLength}
+              </span>
+            )}
             {customUploaderContent || (
               <>
                 <div>{`${ES_EC.filesAccepted}${transformFilesAccepted().join(
