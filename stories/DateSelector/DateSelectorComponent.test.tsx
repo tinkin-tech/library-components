@@ -87,13 +87,13 @@ describe('render component <DateSelectorComponent />', () => {
         const { getByText, container } = render(
           <DateSelectorComponent
             dateFormat="MM-DD"
-            date="04-02"
+            date="03-02"
             onChangeDate={null}
             valueId="date"
           />
         )
         fireEvent.click(getByText('02'))
-        expect(container.getElementsByTagName('li')).toHaveLength(30)
+        expect(container.getElementsByTagName('li')).toHaveLength(31)
       }
     )
 

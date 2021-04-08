@@ -130,6 +130,14 @@ $uploader-backgroundColor: color('gray', 'lighten-5');
 $uploader-container-radius: $radio-default;
 $uploader-container-error-border: 2px dashed $color-warning;
 $uploader-error-color: $color-warning;
+$uploder-container-padding: 1rem;
+$images-container-padding: 1rem 0;
+$images-container-border-bottom: 2px solid color('gray', 'lighten-4');
+$images-item-height: 50px;
+$images-item-width: 50px;
+$images-item-margin: 0 1rem 0 0;
+$drag-in-background-color: $color-white;
+$uploder-container-margin: 0 0 1rem 0;
 
 // RadioButtonComponent
 

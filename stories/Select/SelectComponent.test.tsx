@@ -400,4 +400,34 @@ describe('Render component <SelectComponent />', () => {
       }
     )
   })
+
+  describe('when receive bottomDescription prop', () => {
+    it('shows bottom when error is empty', () => {
+      const { getByText } = render(
+        <SelectComponent
+          value=""
+          options={optionsMock}
+          valueId=""
+          onChangeValue={mockedFunction}
+          bottomDescription={<div>Description</div>}
+        />
+      )
+      expect(getByText('Description')).toBeInTheDocument()
+    })
+
+    it('doesnt show bottom when error is not empty', () => {
+      const { getByText, queryByText } = render(
+        <SelectComponent
+          value=""
+          options={optionsMock}
+          valueId=""
+          onChangeValue={mockedFunction}
+          bottomDescription={<div>Description</div>}
+          error="new error"
+        />
+      )
+      expect(queryByText('Description')).not.toBeInTheDocument()
+      expect(getByText('new error')).toBeInTheDocument()
+    })
+  })
 })

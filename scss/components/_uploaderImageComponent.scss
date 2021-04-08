@@ -14,6 +14,8 @@
     color: $uploader-color;
     background-color: $uploader-backgroundColor;
     border-radius: $uploader-container-radius;
+    padding: $uploder-container-padding;
+    margin: $uploder-container-margin;
     input {
       width: 100%;
       height: 100%;
@@ -45,9 +47,41 @@
     &.upload-error {
       border: $uploader-container-error-border;
     }
+    &.drag-style {
+      background-color: $drag-in-background-color;
+    }
   }
   .error {
     display: flex;
     justify-content: flex-end;
+  }
+  .images-container {
+    @include flexbox();
+    @include flex-direction(row);
+    @include justify-content(space-between);
+    @include align(center);
+    padding: $images-container-padding;
+    border-bottom: $images-container-border-bottom;
+    &:last-child {
+      border-bottom: 0;
+    }
+    width: 100%;
+    .left-content {
+      width: calc(100% - 5rem);
+      @include flexbox();
+      @include flex-direction(row);
+      @include align(center);
+      .image-item {
+        width: $images-item-width;
+        height: $images-item-height;
+        background-size: cover;
+        margin: $images-item-margin;
+      }
+    }
+    .right-content {
+      @include flexbox();
+      @include flex-direction(row);
+      @include align(center);
+    }
   }
 }

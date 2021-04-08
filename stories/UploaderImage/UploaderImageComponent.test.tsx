@@ -8,6 +8,9 @@ describe('render component <UploaderImageComponent />', () => {
   const mockedFunction = jest.fn()
   const deleteMockedFunction = jest.fn()
   const file = new File(['any'], 'my_image.png', { type: 'image/png' })
+  Object.defineProperty(file, 'size', { value: 1 * 1024 * 1024 })
+  const fileBigSize = new File(['any'], 'my_image.png', { type: 'image/png' })
+  Object.defineProperty(fileBigSize, 'size', { value: 120 * 1024 * 1024 })
 
   beforeEach(() => {
     mockedFunction.mockClear()
@@ -403,7 +406,7 @@ describe('render component <UploaderImageComponent />', () => {
       )
       fireEvent.change(container.getElementsByTagName('input')[0], {
         target: {
-          files: [{ name: 'image.png', size: 2000000 }],
+          files: [fileBigSize],
         },
       })
       expect(mockedFunction).not.toHaveBeenCalled()
@@ -423,9 +426,224 @@ describe('render component <UploaderImageComponent />', () => {
     )
     fireEvent.change(container.getElementsByTagName('input')[0], {
       target: {
-        files: [{ name: 'image.png', size: 4000000 }],
+        files: [fileBigSize],
       },
     })
     expect(mockedFunction).toHaveBeenCalled()
+  })
+
+  describe('when receive isMultiple prop in true', () => {
+    it('does not show image passed in value', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value="image.png"
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          isMultiple={true}
+        />
+      )
+      expect(container.getElementsByClassName('uploader-image')).toHaveLength(0)
+    })
+
+    it('adds "multiple" prop in input element', () => {
+      const { container, rerender } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+        />
+      )
+      expect(
+        container.getElementsByTagName('input')[0].getAttribute('multiple')
+      ).toBeNull()
+      rerender(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          isMultiple={true}
+        />
+      )
+      expect(
+        container.getElementsByTagName('input')[0].getAttribute('multiple')
+      ).toBe('')
+    })
+
+    it('allows to upload more than 1 file', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="value"
+          isMultiple={true}
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          files: [file, fileBigSize],
+        },
+      })
+      expect(mockedFunction).toHaveBeenCalledWith(expect.any(FormData), 'value')
+    })
+
+    describe('when values prop is passed', () => {
+      it('shows images passed in values prop', () => {
+        const { container } = render(
+          <UploaderImageComponent
+            value=""
+            onUploadImage={mockedFunction}
+            deleteAction={deleteMockedFunction}
+            keyFormData="key"
+            valueId="upload"
+            isMultiple={true}
+            values={[{ url: 'image.png' }, { url: 'image2.png' }]}
+          />
+        )
+        expect(container.getElementsByClassName('image-item')).toHaveLength(2)
+        expect(
+          container
+            .getElementsByClassName('image-item')[0]
+            .getAttribute('style')
+        ).toBe('background-image: url(image.png);')
+        expect(
+          container
+            .getElementsByClassName('image-item')[1]
+            .getAttribute('style')
+        ).toBe('background-image: url(image2.png);')
+      })
+
+      it('shows image name', () => {
+        const { getByText } = render(
+          <UploaderImageComponent
+            value=""
+            onUploadImage={mockedFunction}
+            deleteAction={deleteMockedFunction}
+            keyFormData="key"
+            valueId="upload"
+            isMultiple={true}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
+          />
+        )
+        expect(getByText('image.png')).toBeInTheDocument()
+        expect(getByText('image2.png')).toBeInTheDocument()
+      })
+
+      it('calls changeValues when click on remove button', () => {
+        const mockChangeValues = jest.fn()
+        const { container } = render(
+          <UploaderImageComponent
+            value=""
+            onUploadImage={mockedFunction}
+            deleteAction={deleteMockedFunction}
+            keyFormData="key"
+            valueId="upload"
+            isMultiple={true}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
+            changeValues={mockChangeValues}
+          />
+        )
+        fireEvent.click(container.getElementsByTagName('a')[0])
+        expect(mockChangeValues).toHaveBeenCalledWith([
+          { url: 'http://localhost/image2.png' },
+        ])
+      })
+
+      it('shows element passed in removeImageIcon', () => {
+        const { container } = render(
+          <UploaderImageComponent
+            value=""
+            onUploadImage={mockedFunction}
+            deleteAction={deleteMockedFunction}
+            keyFormData="key"
+            valueId="upload"
+            isMultiple={true}
+            values={[
+              { url: 'image.png' },
+              { url: 'http://localhost/image2.png' },
+            ]}
+            removeImageIcon={<div className="icon-trash" />}
+          />
+        )
+        expect(container.getElementsByClassName('icon-trash')).toHaveLength(2)
+      })
+    })
+  })
+
+  describe('when receive customUploaderContent prop', () => {
+    it('shows component passed in prop', () => {
+      const { getByText } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          customUploaderContent={<div>Arrastra o sube tus imágenes</div>}
+        />
+      )
+      expect(getByText('Arrastra o sube tus imágenes')).toBeInTheDocument()
+    })
+  })
+
+  describe('when receive maxUploadImages prop', () => {
+    it('shows error message when try to upload more than limit of images', () => {
+      const { container, getByText } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          customUploaderContent={<div>Arrastra o sube tus imágenes</div>}
+          isMultiple={true}
+          maxUploadImages={2}
+        />
+      )
+      fireEvent.change(container.getElementsByTagName('input')[0], {
+        target: {
+          files: [file, fileBigSize, file],
+        },
+      })
+      expect(
+        getByText('Excede el número máximo de archivos')
+      ).toBeInTheDocument()
+    })
+
+    it('disable input uploader when receives more than limit of images', () => {
+      const { container } = render(
+        <UploaderImageComponent
+          value=""
+          onUploadImage={mockedFunction}
+          deleteAction={deleteMockedFunction}
+          keyFormData="key"
+          valueId="upload"
+          customUploaderContent={<div>Arrastra o sube tus imágenes</div>}
+          isMultiple={true}
+          maxUploadImages={2}
+          values={[
+            { url: 'http://localhost/image2.png' },
+            { url: 'http://localhost/image2.png' },
+            { url: 'http://localhost/image2.png' },
+          ]}
+        />
+      )
+      expect(
+        container.getElementsByTagName('input')[0].getAttribute('disabled')
+      ).toBe('')
+    })
   })
 })

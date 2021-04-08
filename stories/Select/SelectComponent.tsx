@@ -21,6 +21,7 @@ export interface ISelectComponent {
   selectClassName?: string
   extraLabelClassName?: string
   extraSelectClassName?: string
+  bottomDescription?: JSX.Element
 }
 
 export const SelectComponent: React.FC<ISelectComponent> = (
@@ -40,6 +41,7 @@ export const SelectComponent: React.FC<ISelectComponent> = (
     selectClassName,
     extraLabelClassName,
     extraSelectClassName,
+    bottomDescription,
   } = props
   const [openSelector, handleOpenSelector] = React.useState(false)
   const selectRef = React.useRef(null)
@@ -88,7 +90,9 @@ export const SelectComponent: React.FC<ISelectComponent> = (
         </a>
       )}
       <a
-        className="select-button"
+        className={`select-button ${
+          options.find((item) => item.id === value) ? 'selected' : ''
+        }`}
         onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
         {getValue}
@@ -108,7 +112,7 @@ export const SelectComponent: React.FC<ISelectComponent> = (
           ))}
         </ul>
       )}
-      {error && <span className="error">{error}</span>}
+      {error ? <span className="error">{error}</span> : bottomDescription}
     </div>
   )
 }
