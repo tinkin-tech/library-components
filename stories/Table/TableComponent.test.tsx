@@ -338,4 +338,19 @@ describe('render component <TableComponent>', () => {
       }
     )
   })
+
+  describe('when receive responsiveStyle prop', () => {
+    describe('when responsiveStyle is "CARD"', () => {
+      it('adds class "card-responsive" in first element', () => {
+        const { container } = render(
+          <TableComponent
+            labelProps={labelProps}
+            tableRows={tableRows}
+            responsiveStyle="CARD"
+          />
+        )
+        expect(container.children[0].className).toContain('card-responsive')
+      })
+    })
+  })
 })
