@@ -89,9 +89,9 @@
         .table-row-item {
           @include flex-direction(column);
           border: 1px solid $table-row-border-color;
-          border-radius: 8px;
-          padding: 1rem;
-          margin: 0 0 1rem 0;
+          border-radius: $table-responsive-card-border-radius;
+          padding: $table-responsive-card-padding;
+          margin: $table-responsive-card-margin;
           display: block;
           width: 100%;
           .table-row-cell {
@@ -101,7 +101,7 @@
             padding-top: 2rem;
             &.image {
               padding: 0;
-              max-width: 150px;
+              max-width: $table-responsive-card-table-row-max-width;
             }
             &.custom {
               text-align: left;

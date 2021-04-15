@@ -40,6 +40,10 @@ $table-switch-border-color: color('gray', 'lighten-4');
 $table-switch-bg: color('gray', 'lighten-5');
 $table-switch-inactive-bg: color('gray', 'lighten-3');
 $table-switch-active-bg: $color-primary;
+$table-responsive-card-border-radius: $radio-default;
+$table-responsive-card-padding: 1rem;
+$table-responsive-card-margin: 0 0 1rem 0;
+$table-responsive-card-table-row-max-width: 150px;
 
 // MultilevelFilterComponent
 
