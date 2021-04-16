@@ -37,12 +37,15 @@ export interface ITableRows {
   columns: Array<ITableRowColumn<IRowTypes>>
 }
 
+export type IResponsiveStyleType = 'CARD'
+
 export interface ITableProps {
   labelProps: Array<ILabelProps>
   tableRows: Array<ITableRows>
   activeRowId?: string | number
   extraLabelsClassName?: string
   extraContentClassName?: string
+  responsiveStyle?: IResponsiveStyleType
 }
 
 export const TableComponent = (props: ITableProps): React.ReactElement => {
@@ -52,6 +55,7 @@ export const TableComponent = (props: ITableProps): React.ReactElement => {
     activeRowId,
     extraLabelsClassName,
     extraContentClassName,
+    responsiveStyle,
   } = props
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getTableContent = (cell: ITableRowColumn<IRowTypes>): any => {
@@ -76,8 +80,17 @@ export const TableComponent = (props: ITableProps): React.ReactElement => {
         return cell.value
     }
   }
+
+  const getResposiveStyle = (): string => {
+    switch (responsiveStyle) {
+      case 'CARD':
+        return 'card-responsive'
+      default:
+        return ''
+    }
+  }
   return (
-    <div className="table-component">
+    <div className={`table-component ${getResposiveStyle()}`}>
       <header
         className={`table-labels${
           extraLabelsClassName ? ` ${extraLabelsClassName}` : ''

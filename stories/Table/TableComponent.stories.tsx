@@ -16,6 +16,8 @@ const Template = (arg: ITableProps): JSX.Element => <TableComponent {...arg} />
 
 export const Default: { args: ITableProps } = Template.bind({})
 
+export const CardResponsive: { args: ITableProps } = Template.bind({})
+
 const labelProps: Array<ILabelProps> = [
   {
     id: 'avatar',
@@ -132,4 +134,11 @@ Default.args = {
   tableRows: tableRows || [],
   activeRowId: '2',
   extraLabelsClassName: 'border-b-w-2',
+}
+
+CardResponsive.args = {
+  labelProps: labelProps || [],
+  tableRows: tableRows || [],
+  activeRowId: '2',
+  responsiveStyle: 'CARD',
 }

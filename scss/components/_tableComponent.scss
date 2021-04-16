@@ -3,9 +3,6 @@
     @include flexbox();
     @include flex-direction(row);
     border-bottom: 1px solid $table-row-border-color;
-    @media #{$small-and-down} {
-      display: none;
-    }
     .label-column{
       @include flexbox();
       @include flex-direction(column);
@@ -22,29 +19,11 @@
       @include flex-direction(row);
       @include align(center);
       border-bottom: 1px solid $table-row-border-color;
-      @media #{$small-and-down} {
-        display: block;
-        width: 100%;
-      }
       &.row-active{
         background: $table-selected-bg;
       }
       .table-row-cell{
         padding: $table-cell-padding;
-        @media #{$small-and-down} {
-          display: block;
-          width: 100%!important;
-          position: relative;
-          padding-top: 2rem;
-          &:after{
-            content: attr(data-title);
-            position: absolute;
-            top: .25rem;
-            left: .5rem;
-            font-size: $table-labels-font-size;
-            color: $table-labels-font-color;
-          }
-        }
         &.image{
          .image-container{
            width: 100%;
@@ -91,6 +70,51 @@
         }
         &.click-row{
           cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+
+// Responsive
+
+@media #{$medium-and-down} {
+  .table-component {
+    &.card-responsive {
+      .table-labels {
+        display: none;
+      }
+      .table-rows {
+        .table-row-item {
+          @include flex-direction(column);
+          border: 1px solid $table-row-border-color;
+          border-radius: $table-responsive-card-border-radius;
+          padding: $table-responsive-card-padding;
+          margin: $table-responsive-card-margin;
+          display: block;
+          width: 100%;
+          .table-row-cell {
+            display: block;
+            width: 100%!important;
+            position: relative;
+            padding-top: 2rem;
+            &.image {
+              padding: 0;
+              max-width: $table-responsive-card-table-row-max-width;
+            }
+            &.custom {
+              text-align: left;
+            }
+            &:after{
+              content: attr(data-title);
+              position: absolute;
+              top: .25rem;
+              left: .5rem;
+              font-size: $table-labels-font-size;
+              color: $table-labels-font-color;
+            }
+          }
         }
       }
     }
