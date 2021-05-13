@@ -359,7 +359,7 @@ const MapLocationsComponent = (
       label: city.name,
     }))
 
-  if (activeCity) {
+  if (activeCity || defaultLocationSelected) {
     selectOptions.push({ label: viewAllLabel || es_EC.VIEW_ALL, id: null })
   }
 
