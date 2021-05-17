@@ -95,7 +95,7 @@ export const SelectComponent: React.FC<ISelectComponent> = (
         }`}
         onClick={(): void => !readOnly && handleOpenSelector(true)}
       >
-        {getValue}
+        <span className="select-value">{getValue}</span>
         <i className="icon-arrow-down" />
       </a>
       {!!(options.length && openSelector) && (
