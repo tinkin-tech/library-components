@@ -21,15 +21,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@storybook/addon-actions": "^6.0.22",
-    "@storybook/addon-essentials": "^6.0.22",
-    "@storybook/addon-storyshots": "^6.0.22",
-    "@storybook/addons": "^6.0.22",
-    "@storybook/react": "^6.0.22",
+    "@babel/core": "^7.14.6",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-storyshots": "^6.2.9",
+    "@storybook/addons": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.4",
-    "@tinkin/eslint-config": "^0.2.25",
+    "@tinkin/eslint-config": "^0.2.26",
     "@types/googlemaps": "^3.40.3",
     "@types/react-test-renderer": "^16.9.2",
     "babel-loader": "^8.1.0",
@@ -46,7 +46,7 @@
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.4",
-    "typescript": "^3.9.6"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
     "@react-google-maps/api": "^1.13.0",
@@ -55,7 +55,7 @@
     "ts-jest": "^26.4.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   }
 }
