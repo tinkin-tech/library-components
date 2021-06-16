@@ -10,7 +10,6 @@ export interface ISliderCarouselComponent {
 export const SliderCarouselComponent: React.FC<ISliderCarouselComponent> = (
   props: ISliderCarouselComponent
 ) => {
-  let mountedComponent = true
   const { cards, numberOfCards, transitionTime, hidePrevButton } = props
   const [status, changeStatus] = React.useState({
     activeAuxStep: 0,
@@ -41,9 +40,6 @@ export const SliderCarouselComponent: React.FC<ISliderCarouselComponent> = (
     return `-${value}%`
   }
   const updateStatus = (statusValue): void => {
-    if (!mountedComponent) {
-      return null
-    }
     changeStatus(statusValue)
   }
   const getCard = (key: number, auxCard: boolean): JSX.Element => {
@@ -135,7 +131,6 @@ export const SliderCarouselComponent: React.FC<ISliderCarouselComponent> = (
   if (status.showAuxBlock && status.activeStep !== status.activeAuxStep) {
     style.opacity = 0
   }
-  React.useEffect(() => (): boolean => (mountedComponent = false), [])
   return (
     <div className="slider-carousel-component">
       {activeCarousel && (

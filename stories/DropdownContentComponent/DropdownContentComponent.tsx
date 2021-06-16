@@ -53,9 +53,8 @@ export const DropdownContentComponent = (
     closeOnSelect,
   } = props
   const [openDropDown, handleOpenDropDown] = React.useState(false)
-  const [preselectOptions, handlePreselectOptions] = React.useState<
-    IAbstractProp
-  >(multipleOptionSelect ? [] : null)
+  const [preselectOptions, handlePreselectOptions] =
+    React.useState<IAbstractProp>(multipleOptionSelect ? [] : null)
   const dropDownRef = React.useRef(null)
   const handleClickOutside = (event: Event): void => {
     if (!dropDownRef.current.contains(event.target)) {

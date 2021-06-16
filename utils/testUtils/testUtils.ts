@@ -16,6 +16,8 @@ export const setLocationSearchValue = (search: string): void => {
   const oldWindowLocation = window.location
   delete window.location
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   window.location = Object.defineProperties(
     {},
     {
@@ -31,12 +33,13 @@ export const setLocationSearchValue = (search: string): void => {
 /* istanbul ignore next */
 export const mockOffsetAndClientSizes = (value?: number): void => {
   const defaultValue = 500
+
   const originalClientHeight = Object.getOwnPropertyDescriptor(
-    HTMLElement.prototype,
+    Element.prototype,
     'clientHeight'
   )
   const originalClientWidth = Object.getOwnPropertyDescriptor(
-    HTMLElement.prototype,
+    Element.prototype,
     'clientWidth'
   )
   const originalOffsetWidth = Object.getOwnPropertyDescriptor(
@@ -48,11 +51,11 @@ export const mockOffsetAndClientSizes = (value?: number): void => {
     'offsetHeight'
   )
   beforeAll(() => {
-    Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
+    Object.defineProperty(Element.prototype, 'clientHeight', {
       configurable: true,
       value: value || defaultValue,
     })
-    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+    Object.defineProperty(Element.prototype, 'clientWidth', {
       configurable: true,
       value: value || defaultValue,
     })

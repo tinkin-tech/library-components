@@ -187,7 +187,7 @@ describe('Render component <PaginationComponent />', () => {
       />
     )
     expect(container.getElementsByTagName('li')).toHaveLength(7)
-    expect(container.getElementsByTagName('li')[5].innerHTML).toContain(10)
+    expect(container.getElementsByTagName('a')[5].innerHTML).toContain('10')
   })
 
   describe('When recive goToPage', () => {

@@ -342,7 +342,7 @@ describe('Render component <GalleryComponent/>', () => {
       expect(container.querySelector('.gallery-component')).toBeInTheDocument()
     })
 
-    it('Should add class in link text when it receives linkTextClassName ', () => {
+    it('Should add class in link text when it receives linkTextClassName', () => {
       const { container } = render(
         <GalleryComponent
           imageList={imageListMock}
@@ -355,7 +355,7 @@ describe('Render component <GalleryComponent/>', () => {
       expect(container.querySelector('a.extra-class')).toBeInTheDocument()
     })
 
-    it('Should open link in new tab when image item target is blank and has link ', () => {
+    it('Should open link in new tab when image item target is blank and has link', () => {
       const { container } = render(
         <GalleryComponent
           imageList={[
@@ -434,9 +434,9 @@ describe('Render component <GalleryComponent/>', () => {
         component.container
           .querySelector('.gallery-block')
           .getAttribute('style')
-      ).toEqual('left: -100%;')
+      ).toEqual('left: -0%;')
       expect(
-        component.container.querySelectorAll('.gallery-item')[1].className
+        component.container.querySelectorAll('.gallery-item')[0].className
       ).toContain('active')
     })
   })
