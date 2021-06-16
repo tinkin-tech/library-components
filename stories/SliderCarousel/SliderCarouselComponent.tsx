@@ -135,7 +135,9 @@ export const SliderCarouselComponent: React.FC<ISliderCarouselComponent> = (
   if (status.showAuxBlock && status.activeStep !== status.activeAuxStep) {
     style.opacity = 0
   }
-  React.useEffect(() => (): boolean => (mountedComponent = false), [])
+  React.useEffect(() => {
+    (): boolean => (mountedComponent = false)
+  }, [])
   return (
     <div className="slider-carousel-component">
       {activeCarousel && (

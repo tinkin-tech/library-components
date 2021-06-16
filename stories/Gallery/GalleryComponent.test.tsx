@@ -434,9 +434,9 @@ describe('Render component <GalleryComponent/>', () => {
         component.container
           .querySelector('.gallery-block')
           .getAttribute('style')
-      ).toEqual('left: -100%;')
+      ).toEqual('left: -0%;')
       expect(
-        component.container.querySelectorAll('.gallery-item')[1].className
+        component.container.querySelectorAll('.gallery-item')[0].className
       ).toContain('active')
     })
   })
