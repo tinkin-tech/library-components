@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import ES_EC from './language/es_EC'
 
