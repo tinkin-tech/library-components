@@ -225,9 +225,8 @@ describe('Render component <MapLocationsComponent/>', () => {
       expect(queryByText('B City 1')).toBeInTheDocument()
       const locationsBlocks = container.querySelectorAll('.locations-block')
       expect(locationsBlocks).toHaveLength(1)
-      const locationList = locationsBlocks[0].querySelectorAll(
-        '.location-title'
-      )
+      const locationList =
+        locationsBlocks[0].querySelectorAll('.location-title')
       expect(locationList).toHaveLength(2)
       mapLocations[0].locations.forEach((location) => {
         expect(queryByText(location.name)).toBeInTheDocument()

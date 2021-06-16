@@ -1,4 +1,3 @@
-
 export class TestUtil {
   private value: string
 
@@ -17,7 +16,8 @@ export const setLocationSearchValue = (search: string): void => {
   const oldWindowLocation = window.location
   delete window.location
 
-  //@ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   window.location = Object.defineProperties(
     {},
     {
@@ -39,7 +39,7 @@ export const mockOffsetAndClientSizes = (value?: number): void => {
     'clientHeight'
   )
   const originalClientWidth = Object.getOwnPropertyDescriptor(
-      Element.prototype,
+    Element.prototype,
     'clientWidth'
   )
   const originalOffsetWidth = Object.getOwnPropertyDescriptor(
@@ -73,7 +73,7 @@ export const mockOffsetAndClientSizes = (value?: number): void => {
     Object.defineProperty(
       HTMLElement.prototype,
       'clientHeight',
-        originalClientHeight,
+      originalClientHeight
     )
     Object.defineProperty(
       HTMLElement.prototype,

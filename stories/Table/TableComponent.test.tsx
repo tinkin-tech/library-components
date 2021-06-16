@@ -130,8 +130,8 @@ describe('render component <TableComponent>', () => {
       const { container } = render(
         <TableComponent labelProps={labelProps} tableRows={tableRows} />
       )
-      const currentSelector = container.querySelectorAll('section > div')[1]
-        .childNodes
+      const currentSelector =
+        container.querySelectorAll('section > div')[1].childNodes
       expect(currentSelector).toHaveLength(5)
     })
 
@@ -142,8 +142,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children[0]
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children[0]
         expect(currentSelector.className).toContain('string')
       }
     )
@@ -155,8 +155,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children[1]
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children[1]
         expect(currentSelector.children[0].getAttribute('style')).toEqual(
           `background-image: url(image-url.png);`
         )
@@ -170,8 +170,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children[2]
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children[2]
         expect(currentSelector.querySelector('div').className).toContain(
           'active-switch'
         )
@@ -187,8 +187,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={newTableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children[2]
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children[2]
         expect(currentSelector.querySelector('div').className).toContain(
           'inactive-switch'
         )
@@ -202,8 +202,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         expect(currentSelector[0].innerHTML).toEqual('content text')
         expect(currentSelector[3].innerHTML).toEqual('2')
         expect(currentSelector[4].innerHTML).toEqual('<a>button</a>')
@@ -217,8 +217,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         expect(currentSelector[objectData.key].getAttribute('style')).toContain(
           `width: ${objectData.styleWidth};`
         )
@@ -232,8 +232,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         expect(currentSelector[0].className).toEqual(
           'table-row-cell string custom-cell-class click-row'
         )
@@ -248,8 +248,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         expect(currentSelector[1].getAttribute('style')).toEqual(
           'width: 15%; height: 200px;'
         )
@@ -263,8 +263,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         fireEvent.click(currentSelector[2])
         expect(mockFunction).toHaveBeenCalledTimes(0)
       }
@@ -277,8 +277,8 @@ describe('render component <TableComponent>', () => {
         const { container } = render(
           <TableComponent labelProps={labelProps} tableRows={tableRows} />
         )
-        const currentSelector = container.querySelectorAll('section > div')[0]
-          .children
+        const currentSelector =
+          container.querySelectorAll('section > div')[0].children
         fireEvent.click(currentSelector[0])
         expect(mockFunction).toHaveBeenCalledWith(tableRows[0])
       }

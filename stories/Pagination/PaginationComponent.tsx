@@ -33,12 +33,12 @@ export const PaginationComponent: React.FC<IPaginationComponent> = (
     return range
   }
 
-  const handleClick = (page: React.ReactText) => (
-    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ): void => {
-    evt.preventDefault()
-    goToPage(page)
-  }
+  const handleClick =
+    (page: React.ReactText) =>
+    (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+      evt.preventDefault()
+      goToPage(page)
+    }
 
   const handleMoveLeft = (
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>

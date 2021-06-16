@@ -93,9 +93,9 @@ export const DateSelectorComponent = (
   }
 
   const getYears = (): Array<string> =>
-    [
-      ...new Array(+maxDateObject.year - +minDateObject.year + 1),
-    ].map((_, index) => (+minDateObject.year + index).toString())
+    [...new Array(+maxDateObject.year - +minDateObject.year + 1)].map(
+      (_, index) => (+minDateObject.year + index).toString()
+    )
 
   const getMonths = (): Array<string> => {
     const monthsInAYear = 12
