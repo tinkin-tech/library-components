@@ -1,6 +1,6 @@
 {
   "name": "@tinkin/storybook",
-  "version": "0.2.50",
+  "version": "0.2.51",
   "description": "Front End components Library for tinkin projects",
   "files": [
     "dist"
@@ -21,7 +21,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@react-google-maps/api": "^2.2.0",
     "@types/react": "^16.14.0",
     "@types/react-dom": "^16.9.13",
     "@babel/core": "^7.14.6",
@@ -52,6 +51,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.2.0",
     "global": "^4.4.0",
     "react": "^16.14.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
